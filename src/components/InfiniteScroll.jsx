@@ -1,3 +1,4 @@
+// src/components/InfiniteScroll.jsx
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '../styles/infinite-scroll.css';
@@ -8,8 +9,8 @@ function ProfileInfiniteScroll() {
   const [hasMore, setHasMore] = useState(true);
   
   useEffect(() => {
-    // Fetch the profile data
-    fetch('/ricsite/profile-data.json')
+    // Fetch the profile data - use relative path without /ricsite/ prefix
+    fetch('/profile-data.json')
       .then(response => response.json())
       .then(data => {
         setProfileData(data);
@@ -22,10 +23,28 @@ function ProfileInfiniteScroll() {
           ]);
         }
       })
-      .catch(error => console.error('Error loading profile data:', error));
+      .catch(error => {
+        console.error('Error loading profile data:', error);
+        // Set fallback data for testing if fetch fails
+        const fallbackData = {
+          personal: {
+            name: "Ricardo Almeida",
+            title: "Manager, Data & AI at PwC Portugal | Cloud Solution Architect",
+            location: "Lisbon, Portugal",
+            connections: "500+",
+            profileUrl: "www.linkedin.com/in/ricardodpa"
+          },
+          about: "I'm a Data & AI lead with a passion for creating practical, AI-powered cloud-based products."
+        };
+        
+        setProfileData(fallbackData);
+        setDisplayItems([
+          { type: 'header', data: fallbackData.personal },
+          { type: 'about', data: fallbackData.about }
+        ]);
+      });
   }, []);
 
-  // Function to load more content as user scrolls
   const loadMore = () => {
     if (!profileData) return;
     
@@ -33,12 +52,12 @@ function ProfileInfiniteScroll() {
     
     // Create sections array with all possible sections
     const sections = [
-      ...profileData.experience.map(exp => ({ type: 'experience', data: exp })),
-      ...profileData.education.map(edu => ({ type: 'education', data: edu })),
-      ...profileData.certifications.map(cert => ({ type: 'certification', data: cert })),
-      { type: 'skills', data: profileData.skills },
-      { type: 'languages', data: profileData.languages }
-    ];
+      ...profileData.experience ? profileData.experience.map(exp => ({ type: 'experience', data: exp })) : [],
+      ...profileData.education ? profileData.education.map(edu => ({ type: 'education', data: edu })) : [],
+      ...profileData.certifications ? profileData.certifications.map(cert => ({ type: 'certification', data: cert })) : [],
+      profileData.skills ? { type: 'skills', data: profileData.skills } : null,
+      profileData.languages ? { type: 'languages', data: profileData.languages } : null
+    ].filter(Boolean); // Remove null items
     
     // Add next batch of items
     const nextItems = sections.slice(currentLength - 2, currentLength - 2 + 3);

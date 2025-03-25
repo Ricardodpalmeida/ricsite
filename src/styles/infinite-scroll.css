@@ -1,6 +1,9 @@
+/* src/styles/infinite-scroll.css */
 /* Infinite Scroll Component Styles */
 .infinite-scroll-container {
     padding: 1rem 0;
+    max-width: 800px;
+    margin: 0 auto;
   }
   
   .profile-header,
@@ -11,23 +14,25 @@
   .profile-skills,
   .profile-languages {
     margin-bottom: 2rem;
-    padding: 1.5rem;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* Removed the background-color that was creating gray boxes */
   }
   
   .profile-header h1 {
     font-size: 2.5rem;
     font-weight: 700;
+    margin-bottom: 0.5rem;
   }
   
   .profile-header h2 {
     font-size: 1.5rem;
     font-weight: 400;
+    margin-bottom: 0.5rem;
   }
   
   .highlight {
-    color: var(--highlight-color);
+    color: #fff8e7; /* Cosmic Latte highlight color */
   }
   
   .profile-experience h3,
@@ -35,12 +40,14 @@
   .profile-certification h3 {
     font-size: 1.3rem;
     font-weight: 500;
+    margin-bottom: 0.3rem;
   }
   
   .profile-experience h4,
   .profile-education h4 {
     font-size: 1.1rem;
     font-weight: 400;
+    margin-bottom: 0.3rem;
   }
   
   .skills {
@@ -54,16 +61,28 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+    padding: 0;
   }
   
   .profile-skills li {
-    background-color: rgba(255, 248, 231, 0.1);
+    border: 1px solid rgba(255, 248, 231, 0.3);
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
   }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
+    .infinite-scroll-container {
+      padding: 1rem;
+    }
+    
     .profile-header h1 {
       font-size: 2rem;
     }
@@ -77,6 +96,6 @@
     .profile-certification,
     .profile-skills,
     .profile-languages {
-      padding: 1rem;
+      padding: 1rem 0;
     }
   }
