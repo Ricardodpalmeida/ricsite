@@ -1,0 +1,82 @@
+/* Infinite Scroll Component Styles */
+.infinite-scroll-container {
+    padding: 1rem 0;
+  }
+  
+  .profile-header,
+  .profile-about,
+  .profile-experience,
+  .profile-education,
+  .profile-certification,
+  .profile-skills,
+  .profile-languages {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .profile-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+  
+  .profile-header h2 {
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+  
+  .highlight {
+    color: var(--highlight-color);
+  }
+  
+  .profile-experience h3,
+  .profile-education h3,
+  .profile-certification h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+  }
+  
+  .profile-experience h4,
+  .profile-education h4 {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  
+  .skills {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  
+  .profile-skills ul,
+  .profile-languages ul {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .profile-skills li {
+    background-color: rgba(255, 248, 231, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .profile-header h1 {
+      font-size: 2rem;
+    }
+    
+    .profile-header h2 {
+      font-size: 1.2rem;
+    }
+    
+    .profile-experience,
+    .profile-education,
+    .profile-certification,
+    .profile-skills,
+    .profile-languages {
+      padding: 1rem;
+    }
+  }
