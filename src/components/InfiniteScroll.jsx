@@ -9,13 +9,22 @@ function ProfileInfiniteScroll() {
   const [hasMore, setHasMore] = useState(true);
   
   useEffect(() => {
-    // Fetch the profile data - use relative path without /ricsite/ prefix
-    fetch('/profile-data.json')
-      .then(response => response.json())
+    console.log('Fetching profile data...');
+    const url = `${window.location.origin}/profile-data.json`;
+    console.log('Fetching from URL:', url);
+    
+    fetch(url)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error ${response.status}`);
+        }
+        return response.json();
+      })
       .then(data => {
+        console.log('Data loaded successfully');
         setProfileData(data);
         
-        // Initialize with personal info
+        // Initialize with personal info and about section
         if (data.personal) {
           setDisplayItems([
             { type: 'header', data: data.personal },
@@ -25,23 +34,6 @@ function ProfileInfiniteScroll() {
       })
       .catch(error => {
         console.error('Error loading profile data:', error);
-        // Set fallback data for testing if fetch fails
-        const fallbackData = {
-          personal: {
-            name: "Ricardo Almeida",
-            title: "Manager, Data & AI at PwC Portugal | Cloud Solution Architect",
-            location: "Lisbon, Portugal",
-            connections: "500+",
-            profileUrl: "www.linkedin.com/in/ricardodpa"
-          },
-          about: "I'm a Data & AI lead with a passion for creating practical, AI-powered cloud-based products."
-        };
-        
-        setProfileData(fallbackData);
-        setDisplayItems([
-          { type: 'header', data: fallbackData.personal },
-          { type: 'about', data: fallbackData.about }
-        ]);
       });
   }, []);
 
@@ -52,9 +44,9 @@ function ProfileInfiniteScroll() {
     
     // Create sections array with all possible sections
     const sections = [
-      ...profileData.experience ? profileData.experience.map(exp => ({ type: 'experience', data: exp })) : [],
-      ...profileData.education ? profileData.education.map(edu => ({ type: 'education', data: edu })) : [],
-      ...profileData.certifications ? profileData.certifications.map(cert => ({ type: 'certification', data: cert })) : [],
+      ...(profileData.experience ? profileData.experience.map(exp => ({ type: 'experience', data: exp })) : []),
+      ...(profileData.education ? profileData.education.map(edu => ({ type: 'education', data: edu })) : []),
+      ...(profileData.certifications ? profileData.certifications.map(cert => ({ type: 'certification', data: cert })) : []),
       profileData.skills ? { type: 'skills', data: profileData.skills } : null,
       profileData.languages ? { type: 'languages', data: profileData.languages } : null
     ].filter(Boolean); // Remove null items
@@ -79,7 +71,7 @@ function ProfileInfiniteScroll() {
             <h1>{item.data.name}</h1>
             <h2 className="highlight">{item.data.title}</h2>
             <p>{item.data.location}</p>
-            <p><a href={item.data.profileUrl} target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
+            <p><a href={`https://${item.data.profileUrl}`} target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
           </div>
         );
       case 'about':
