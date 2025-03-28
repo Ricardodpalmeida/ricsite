@@ -1,0 +1,209 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../../layouts/MainLayout.astro';
+
+// Get all blog posts that are not drafts
+const posts = await getCollection('blog', ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
+
+// Sort posts by publication date
+const sortedPosts = posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<MainLayout 
+  title="Blog | Ricardo Almeida" 
+  description="Insights and thoughts on Data & AI, cloud architecture, and technology trends."
+>
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1 class="blog-title">Blog</h1>
+      <p class="blog-subtitle">
+        Insights and thoughts on <span class="highlight">Data & AI</span>, 
+        cloud architecture, and technology trends.
+      </p>
+    </div>
+    
+    <div class="post-grid">
+      {sortedPosts.length === 0 ? (
+        <div class="no-posts">
+          <p>No blog posts available yet. Check back soon!</p>
+        </div>
+      ) : (
+        sortedPosts.map((post) => {
+          const formattedDate = post.data.pubDate.toLocaleDateString('en-us', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          });
+          
+          return (
+            <article class="post-card">
+              <a href={`/blog/${post.slug}`} class="post-link">
+                {post.data.heroImage && (
+                  <div class="post-image-container">
+                    <img 
+                      src={post.data.heroImage} 
+                      alt="" 
+                      class="post-image" 
+                    />
+                  </div>
+                )}
+                <div class="post-content">
+                  <span class="post-date">{formattedDate}</span>
+                  <h2 class="post-title">{post.data.title}</h2>
+                  <p class="post-excerpt">{post.data.description}</p>
+                  
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="post-tags">
+                      {post.data.tags.slice(0, 3).map((tag) => (
+                        <span class="post-tag">{tag}</span>
+                      ))}
+                      {post.data.tags.length > 3 && (
+                        <span class="post-tag">+{post.data.tags.length - 3}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </a>
+            </article>
+          );
+        })
+      )}
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+  }
+  
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .blog-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
+  }
+  
+  .blog-subtitle {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .post-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .post-card {
+    border: 1px solid var(--color-gray-100);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all var(--transition-base);
+    height: 100%;
+  }
+  
+  .post-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-cosmic-latte-20);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .post-link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: var(--color-white);
+    text-decoration: none;
+  }
+  
+  .post-image-container {
+    height: 180px;
+    overflow: hidden;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+  
+  .post-card:hover .post-image {
+    transform: scale(1.05);
+  }
+  
+  .post-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .post-date {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: 0.75rem;
+  }
+  
+  .post-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+  
+  .post-excerpt {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-600);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+  }
+  
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .post-tag {
+    background-color: rgba(255, 248, 231, 0.08);
+    color: var(--color-cosmic-latte);
+    padding: 0.25rem 0.5rem;
+    border-radius: 50px;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 248, 231, 0.15);
+  }
+  
+  .no-posts {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem;
+    border: 1px dashed var(--color-gray-300);
+    border-radius: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .blog-title {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .blog-subtitle {
+      font-size: var(--font-size-base);
+    }
+    
+    .post-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 

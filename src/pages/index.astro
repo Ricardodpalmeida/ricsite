@@ -3,35 +3,328 @@
  * Home Page
  * 
  * The main landing page for the personal website.
- * Uses the Profile component to display personal information.
+ * Features a brief introduction, image gallery, and contact CTA.
  */
 import MainLayout from '../layouts/MainLayout.astro';
-import Profile from '../components/Profile.jsx';
 ---
 
 <MainLayout title="Ricardo Almeida | Personal Website">
-  <main class="container">
-    <Profile client:load />
-    <footer>
-      <p class="footer-text">© 2025 Ricardo Almeida. All rights reserved.</p>
-    </footer>
+  <main class="home-container">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Hi, I'm <span class="highlight">Ricardo</span></h1>
+        <p class="hero-subtitle">Data & AI Manager | Cloud Solution Architect</p>
+        <div class="hero-description">
+          <p>
+            I'm a passionate AI solutions architect with a love for learning and creating practical, AI-powered cloud-based products.
+            My journey spans from data science to cloud architecture, with a particular focus on balancing low-code and pro-code approaches.
+          </p>
+          <p>
+            Beyond my professional work, I'm fascinated by a wide range of subjects—from philosophy and history to design and astronomy. 
+            I'm a dedicated Star Wars fan, and I enjoy exploring new areas of knowledge through various creative outlets.
+          </p>
+        </div>
+        <div class="hero-cta">
+          <a href="/about" class="primary-button">Learn More About Me</a>
+          <a href="/contact" class="secondary-button">Get In Touch</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <div class="image-placeholder" aria-label="Profile image placeholder">
+          <div class="image-text">Profile Image</div>
+          <p class="image-caption">Replace with your photo in /public/images/profile.jpg</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="gallery-section">
+      <h2 class="section-title">Photo <span class="highlight">Gallery</span></h2>
+      <div class="gallery-carousel">
+        <button class="carousel-button prev" aria-label="Previous image">←</button>
+        <div class="gallery-container">
+          <div class="gallery-track">
+            {Array(5).fill(null).map((_, index) => (
+              <div class="gallery-item">
+                <img 
+                  src={`/images/HomePhotoGallery/photo${index + 1}.jpg`} 
+                  alt={`Gallery photo ${index + 1}`}
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/placeholder.jpg';
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <button class="carousel-button next" aria-label="Next image">→</button>
+      </div>
+    </section>
   </main>
 </MainLayout>
 
 <style>
-  main {
-    padding: 2rem 0;
+  .home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 150px);
+    animation: fadeIn 0.5s ease-out;
   }
   
-  footer {
-    margin-top: 2rem;
+  /* Hero Section */
+  .hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+  }
+  
+  .hero-content {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .hero-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 1.5rem;
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .hero-description {
+    margin-bottom: 2rem;
+    max-width: 650px;
+  }
+  
+  .hero-description p {
+    margin-bottom: 1rem;
+    line-height: var(--line-height-loose);
+  }
+  
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .primary-button, 
+  .secondary-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+    text-decoration: none;
+  }
+  
+  .primary-button {
+    background-color: var(--color-cosmic-latte-10);
+    color: var(--color-white);
+    border: 1px solid var(--color-cosmic-latte);
+  }
+  
+  .primary-button:hover {
+    background-color: var(--color-cosmic-latte-20);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .secondary-button {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 1px solid var(--color-gray-300);
+  }
+  
+  .secondary-button:hover {
+    border-color: var(--color-cosmic-latte);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .hero-image-container {
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Placeholder styling */
+  .image-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: rgba(255, 248, 231, 0.05);
+    border: 1px dashed var(--color-cosmic-latte-20);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    overflow: hidden;
+  }
+  
+  .image-text {
+    font-size: var(--font-size-lg);
+    color: var(--color-cosmic-latte);
+  }
+  
+  .image-caption {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
     text-align: center;
-    padding: 1rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 1rem;
+    margin-top: 0.5rem;
   }
   
-  .footer-text {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.6);
+  /* Gallery Section */
+  .gallery-section {
+    margin-top: 4rem;
+    overflow: hidden;
+  }
+  
+  .section-title {
+    font-size: var(--font-size-2xl);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .gallery-carousel {
+    position: relative;
+    margin: 2rem -1rem;
+    padding: 0 1rem;
+  }
+  
+  .gallery-container {
+    overflow: hidden;
+    margin: 0 2rem;
+  }
+  
+  .gallery-track {
+    display: flex;
+    gap: 1rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item {
+    flex: 0 0 300px;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 248, 231, 0.1);
+    border: 1px solid var(--color-cosmic-latte-20);
+    color: var(--color-cosmic-latte);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+  }
+  
+  .carousel-button:hover {
+    background: rgba(255, 248, 231, 0.2);
+  }
+  
+  .carousel-button.prev {
+    left: 0;
+  }
+  
+  .carousel-button.next {
+    right: 0;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .hero-section {
+      flex-direction: column-reverse;
+      gap: 2rem;
+    }
+    
+    .hero-image-container {
+      max-width: 100%;
+    }
+    
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .hero-subtitle {
+      font-size: var(--font-size-lg);
+    }
+    
+    .section-title {
+      font-size: var(--font-size-xl);
+    }
+    
+    .primary-button, 
+    .secondary-button {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .gallery-item {
+      flex: 0 0 250px;
+      height: 170px;
+    }
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.gallery-track');
+    const prevButton = document.querySelector('.carousel-button.prev');
+    const nextButton = document.querySelector('.carousel-button.next');
+    
+    if (!track || !prevButton || !nextButton) return;
+    
+    let position = 0;
+    const items = track.querySelectorAll('.gallery-item');
+    const itemWidth = 300 + 16; // width + gap
+    const maxPosition = -(items.length - Math.floor(track.parentElement.offsetWidth / itemWidth)) * itemWidth;
+    
+    prevButton.addEventListener('click', () => {
+      position = Math.min(position + itemWidth, 0);
+      track.style.transform = `translateX(${position}px)`;
+    });
+    
+    nextButton.addEventListener('click', () => {
+      position = Math.max(position - itemWidth, maxPosition);
+      track.style.transform = `translateX(${position}px)`;
+    });
+    
+    // Update maxPosition on resize
+    window.addEventListener('resize', () => {
+      const newMaxPosition = -(items.length - Math.floor(track.parentElement.offsetWidth / itemWidth)) * itemWidth;
+      maxPosition = newMaxPosition;
+      position = Math.max(position, maxPosition);
+      track.style.transform = `translateX(${position}px)`;
+    });
+  });
+</script>

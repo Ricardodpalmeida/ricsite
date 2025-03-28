@@ -39,3 +39,5 @@ manual.txt
 *.tmp
 *.temp
 *.bak
+
+GUIDE.md

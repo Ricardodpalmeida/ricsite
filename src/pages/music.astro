@@ -1,0 +1,86 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Music | Ricardo Almeida" description="Music sets and playlists by Ricardo Almeida.">
+  <main class="music-container">
+    <h1 class="music-title">Music</h1>
+    
+    <section class="music-section">
+      <h2 class="section-title">DJ Sets</h2>
+      <div class="mixcloud-embed">
+        <iframe 
+          width="100%" 
+          height="120" 
+          src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2F" 
+          frameborder="0"
+          title="Mixcloud DJ Sets"
+        ></iframe>
+      </div>
+    </section>
+
+    <section class="music-section">
+      <h2 class="section-title">Spotify Profile</h2>
+      <div class="spotify-embed">
+        <iframe 
+          src="https://open.spotify.com/embed/user/21euono3vo2prewl4eny4kn2q" 
+          width="100%" 
+          height="380" 
+          frameborder="0" 
+          allowtransparency="true" 
+          allow="encrypted-media"
+          title="Spotify Profile"
+        ></iframe>
+      </div>
+    </section>
+  </main>
+</MainLayout>
+
+<style>
+  .music-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 150px);
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .music-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 3rem;
+  }
+
+  .music-section {
+    margin-bottom: 4rem;
+  }
+
+  .section-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: 2rem;
+    color: var(--color-cosmic-latte);
+  }
+
+  .mixcloud-embed,
+  .spotify-embed {
+    background-color: rgba(255, 248, 231, 0.05);
+    border: 1px solid var(--color-cosmic-latte-20);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  iframe {
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .music-title {
+      font-size: var(--font-size-2xl);
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style> 

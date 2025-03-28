@@ -1,0 +1,30 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Podcast | Ricardo Almeida" description="Podcast episodes by Ricardo Almeida about technology and innovation.">
+  <main class="podcast-container">
+    <h1 class="podcast-title">Podcast</h1>
+    <p class="coming-soon">Coming soon...</p>
+  </main>
+</MainLayout>
+
+<style>
+  .podcast-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 150px);
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .podcast-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 2rem;
+  }
+
+  .coming-soon {
+    font-size: var(--font-size-lg);
+    color: var(--color-cosmic-latte);
+  }
+</style> 

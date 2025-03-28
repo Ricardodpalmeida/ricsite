@@ -5,7 +5,13 @@
  * This layout sets up the basic structure for all pages on the site,
  * including global styles and meta tags.
  */
-const { title } = Astro.props;
+const { title, description, image, canonical, hideLangSelector = false } = Astro.props;
+
+// Default meta values
+const defaultTitle = "Ricardo Almeida | Data & AI Manager | Cloud Solution Architect";
+const defaultDescription = "Data & AI Manager at PwC Portugal specializing in AI solutions, Cloud Architecture, Microsoft Power Platform, and RAG implementations. Certified Azure and Power Platform solution architect.";
+const defaultImage = "/images/profile-cover.jpg";
+const siteUrl = "https://me.ricbits.cc";
 ---
 
 <!DOCTYPE html>
@@ -16,18 +22,160 @@ const { title } = Astro.props;
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title || defaultTitle}</title>
+    <meta name="title" content={title || defaultTitle} />
+    <meta name="description" content={description || defaultDescription} />
+    <meta name="author" content="Ricardo Almeida" />
+    <meta name="keywords" content="AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture, Data & AI Manager, Cloud Solution Architect, Power BI, Data Science, Low-code Development" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonical || siteUrl} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical || siteUrl} />
+    <meta property="og:title" content={title || defaultTitle} />
+    <meta property="og:description" content={description || defaultDescription} />
+    <meta property="og:image" content={image || defaultImage} />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonical || siteUrl} />
+    <meta property="twitter:title" content={title || defaultTitle} />
+    <meta property="twitter:description" content={description || defaultDescription} />
+    <meta property="twitter:image" content={image || defaultImage} />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    
+    <!-- Google Fonts: Roboto with various weights -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data for Professional Profile -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ricardo Almeida",
+        "url": "https://me.ricbits.cc",
+        "jobTitle": "Manager, Data & AI | Cloud Solution Architect",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "PwC Portugal"
+        },
+        "description": "Data & AI lead with a passion for creating practical, AI-powered cloud-based products that blend low-code and pro-code approaches.",
+        "skills": "AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture",
+        "image": "/images/profile-cover.jpg",
+        "sameAs": [
+          "https://www.linkedin.com/in/ricardodpa"
+        ]
+      }
+    </script>
   </head>
   <body>
+    <header>
+      <nav class="main-nav">
+        <div class="container nav-container">
+          <ul>
+            <li><a href="/" class={Astro.url.pathname === '/' ? 'active' : ''}>Home</a></li>
+            <li><a href="/about" class={Astro.url.pathname === '/about' ? 'active' : ''}>About</a></li>
+            <li><a href="/blog" class={Astro.url.pathname.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
+            <li><a href="/podcast" class={Astro.url.pathname === '/podcast' ? 'active' : ''}>Podcast</a></li>
+            <li><a href="/music" class={Astro.url.pathname === '/music' ? 'active' : ''}>Music</a></li>
+            <li><a href="/contact" class={Astro.url.pathname === '/contact' ? 'active' : ''}>Contact</a></li>
+          </ul>
+          
+          {!hideLangSelector && (
+            <div class="language-selector">
+              <button class="language-btn en active" aria-label="Switch to English">EN</button>
+              <button class="language-btn pt" aria-label="Mudar para Português">PT</button>
+            </div>
+          )}
+        </div>
+      </nav>
+    </header>
+    
     <slot />
-    <!-- Simple script to show if the page loads properly -->
+    
+    <footer>
+      <div class="container">
+        <p class="footer-text">© 2025 Ricardo Almeida. All rights reserved.</p>
+      </div>
+    </footer>
+
     <script>
-      console.log('Page loaded successfully at', new Date().toISOString());
+      // Handle language selection
       document.addEventListener('DOMContentLoaded', () => {
-        console.log('DOM fully loaded');
+        const enBtn = document.querySelector('.language-btn.en');
+        const ptBtn = document.querySelector('.language-btn.pt');
+        
+        // Exit if language buttons aren't found
+        if (!enBtn || !ptBtn) {
+          console.warn('Language buttons not found');
+          return;
+        }
+        
+        // Get stored language preference or detect from browser
+        let currentLang = 'en';
+        
+        try {
+          if (typeof localStorage !== 'undefined') {
+            const savedLang = localStorage.getItem('preferredLanguage');
+            if (savedLang) {
+              currentLang = savedLang;
+            } else {
+              // Browser language detection
+              const browserLang = navigator.language;
+              if (browserLang && browserLang.startsWith('pt')) {
+                currentLang = 'pt';
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Error accessing localStorage:', e);
+        }
+        
+        // Set initial active state
+        if (currentLang === 'pt') {
+          enBtn.classList.remove('active');
+          ptBtn.classList.add('active');
+        } else {
+          enBtn.classList.add('active');
+          ptBtn.classList.remove('active');
+        }
+        
+        // Add click handlers
+        enBtn.addEventListener('click', () => {
+          enBtn.classList.add('active');
+          ptBtn.classList.remove('active');
+          try {
+            if (typeof localStorage !== 'undefined') {
+              localStorage.setItem('preferredLanguage', 'en');
+            }
+          } catch (e) {
+            console.warn('Error saving to localStorage:', e);
+          }
+          // Broadcast language change event
+          window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'en' } }));
+        });
+        
+        ptBtn.addEventListener('click', () => {
+          ptBtn.classList.add('active');
+          enBtn.classList.remove('active');
+          try {
+            if (typeof localStorage !== 'undefined') {
+              localStorage.setItem('preferredLanguage', 'pt');
+            }
+          } catch (e) {
+            console.warn('Error saving to localStorage:', e);
+          }
+          // Broadcast language change event
+          window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'pt' } }));
+        });
       });
     </script>
   </body>
@@ -41,9 +189,52 @@ const { title } = Astro.props;
    * Uses CSS variables for easy theme modifications.
    */
   :root {
-    --bg-color: #2c2c2c;
-    --text-color: #ffffff;
-    --highlight-color: #fff8e7;
+    /* Color palette */
+    --color-dark-gray: #2c2c2c;
+    --color-white: #ffffff;
+    --color-cosmic-latte: #fff8e7;
+    --color-cosmic-latte-10: rgba(255, 248, 231, 0.1);
+    --color-cosmic-latte-20: rgba(255, 248, 231, 0.2);
+    --color-gray-100: rgba(255, 255, 255, 0.1);
+    --color-gray-200: rgba(255, 255, 255, 0.2);
+    --color-gray-300: rgba(255, 255, 255, 0.3);
+    --color-gray-600: rgba(255, 255, 255, 0.6);
+    
+    /* Typography */
+    --font-family-base: 'Roboto', sans-serif;
+    --font-family-title: 'Roboto', sans-serif;
+    --font-family-alt: 'Roboto Slab', serif;
+    
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    
+    /* Font sizes */
+    --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
+    --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+    --font-size-xl: clamp(1.5rem, 1.25rem + 1.25vw, 1.75rem);
+    --font-size-2xl: clamp(2rem, 1.75rem + 1.25vw, 2.25rem);
+    --font-size-3xl: clamp(2.5rem, 2rem + 2.5vw, 3rem);
+    
+    /* Line heights */
+    --line-height-tight: 1.2;
+    --line-height-base: 1.5;
+    --line-height-loose: 1.8;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s ease;
   }
   
   * {
@@ -52,41 +243,229 @@ const { title } = Astro.props;
     padding: 0;
   }
   
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-  }
-  
-  a {
-    color: var(--highlight-color);
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
+    font-family: var(--font-family-base);
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    background-color: var(--color-dark-gray);
+    color: var(--color-white);
+    transition: background-color var(--transition-slow);
   }
   
   h1, h2, h3, h4, h5, h6 {
-    margin-bottom: 1rem;
+    font-family: var(--font-family-title);
+    margin-bottom: var(--spacing-md);
+    line-height: var(--line-height-tight);
+    letter-spacing: -0.01em;
+  }
+  
+  h1 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  p {
+    margin-bottom: var(--spacing-md);
+  }
+  
+  a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    position: relative;
+  }
+  
+  a:hover, a:focus {
+    color: var(--color-cosmic-latte);
+  }
+  
+  a:focus {
+    outline: 2px solid var(--color-cosmic-latte-20);
+    outline-offset: 2px;
+  }
+  
+  a:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  a:focus-visible {
+    outline: 2px solid var(--color-cosmic-latte-20);
+    outline-offset: 2px;
+  }
+  
+  .highlight {
+    color: var(--color-cosmic-latte);
   }
   
   .container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 var(--spacing-md);
   }
   
-  .highlight {
-    color: var(--highlight-color);
+  /* Main navigation */
+  .main-nav {
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--color-gray-100);
+    transition: border-color var(--transition-base);
+  }
+  
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+  
+  .main-nav a {
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: var(--spacing-xs) 0;
+    position: relative;
+  }
+  
+  .main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-cosmic-latte);
+    transition: width var(--transition-base);
+  }
+  
+  .main-nav a:hover::after,
+  .main-nav a:focus::after,
+  .main-nav a.active::after {
+    width: 100%;
+  }
+  
+  /* Language Selector in Header */
+  .language-selector {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .language-btn {
+    background: transparent;
+    border: 1px solid var(--color-gray-200);
+    color: var(--color-white);
+    padding: 0.35rem 0.7rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+  }
+  
+  .language-btn:hover {
+    background-color: var(--color-cosmic-latte-10);
+    border-color: var(--color-cosmic-latte);
+  }
+  
+  .language-btn.active {
+    background-color: var(--color-cosmic-latte-10);
+    border-color: var(--color-cosmic-latte);
+    color: var(--color-cosmic-latte);
+  }
+  
+  /* Footer */
+  footer {
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--color-gray-100);
+    text-align: center;
+    transition: border-color var(--transition-base);
+  }
+  
+  .footer-text {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: 0;
   }
   
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .container {
-      padding: 0 0.5rem;
+      padding: 0 var(--spacing-md);
+    }
+    
+    .main-nav ul {
+      gap: var(--spacing-md);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    :root {
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+    }
+    
+    .main-nav {
+      overflow-x: auto;
+    }
+    
+    .nav-container {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .main-nav ul {
+      width: max-content;
+      padding-bottom: var(--spacing-xs);
+    }
+    
+    .language-selector {
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  /* Animation utilities */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.6;
     }
   }
 </style>

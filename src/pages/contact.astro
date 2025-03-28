@@ -1,0 +1,275 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+---
+
+<MainLayout title="Contact | Ricardo Almeida" description="Get in touch with Ricardo Almeida, Data & AI Manager and Cloud Solution Architect.">
+  <div class="contact-container">
+    <div class="contact-content">
+      <h1 class="contact-title">Get in <span class="highlight">Touch</span></h1>
+      <p class="contact-description">
+        Feel free to reach out if you'd like to discuss technology, share ideas, 
+        or just want to say hello. I'm always open to interesting conversations 
+        and connections.
+      </p>
+      
+      <button id="contact-cta" class="contact-cta-button">Send me a message</button>
+      
+      <form id="contact-form" class="contact-form hidden" name="contact" method="POST" data-netlify="true" netlify-honeypot="email_confirmation">
+        <p class="hidden">
+          <label><input name="email_confirmation" /></label>
+        </p>
+        <input type="hidden" name="form-name" value="contact" />
+        <input type="hidden" name="recipient" value="ricardodpa@gmail.com" />
+        
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" name="subject" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        
+        <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="dark"></div>
+        
+        <button type="submit" class="submit-button">Send Message</button>
+      </form>
+    </div>
+  </div>
+</MainLayout>
+
+<script>
+  // Form expand/collapse functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctaButton = document.getElementById('contact-cta');
+    const contactForm = document.getElementById('contact-form');
+    
+    if (ctaButton && contactForm) {
+      ctaButton.addEventListener('click', () => {
+        contactForm.classList.remove('hidden');
+        contactForm.classList.add('form-visible');
+        ctaButton.classList.add('hidden');
+        
+        // Scroll to form
+        contactForm.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  });
+</script>
+
+<style>
+  .contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .contact-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .contact-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
+  }
+  
+  .contact-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-loose);
+    max-width: 65ch;
+    margin-bottom: 2rem;
+  }
+  
+  /* Contact CTA Button */
+  .contact-cta-button {
+    align-self: center;
+    background-color: var(--color-cosmic-latte-10);
+    color: var(--color-white);
+    border: 1px solid var(--color-cosmic-latte);
+    padding: 1rem 2.5rem;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-medium);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-family-base);
+    margin: 1.5rem 0 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .contact-cta-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: var(--color-cosmic-latte-20);
+    transition: width var(--transition-base);
+    z-index: 1;
+  }
+  
+  .contact-cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .contact-cta-button:hover::after {
+    width: 100%;
+  }
+  
+  .contact-cta-button span {
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Contact form */
+  .contact-form {
+    width: 100%;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease, max-height 0.4s ease;
+  }
+  
+  .form-visible {
+    animation: slideDown 0.5s forwards;
+  }
+  
+  .hidden {
+    display: none;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 4px;
+    color: var(--color-white);
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    transition: all var(--transition-base);
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-cosmic-latte);
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 2px rgba(255, 248, 231, 0.1);
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .g-recaptcha {
+    margin-bottom: 1.5rem;
+  }
+  
+  .submit-button {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 1px solid var(--color-cosmic-latte);
+    padding: 0.85rem 2.5rem;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-family-base);
+    margin-top: 0.5rem;
+  }
+  
+  .submit-button:hover {
+    background-color: var(--color-cosmic-latte-10);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .contact-title {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .contact-description {
+      font-size: var(--font-size-base);
+      max-width: 100%;
+    }
+    
+    .contact-cta-button {
+      width: 100%;
+      padding: 0.8rem 1.5rem;
+      font-size: var(--font-size-base);
+    }
+    
+    .submit-button {
+      width: 100%;
+    }
+  }
+</style>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.contact-form');
+    
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        const honeypotField = form.querySelector('input[name="email_confirmation"]');
+        
+        // If honeypot field is filled, prevent submission silently
+        if (honeypotField && honeypotField.value) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    }
+  });
+</script>
+
+<script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script> 
