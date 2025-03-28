@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/profile.css';
-import profileDataFallback from '../assets/profile-data.json';
+import profileDataImport from '../assets/profile-data.json';
 
 /**
  * Profile Component
@@ -56,22 +56,14 @@ function Profile() {
     };
   }, []);
   
-  // Fetch profile data from JSON file
+  // Load profile data from imported JSON
   useEffect(() => {
-    // Use fallback data directly to avoid fetch issues in production
     try {
-      console.log('Using imported profile data');
-      // Make sure the data is valid by checking the required structure
-      if (profileDataFallback && 
-          profileDataFallback.personal && 
-          (profileDataFallback.personal.en || profileDataFallback.personal)) {
-        setProfileData(profileDataFallback);
-      } else {
-        throw new Error('Profile data is missing required structure');
-      }
+      // Set the imported data directly (more reliable in production)
+      setProfileData(profileDataImport);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error using fallback profile data:', error);
+      console.error('Error loading profile data:', error);
       setError('Failed to load profile data. Please try refreshing the page.');
       setIsLoading(false);
     }
@@ -214,32 +206,45 @@ function Profile() {
           {hasNewSkillsFormat ? (
             <div className="skills-list" role="list">
               {profileData.skills.map((skill, index) => {
-                const skillData = isMultilingual ? skill[language] || skill.en : skill;
-                const description = skillDescriptions[skillData.name] || `Expertise in ${skillData.name}`;
-                const isHighlighted = skillData.name === "Low-code Development" || 
-                                      skillData.name === "Cloud Architecture" ||
-                                      skillData.name === "Cloud Computing" ||
-                                      skillData.name === "RAG" ||
-                                      skillData.name === "LLM Integration";
+                // Safely access properties with fallbacks
+                const skillName = typeof skill === 'object' ? 
+                  safeGet(skill, `${language}.name`) || safeGet(skill, 'en.name') || 'Skill' : 
+                  skill;
+                
+                const skillLevel = typeof skill === 'object' ? 
+                  safeGet(skill, `${language}.level`) || safeGet(skill, 'en.level') : 
+                  '';
+                
+                const skillCategory = typeof skill === 'object' ? 
+                  safeGet(skill, `${language}.category`) || safeGet(skill, 'en.category') : 
+                  '';
+                
+                const description = skillDescriptions[skillName] || `Expertise in ${skillName}`;
+                
+                const isHighlighted = skillName === "Low-code Development" || 
+                                      skillName === "Cloud Architecture" ||
+                                      skillName === "Cloud Computing" ||
+                                      skillName === "RAG" ||
+                                      skillName === "LLM Integration";
                 
                 return (
                   <span 
                     key={index} 
-                    className={`skill-item skill-level-${skillData.level?.toLowerCase()}`} 
+                    className={`skill-item ${skillLevel ? `skill-level-${skillLevel.toLowerCase()}` : ''}`} 
                     role="listitem"
-                    data-category={skillData.category}
+                    data-category={skillCategory}
                     data-description={description}
                     data-highlight={isHighlighted ? "true" : "false"}
-                    title={`${skillData.name} - ${skillData.level}`}
+                    title={skillLevel ? `${skillName} - ${skillLevel}` : skillName}
                   >
-                    {skillData.name}
-                    {skillData.credentialID && skillData.credentialURL && (
+                    {skillName}
+                    {typeof skill === 'object' && skill.credentialID && skill.credentialURL && (
                       <a 
-                        href={skillData.credentialURL} 
+                        href={skill.credentialURL} 
                         className="skill-credential-link" 
                         target="_blank" 
                         rel="noopener noreferrer" 
-                        aria-label={`Credential for ${skillData.name}`}
+                        aria-label={`Credential for ${skillName}`}
                       >
                         <span aria-hidden="true">🔗</span>
                       </a>
@@ -251,12 +256,13 @@ function Profile() {
           ) : (
             <div className="skills-list" role="list">
               {profileData.skills.map((skill, index) => {
-                const description = skillDescriptions[skill] || `Expertise in ${skill}`;
-                const isHighlighted = skill === "Low-code Development" || 
-                                      skill === "Cloud Computing" ||
-                                      skill === "Cloud Architecture" ||
-                                      skill === "RAG" ||
-                                      skill === "LLM Integration";
+                const skillName = typeof skill === 'string' ? skill : 'Skill';
+                const description = skillDescriptions[skillName] || `Expertise in ${skillName}`;
+                const isHighlighted = skillName === "Low-code Development" || 
+                                      skillName === "Cloud Computing" ||
+                                      skillName === "Cloud Architecture" ||
+                                      skillName === "RAG" ||
+                                      skillName === "LLM Integration";
                 
                 return (
                   <span 
@@ -266,7 +272,7 @@ function Profile() {
                     data-description={description}
                     data-highlight={isHighlighted ? "true" : "false"}
                   >
-                    {skill}
+                    {skillName}
                   </span>
                 );
               })}
@@ -281,33 +287,56 @@ function Profile() {
           <h2 className="section-title" id="experience-heading">{getUI('experience', 'Experience')}</h2>
           <div className="timeline">
             {profileData.experience.map((exp, index) => {
-              const experience = isMultilingual ? exp[language] || exp.en : exp;
+              // Safely extract experience data
+              const title = isMultilingual ? 
+                safeGet(exp, `${language}.title`) || safeGet(exp, 'en.title', '') :
+                safeGet(exp, 'title', '');
+                
+              const company = isMultilingual ?
+                safeGet(exp, `${language}.company`) || safeGet(exp, 'en.company', '') :
+                safeGet(exp, 'company', '');
+                
+              const duration = isMultilingual ?
+                safeGet(exp, `${language}.duration`) || safeGet(exp, 'en.duration', '') :
+                safeGet(exp, 'duration', '');
+                
+              const location = isMultilingual ?
+                safeGet(exp, `${language}.location`) || safeGet(exp, 'en.location', '') :
+                safeGet(exp, 'location', '');
+                
+              const description = isMultilingual ?
+                safeGet(exp, `${language}.description`) || safeGet(exp, 'en.description', '') :
+                safeGet(exp, 'description', '');
+                
+              const skills = isMultilingual ?
+                safeGet(exp, `${language}.skills`) || safeGet(exp, 'en.skills', '') :
+                safeGet(exp, 'skills', '');
               
               return (
                 <article key={index} className="timeline-item">
                   <div className="timeline-marker" aria-hidden="true"></div>
                   <div className="timeline-content">
-                    <h3 className="item-title">{experience.title}</h3>
-                    <h4 className="item-subtitle highlight">{experience.company}</h4>
+                    <h3 className="item-title">{title}</h3>
+                    <h4 className="item-subtitle highlight">{company}</h4>
                     <div className="item-metadata">
-                      {experience.duration && (
+                      {duration && (
                         <span className="item-duration">
-                          <span aria-label="Duration" role="img" aria-hidden="true">🗓️</span> {experience.duration}
+                          <span aria-label="Duration" role="img" aria-hidden="true">🗓️</span> {duration}
                         </span>
                       )}
-                      {experience.duration && experience.location && (
+                      {duration && location && (
                         <span className="item-separator" aria-hidden="true">•</span>
                       )}
-                      {experience.location && (
+                      {location && (
                         <span className="item-location">
-                          <span aria-label="Location" role="img" aria-hidden="true">📍</span> {experience.location}
+                          <span aria-label="Location" role="img" aria-hidden="true">📍</span> {location}
                         </span>
                       )}
                     </div>
-                    {experience.description && <p className="item-description">{experience.description}</p>}
-                    {experience.skills && (
+                    {description && <p className="item-description">{description}</p>}
+                    {skills && (
                       <div className="item-skills">
-                        <span className="skills-label">{getUI('skills', 'Skills')}:</span> {experience.skills}
+                        <span className="skills-label">{getUI('skills', 'Skills')}:</span> {skills}
                       </div>
                     )}
                   </div>
@@ -324,34 +353,57 @@ function Profile() {
           <h2 className="section-title" id="education-heading">{getUI('education', 'Education')}</h2>
           <div className="timeline">
             {profileData.education.map((edu, index) => {
-              const education = isMultilingual ? edu[language] || edu.en : edu;
+              // Safely extract education data
+              const school = isMultilingual ?
+                safeGet(edu, `${language}.school`) || safeGet(edu, 'en.school', '') :
+                safeGet(edu, 'school', '');
+              
+              const degree = isMultilingual ?
+                safeGet(edu, `${language}.degree`) || safeGet(edu, 'en.degree', '') :
+                safeGet(edu, 'degree', '');
+              
+              const duration = isMultilingual ?
+                safeGet(edu, `${language}.duration`) || safeGet(edu, 'en.duration', '') :
+                safeGet(edu, 'duration', '');
+              
+              const grade = isMultilingual ?
+                safeGet(edu, `${language}.grade`) || safeGet(edu, 'en.grade', '') :
+                safeGet(edu, 'grade', '');
+              
+              const thesis = isMultilingual ?
+                safeGet(edu, `${language}.thesis`) || safeGet(edu, 'en.thesis', '') :
+                safeGet(edu, 'thesis', '');
+              
+              const skills = isMultilingual ?
+                safeGet(edu, `${language}.skills`) || safeGet(edu, 'en.skills', '') :
+                safeGet(edu, 'skills', '');
               
               return (
                 <article key={index} className="timeline-item">
                   <div className="timeline-marker" aria-hidden="true"></div>
                   <div className="timeline-content">
-                    <h3 className="item-title">{education.school}</h3>
-                    <h4 className="item-subtitle highlight">{education.degree}</h4>
-                    {education.duration && (
+                    <h3 className="item-title">{school}</h3>
+                    <h4 className="item-subtitle highlight">{degree}</h4>
+                    {duration && (
                       <div className="item-metadata">
                         <span className="item-duration">
-                          <span aria-label="Duration" role="img" aria-hidden="true">🗓️</span> {education.duration}
+                          <span aria-label="Duration" role="img" aria-hidden="true">🗓️</span> {duration}
                         </span>
                       </div>
                     )}
-                    {education.grade && (
+                    {grade && (
                       <p className="item-detail">
-                        {getUI('grade', 'Grade')}: {education.grade}
+                        {getUI('grade', 'Grade')}: {grade}
                       </p>
                     )}
-                    {education.thesis && (
+                    {thesis && (
                       <p className="item-detail">
-                        {getUI('thesis', 'Thesis')}: {education.thesis}
+                        {getUI('thesis', 'Thesis')}: {thesis}
                       </p>
                     )}
-                    {education.skills && (
+                    {skills && (
                       <div className="item-skills">
-                        <span className="skills-label">{getUI('skills', 'Skills')}:</span> {education.skills}
+                        <span className="skills-label">{getUI('skills', 'Skills')}:</span> {skills}
                       </div>
                     )}
                   </div>
@@ -368,44 +420,67 @@ function Profile() {
           <h2 className="section-title" id="certifications-heading">{getUI('certifications', 'Certifications')}</h2>
           <div className="timeline">
             {profileData.certifications.map((cert, index) => {
-              const certification = isMultilingual ? cert[language] || cert.en : cert;
+              // Safely extract certification data
+              const title = isMultilingual ?
+                safeGet(cert, `${language}.title`) || safeGet(cert, 'en.title', '') :
+                safeGet(cert, 'title', '');
+              
+              const issuer = isMultilingual ?
+                safeGet(cert, `${language}.issuer`) || safeGet(cert, 'en.issuer', '') :
+                safeGet(cert, 'issuer', '');
+              
+              const issued = isMultilingual ?
+                safeGet(cert, `${language}.issued`) || safeGet(cert, 'en.issued', '') :
+                safeGet(cert, 'issued', '');
+              
+              const expires = isMultilingual ?
+                safeGet(cert, `${language}.expires`) || safeGet(cert, 'en.expires', '') :
+                safeGet(cert, 'expires', '');
+              
+              const credentialID = isMultilingual ?
+                safeGet(cert, `${language}.credentialID`) || safeGet(cert, 'en.credentialID', '') :
+                safeGet(cert, 'credentialID', '');
+              
+              const credentialURL = isMultilingual ?
+                safeGet(cert, `${language}.credentialURL`) || safeGet(cert, 'en.credentialURL', '') :
+                safeGet(cert, 'credentialURL', '');
               
               return (
                 <article key={index} className="timeline-item">
                   <div className="timeline-marker" aria-hidden="true"></div>
                   <div className="timeline-content">
-                    <h3 className="item-title">{certification.title}</h3>
-                    <h4 className="item-subtitle highlight">{certification.issuer}</h4>
-                    {(certification.issued || certification.expires) && (
+                    <h3 className="item-title">{title}</h3>
+                    <h4 className="item-subtitle highlight">{issuer}</h4>
+                    {(issued || expires) && (
                       <div className="item-metadata">
-                        {certification.issued && (
+                        {issued && (
                           <span className="item-duration">
-                            <span aria-label="Issued" role="img" aria-hidden="true">🗓️</span> {getUI('issued', 'Issued')}: {certification.issued}
+                            <span aria-label="Issued" role="img" aria-hidden="true">🗓️</span> {getUI('issued', 'Issued')}: {issued}
                           </span>
                         )}
-                        {certification.issued && certification.expires && (
+                        {issued && expires && (
                           <span className="item-separator" aria-hidden="true">•</span>
                         )}
-                        {certification.expires && (
+                        {expires && (
                           <span className="item-expires">
-                            <span aria-label="Expires" role="img" aria-hidden="true">⏳</span> {getUI('expires', 'Expires')}: {certification.expires}
+                            <span aria-label="Expires" role="img" aria-hidden="true">⏳</span> {getUI('expires', 'Expires')}: {expires}
                           </span>
                         )}
                       </div>
                     )}
-                    {certification.credentialID && (
+                    {credentialID && (
                       <p className="item-detail">
-                        {getUI('credential', 'Credential ID')}: {certification.credentialURL ? (
+                        {getUI('credential', 'Credential ID')}: {credentialURL ? (
                           <a 
-                            href={certification.credentialURL} 
+                            href={credentialURL} 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="credential-link highlight"
                           >
-                            {certification.credentialID}
+                            {credentialID}
                           </a>
                         ) : (
-                          certification.credentialID
+                          credentialID
                         )}
                       </p>
                     )}
@@ -423,12 +498,19 @@ function Profile() {
           <h2 className="section-title" id="languages-heading">{getUI('languages', 'Languages')}</h2>
           <ul className="languages-list">
             {profileData.languages.map((lang, index) => {
-              const languageData = isMultilingual ? lang[language] || lang.en : lang;
+              // Safely extract language data
+              const langName = isMultilingual ?
+                safeGet(lang, `${language}.language`) || safeGet(lang, 'en.language', '') :
+                safeGet(lang, 'language', '');
+              
+              const proficiency = isMultilingual ?
+                safeGet(lang, `${language}.proficiency`) || safeGet(lang, 'en.proficiency', '') :
+                safeGet(lang, 'proficiency', '');
               
               return (
                 <li key={index} className="language-item">
-                  <span className="language-name">{languageData.language}</span>
-                  <span className="language-proficiency">{languageData.proficiency}</span>
+                  <span className="language-name">{langName}</span>
+                  <span className="language-proficiency">{proficiency}</span>
                 </li>
               );
             })}
