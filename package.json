@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "cp src/assets/profile-data.json public/ && astro build",
+    "build": "node scripts/copy-profile.js && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
