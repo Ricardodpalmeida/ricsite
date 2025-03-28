@@ -6,6 +6,14 @@
  * Features a brief introduction, image gallery, and contact CTA.
  */
 import MainLayout from '../layouts/MainLayout.astro';
+import { readdir } from 'fs/promises';
+import { join } from 'path';
+
+// Get all images from the gallery directory
+const galleryDir = join(process.cwd(), 'public/images/HomePhotoGallery');
+const galleryImages = await readdir(galleryDir)
+  .then(files => files.filter(file => file.match(/\.(jpg|jpeg|png)$/i)))
+  .catch(() => []);
 ---
 
 <MainLayout title="Ricardo Almeida | Personal Website">
@@ -39,22 +47,23 @@ import MainLayout from '../layouts/MainLayout.astro';
       </div>
     </section>
     
-    <section class="gallery-section">
-      <div class="gallery-container">
-        <div class="gallery-track">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div class="gallery-item">
-              <img 
-                src={`/images/HomePhotoGallery/photo${i + 1}.jpg`} 
-                alt={`Gallery image ${i + 1}`}
-                loading="lazy"
-                onerror="this.src='/images/HomePhotoGallery/photo' + (i + 1) + '.png'"
-              />
-            </div>
-          ))}
+    {galleryImages.length > 0 && (
+      <section class="gallery-section">
+        <div class="gallery-container">
+          <div class="gallery-track">
+            {galleryImages.map((image, i) => (
+              <div class="gallery-item">
+                <img 
+                  src={`/images/HomePhotoGallery/${image}`} 
+                  alt={`Gallery image ${i + 1}`}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
   </main>
 </MainLayout>
 
