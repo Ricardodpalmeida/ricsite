@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/profile.css';
-import profileDataImport from '../assets/profile-data.json';
 
 /**
  * Profile Component
@@ -56,17 +55,32 @@ function Profile() {
     };
   }, []);
   
-  // Load profile data from imported JSON
+  // Load profile data via fetch - most reliable for production builds
   useEffect(() => {
-    try {
-      // Set the imported data directly (more reliable in production)
-      setProfileData(profileDataImport);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('Error loading profile data:', error);
-      setError('Failed to load profile data. Please try refreshing the page.');
-      setIsLoading(false);
-    }
+    // Use a relative URL to ensure it works with any base path
+    fetch('/profile-data.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load profile data (${response.status})`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Profile data loaded successfully');
+        
+        // Validate data has the expected structure
+        if (!data || !data.personal) {
+          throw new Error('Profile data is missing required structure');
+        }
+        
+        setProfileData(data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error('Error loading profile data:', error);
+        setError('Failed to load profile data. Please try refreshing the page.');
+        setIsLoading(false);
+      });
   }, []);
 
   // Show loading state if no data yet
@@ -83,6 +97,26 @@ function Profile() {
   if (!profileData) {
     return <div className="error-message" role="alert"><p>Profile data could not be loaded.</p></div>;
   }
+  
+  // Safety check function to prevent "Cannot read properties of undefined" errors
+  const safeGet = (obj, path, defaultValue = '') => {
+    try {
+      if (!obj) return defaultValue;
+      
+      const keys = path.split('.');
+      let result = obj;
+      
+      for (const key of keys) {
+        if (result === undefined || result === null) return defaultValue;
+        result = result[key];
+      }
+      
+      return result === undefined || result === null ? defaultValue : result;
+    } catch (e) {
+      console.error('Error in safeGet:', e);
+      return defaultValue;
+    }
+  };
   
   // Check if profile data has multilingual structure
   const isMultilingual = profileData.personal && 
@@ -127,26 +161,6 @@ function Profile() {
     "Databricks": "Unified analytics platform for large-scale data processing and machine learning, optimized for Spark workloads.",
     "RAG": "Retrieval-Augmented Generation: An AI framework that enhances large language models by retrieving relevant information from external knowledge sources to generate more accurate and contextual responses.",
     "LLM Integration": "Integrating Large Language Models into applications and systems, enabling them to process, understand, and generate human-like text for various use cases."
-  };
-  
-  // Safety check function to prevent "Cannot read properties of undefined" errors
-  const safeGet = (obj, path, defaultValue = '') => {
-    try {
-      if (!obj) return defaultValue;
-      
-      const keys = path.split('.');
-      let result = obj;
-      
-      for (const key of keys) {
-        if (result === undefined || result === null) return defaultValue;
-        result = result[key];
-      }
-      
-      return result === undefined || result === null ? defaultValue : result;
-    } catch (e) {
-      console.error('Error in safeGet:', e);
-      return defaultValue;
-    }
   };
   
   return (
