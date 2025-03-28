@@ -1,3 +1,4 @@
+---
 import { getCollection } from 'astro:content';
 import BlogPostLayout from '../../layouts/BlogPostLayout.astro';
 
@@ -16,6 +17,7 @@ type Props = {
 
 const { post } = Astro.props;
 const { Content } = await post.render();
+---
 
 <BlogPostLayout post={post}>
   <Content />
