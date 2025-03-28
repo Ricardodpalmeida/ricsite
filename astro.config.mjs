@@ -9,5 +9,14 @@ export default defineConfig({
   build: {
     // Ensure assets are properly referenced
     assets: '_assets',
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        input: {
+          'profile-data': 'src/assets/profile-data.json'
+        }
+      }
+    }
   }
 });
