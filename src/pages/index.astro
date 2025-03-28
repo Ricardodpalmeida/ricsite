@@ -40,11 +40,11 @@ import MainLayout from '../layouts/MainLayout.astro';
     <section class="gallery-section">
       <div class="gallery-container">
         <div class="gallery-track">
-          {Array(5).fill(null).map((_, index) => (
+          {Array.from({ length: 5 }).map((_, i) => (
             <div class="gallery-item">
               <img 
-                src={`/images/HomePhotoGallery/photo${index + 1}.jpg`} 
-                alt={`Gallery photo ${index + 1}`}
+                src={`/images/HomePhotoGallery/photo${i + 1}.jpg`} 
+                alt={`Gallery image ${i + 1}`}
                 loading="lazy"
                 onerror="this.src='/images/placeholder.jpg'"
               />
@@ -180,25 +180,34 @@ import MainLayout from '../layouts/MainLayout.astro';
   
   /* Gallery Section */
   .gallery-section {
-    margin-top: 4rem;
+    padding: 2rem 0;
     overflow: hidden;
+    background: var(--color-gray-900);
   }
   
   .gallery-container {
-    overflow: hidden;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
     cursor: grab;
-    user-select: none;
-    touch-action: pan-x;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   
-  .gallery-container:active {
+  .gallery-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .gallery-container.active {
     cursor: grabbing;
   }
   
   .gallery-track {
     display: flex;
     gap: 1rem;
-    transition: transform 0.1s ease;
+    padding: 0 1rem;
+    transition: transform 0.1s ease-out;
   }
   
   .gallery-item {
@@ -206,7 +215,12 @@ import MainLayout from '../layouts/MainLayout.astro';
     height: 200px;
     border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-5px);
   }
   
   .gallery-item img {
@@ -216,8 +230,8 @@ import MainLayout from '../layouts/MainLayout.astro';
     transition: transform 0.3s ease;
   }
   
-  .gallery-item:hover {
-    transform: translateY(-5px);
+  .gallery-item:hover img {
+    transform: scale(1.05);
   }
   
   /* Media Queries */
@@ -241,7 +255,14 @@ import MainLayout from '../layouts/MainLayout.astro';
     
     .gallery-item {
       flex: 0 0 250px;
-      height: 170px;
+      height: 175px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .gallery-item {
+      flex: 0 0 200px;
+      height: 150px;
     }
   }
 </style>
@@ -249,7 +270,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.gallery-container') as HTMLElement;
-    const track = document.querySelector('.gallery-track');
+    const track = document.querySelector('.gallery-track') as HTMLElement;
     if (!container || !track) return;
 
     let isDragging = false;
