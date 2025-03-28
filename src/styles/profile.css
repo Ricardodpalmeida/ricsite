@@ -1,0 +1,143 @@
+/* src/styles/profile.css */
+/* Profile Component Styles */
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.profile-header,
+.profile-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.profile-header h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.profile-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.profile-item {
+  margin-bottom: 1.5rem;
+}
+
+.profile-item h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.profile-item h4 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 0.3rem;
+}
+
+.highlight {
+  color: var(--highlight-color);
+}
+
+.skills {
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Skills list styling */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.skill-item {
+  background-color: rgba(255, 248, 231, 0.1);
+  color: var(--highlight-color);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Languages list styling */
+.languages-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.languages-list li {
+  margin-bottom: 0.5rem;
+}
+
+.language-name {
+  font-weight: 500;
+}
+
+/* Loading and error messages */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+.error-message {
+  padding: 1rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 4px;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1rem;
+  }
+  
+  .profile-header h1 {
+    font-size: 2rem;
+  }
+  
+  .profile-header h2 {
+    font-size: 1.2rem;
+  }
+  
+  .profile-section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .skills-list {
+    gap: 0.3rem;
+  }
+  
+  .skill-item {
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+  .profile-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .profile-item h3 {
+    font-size: 1.1rem;
+  }
+} 

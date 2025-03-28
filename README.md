@@ -1,4 +1,107 @@
-# Astro Starter Kit: Basics
+# Ricardo Almeida Personal Website
+
+A minimal, responsive personal website built with Astro and React. The site features a clean, dark-themed design with easy-to-update profile data.
+
+## 🚀 Features
+
+- Clean, minimalist design with dark background (#2c2c2c) and white text
+- Cosmic Latte (#fff8e7) highlights
+- Fully responsive layout for all device sizes
+- Easily updateable profile data through a central JSON file
+- Fast load times using Astro static site generation
+- React components for dynamic elements
+
+## 📋 Project Structure
+
+```
+/
+├── public/
+│   ├── favicon.svg
+│   ├── CNAME
+│   └── profile-data.json
+├── src/
+│   ├── components/
+│   │   └── Profile.jsx
+│   ├── layouts/
+│   │   └── MainLayout.astro
+│   ├── pages/
+│   │   └── index.astro
+│   └── styles/
+│       └── profile.css
+└── package.json
+```
+
+## 🧞 Setup and Development
+
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm
+
+### Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ricardodpalmeida/ricsite.git
+   cd ricsite
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:4321` to see the site.
+
+## 🔄 Updating Content
+
+The site content can be easily updated by modifying the `public/profile-data.json` file. This file contains all your personal information including:
+
+- Basic personal info
+- About text
+- Work experience
+- Education
+- Skills
+- Languages
+
+## 🚢 Deployment
+
+The site is configured to deploy automatically to GitHub Pages using GitHub Actions workflow.
+
+1. Push your changes to the main branch
+2. The GitHub Actions workflow will automatically build and deploy the site
+3. Your site will be available at your configured domain (me.ricbits.cc)
+
+## 🛠️ Customization
+
+### Styling
+
+- Global styles are in `src/layouts/MainLayout.astro`
+- Component-specific styles are in `src/styles/profile.css`
+- Color scheme is defined by CSS variables in the main layout
+
+### Adding New Pages
+
+To add new pages (like a blog):
+
+1. Create a new file in `src/pages/`
+2. Use the MainLayout component
+3. Add your content and components
+
+## 📜 License
+
+This project is open-source. Feel free to use and modify as needed.
+
+## ✨ Future Plans
+
+- Blog functionality
+- Podcast and DJ sets hosting
+- More interactive components
 
 ```sh
 npm create astro@latest -- --template basics
