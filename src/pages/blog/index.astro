@@ -2,78 +2,51 @@
 import { getCollection } from 'astro:content';
 import MainLayout from '../../layouts/MainLayout.astro';
 
-// Get all blog posts that are not drafts
 const posts = await getCollection('blog', ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
+  return import.meta.env.DEV || !data.draft;
 });
 
-// Sort posts by publication date
-const sortedPosts = posts.sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<MainLayout 
-  title="Blog | Ricardo Almeida" 
-  description="Insights and thoughts on Data & AI, cloud architecture, and technology trends."
->
-  <div class="blog-container">
-    <div class="blog-header">
-      <h1 class="blog-title">Blog</h1>
-      <p class="blog-subtitle">
-        Insights and thoughts on <span class="highlight">Data & AI</span>, 
-        cloud architecture, and technology trends.
-      </p>
-    </div>
+<MainLayout title="Blog | Ricardo Almeida" description="Blog posts about technology, AI, and cloud architecture">
+  <main class="blog-container">
+    <h1 class="blog-title">Blog</h1>
     
-    <div class="post-grid">
-      {sortedPosts.length === 0 ? (
-        <div class="no-posts">
-          <p>No blog posts available yet. Check back soon!</p>
-        </div>
-      ) : (
-        sortedPosts.map((post) => {
-          const formattedDate = post.data.pubDate.toLocaleDateString('en-us', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-          });
-          
-          return (
-            <article class="post-card">
-              <a href={`/blog/${post.slug}`} class="post-link">
-                {post.data.heroImage && (
-                  <div class="post-image-container">
-                    <img 
-                      src={post.data.heroImage} 
-                      alt="" 
-                      class="post-image" 
-                    />
-                  </div>
-                )}
-                <div class="post-content">
-                  <span class="post-date">{formattedDate}</span>
-                  <h2 class="post-title">{post.data.title}</h2>
-                  <p class="post-excerpt">{post.data.description}</p>
-                  
-                  {post.data.tags && post.data.tags.length > 0 && (
-                    <div class="post-tags">
-                      {post.data.tags.slice(0, 3).map((tag) => (
-                        <span class="post-tag">{tag}</span>
-                      ))}
-                      {post.data.tags.length > 3 && (
-                        <span class="post-tag">+{post.data.tags.length - 3}</span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </a>
-            </article>
-          );
-        })
-      )}
-    </div>
-  </div>
+    {posts.length === 0 ? (
+      <p class="no-posts">No blog posts available yet. Check back soon!</p>
+    ) : (
+      <div class="posts-grid">
+        {posts.map(post => (
+          <article class="post-card">
+            {post.data.heroImage && (
+              <img 
+                class="post-image" 
+                src={post.data.heroImage} 
+                alt="" 
+                transition:name={`blog-hero-${post.id}`}
+              />
+            )}
+            <div class="post-content">
+              <h2 class="post-title">
+                <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+              </h2>
+              <time class="post-date" datetime={post.data.pubDate.toISOString()}>
+                {post.data.pubDate.toLocaleDateString('en-us', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                })}
+              </time>
+              {post.data.description && (
+                <p class="post-description">{post.data.description}</p>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </main>
 </MainLayout>
 
 <style>
@@ -81,129 +54,88 @@ const sortedPosts = posts.sort(
     max-width: 800px;
     margin: 0 auto;
     padding: 3rem 1rem;
+    min-height: calc(100vh - 150px);
   }
-  
-  .blog-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  
+
   .blog-title {
     font-size: var(--font-size-3xl);
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
-  
-  .blog-subtitle {
+
+  .no-posts {
+    text-align: center;
+    color: var(--color-cosmic-latte);
     font-size: var(--font-size-lg);
-    color: var(--color-gray-600);
-    max-width: 600px;
-    margin: 0 auto;
   }
-  
-  .post-grid {
+
+  .posts-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
   }
-  
+
   .post-card {
-    border: 1px solid var(--color-gray-100);
+    background-color: rgba(255, 248, 231, 0.05);
+    border: 1px solid var(--color-cosmic-latte-20);
     border-radius: 8px;
     overflow: hidden;
     transition: all var(--transition-base);
-    height: 100%;
   }
-  
+
   .post-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-cosmic-latte-20);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--color-cosmic-latte);
   }
-  
-  .post-link {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    color: var(--color-white);
-    text-decoration: none;
-  }
-  
-  .post-image-container {
-    height: 180px;
-    overflow: hidden;
-  }
-  
+
   .post-image {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
-    transition: transform var(--transition-base);
   }
-  
-  .post-card:hover .post-image {
-    transform: scale(1.05);
-  }
-  
+
   .post-content {
     padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
   }
-  
-  .post-date {
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
-    margin-bottom: 0.75rem;
-  }
-  
+
   .post-title {
-    font-size: var(--font-size-lg);
-    margin-bottom: 0.75rem;
-    line-height: 1.3;
+    font-size: var(--font-size-xl);
+    margin-bottom: 0.5rem;
   }
-  
-  .post-excerpt {
-    font-size: var(--font-size-base);
-    color: var(--color-gray-600);
-    margin-bottom: 1rem;
-    flex-grow: 1;
+
+  .post-title a {
+    color: inherit;
+    text-decoration: none;
   }
-  
-  .post-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  
-  .post-tag {
-    background-color: rgba(255, 248, 231, 0.08);
+
+  .post-title a:hover {
     color: var(--color-cosmic-latte);
-    padding: 0.25rem 0.5rem;
-    border-radius: 50px;
+  }
+
+  .post-date {
+    display: block;
     font-size: var(--font-size-sm);
-    border: 1px solid rgba(255, 248, 231, 0.15);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 1rem;
   }
-  
-  .no-posts {
-    grid-column: 1 / -1;
-    text-align: center;
-    padding: 3rem;
-    border: 1px dashed var(--color-gray-300);
-    border-radius: 8px;
+
+  .post-description {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-cosmic-latte-80);
   }
-  
+
   @media (max-width: 768px) {
+    .blog-container {
+      padding: 2rem 1rem;
+    }
+
     .blog-title {
       font-size: var(--font-size-2xl);
+      margin-bottom: 2rem;
     }
-    
-    .blog-subtitle {
-      font-size: var(--font-size-base);
-    }
-    
-    .post-grid {
-      grid-template-columns: 1fr;
+
+    .post-card {
+      margin-bottom: 1.5rem;
     }
   }
 </style> 
