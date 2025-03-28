@@ -1,17 +1,59 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import InfiniteScroll from '../components/InfiniteScroll.jsx';
+import StaticProfile from '../components/StaticProfile.jsx';
 ---
 
 <MainLayout title="Ricardo Almeida | Personal Website">
   <main class="container">
-    <InfiniteScroll client:load />
+    <StaticProfile client:load />
+    <div class="debug-section">
+      <h3>Notice</h3>
+      <p>Using static profile data temporarily while resolving data fetching issues.</p>
+      <p class="test-links">
+        <a href="/profile-data.json">View Raw JSON Data</a> |
+        <a href="/fallback.html">HTML Fallback (No JS)</a>
+      </p>
+    </div>
   </main>
 </MainLayout>
 
 <style>
   main {
     padding: 2rem 0;
+  }
+  
+  .debug-section {
+    margin-top: 2rem;
+    padding: 1rem;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .debug-section h3 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .test-links {
+    padding-top: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  a {
+    color: #0070f3;
+    text-decoration: none;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid #0070f3;
+    border-radius: 3px;
+    margin: 0 0.2rem;
+  }
+  
+  a:hover {
+    background-color: #0070f3;
+    color: white;
+    text-decoration: none;
   }
   
   /* Add more specific styles here if needed */

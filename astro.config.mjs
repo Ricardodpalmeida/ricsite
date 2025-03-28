@@ -6,4 +6,8 @@ export default defineConfig({
   base: '',
   integrations: [react()],
   output: 'static',
+  build: {
+    // Ensure assets are properly referenced
+    assets: '_assets',
+  }
 });

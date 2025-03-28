@@ -3,38 +3,131 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import '../styles/infinite-scroll.css';
 
+// Fallback data in case fetch fails
+const fallbackData = {
+  "personal": {
+    "name": "Ricardo Almeida",
+    "title": "Software Developer",
+    "location": "Portugal",
+    "profileUrl": "linkedin.com/in/ricardodpalmeida"
+  },
+  "about": "Software developer with experience in web technologies and a passion for creating efficient and user-friendly applications.",
+  "experience": [
+    {
+      "title": "Software Developer",
+      "company": "Example Company",
+      "duration": "2020 - Present",
+      "location": "Remote",
+      "description": "Developing web applications using modern technologies.",
+      "skills": "JavaScript, React, Node.js"
+    },
+    {
+      "title": "Junior Developer",
+      "company": "Previous Company",
+      "duration": "2018 - 2020",
+      "location": "Lisbon",
+      "description": "Worked on frontend development for various clients.",
+      "skills": "HTML, CSS, JavaScript"
+    }
+  ],
+  "education": [
+    {
+      "school": "University of Example",
+      "degree": "Bachelor's in Computer Science",
+      "duration": "2014 - 2018",
+      "grade": "Good Standing",
+      "thesis": "Web Application Development"
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Web Development Certificate",
+      "issuer": "Online Learning Platform",
+      "issued": "2019",
+      "credentialID": "WD12345"
+    }
+  ],
+  "skills": [
+    "JavaScript",
+    "React",
+    "HTML/CSS",
+    "Node.js",
+    "Git"
+  ],
+  "languages": [
+    {
+      "language": "Portuguese",
+      "proficiency": "Native"
+    },
+    {
+      "language": "English",
+      "proficiency": "Fluent"
+    }
+  ]
+};
+
 function ProfileInfiniteScroll() {
-  const [profileData, setProfileData] = useState(null);
-  const [displayItems, setDisplayItems] = useState([]);
+  // Initialize with fallback data immediately
+  const [profileData, setProfileData] = useState(fallbackData);
+  const [displayItems, setDisplayItems] = useState([
+    { type: 'header', data: fallbackData.personal },
+    { type: 'about', data: fallbackData.about }
+  ]);
   const [hasMore, setHasMore] = useState(true);
+  const [error, setError] = useState(null);
   
   useEffect(() => {
-    console.log('Fetching profile data...');
-    const url = `${window.location.origin}/profile-data.json`;
-    console.log('Fetching from URL:', url);
+    console.log('Using fallback data initially');
+    console.log('Attempting to fetch updated profile data...');
+    // Try multiple paths to fetch the data
+    const urls = [
+      '/profile-data.json',
+      'profile-data.json',
+      './profile-data.json',
+      'https://me.ricbits.cc/profile-data.json'
+    ];
     
-    fetch(url)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
+    // Try each URL
+    const fetchFromUrls = async () => {
+      for (const url of urls) {
+        try {
+          console.log(`Trying URL: ${url}`);
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+            },
+            cache: 'no-store'
+          });
+          
+          console.log(`Response from ${url}:`, response.status);
+          if (!response.ok) {
+            console.log(`Failed with status ${response.status} for ${url}`);
+            continue; // Try the next URL
+          }
+          
+          const data = await response.json();
+          console.log('Remote data loaded successfully');
+          setProfileData(data);
+          
+          // Initialize with personal info and about section
+          if (data.personal) {
+            setDisplayItems([
+              { type: 'header', data: data.personal },
+              { type: 'about', data: data.about }
+            ]);
+          }
+          return; // Exit the loop if successful
+        } catch (err) {
+          console.error(`Error fetching from ${url}:`, err);
+          // Continue to the next URL
         }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Data loaded successfully');
-        setProfileData(data);
-        
-        // Initialize with personal info and about section
-        if (data.personal) {
-          setDisplayItems([
-            { type: 'header', data: data.personal },
-            { type: 'about', data: data.about }
-          ]);
-        }
-      })
-      .catch(error => {
-        console.error('Error loading profile data:', error);
-      });
+      }
+      
+      console.log('All fetch attempts failed, using fallback data');
+    };
+    
+    fetchFromUrls();
   }, []);
 
   const loadMore = () => {
@@ -139,8 +232,12 @@ function ProfileInfiniteScroll() {
     }
   };
   
+  if (error) {
+    return <div className="loading error">Error loading profile data: {error}</div>;
+  }
+  
   if (!profileData) {
-    return <div className="loading">Loading profile data...</div>;
+    return <div className="loading">Loading profile data... (Check console for details)</div>;
   }
 
   return (

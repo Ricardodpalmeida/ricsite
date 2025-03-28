@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test File</title>
+</head>
+<body>
+  <h1>Test File</h1>
+  <p>If you can see this, HTML files are being served correctly.</p>
+  <script>
+    // Create a test JSON object
+    const testData = {
+      test: "This is a test",
+      status: "OK"
+    };
+    
+    // Display it
+    document.body.innerHTML += "<pre>" + JSON.stringify(testData, null, 2) + "</pre>";
+  </script>
+</body>
+</html> 
