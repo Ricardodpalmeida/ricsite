@@ -12,6 +12,14 @@ import MainLayout from '../layouts/MainLayout.astro';
   <main class="home-container">
     <section class="hero-section">
       <div class="hero-content">
+        <div class="profile-circle">
+          <img 
+            src="/images/profile.png" 
+            alt="Ricardo Almeida" 
+            class="profile-image"
+            loading="eager"
+          />
+        </div>
         <h1 class="hero-title">Hi, I'm <span class="highlight">Ricardo</span></h1>
         <p class="hero-subtitle">Data & AI Manager | Cloud Solution Architect</p>
         <div class="hero-description">
@@ -28,14 +36,6 @@ import MainLayout from '../layouts/MainLayout.astro';
           <a href="/about" class="primary-button">Learn More About Me</a>
           <a href="/contact" class="secondary-button">Get In Touch</a>
         </div>
-      </div>
-      <div class="hero-image-container">
-        <img 
-          src="/images/profile.png" 
-          alt="Ricardo Almeida" 
-          class="hero-image"
-          loading="eager"
-        />
       </div>
     </section>
     
@@ -69,25 +69,44 @@ import MainLayout from '../layouts/MainLayout.astro';
   
   /* Hero Section */
   .hero-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
-    align-items: center;
-    justify-content: space-between;
     margin-bottom: 4rem;
   }
   
   .hero-content {
-    flex: 1;
-    min-width: 300px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .profile-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--color-cosmic-latte);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
   .hero-title {
+    text-align: center;
     font-size: var(--font-size-3xl);
     margin-bottom: 0.5rem;
   }
   
   .hero-subtitle {
+    text-align: center;
     font-size: var(--font-size-xl);
     color: var(--color-cosmic-latte);
     margin-bottom: 1.5rem;
@@ -97,6 +116,8 @@ import MainLayout from '../layouts/MainLayout.astro';
   .hero-description {
     margin-bottom: 2rem;
     max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .hero-description p {
@@ -108,6 +129,7 @@ import MainLayout from '../layouts/MainLayout.astro';
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    justify-content: center;
   }
   
   .primary-button, 
@@ -142,57 +164,6 @@ import MainLayout from '../layouts/MainLayout.astro';
     border-color: var(--color-cosmic-latte);
     transform: translateY(-3px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-  }
-  
-  .hero-image-container {
-    flex: 1;
-    min-width: 300px;
-    max-width: 400px;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .hero-image {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 3px solid var(--color-cosmic-latte);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .hero-image:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Placeholder styling */
-  .image-placeholder {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-color: rgba(255, 248, 231, 0.05);
-    border: 1px dashed var(--color-cosmic-latte-20);
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transition-base);
-    overflow: hidden;
-  }
-  
-  .image-text {
-    font-size: var(--font-size-lg);
-    color: var(--color-cosmic-latte);
-  }
-  
-  .image-caption {
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
-    text-align: center;
-    padding: 0 1rem;
-    margin-top: 0.5rem;
   }
   
   /* Gallery Section */
