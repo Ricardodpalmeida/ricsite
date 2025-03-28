@@ -61,7 +61,14 @@ function Profile() {
     // Use fallback data directly to avoid fetch issues in production
     try {
       console.log('Using imported profile data');
-      setProfileData(profileDataFallback);
+      // Make sure the data is valid by checking the required structure
+      if (profileDataFallback && 
+          profileDataFallback.personal && 
+          (profileDataFallback.personal.en || profileDataFallback.personal)) {
+        setProfileData(profileDataFallback);
+      } else {
+        throw new Error('Profile data is missing required structure');
+      }
       setIsLoading(false);
     } catch (error) {
       console.error('Error using fallback profile data:', error);
@@ -130,6 +137,26 @@ function Profile() {
     "LLM Integration": "Integrating Large Language Models into applications and systems, enabling them to process, understand, and generate human-like text for various use cases."
   };
   
+  // Safety check function to prevent "Cannot read properties of undefined" errors
+  const safeGet = (obj, path, defaultValue = '') => {
+    try {
+      if (!obj) return defaultValue;
+      
+      const keys = path.split('.');
+      let result = obj;
+      
+      for (const key of keys) {
+        if (result === undefined || result === null) return defaultValue;
+        result = result[key];
+      }
+      
+      return result === undefined || result === null ? defaultValue : result;
+    } catch (e) {
+      console.error('Error in safeGet:', e);
+      return defaultValue;
+    }
+  };
+  
   return (
     <div className="profile-container">
       {/* Header Section - Personal Info */}
@@ -140,33 +167,30 @@ function Profile() {
           </div>
           <h1 className="profile-name">
             {isMultilingual 
-              ? profileData.personal[language]?.name || profileData.personal.en.name
-              : profileData.personal.name
+              ? safeGet(profileData, `personal.${language}.name`) || safeGet(profileData, 'personal.en.name', 'Ricardo Almeida')
+              : safeGet(profileData, 'personal.name', 'Ricardo Almeida')
             }
           </h1>
           <h2 className="profile-title highlight">
             {isMultilingual 
-              ? profileData.personal[language]?.title || profileData.personal.en.title
-              : profileData.personal.title
+              ? safeGet(profileData, `personal.${language}.title`) || safeGet(profileData, 'personal.en.title', 'Data & AI Manager | Cloud Solution Architect')
+              : safeGet(profileData, 'personal.title', 'Data & AI Manager | Cloud Solution Architect')
             }
           </h2>
           <p className="profile-location">
             <span aria-label="Location" role="img" aria-hidden="true">📍</span>
             {isMultilingual 
-              ? profileData.personal[language]?.location || profileData.personal.en.location
-              : profileData.personal.location
+              ? safeGet(profileData, `personal.${language}.location`) || safeGet(profileData, 'personal.en.location', 'Lisbon, Portugal')
+              : safeGet(profileData, 'personal.location', 'Lisbon, Portugal')
             }
           </p>
           <div className="profile-links">
             <a 
-              href={`https://${profileData.personal.profileUrl}`} 
+              href={`https://${safeGet(profileData, 'personal.profileUrl', 'www.linkedin.com/in/ricardodpa')}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="profile-link"
-              aria-label={isMultilingual 
-                ? `LinkedIn profile of ${profileData.personal[language]?.name || profileData.personal.en.name}`
-                : `LinkedIn profile of ${profileData.personal.name}`
-              }
+              aria-label="LinkedIn profile"
             >
               LinkedIn
             </a>
