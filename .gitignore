@@ -16,6 +16,8 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+.env.local
+.env.development
 
 # macOS-specific files
 .DS_Store
@@ -40,4 +42,16 @@ manual.txt
 *.temp
 *.bak
 
+# Personal notes and drafts
 GUIDE.md
+TODO.md
+NOTES.md
+
+# Security and keys
+*.pem
+*.key
+*.cert
+*.pub
+
+# Cache files
+.cache/

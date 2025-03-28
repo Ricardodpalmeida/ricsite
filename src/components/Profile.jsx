@@ -39,23 +39,21 @@ function Profile() {
   // Initialize language from browser settings once component is mounted (client-side only)
   useEffect(() => {
     setLanguage(getBrowserLanguage());
-  }, []);
-  
-  // Store language preference (client-side only)
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        localStorage.setItem('preferredLanguage', language);
-      } catch (error) {
-        console.warn('Error saving to localStorage:', error);
+    
+    // Setup event listener for language changes from the main site header
+    const handleLanguageChange = (event) => {
+      if (event.detail && event.detail.language) {
+        setLanguage(event.detail.language);
       }
-    }
-  }, [language]);
-  
-  // Toggle language
-  const toggleLanguage = () => {
-    setLanguage(prevLang => prevLang === 'en' ? 'pt' : 'en');
-  };
+    };
+    
+    window.addEventListener('languageChange', handleLanguageChange);
+    
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('languageChange', handleLanguageChange);
+    };
+  }, []);
   
   // Fetch profile data from JSON file
   useEffect(() => {
@@ -91,8 +89,18 @@ function Profile() {
   }, []);
 
   // Show loading state if no data yet
-  if (!profileData) {
+  if (isLoading) {
     return <div className="loading" aria-live="polite" role="status">Loading profile data...</div>;
+  }
+  
+  // Show error if any
+  if (error) {
+    return <div className="error-message" role="alert"><p>Error: {error}</p></div>;
+  }
+
+  // If no profile data loaded
+  if (!profileData) {
+    return <div className="error-message" role="alert"><p>Profile data could not be loaded.</p></div>;
   }
   
   // Check if profile data has multilingual structure
@@ -142,24 +150,6 @@ function Profile() {
   
   return (
     <div className="profile-container">
-      {/* Language Selector */}
-      <div className="language-selector">
-        <button 
-          className={`language-btn ${language === 'en' ? 'active' : ''}`} 
-          onClick={() => setLanguage('en')}
-          aria-label="Switch to English"
-        >
-          EN
-        </button>
-        <button 
-          className={`language-btn ${language === 'pt' ? 'active' : ''}`} 
-          onClick={() => setLanguage('pt')}
-          aria-label="Mudar para Português"
-        >
-          PT
-        </button>
-      </div>
-      
       {/* Header Section - Personal Info */}
       <header className="profile-header">
         <div className="profile-intro">
@@ -203,9 +193,11 @@ function Profile() {
       </header>
       
       {/* About Section */}
-      <section className="profile-section" aria-labelledby="about-heading">
+      <section className="profile-section about-section" aria-labelledby="about-heading">
         <h2 className="section-title" id="about-heading">{getUI('about', 'About')}</h2>
-        <p className="profile-about">{getText(profileData.about)}</p>
+        <div className="profile-about-container">
+          <p className="profile-about">{getText(profileData.about)}</p>
+        </div>
       </section>
       
       {/* Skills Section */}
@@ -436,20 +428,6 @@ function Profile() {
             })}
           </ul>
         </section>
-      )}
-      
-      {/* Show error if any */}
-      {error && (
-        <div className="error-message" role="alert">
-          <p>Note: {error}</p>
-        </div>
-      )}
-      
-      {/* Loading indicator that's visually hidden when content is loaded */}
-      {isLoading && (
-        <div className="loading" aria-live="polite" role="status">
-          Loading profile data...
-        </div>
       )}
     </div>
   );

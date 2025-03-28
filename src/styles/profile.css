@@ -17,8 +17,8 @@
 }
 
 .rounded-profile-image {
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--color-cosmic-latte);
@@ -77,6 +77,7 @@
 
 .profile-intro {
   position: relative;
+  text-align: center;
 }
 
 .profile-name {
@@ -151,10 +152,31 @@
 }
 
 /* About section */
+.about-section {
+  position: relative;
+  padding: 2rem;
+  background-color: rgba(30, 30, 30, 0.3);
+  border-radius: 8px;
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 3px solid var(--color-cosmic-latte);
+}
+
+.about-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.profile-about-container {
+  max-width: 100%;
+}
+
 .profile-about {
   font-size: 1.1rem;
   line-height: var(--line-height-loose);
   max-width: 65ch;
+  text-align: justify;
 }
 
 /* Timeline styling for experience and education */

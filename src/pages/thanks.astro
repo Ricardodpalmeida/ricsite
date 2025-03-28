@@ -1,0 +1,90 @@
+---
+/**
+ * Thanks Page
+ * 
+ * Shown after contact form submission.
+ */
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout 
+  title="Thank You | Ricardo Almeida" 
+  description="Thanks for your message! I'll get back to you soon."
+>
+  <div class="thanks-container">
+    <div class="thanks-content">
+      <h1 class="thanks-title">Thank <span class="highlight">You</span>!</h1>
+      <p class="thanks-description">
+        I've received your message and will get back to you as soon as possible.
+      </p>
+      <div class="thanks-actions">
+        <a href="/" class="primary-button">Return to Home</a>
+      </div>
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .thanks-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 5rem 1rem;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .thanks-content {
+    text-align: center;
+  }
+  
+  .thanks-title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1.5rem;
+  }
+  
+  .thanks-description {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-loose);
+    margin-bottom: 3rem;
+    max-width: 65ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .thanks-actions {
+    margin-top: 2rem;
+  }
+  
+  .primary-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-cosmic-latte-10);
+    color: var(--color-white);
+    border: 1px solid var(--color-cosmic-latte);
+    border-radius: 4px;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+    text-decoration: none;
+  }
+  
+  .primary-button:hover {
+    background-color: var(--color-cosmic-latte-20);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    .thanks-title {
+      font-size: var(--font-size-2xl);
+      margin-bottom: 1rem;
+    }
+    
+    .thanks-description {
+      font-size: var(--font-size-base);
+      margin-bottom: 2rem;
+    }
+  }
+</style> 

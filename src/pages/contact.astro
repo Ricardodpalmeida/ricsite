@@ -1,7 +1,7 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Demo key for testing
 ---
 
 <MainLayout title="Contact | Ricardo Almeida" description="Get in touch with Ricardo Almeida, Data & AI Manager and Cloud Solution Architect.">
@@ -16,12 +16,15 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       
       <button id="contact-cta" class="contact-cta-button">Send me a message</button>
       
-      <form id="contact-form" class="contact-form hidden" name="contact" method="POST" data-netlify="true" netlify-honeypot="email_confirmation">
-        <p class="hidden">
-          <label><input name="email_confirmation" /></label>
-        </p>
-        <input type="hidden" name="form-name" value="contact" />
-        <input type="hidden" name="recipient" value="ricardodpa@gmail.com" />
+      <form id="contact-form" class="contact-form hidden" action="https://formsubmit.co/ricardodpa@gmail.com" method="POST">
+        <!-- Honeypot field to prevent spam -->
+        <input type="text" name="_honey" style="display:none">
+        
+        <!-- Disable captcha from FormSubmit as we're using our own -->
+        <input type="hidden" name="_captcha" value="false">
+        
+        <!-- Redirect to a thank you page after submission -->
+        <input type="hidden" name="_next" value="https://me.ricbits.cc/thanks">
         
         <div class="form-group">
           <label for="name">Your Name</label>
@@ -43,19 +46,35 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           <textarea id="message" name="message" rows="5" required></textarea>
         </div>
         
-        <div class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="dark"></div>
+        <div id="g-recaptcha" class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="dark"></div>
         
-        <button type="submit" class="submit-button">Send Message</button>
+        <button type="submit" id="submit-button" class="submit-button" disabled>Send Message</button>
       </form>
     </div>
   </div>
 </MainLayout>
 
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script>
+  // Add type definition for grecaptcha
+  declare global {
+    interface Window {
+      enableSubmit: () => void;
+      disableSubmit: () => void;
+      grecaptcha: {
+        render: (element: string | HTMLElement, options: any) => number;
+        getResponse: (widgetId?: number) => string;
+        reset: (widgetId?: number) => void;
+      };
+    }
+  }
+
   // Form expand/collapse functionality
   document.addEventListener('DOMContentLoaded', () => {
     const ctaButton = document.getElementById('contact-cta');
     const contactForm = document.getElementById('contact-form');
+    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
     
     if (ctaButton && contactForm) {
       ctaButton.addEventListener('click', () => {
@@ -65,6 +84,42 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         
         // Scroll to form
         contactForm.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+    
+    // Set up reCAPTCHA callback
+    window.enableSubmit = function() {
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+    };
+    
+    // Function to handle reCAPTCHA expiration
+    window.disableSubmit = function() {
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
+    };
+    
+    // Attach this function to the reCAPTCHA callback
+    window.onload = function() {
+      if (document.querySelector('.g-recaptcha')) {
+        window.grecaptcha.render('g-recaptcha', {
+          'sitekey': document.querySelector('.g-recaptcha')?.getAttribute('data-sitekey') || '',
+          'callback': 'enableSubmit',
+          'expired-callback': 'disableSubmit'
+        });
+      }
+    };
+    
+    // Validate form on submit
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e) {
+        const recaptchaResponse = window.grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          e.preventDefault();
+          alert('Please verify you are not a robot by completing the reCAPTCHA.');
+        }
       });
     }
   });
@@ -220,6 +275,11 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
+  .submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
   @keyframes slideDown {
     from {
       opacity: 0;
@@ -247,29 +307,5 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       padding: 0.8rem 1.5rem;
       font-size: var(--font-size-base);
     }
-    
-    .submit-button {
-      width: 100%;
-    }
   }
-</style>
-
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', function() {
-    const form = document.querySelector('.contact-form');
-    
-    if (form) {
-      form.addEventListener('submit', function(e) {
-        const honeypotField = form.querySelector('input[name="email_confirmation"]');
-        
-        // If honeypot field is filled, prevent submission silently
-        if (honeypotField && honeypotField.value) {
-          e.preventDefault();
-          return false;
-        }
-      });
-    }
-  });
-</script>
-
-<script is:inline src="https://www.google.com/recaptcha/api.js" async defer></script> 
+</style> 
