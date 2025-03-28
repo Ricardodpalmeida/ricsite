@@ -22,3 +22,20 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Custom documentation
+manual.txt
+
+# Editor files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Local development settings
+.local/
+*.local.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
