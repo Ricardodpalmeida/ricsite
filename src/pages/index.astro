@@ -30,10 +30,12 @@ import MainLayout from '../layouts/MainLayout.astro';
         </div>
       </div>
       <div class="hero-image-container">
-        <div class="image-placeholder" aria-label="Profile image placeholder">
-          <div class="image-text">Profile Image</div>
-          <p class="image-caption">Replace with your photo in /public/images/profile.jpg</p>
-        </div>
+        <img 
+          src="/images/profile.png" 
+          alt="Ricardo Almeida" 
+          class="hero-image"
+          loading="eager"
+        />
       </div>
     </section>
     
@@ -148,6 +150,21 @@ import MainLayout from '../layouts/MainLayout.astro';
     max-width: 400px;
     display: flex;
     justify-content: center;
+  }
+  
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 3px solid var(--color-cosmic-latte);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .hero-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
   
   /* Placeholder styling */
