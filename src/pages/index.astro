@@ -38,26 +38,19 @@ import MainLayout from '../layouts/MainLayout.astro';
     </section>
     
     <section class="gallery-section">
-      <h2 class="section-title">Photo <span class="highlight">Gallery</span></h2>
-      <div class="gallery-carousel">
-        <button class="carousel-button prev" aria-label="Previous image">←</button>
-        <div class="gallery-container">
-          <div class="gallery-track">
-            {Array(5).fill(null).map((_, index) => (
-              <div class="gallery-item">
-                <img 
-                  src={`/images/HomePhotoGallery/photo${index + 1}.jpg`} 
-                  alt={`Gallery photo ${index + 1}`}
-                  loading="lazy"
-                  onError={(e) => {
-                    e.currentTarget.src = '/images/placeholder.jpg';
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+      <div class="gallery-container">
+        <div class="gallery-track">
+          {Array(5).fill(null).map((_, index) => (
+            <div class="gallery-item">
+              <img 
+                src={`/images/HomePhotoGallery/photo${index + 1}.jpg`} 
+                alt={`Gallery photo ${index + 1}`}
+                loading="lazy"
+                onerror="this.src='/images/placeholder.jpg'"
+              />
+            </div>
+          ))}
         </div>
-        <button class="carousel-button next" aria-label="Next image">→</button>
       </div>
     </section>
   </main>
@@ -191,27 +184,21 @@ import MainLayout from '../layouts/MainLayout.astro';
     overflow: hidden;
   }
   
-  .section-title {
-    font-size: var(--font-size-2xl);
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .gallery-carousel {
-    position: relative;
-    margin: 2rem -1rem;
-    padding: 0 1rem;
-  }
-  
   .gallery-container {
     overflow: hidden;
-    margin: 0 2rem;
+    cursor: grab;
+    user-select: none;
+    touch-action: pan-x;
+  }
+  
+  .gallery-container:active {
+    cursor: grabbing;
   }
   
   .gallery-track {
     display: flex;
     gap: 1rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.1s ease;
   }
   
   .gallery-item {
@@ -233,33 +220,6 @@ import MainLayout from '../layouts/MainLayout.astro';
     transform: translateY(-5px);
   }
   
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 248, 231, 0.1);
-    border: 1px solid var(--color-cosmic-latte-20);
-    color: var(--color-cosmic-latte);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 2;
-  }
-  
-  .carousel-button:hover {
-    background: rgba(255, 248, 231, 0.2);
-  }
-  
-  .carousel-button.prev {
-    left: 0;
-  }
-  
-  .carousel-button.next {
-    right: 0;
-  }
-  
   /* Media Queries */
   @media (max-width: 768px) {
     .hero-section {
@@ -279,16 +239,6 @@ import MainLayout from '../layouts/MainLayout.astro';
       font-size: var(--font-size-lg);
     }
     
-    .section-title {
-      font-size: var(--font-size-xl);
-    }
-    
-    .primary-button, 
-    .secondary-button {
-      width: 100%;
-      text-align: center;
-    }
-    
     .gallery-item {
       flex: 0 0 250px;
       height: 170px;
@@ -298,32 +248,58 @@ import MainLayout from '../layouts/MainLayout.astro';
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.gallery-container') as HTMLElement;
     const track = document.querySelector('.gallery-track');
-    const prevButton = document.querySelector('.carousel-button.prev');
-    const nextButton = document.querySelector('.carousel-button.next');
-    
-    if (!track || !prevButton || !nextButton) return;
-    
-    let position = 0;
-    const items = track.querySelectorAll('.gallery-item');
-    const itemWidth = 300 + 16; // width + gap
-    let maxPosition = -(items.length - Math.floor((track.parentElement?.offsetWidth || 0) / itemWidth)) * itemWidth;
-    
-    prevButton.addEventListener('click', () => {
-      position = Math.min(position + itemWidth, 0);
-      track.style.transform = `translateX(${position}px)`;
+    if (!container || !track) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    const handleDragStart = (clientX: number) => {
+      isDragging = true;
+      container.classList.add('active');
+      startX = clientX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    };
+
+    const handleDragEnd = () => {
+      isDragging = false;
+      container.classList.remove('active');
+    };
+
+    const handleDragMove = (clientX: number) => {
+      if (!isDragging) return;
+      const x = clientX - container.offsetLeft;
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    // Mouse events
+    container.addEventListener('mousedown', (e: MouseEvent) => {
+      e.preventDefault();
+      handleDragStart(e.pageX);
     });
-    
-    nextButton.addEventListener('click', () => {
-      position = Math.max(position - itemWidth, maxPosition);
-      track.style.transform = `translateX(${position}px)`;
+
+    container.addEventListener('mouseleave', () => handleDragEnd());
+    container.addEventListener('mouseup', () => handleDragEnd());
+
+    container.addEventListener('mousemove', (e: MouseEvent) => {
+      e.preventDefault();
+      handleDragMove(e.pageX);
     });
-    
-    // Update maxPosition on resize
-    window.addEventListener('resize', () => {
-      maxPosition = -(items.length - Math.floor((track.parentElement?.offsetWidth || 0) / itemWidth)) * itemWidth;
-      position = Math.max(position, maxPosition);
-      track.style.transform = `translateX(${position}px)`;
+
+    // Touch events
+    container.addEventListener('touchstart', (e: TouchEvent) => {
+      e.preventDefault();
+      handleDragStart(e.touches[0].pageX);
+    });
+
+    container.addEventListener('touchend', () => handleDragEnd());
+
+    container.addEventListener('touchmove', (e: TouchEvent) => {
+      e.preventDefault();
+      handleDragMove(e.touches[0].pageX);
     });
   });
 </script>

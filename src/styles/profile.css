@@ -10,6 +10,27 @@
   position: relative;
 }
 
+/* Profile Image */
+.profile-image {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.rounded-profile-image {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-cosmic-latte);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rounded-profile-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
 /* Section styling */
 .profile-section {
   margin-bottom: 3.5rem;

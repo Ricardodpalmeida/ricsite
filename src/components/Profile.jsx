@@ -163,6 +163,9 @@ function Profile() {
       {/* Header Section - Personal Info */}
       <header className="profile-header">
         <div className="profile-intro">
+          <div className="profile-image">
+            <img src="/images/profile.png" alt="Ricardo Almeida" className="rounded-profile-image" />
+          </div>
           <h1 className="profile-name">
             {isMultilingual 
               ? profileData.personal[language]?.name || profileData.personal.en.name

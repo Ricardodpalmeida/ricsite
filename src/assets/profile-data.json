@@ -1,12 +1,23 @@
 {
   "personal": {
-    "name": "Ricardo Almeida",
-    "title": "Manager, Data & AI at PwC Portugal | Cloud Solution Architect",
-    "location": "Lisbon, Portugal",
-    "connections": "500+",
+    "en": {
+      "name": "Ricardo Almeida",
+      "title": "Manager, Data & AI at PwC Portugal | Cloud Solution Architect",
+      "location": "Lisbon, Portugal",
+      "connections": "500+"
+    },
+    "pt": {
+      "name": "Ricardo Almeida",
+      "title": "Gestor de Data & IA na PwC Portugal | Arquiteto de Soluções Cloud",
+      "location": "Lisboa, Portugal",
+      "connections": "500+"
+    },
     "profileUrl": "www.linkedin.com/in/ricardodpa"
   },
-  "about": "I'm a Data & AI lead with a passion for creating practical, AI-powered cloud-based products that blend low-code and pro-code approaches. At PwC Portugal, I lead the design and implementation of Smart Products, Automation and AI integration, including Agentic AI, Retrieval-Augmented Generation (RAG) and Conversational AI/Chatbots. I am a certified Azure and Power Platform solution architect, holding 13 Microsoft certifications across multiple services. My technical background covers a wide range, including Microsoft Power Platform, Azure, Dynamics 365, Dataverse, Python, Databricks, C#/.NET, and more. I use these skills to develop scalable AI products and automate workflows that make work easier and more efficient. Beyond my professional work, I love learning. I have a Master's in Economics and Management of Science, Technology, and Innovation, and a diverse set of interests—from philosophy and history to design, photography, and astronomy. I started a Portuguese-language podcast to share insights and dive into new areas of knowledge. I'm motivated, creative, and always eager to learn more. I thrive on building AI solutions that make a difference while staying curious about the world around me.",
+  "about": {
+    "en": "I'm a Data & AI lead with a passion for creating practical, AI-powered cloud-based products that blend low-code and pro-code approaches. At PwC Portugal, I lead the design and implementation of Smart Products, Automation and AI integration, including Agentic AI, Retrieval-Augmented Generation (RAG) and Conversational AI/Chatbots. I am a certified Azure and Power Platform solution architect, holding 13 Microsoft certifications across multiple services. My technical background covers a wide range, including Microsoft Power Platform, Azure, Dynamics 365, Dataverse, Python, Databricks, C#/.NET, and more. I use these skills to develop scalable AI products and automate workflows that make work easier and more efficient. Beyond my professional work, I love learning. I have a Master's in Economics and Management of Science, Technology, and Innovation, and a diverse set of interests—from philosophy and history to design, photography, and astronomy. I started a Portuguese-language podcast to share insights and dive into new areas of knowledge. I'm motivated, creative, and always eager to learn more. I thrive on building AI solutions that make a difference while staying curious about the world around me.",
+    "pt": "Sou líder de Data & IA com uma paixão por criar produtos cloud práticos com IA que combinam abordagens low-code e pro-code. Na PwC Portugal, lidero o design e a implementação de Produtos Inteligentes, Automação e integração de IA, incluindo IA Agêntica, Geração Aumentada por Recuperação (RAG) e IA Conversacional/Chatbots. Sou arquiteto de soluções certificado em Azure e Power Platform, com 13 certificações Microsoft em vários serviços. A minha formação técnica abrange várias áreas, incluindo Microsoft Power Platform, Azure, Dynamics 365, Dataverse, Python, Databricks, C#/.NET e mais. Utilizo estas competências para desenvolver produtos de IA escaláveis e automatizar fluxos de trabalho que tornam o trabalho mais fácil e eficiente. Para além do meu trabalho profissional, adoro aprender. Tenho um Mestrado em Economia e Gestão da Ciência, Tecnologia e Inovação, e um conjunto diversificado de interesses - desde filosofia e história até design, fotografia e astronomia. Criei um podcast em português para partilhar conhecimentos e explorar novas áreas de conhecimento. Sou motivado, criativo e sempre ávido por aprender mais. Destaco-me por construir soluções de IA que fazem a diferença enquanto mantenho a curiosidade sobre o mundo à minha volta."
+  },
   "experience": [
     {
       "title": "Product and Cloud Lead - Data & AI team",
