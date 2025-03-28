@@ -1,4 +1,10 @@
 ---
+/**
+ * Main Layout Component
+ * 
+ * This layout sets up the basic structure for all pages on the site,
+ * including global styles and meta tags.
+ */
 const { title } = Astro.props;
 ---
 
@@ -28,6 +34,12 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
+  /**
+   * Global Styles
+   * 
+   * Sets up basic styling and colors for the entire site.
+   * Uses CSS variables for easy theme modifications.
+   */
   :root {
     --bg-color: #2c2c2c;
     --text-color: #ffffff;
@@ -71,6 +83,7 @@ const { title } = Astro.props;
     color: var(--highlight-color);
   }
   
+  /* Responsive adjustments */
   @media (max-width: 768px) {
     .container {
       padding: 0 0.5rem;

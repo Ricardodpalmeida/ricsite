@@ -1,19 +1,20 @@
 ---
+/**
+ * Home Page
+ * 
+ * The main landing page for the personal website.
+ * Uses the Profile component to display personal information.
+ */
 import MainLayout from '../layouts/MainLayout.astro';
-import StaticProfile from '../components/StaticProfile.jsx';
+import Profile from '../components/Profile.jsx';
 ---
 
 <MainLayout title="Ricardo Almeida | Personal Website">
   <main class="container">
-    <StaticProfile client:load />
-    <div class="debug-section">
-      <h3>Notice</h3>
-      <p>Using static profile data temporarily while resolving data fetching issues.</p>
-      <p class="test-links">
-        <a href="/profile-data.json">View Raw JSON Data</a> |
-        <a href="/fallback.html">HTML Fallback (No JS)</a>
-      </p>
-    </div>
+    <Profile client:load />
+    <footer>
+      <p class="footer-text">© 2025 Ricardo Almeida. All rights reserved.</p>
+    </footer>
   </main>
 </MainLayout>
 
@@ -22,39 +23,15 @@ import StaticProfile from '../components/StaticProfile.jsx';
     padding: 2rem 0;
   }
   
-  .debug-section {
+  footer {
     margin-top: 2rem;
-    padding: 1rem;
-    border: 1px solid #eaeaea;
-    border-radius: 5px;
-    background-color: #f9f9f9;
+    text-align: center;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  .debug-section h3 {
-    margin-top: 0;
-    color: #333;
-  }
-  
-  .test-links {
-    padding-top: 0.5rem;
-    color: #666;
+  .footer-text {
     font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
   }
-  
-  a {
-    color: #0070f3;
-    text-decoration: none;
-    padding: 0.2rem 0.5rem;
-    border: 1px solid #0070f3;
-    border-radius: 3px;
-    margin: 0 0.2rem;
-  }
-  
-  a:hover {
-    background-color: #0070f3;
-    color: white;
-    text-decoration: none;
-  }
-  
-  /* Add more specific styles here if needed */
 </style>
