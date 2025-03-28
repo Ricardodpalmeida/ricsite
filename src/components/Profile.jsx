@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/profile.css';
+import profileDataFallback from '../assets/profile-data.json';
 
 /**
  * Profile Component
@@ -57,35 +58,16 @@ function Profile() {
   
   // Fetch profile data from JSON file
   useEffect(() => {
-    // Try to fetch from public directory first
-    fetch('/profile-data.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Profile data loaded successfully from public directory');
-        setProfileData(data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error loading profile data from public directory:', error);
-        
-        // Fallback: try fetching from src/assets
-        import('../assets/profile-data.json')
-          .then(module => {
-            console.log('Profile data loaded successfully from assets directory');
-            setProfileData(module.default);
-            setIsLoading(false);
-          })
-          .catch(assetError => {
-            console.error('Error loading profile data from assets:', assetError);
-            setError(`Failed to load profile data: ${error.message}`);
-            setIsLoading(false);
-          });
-      });
+    // Use fallback data directly to avoid fetch issues in production
+    try {
+      console.log('Using imported profile data');
+      setProfileData(profileDataFallback);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error using fallback profile data:', error);
+      setError('Failed to load profile data. Please try refreshing the page.');
+      setIsLoading(false);
+    }
   }, []);
 
   // Show loading state if no data yet
