@@ -349,7 +349,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     font-size: 0.8rem;
     font-weight: var(--font-weight-medium);
     transition: all var(--transition-base);
-    height: 32px; /* Fixed height instead of min-height */
+    height: 32px !important; /* Add !important to ensure fixed height */
     min-width: 32px;
     text-align: center;
     text-decoration: none;
