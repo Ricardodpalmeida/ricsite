@@ -1,7 +1,8 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
 
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrAAAAD4egrCMVsq1F6brJbZ-7DcL4M8C';
+// Use reCAPTCHA v3 site key
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 ---
 
 <MainLayout title="Contact | Ricardo Almeida" description="Get in touch with Ricardo Almeida, Data & AI Manager and Cloud Solution Architect.">
@@ -26,6 +27,9 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrA
         <!-- Redirect to a thank you page after submission -->
         <input type="hidden" name="_next" value="https://me.ricbits.cc/thanks">
         
+        <!-- Hidden field for reCAPTCHA token -->
+        <input type="hidden" id="recaptcha-response" name="g-recaptcha-response" value="">
+        
         <div class="form-group">
           <label for="name">Your Name</label>
           <input type="text" id="name" name="name" required />
@@ -46,35 +50,33 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrA
           <textarea id="message" name="message" rows="5" required></textarea>
         </div>
         
-        <div id="g-recaptcha" class="g-recaptcha" data-sitekey={recaptchaSiteKey} data-theme="dark"></div>
+        <button type="submit" id="submit-button" class="submit-button">Send Message</button>
         
-        <button type="submit" id="submit-button" class="submit-button" disabled>Send Message</button>
+        <p class="recaptcha-terms">
+          This site is protected by reCAPTCHA v3 and the Google
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and
+          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.
+        </p>
       </form>
     </div>
   </div>
 </MainLayout>
 
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-<script>
-  // Add type definition for grecaptcha
-  declare global {
-    interface Window {
-      enableSubmit: () => void;
-      disableSubmit: () => void;
-      grecaptcha: {
-        render: (element: string | HTMLElement, options: any) => number;
-        getResponse: (widgetId?: number) => string;
-        reset: (widgetId?: number) => void;
-      };
-    }
-  }
+<script is:inline define:vars={{ recaptchaSiteKey }}>
+  // Load reCAPTCHA v3 script dynamically
+  (function() {
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  })();
 
   // Form expand/collapse functionality
   document.addEventListener('DOMContentLoaded', () => {
     const ctaButton = document.getElementById('contact-cta');
     const contactForm = document.getElementById('contact-form');
-    const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
+    const submitButton = document.getElementById('submit-button');
     
     if (ctaButton && contactForm) {
       ctaButton.addEventListener('click', () => {
@@ -87,38 +89,46 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrA
       });
     }
     
-    // Set up reCAPTCHA callback
-    window.enableSubmit = function() {
-      if (submitButton) {
-        submitButton.disabled = false;
-      }
-    };
-    
-    // Function to handle reCAPTCHA expiration
-    window.disableSubmit = function() {
-      if (submitButton) {
-        submitButton.disabled = true;
-      }
-    };
-    
-    // Attach this function to the reCAPTCHA callback
-    window.onload = function() {
-      if (document.querySelector('.g-recaptcha')) {
-        window.grecaptcha.render('g-recaptcha', {
-          'sitekey': document.querySelector('.g-recaptcha')?.getAttribute('data-sitekey') || '',
-          'callback': 'enableSubmit',
-          'expired-callback': 'disableSubmit'
-        });
-      }
-    };
-    
-    // Validate form on submit
+    // Handle form submission with reCAPTCHA
     if (contactForm) {
       contactForm.addEventListener('submit', function(e) {
-        const recaptchaResponse = window.grecaptcha.getResponse();
-        if (!recaptchaResponse) {
-          e.preventDefault();
-          alert('Please verify you are not a robot by completing the reCAPTCHA.');
+        e.preventDefault();
+        
+        // Show loading state
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Sending...';
+        }
+        
+        // Execute reCAPTCHA to get a token - wait for reCAPTCHA to be loaded
+        if (typeof grecaptcha !== 'undefined' && grecaptcha) {
+          grecaptcha.ready(function() {
+            grecaptcha.execute(recaptchaSiteKey, {action: 'submit'}).then(function(token) {
+              // Add the token to the form
+              document.getElementById('recaptcha-response').value = token;
+              
+              // Now submit the form
+              contactForm.submit();
+            }).catch(function(error) {
+              console.error('reCAPTCHA error:', error);
+              alert('There was an error verifying that you are not a robot. Please try again.');
+              
+              // Reset submit button
+              if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send Message';
+              }
+            });
+          });
+        } else {
+          console.error('reCAPTCHA not loaded');
+          alert('reCAPTCHA could not be loaded. Please refresh the page and try again.');
+          
+          // Reset submit button
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Send Message';
+          }
         }
       });
     }
@@ -247,16 +257,26 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrA
     box-shadow: 0 0 0 2px rgba(255, 248, 231, 0.1);
   }
   
-  .hidden {
-    display: none;
+  /* reCAPTCHA terms notice */
+  .recaptcha-terms {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    color: var(--color-gray-600);
+    text-align: center;
   }
   
-  .g-recaptcha {
-    margin-bottom: 1.5rem;
+  .recaptcha-terms a {
+    color: var(--color-cosmic-latte);
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+  }
+  
+  .recaptcha-terms a:hover {
+    opacity: 0.8;
   }
   
   .submit-button {
-    background-color: transparent;
+    background-color: var(--color-cosmic-latte-10);
     color: var(--color-white);
     border: 1px solid var(--color-cosmic-latte);
     padding: 0.85rem 2.5rem;
@@ -270,7 +290,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrA
   }
   
   .submit-button:hover {
-    background-color: var(--color-cosmic-latte-10);
+    background-color: var(--color-cosmic-latte-20);
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
@@ -278,6 +298,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LcOwgIrA
   .submit-button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
   }
   
   @keyframes slideDown {

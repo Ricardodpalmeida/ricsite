@@ -109,14 +109,23 @@
   margin-bottom: 0;
 }
 
+/* Common Interactive Elements - Base Styles */
+.profile-link,
+.language-btn,
+.credential-link,
+.submit-button,
+button,
+.skill-item[tabindex="0"] {
+  position: relative;
+  transition: all var(--transition-base);
+}
+
 .profile-link {
   display: inline-block;
   padding: 0.5rem 1rem;
   border: 1px solid var(--color-gray-100);
   border-radius: 4px;
   margin-top: 0.5rem;
-  transition: all var(--transition-base);
-  position: relative;
   overflow: hidden;
   z-index: 1;
 }
@@ -146,10 +155,89 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.profile-link:focus {
-  outline: 2px solid var(--color-cosmic-latte-20);
-  outline-offset: 2px;
+/* =============================================
+   FOCUS STYLES - CONSISTENT ACROSS ALL INTERACTIVE ELEMENTS
+   ============================================= */
+
+/* Base focus style for all interactive elements */
+.profile-link:focus,
+.language-btn:focus,
+.skill-item:focus,
+.credential-link:focus,
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[role="button"]:focus,
+[tabindex]:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 248, 231, 0.4);
+  border-color: var(--color-cosmic-latte);
 }
+
+/* Focus visible (keyboard focus) styles */
+.profile-link:focus-visible,
+.language-btn:focus-visible,
+.skill-item:focus-visible,
+.credential-link:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-cosmic-latte);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(255, 248, 231, 0.3);
+  border-color: var(--color-cosmic-latte);
+  transform: translateY(-2px);
+  transition: outline 0.2s ease, 
+              box-shadow 0.2s ease, 
+              transform 0.2s ease,
+              border-color 0.2s ease;
+  z-index: 5;
+}
+
+/* Add a focus indicator for interactive elements without natural borders */
+[tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible {
+  position: relative;
+}
+
+[tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 4px;
+  border: 2px solid var(--color-cosmic-latte);
+  pointer-events: none;
+}
+
+/* High contrast mode focus indicators */
+@media (forced-colors: active) {
+  .profile-link:focus-visible,
+  .language-btn:focus-visible,
+  .skill-item:focus-visible,
+  .credential-link:focus-visible,
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [role="button"]:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 3px solid CanvasText;
+    outline-offset: 3px;
+  }
+}
+
+/* =============================================
+   END FOCUS STYLES
+   ============================================= */
 
 /* About section */
 .about-section {
@@ -353,6 +441,37 @@
   transform: translateX(-50%) scale(1);
 }
 
+/* Mobile tooltip special handling */
+@media (max-width: 768px) {
+  .skill-item[data-description]::after {
+    width: 200px;
+    max-width: 80vw;
+    /* Adjust tooltip for mobile to prevent overflow */
+    left: 0;
+    transform: translateX(0) scale(0.85);
+  }
+  
+  .skill-item[data-description]:hover::after,
+  .skill-item[data-description]:focus::after {
+    transform: translateX(0) scale(1);
+  }
+  
+  /* If tooltip would go offscreen to the right, flip it */
+  .skill-item[data-description]:nth-child(3n+2)::after,
+  .skill-item[data-description]:nth-child(3n)::after {
+    left: auto;
+    right: 0;
+    transform: translateX(0) scale(0.85);
+  }
+  
+  .skill-item[data-description]:nth-child(3n+2):hover::after,
+  .skill-item[data-description]:nth-child(3n):hover::after,
+  .skill-item[data-description]:nth-child(3n+2):focus::after,
+  .skill-item[data-description]:nth-child(3n):focus::after {
+    transform: translateX(0) scale(1);
+  }
+}
+
 /* Arrow for tooltip */
 .skill-item[data-description]::before {
   content: '';
@@ -373,6 +492,18 @@
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) scale(1);
+  bottom: 114%;
+}
+
+/* Keyboard-accessible tooltips */
+.skill-item[data-description]:focus-visible::after,
+.skill-item[data-description]:focus-visible::before {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+}
+
+.skill-item[data-description]:focus-visible::before {
   bottom: 114%;
 }
 
@@ -570,6 +701,18 @@
   .skill-item {
     padding: 0.4rem 0.8rem;
   }
+  
+  /* Adjust language selector for mobile */
+  .language-selector {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 1rem auto;
+  }
+  
+  .language-btn {
+    padding: 0.5rem 1rem; /* Larger touch target */
+  }
 }
 
 @media (max-width: 480px) {
@@ -641,6 +784,11 @@
   cursor: pointer;
   transition: all var(--transition-base);
   font-family: var(--font-family-base);
+  min-width: 44px; /* Min touch target size */
+  min-height: 44px; /* Min touch target size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .language-btn:hover {

@@ -12,6 +12,12 @@ const blog = defineCollection({
   }),
 });
 
+// Define the profile collection for profile-data
+const profile = defineCollection({
+  type: 'data', // Use data collection for JSON
+});
+
 export const collections = {
   'blog': blog,
+  'profile': profile,
 }; 

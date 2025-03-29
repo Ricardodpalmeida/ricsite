@@ -6,6 +6,11 @@
  */
 import MainLayout from '../layouts/MainLayout.astro';
 import Profile from '../components/Profile.jsx';
+import { getCollection } from 'astro:content';
+
+// Get profile data from content collection
+const profileData = await getCollection('profile');
+const profileInfo = profileData.length > 0 ? profileData[0].data : null;
 ---
 
 <MainLayout 
@@ -14,7 +19,7 @@ import Profile from '../components/Profile.jsx';
 >
   <main class="about-container">
     <h1 class="about-title">About <span class="highlight">Me</span></h1>
-    <Profile client:load />
+    <Profile client:load profileData={profileInfo} currentLanguage={Astro.currentLocale || 'en'} />
   </main>
 </MainLayout>
 

@@ -10,13 +10,11 @@ export default defineConfig({
     // Ensure assets are properly referenced
     assets: '_assets',
   },
-  vite: {
-    build: {
-      rollupOptions: {
-        input: {
-          'profile-data': 'src/assets/profile-data.json'
-        }
-      }
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'pt'],
+    routing: {
+      prefixDefaultLocale: false
     }
   }
 });

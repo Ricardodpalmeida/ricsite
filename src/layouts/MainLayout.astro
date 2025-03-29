@@ -78,25 +78,27 @@ const siteUrl = "https://me.ricbits.cc";
   </head>
   <body>
     <header>
-      <nav class="main-nav">
-        <div class="container nav-container">
-          <ul>
-            <li><a href="/" class={Astro.url.pathname === '/' ? 'active' : ''}>Home</a></li>
-            <li><a href="/about" class={Astro.url.pathname === '/about' ? 'active' : ''}>About</a></li>
-            <li><a href="/blog" class={Astro.url.pathname.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
-            <li><a href="/podcast" class={Astro.url.pathname === '/podcast' ? 'active' : ''}>Podcast</a></li>
-            <li><a href="/music" class={Astro.url.pathname === '/music' ? 'active' : ''}>Music</a></li>
-            <li><a href="/contact" class={Astro.url.pathname === '/contact' ? 'active' : ''}>Contact</a></li>
-          </ul>
-          
-          {!hideLangSelector && (
-            <div class="language-selector">
-              <button class="language-btn en active" aria-label="Switch to English">EN</button>
-              <button class="language-btn pt" aria-label="Mudar para Português">PT</button>
-            </div>
-          )}
-        </div>
-      </nav>
+      <div class="header-wrapper">
+        {!hideLangSelector && (
+          <div class="language-selector">
+            <button class="language-btn en active" aria-label="Switch to English">EN</button>
+            <button class="language-btn pt" aria-label="Mudar para Português">PT</button>
+          </div>
+        )}
+        
+        <nav class="main-nav">
+          <div class="container nav-container">
+            <ul>
+              <li><a href="/" class={Astro.url.pathname === '/' ? 'active' : ''}>Home</a></li>
+              <li><a href="/about" class={Astro.url.pathname === '/about' ? 'active' : ''}>About</a></li>
+              <li><a href="/blog" class={Astro.url.pathname.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
+              <li><a href="/podcast" class={Astro.url.pathname === '/podcast' ? 'active' : ''}>Podcast</a></li>
+              <li><a href="/music" class={Astro.url.pathname === '/music' ? 'active' : ''}>Music</a></li>
+              <li><a href="/contact" class={Astro.url.pathname === '/contact' ? 'active' : ''}>Contact</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
     </header>
     
     <slot />
@@ -160,7 +162,7 @@ const siteUrl = "https://me.ricbits.cc";
             console.warn('Error saving to localStorage:', e);
           }
           // Broadcast language change event
-          window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'en' } }));
+          document.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'en' } }));
         });
         
         ptBtn.addEventListener('click', () => {
@@ -174,7 +176,7 @@ const siteUrl = "https://me.ricbits.cc";
             console.warn('Error saving to localStorage:', e);
           }
           // Broadcast language change event
-          window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'pt' } }));
+          document.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'pt' } }));
         });
       });
     </script>
@@ -319,16 +321,22 @@ const siteUrl = "https://me.ricbits.cc";
     padding: 0 var(--spacing-md);
   }
   
+  /* Header structure and wrapper */
+  .header-wrapper {
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid var(--color-gray-100);
+  }
+  
   /* Main navigation */
   .main-nav {
     padding: var(--spacing-md) 0;
-    border-bottom: 1px solid var(--color-gray-100);
     transition: border-color var(--transition-base);
   }
   
   .nav-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
   }
   
@@ -337,15 +345,20 @@ const siteUrl = "https://me.ricbits.cc";
     list-style: none;
     gap: var(--spacing-lg);
     flex-wrap: wrap;
+    justify-content: center;
   }
   
   .main-nav a {
     font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-sm);
-    letter-spacing: 0.03em;
-    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    text-transform: capitalize;
     padding: var(--spacing-xs) 0;
     position: relative;
+  }
+  
+  .main-nav a.active {
+    color: var(--color-cosmic-latte);
   }
   
   .main-nav a::after {
@@ -369,6 +382,10 @@ const siteUrl = "https://me.ricbits.cc";
   .language-selector {
     display: flex;
     gap: 0.5rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
   }
   
   .language-btn {
@@ -381,6 +398,8 @@ const siteUrl = "https://me.ricbits.cc";
     font-size: 0.8rem;
     font-weight: var(--font-weight-medium);
     transition: all var(--transition-base);
+    min-height: 32px;
+    min-width: 32px;
   }
   
   .language-btn:hover {
@@ -431,17 +450,26 @@ const siteUrl = "https://me.ricbits.cc";
     }
     
     .nav-container {
-      flex-direction: column;
-      gap: 1rem;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 1rem;
     }
     
     .main-nav ul {
       width: max-content;
       padding-bottom: var(--spacing-xs);
+      justify-content: flex-start;
     }
     
+    /* Language selector should stay in top right even on mobile */
     .language-selector {
-      margin-bottom: 0.5rem;
+      position: fixed;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 100;
+      background-color: rgba(44, 44, 44, 0.8);
+      padding: 0.2rem;
+      border-radius: 4px;
     }
   }
   

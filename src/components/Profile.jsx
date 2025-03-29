@@ -6,94 +6,51 @@ import '../styles/profile.css';
  * 
  * Displays the user's profile information in a clean, minimal layout
  * with dark background and light text according to the design requirements.
- * Fetches data from a JSON file for easy updates.
+ * Receives data from parent Astro component for better optimization.
  * 
+ * @param {Object} props - Component props
+ * @param {Object} props.profileData - The profile data object from content collection
+ * @param {string} props.currentLanguage - The current language (en or pt)
  * @returns {JSX.Element} The Profile component
  */
-function Profile() {
-  const [profileData, setProfileData] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [language, setLanguage] = useState('en'); // Default to English
+function Profile({ profileData, currentLanguage = 'en' }) {
+  const [language, setLanguage] = useState(currentLanguage);
   
-  // Determine the preferred language (default to English)
-  function getBrowserLanguage() {
-    // Check if we're in a browser environment
-    if (typeof window === 'undefined') {
-      return 'en'; // Default for server-side rendering
-    }
-    
-    // Check if localStorage has a saved preference
-    try {
-      const savedLanguage = localStorage.getItem('preferredLanguage');
-      if (savedLanguage) return savedLanguage;
-    } catch (error) {
-      console.warn('Error accessing localStorage:', error);
-    }
-    
-    // Check browser language
-    const browserLang = navigator.language || navigator.userLanguage;
-    return browserLang && browserLang.startsWith('pt') ? 'pt' : 'en';
-  }
-  
-  // Initialize language from browser settings once component is mounted (client-side only)
+  // Initialize touch tooltip functionality
   useEffect(() => {
-    setLanguage(getBrowserLanguage());
-    
-    // Setup event listener for language changes from the main site header
+    // Import the TouchTooltips module dynamically to avoid SSR issues
+    import('../components/TouchTooltips.js').then(module => {
+      const initTouchTooltips = module.default;
+      // Initialize tooltips after the component has rendered
+      initTouchTooltips();
+    }).catch(err => {
+      console.warn('Could not load touch tooltips:', err);
+    });
+  }, []);
+  
+  // Listen for language changes from the global language selector
+  useEffect(() => {
     const handleLanguageChange = (event) => {
       if (event.detail && event.detail.language) {
         setLanguage(event.detail.language);
       }
     };
     
-    window.addEventListener('languageChange', handleLanguageChange);
+    // Add event listener
+    document.addEventListener('languageChange', handleLanguageChange);
     
-    // Clean up the event listener on component unmount
+    // Clean up
     return () => {
-      window.removeEventListener('languageChange', handleLanguageChange);
+      document.removeEventListener('languageChange', handleLanguageChange);
     };
   }, []);
   
-  // Load profile data via fetch - most reliable for production builds
+  // Update local state when currentLanguage prop changes
   useEffect(() => {
-    // Use a relative URL to ensure it works with any base path
-    fetch('/profile-data.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Failed to load profile data (${response.status})`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Profile data loaded successfully');
-        
-        // Validate data has the expected structure
-        if (!data || !data.personal) {
-          throw new Error('Profile data is missing required structure');
-        }
-        
-        setProfileData(data);
-        setIsLoading(false);
-      })
-      .catch(error => {
-        console.error('Error loading profile data:', error);
-        setError('Failed to load profile data. Please try refreshing the page.');
-        setIsLoading(false);
-      });
-  }, []);
-
-  // Show loading state if no data yet
-  if (isLoading) {
-    return <div className="loading" aria-live="polite" role="status">Loading profile data...</div>;
-  }
+    setLanguage(currentLanguage);
+  }, [currentLanguage]);
   
-  // Show error if any
-  if (error) {
-    return <div className="error-message" role="alert"><p>Error: {error}</p></div>;
-  }
-
-  // If no profile data loaded
+  // If no profile data provided
   if (!profileData) {
     return <div className="error-message" role="alert"><p>Profile data could not be loaded.</p></div>;
   }
@@ -235,11 +192,9 @@ function Profile() {
                 
                 const description = skillDescriptions[skillName] || `Expertise in ${skillName}`;
                 
-                const isHighlighted = skillName === "Low-code Development" || 
-                                      skillName === "Cloud Architecture" ||
-                                      skillName === "Cloud Computing" ||
-                                      skillName === "RAG" ||
-                                      skillName === "LLM Integration";
+                // Use the highlight flag from the data instead of hardcoding
+                const isHighlighted = safeGet(skill, `${language}.highlight`, false) || 
+                                     safeGet(skill, 'en.highlight', false);
                 
                 return (
                   <span 
@@ -248,48 +203,18 @@ function Profile() {
                     role="listitem"
                     data-category={skillCategory}
                     data-description={description}
-                    data-highlight={isHighlighted ? "true" : "false"}
-                    title={skillLevel ? `${skillName} - ${skillLevel}` : skillName}
+                    data-highlight={isHighlighted}
                   >
                     {skillName}
-                    {typeof skill === 'object' && skill.credentialID && skill.credentialURL && (
-                      <a 
-                        href={skill.credentialURL} 
-                        className="skill-credential-link" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        aria-label={`Credential for ${skillName}`}
-                      >
-                        <span aria-hidden="true">🔗</span>
-                      </a>
-                    )}
                   </span>
                 );
               })}
             </div>
           ) : (
             <div className="skills-list" role="list">
-              {profileData.skills.map((skill, index) => {
-                const skillName = typeof skill === 'string' ? skill : 'Skill';
-                const description = skillDescriptions[skillName] || `Expertise in ${skillName}`;
-                const isHighlighted = skillName === "Low-code Development" || 
-                                      skillName === "Cloud Computing" ||
-                                      skillName === "Cloud Architecture" ||
-                                      skillName === "RAG" ||
-                                      skillName === "LLM Integration";
-                
-                return (
-                  <span 
-                    key={index} 
-                    className="skill-item" 
-                    role="listitem"
-                    data-description={description}
-                    data-highlight={isHighlighted ? "true" : "false"}
-                  >
-                    {skillName}
-                  </span>
-                );
-              })}
+              {profileData.skills.map((skill, index) => (
+                <span key={index} className="skill-item" role="listitem">{skill}</span>
+              ))}
             </div>
           )}
         </section>
@@ -432,74 +357,79 @@ function Profile() {
       {profileData.certifications && profileData.certifications.length > 0 && (
         <section className="profile-section" aria-labelledby="certifications-heading">
           <h2 className="section-title" id="certifications-heading">{getUI('certifications', 'Certifications')}</h2>
+          
           <div className="timeline">
-            {profileData.certifications.map((cert, index) => {
-              // Safely extract certification data
-              const title = isMultilingual ?
-                safeGet(cert, `${language}.title`) || safeGet(cert, 'en.title', '') :
-                safeGet(cert, 'title', '');
-              
-              const issuer = isMultilingual ?
-                safeGet(cert, `${language}.issuer`) || safeGet(cert, 'en.issuer', '') :
-                safeGet(cert, 'issuer', '');
-              
-              const issued = isMultilingual ?
-                safeGet(cert, `${language}.issued`) || safeGet(cert, 'en.issued', '') :
-                safeGet(cert, 'issued', '');
-              
-              const expires = isMultilingual ?
-                safeGet(cert, `${language}.expires`) || safeGet(cert, 'en.expires', '') :
-                safeGet(cert, 'expires', '');
-              
-              const credentialID = isMultilingual ?
-                safeGet(cert, `${language}.credentialID`) || safeGet(cert, 'en.credentialID', '') :
-                safeGet(cert, 'credentialID', '');
-              
-              const credentialURL = isMultilingual ?
-                safeGet(cert, `${language}.credentialURL`) || safeGet(cert, 'en.credentialURL', '') :
-                safeGet(cert, 'credentialURL', '');
-              
+            {profileData.certifications.map((certification, index) => {
+              const certTitle = isMultilingual ? 
+                safeGet(certification, `${language}.title`) || safeGet(certification, 'en.title', 'Certification') : 
+                safeGet(certification, 'title', 'Certification');
+                
+              const certIssuer = isMultilingual ? 
+                safeGet(certification, `${language}.issuer`) || safeGet(certification, 'en.issuer', '') : 
+                safeGet(certification, 'issuer', '');
+                
+              const credentialID = isMultilingual ? 
+                safeGet(certification, `${language}.credentialID`) || safeGet(certification, 'en.credentialID', '') : 
+                safeGet(certification, 'credentialID', '');
+                
+              const credentialURL = isMultilingual ? 
+                safeGet(certification, `${language}.credentialURL`) || safeGet(certification, 'en.credentialURL', '') : 
+                safeGet(certification, 'credentialURL', '');
+                
+              const issued = isMultilingual ? 
+                safeGet(certification, `${language}.issued`) || safeGet(certification, 'en.issued', '') : 
+                safeGet(certification, 'issued', '');
+                
+              const expires = isMultilingual ? 
+                safeGet(certification, `${language}.expires`) || safeGet(certification, 'en.expires', '') : 
+                safeGet(certification, 'expires', '');
+                
               return (
-                <article key={index} className="timeline-item">
-                  <div className="timeline-marker" aria-hidden="true"></div>
+                <div key={index} className="timeline-item">
+                  <div className="timeline-marker"></div>
                   <div className="timeline-content">
-                    <h3 className="item-title">{title}</h3>
-                    <h4 className="item-subtitle highlight">{issuer}</h4>
-                    {(issued || expires) && (
+                    <h3 className="item-title">{certTitle}</h3>
+                    {certIssuer && <p className="item-subtitle">{certIssuer}</p>}
+                    
+                    <div className="item-metadata">
+                      {issued && (
+                        <span className="item-detail">
+                          <span className="item-label">{getUI('issued', 'Issued')}:</span> {issued}
+                        </span>
+                      )}
+                      
+                      {expires && (
+                        <>
+                          <span className="item-separator">•</span>
+                          <span className="item-detail">
+                            <span className="item-label">{getUI('expires', 'Expires')}:</span> {expires}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                    
+                    {credentialID && (
                       <div className="item-metadata">
-                        {issued && (
-                          <span className="item-duration">
-                            <span aria-label="Issued" role="img" aria-hidden="true">🗓️</span> {getUI('issued', 'Issued')}: {issued}
-                          </span>
-                        )}
-                        {issued && expires && (
-                          <span className="item-separator" aria-hidden="true">•</span>
-                        )}
-                        {expires && (
-                          <span className="item-expires">
-                            <span aria-label="Expires" role="img" aria-hidden="true">⏳</span> {getUI('expires', 'Expires')}: {expires}
-                          </span>
-                        )}
+                        <span className="item-detail">
+                          <span className="item-label">{getUI('credentialId', 'Credential ID')}:</span> {credentialID}
+                        </span>
                       </div>
                     )}
-                    {credentialID && (
-                      <p className="item-detail">
-                        {getUI('credential', 'Credential ID')}: {credentialURL ? (
-                          <a 
-                            href={credentialURL} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="credential-link highlight"
-                          >
-                            {credentialID}
-                          </a>
-                        ) : (
-                          credentialID
-                        )}
-                      </p>
+                    
+                    {credentialURL && (
+                      <div className="credential-link">
+                        <a 
+                          href={credentialURL} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          aria-label={`Verify ${certTitle} credential`}
+                        >
+                          {getUI('verifyCertificate', 'Verify Certificate')}
+                        </a>
+                      </div>
                     )}
                   </div>
-                </article>
+                </div>
               );
             })}
           </div>
