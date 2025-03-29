@@ -1,24 +1,30 @@
 ---
 /**
- * Thanks Page
+ * Thanks Page - English
  * 
  * Shown after contact form submission.
  */
-import MainLayout from '../layouts/MainLayout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <MainLayout 
   title="Thank You | Ricardo Almeida" 
   description="Thanks for your message! I'll get back to you soon."
+  currentLanguage={lang}
 >
   <div class="thanks-container">
     <div class="thanks-content">
-      <h1 class="thanks-title">Thank <span class="highlight">You</span>!</h1>
+      <h1 class="thanks-title">{t('thanks.title')} <span class="highlight">{t('thanks.highlight')}</span>!</h1>
       <p class="thanks-description">
-        I've received your message and will get back to you as soon as possible.
+        {t('thanks.message')}
       </p>
       <div class="thanks-actions">
-        <a href="/" class="primary-button">Return to Home</a>
+        <a href={`/${lang}/`} class="primary-button">{t('thanks.returnHome')}</a>
       </div>
     </div>
   </div>

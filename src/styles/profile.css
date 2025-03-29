@@ -253,7 +253,7 @@ select:focus-visible,
 
 .about-section:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .profile-about-container {
@@ -261,10 +261,22 @@ select:focus-visible,
 }
 
 .profile-about {
-  font-size: 1.1rem;
   line-height: var(--line-height-loose);
-  max-width: 65ch;
+  font-size: var(--font-size-base);
+  margin-bottom: 1.25rem;
   text-align: justify;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.profile-about:last-child {
+  margin-bottom: 0;
+}
+
+.profile-about:first-letter {
+  font-size: 1.2em;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-cosmic-latte);
 }
 
 /* Timeline styling for experience and education */
@@ -800,4 +812,89 @@ select:focus-visible,
   background-color: var(--color-cosmic-latte-10);
   border-color: var(--color-cosmic-latte);
   color: var(--color-cosmic-latte);
+}
+
+/* Contact Section */
+.contact-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.contact-section .contact-wrapper {
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 400px;
+}
+
+.contact-section .contact-button {
+  background-color: rgba(255, 248, 231, 0.1);
+  color: var(--color-white);
+  border: 1px solid var(--color-cosmic-latte);
+  padding: 0.8rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.02em;
+}
+
+.contact-section .contact-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 248, 231, 0.2);
+  transition: width 0.3s ease;
+  z-index: 1;
+}
+
+.contact-section .contact-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.contact-section .contact-button:hover::after {
+  width: 100%;
+}
+
+.contact-section .contact-email {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--color-cosmic-latte);
+  user-select: all;
+  padding: 0.5rem 1rem;
+  border: 1px dashed rgba(255, 248, 231, 0.2);
+  border-radius: 4px;
+  background-color: rgba(255, 248, 231, 0.05);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.contact-section .recaptcha-terms {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 400px;
+  line-height: 1.4;
+}
+
+.contact-section .recaptcha-terms a {
+  color: var(--color-cosmic-latte);
+  text-decoration: underline;
+}
+
+.contact-section .hidden {
+  display: none;
 } 

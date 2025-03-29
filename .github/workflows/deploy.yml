@@ -27,9 +27,11 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: |
-          rm -f package-lock.json
+          # rm -f package-lock.json
           npm install
       - name: Build
+        env:
+          PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.PUBLIC_RECAPTCHA_SITE_KEY }}
         run: npm run build
       - name: Ensure CNAME exists
         run: |

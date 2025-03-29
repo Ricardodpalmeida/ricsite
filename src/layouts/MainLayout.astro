@@ -5,17 +5,27 @@
  * This layout sets up the basic structure for all pages on the site,
  * including global styles and meta tags.
  */
-const { title, description, image, canonical, hideLangSelector = false } = Astro.props;
+import { getLangFromUrl, useTranslations, getLocalizedUrl } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const { title, description, image, canonical, hideLangSelector = false, currentLanguage } = Astro.props;
+
+// Get language and translations
+const lang = currentLanguage || getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 // Default meta values
 const defaultTitle = "Ricardo Almeida | Data & AI Manager | Cloud Solution Architect";
 const defaultDescription = "Data & AI Manager at PwC Portugal specializing in AI solutions, Cloud Architecture, Microsoft Power Platform, and RAG implementations. Certified Azure and Power Platform solution architect.";
 const defaultImage = "/images/profile-cover.jpg";
 const siteUrl = "https://me.ricbits.cc";
+
+// Use reCAPTCHA v3 site key
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,10 +60,13 @@ const siteUrl = "https://me.ricbits.cc";
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
-    <!-- Google Fonts: Roboto with various weights -->
+    <!-- Google Fonts: Switch to serif for small text and sans serif for headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- reCAPTCHA v3 script -->
+    <script is:inline src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}></script>
     
     <!-- Structured Data for Professional Profile -->
     <script type="application/ld+json">
@@ -81,20 +94,26 @@ const siteUrl = "https://me.ricbits.cc";
       <div class="header-wrapper">
         {!hideLangSelector && (
           <div class="language-selector">
-            <button class="language-btn en active" aria-label="Switch to English">EN</button>
-            <button class="language-btn pt" aria-label="Mudar para Português">PT</button>
+            {Object.entries(languages).map(([langCode, langName]) => (
+              <a 
+                href={getLocalizedUrl(Astro.url, langCode as ('en' | 'pt'))} 
+                class={`language-btn ${langCode} ${langCode === lang ? 'active' : ''}`}
+                aria-label={langCode === 'en' ? 'Switch to English' : 'Mudar para Português'}
+              >
+                {langCode.toUpperCase()}
+              </a>
+            ))}
           </div>
         )}
         
         <nav class="main-nav">
           <div class="container nav-container">
             <ul>
-              <li><a href="/" class={Astro.url.pathname === '/' ? 'active' : ''}>Home</a></li>
-              <li><a href="/about" class={Astro.url.pathname === '/about' ? 'active' : ''}>About</a></li>
-              <li><a href="/blog" class={Astro.url.pathname.startsWith('/blog') ? 'active' : ''}>Blog</a></li>
-              <li><a href="/podcast" class={Astro.url.pathname === '/podcast' ? 'active' : ''}>Podcast</a></li>
-              <li><a href="/music" class={Astro.url.pathname === '/music' ? 'active' : ''}>Music</a></li>
-              <li><a href="/contact" class={Astro.url.pathname === '/contact' ? 'active' : ''}>Contact</a></li>
+              <li><a href={`/${lang}/`} class={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? 'active' : ''}>{t('nav.home')}</a></li>
+              <li><a href={`/${lang}/about`} class={Astro.url.pathname === `/${lang}/about` ? 'active' : ''}>{t('nav.about')}</a></li>
+              <li><a href={`/${lang}/blog`} class={Astro.url.pathname.startsWith(`/${lang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+              <li><a href={`/${lang}/podcast`} class={Astro.url.pathname === `/${lang}/podcast` ? 'active' : ''}>{t('nav.podcast')}</a></li>
+              <li><a href={`/${lang}/music`} class={Astro.url.pathname === `/${lang}/music` ? 'active' : ''}>{t('nav.music')}</a></li>
             </ul>
           </div>
         </nav>
@@ -105,81 +124,9 @@ const siteUrl = "https://me.ricbits.cc";
     
     <footer>
       <div class="container">
-        <p class="footer-text">© 2025 Ricardo Almeida. All rights reserved.</p>
+        <p class="footer-text">{t('footer.copyright')}</p>
       </div>
     </footer>
-
-    <script>
-      // Handle language selection
-      document.addEventListener('DOMContentLoaded', () => {
-        const enBtn = document.querySelector('.language-btn.en');
-        const ptBtn = document.querySelector('.language-btn.pt');
-        
-        // Exit if language buttons aren't found
-        if (!enBtn || !ptBtn) {
-          console.warn('Language buttons not found');
-          return;
-        }
-        
-        // Get stored language preference or detect from browser
-        let currentLang = 'en';
-        
-        try {
-          if (typeof localStorage !== 'undefined') {
-            const savedLang = localStorage.getItem('preferredLanguage');
-            if (savedLang) {
-              currentLang = savedLang;
-            } else {
-              // Browser language detection
-              const browserLang = navigator.language;
-              if (browserLang && browserLang.startsWith('pt')) {
-                currentLang = 'pt';
-              }
-            }
-          }
-        } catch (e) {
-          console.warn('Error accessing localStorage:', e);
-        }
-        
-        // Set initial active state
-        if (currentLang === 'pt') {
-          enBtn.classList.remove('active');
-          ptBtn.classList.add('active');
-        } else {
-          enBtn.classList.add('active');
-          ptBtn.classList.remove('active');
-        }
-        
-        // Add click handlers
-        enBtn.addEventListener('click', () => {
-          enBtn.classList.add('active');
-          ptBtn.classList.remove('active');
-          try {
-            if (typeof localStorage !== 'undefined') {
-              localStorage.setItem('preferredLanguage', 'en');
-            }
-          } catch (e) {
-            console.warn('Error saving to localStorage:', e);
-          }
-          // Broadcast language change event
-          document.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'en' } }));
-        });
-        
-        ptBtn.addEventListener('click', () => {
-          ptBtn.classList.add('active');
-          enBtn.classList.remove('active');
-          try {
-            if (typeof localStorage !== 'undefined') {
-              localStorage.setItem('preferredLanguage', 'pt');
-            }
-          } catch (e) {
-            console.warn('Error saving to localStorage:', e);
-          }
-          // Broadcast language change event
-          document.dispatchEvent(new CustomEvent('languageChange', { detail: { language: 'pt' } }));
-        });
-      });
-    </script>
   </body>
 </html>
 
@@ -202,10 +149,10 @@ const siteUrl = "https://me.ricbits.cc";
     --color-gray-300: rgba(255, 255, 255, 0.3);
     --color-gray-600: rgba(255, 255, 255, 0.6);
     
-    /* Typography */
-    --font-family-base: 'Roboto', sans-serif;
-    --font-family-title: 'Roboto', sans-serif;
-    --font-family-alt: 'Roboto Slab', serif;
+    /* Typography - Swap serif and sans-serif for correct usage */
+    --font-family-base: 'Roboto Slab', serif; /* Changed to serif for body text */
+    --font-family-title: 'Roboto', sans-serif; /* Kept sans-serif for headings */
+    --font-family-alt: 'Roboto', sans-serif;
     
     /* Font weights */
     --font-weight-light: 300;
@@ -349,6 +296,7 @@ const siteUrl = "https://me.ricbits.cc";
   }
   
   .main-nav a {
+    font-family: var(--font-family-title); /* Ensure nav links use sans-serif */
     font-weight: var(--font-weight-medium);
     font-size: 0.9rem;
     letter-spacing: 0.02em;
@@ -389,6 +337,9 @@ const siteUrl = "https://me.ricbits.cc";
   }
   
   .language-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     background: transparent;
     border: 1px solid var(--color-gray-200);
     color: var(--color-white);
@@ -398,8 +349,10 @@ const siteUrl = "https://me.ricbits.cc";
     font-size: 0.8rem;
     font-weight: var(--font-weight-medium);
     transition: all var(--transition-base);
-    min-height: 32px;
+    height: 32px; /* Fixed height instead of min-height */
     min-width: 32px;
+    text-align: center;
+    text-decoration: none;
   }
   
   .language-btn:hover {
@@ -425,7 +378,7 @@ const siteUrl = "https://me.ricbits.cc";
   .footer-text {
     font-size: var(--font-size-sm);
     color: var(--color-gray-600);
-    margin-bottom: 0;
+    margin-bottom: var(--spacing-md);
   }
   
   /* Responsive adjustments */
@@ -470,30 +423,6 @@ const siteUrl = "https://me.ricbits.cc";
       background-color: rgba(44, 44, 44, 0.8);
       padding: 0.2rem;
       border-radius: 4px;
-    }
-  }
-  
-  /* Animation utilities */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes pulse {
-    0% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.6;
     }
   }
 </style>

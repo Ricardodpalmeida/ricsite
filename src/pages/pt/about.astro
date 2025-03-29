@@ -1,12 +1,17 @@
 ---
 /**
- * About Page
+ * About Page - Portuguese
  * 
  * Displays detailed personal and professional information using the Profile component.
  */
-import MainLayout from '../layouts/MainLayout.astro';
-import Profile from '../components/Profile.jsx';
+import MainLayout from '../../layouts/MainLayout.astro';
+import Profile from '../../components/Profile.jsx';
 import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 // Get profile data from content collection
 const profileData = await getCollection('profile');
@@ -14,12 +19,13 @@ const profileInfo = profileData.length > 0 ? profileData[0].data : null;
 ---
 
 <MainLayout 
-  title="About | Ricardo Almeida" 
-  description="Learn more about Ricardo Almeida, Data & AI Manager at PwC Portugal and Cloud Solution Architect."
+  title="Sobre | Ricardo Almeida" 
+  description="Saiba mais sobre Ricardo Almeida, Gestor de Data & IA na PwC Portugal e Arquiteto de Soluções Cloud."
+  currentLanguage={lang}
 >
   <main class="about-container">
-    <h1 class="about-title">About <span class="highlight">Me</span></h1>
-    <Profile client:load profileData={profileInfo} currentLanguage={Astro.currentLocale || 'en'} />
+    <h1 class="about-title">{t('about.title')} <span class="highlight">{t('about.me')}</span></h1>
+    <Profile client:load profileData={profileInfo} currentLanguage={lang} />
   </main>
 </MainLayout>
 

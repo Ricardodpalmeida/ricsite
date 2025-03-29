@@ -1,0 +1,451 @@
+---
+/**
+ * Home Page - English
+ * 
+ * The main landing page for the personal website.
+ * Features a brief introduction, image gallery, and contact CTA.
+ */
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Get all images using Astro.glob
+const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
+const galleryImages = galleryImageModules.map(module => module.default.src);
+---
+
+<MainLayout 
+  title="Ricardo Almeida | Personal Website" 
+  currentLanguage={lang}
+>
+  <main class="home-container">
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="profile-circle">
+          <img 
+            src="/images/profile.png" 
+            alt="Ricardo Almeida" 
+            class="profile-image"
+            loading="eager"
+          />
+        </div>
+        <h1 class="hero-title">{t('hero.greeting')} <span class="highlight">Ricardo</span></h1>
+        <p class="hero-subtitle">{t('hero.jobTitle')}</p>
+        <div class="hero-description">
+          <p>
+            I build AI solutions that address real business needs. At PwC Portugal, I lead teams that develop intelligent cloud products combining the best of low-code platforms with traditional development.
+          </p>
+          <p>
+            When I'm not designing cloud architectures or working with LLMs, you'll find me exploring history books, taking photos, or rewatching Star Wars (yes, even the prequels). I believe the most interesting solutions come from connecting different worlds.
+          </p>
+        </div>
+        <div class="hero-cta">
+          <button id="home-contact-btn" class="primary-button">{t('contact.button')}</button>
+        </div>
+        <div class="contact-reveal-container">
+          <p id="home-contact-email" class="contact-email hidden">ricardodpa@gmail.com</p>
+          <p id="home-recaptcha-terms" class="recaptcha-terms hidden">
+            {t('contact.recaptcha.prefix')}
+            {' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+              {t('contact.recaptcha.privacy')}
+            </a>{' & '}
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
+              {t('contact.recaptcha.terms')}
+            </a>{' '}
+            {t('contact.recaptcha.suffix')}
+          </p>
+        </div>
+      </div>
+    </section>
+    
+    {galleryImages.length > 0 && (
+      <section class="gallery-section">
+        <div class="gallery-container">
+          <div class="gallery-track">
+            {galleryImages.map((imageSrc: string, i: number) => (
+              <div class="gallery-item">
+                <img 
+                  src={imageSrc}
+                  alt={`Gallery image ${i + 1}`}
+                  loading="lazy"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+</MainLayout>
+
+<style>
+  .home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 150px);
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    margin-bottom: 4rem;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .profile-circle {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--color-cosmic-latte);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .profile-circle:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .profile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .hero-title {
+    text-align: center;
+    font-size: var(--font-size-3xl);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-family-title);
+  }
+  
+  .hero-subtitle {
+    text-align: center;
+    font-size: var(--font-size-xl);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 1.5rem;
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-family-title);
+  }
+  
+  .hero-description {
+    margin-bottom: 2rem;
+    max-width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: var(--font-family-base);
+  }
+  
+  .hero-description p {
+    margin-bottom: 1rem;
+    line-height: var(--line-height-loose);
+    text-align: justify;
+  }
+  
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .primary-button, 
+  .secondary-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+    text-decoration: none;
+    font-family: var(--font-family-title);
+  }
+  
+  .primary-button {
+    background-color: var(--color-cosmic-latte-10);
+    color: var(--color-white);
+    border: 1px solid var(--color-cosmic-latte);
+  }
+  
+  .primary-button:hover {
+    background-color: var(--color-cosmic-latte-20);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  .secondary-button {
+    background-color: transparent;
+    color: var(--color-white);
+    border: 1px solid var(--color-gray-300);
+  }
+  
+  .secondary-button:hover {
+    border-color: var(--color-cosmic-latte);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Gallery Section */
+  .gallery-section {
+    padding: 2rem 0;
+    overflow: hidden;
+    background: var(--color-gray-900);
+  }
+  
+  .gallery-container {
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    cursor: grab;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .gallery-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .gallery-container.active {
+    cursor: grabbing;
+  }
+  
+  .gallery-track {
+    display: flex;
+    gap: 1rem;
+    padding: 0 1rem;
+    transition: transform 0.1s ease-out;
+  }
+  
+  .gallery-item {
+    flex: 0 0 300px;
+    height: 200px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  .gallery-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .hero-section {
+      flex-direction: column-reverse;
+      gap: 2rem;
+    }
+    
+    .hero-image-container {
+      max-width: 100%;
+    }
+    
+    .hero-title {
+      font-size: var(--font-size-2xl);
+    }
+    
+    .hero-subtitle {
+      font-size: var(--font-size-lg);
+    }
+    
+    .gallery-item {
+      flex: 0 0 250px;
+      height: 175px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .gallery-item {
+      flex: 0 0 200px;
+      height: 150px;
+    }
+  }
+
+  /* Add styles for hidden contact elements */
+  /* Use more specific selectors */
+  #home-contact-email.hidden,
+  #home-recaptcha-terms.hidden,
+  #home-contact-btn.hidden {
+    display: none;
+  }
+
+  .contact-email {
+    margin-top: 1rem;
+    font-size: var(--font-size-lg);
+    text-align: center;
+    user-select: all; /* Allow easy copying */
+    background-color: var(--color-gray-800);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: inline-block; /* Center block */
+  }
+
+  .recaptcha-terms {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-400);
+    margin-top: 0.5rem;
+    text-align: center;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .contact-reveal-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 1rem;
+  }
+  
+  .hero-cta button.primary-button {
+    cursor: pointer; /* Make button look clickable */
+    /* Inherits other styles from .primary-button */
+  }
+</style>
+
+<script>
+  // Add type declaration for grecaptcha on window
+  declare global {
+    interface Window { 
+      grecaptcha: any; 
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.gallery-container') as HTMLElement;
+    const track = document.querySelector('.gallery-track') as HTMLElement;
+    if (!container || !track) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    const handleDragStart = (clientX: number) => {
+      isDragging = true;
+      container.classList.add('active');
+      startX = clientX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    };
+
+    const handleDragEnd = () => {
+      isDragging = false;
+      container.classList.remove('active');
+    };
+
+    const handleDragMove = (clientX: number) => {
+      if (!isDragging) return;
+      const x = clientX - container.offsetLeft;
+      const walk = (x - startX) * 2;
+      container.scrollLeft = scrollLeft - walk;
+    };
+
+    // Mouse events
+    container.addEventListener('mousedown', (e: MouseEvent) => {
+      e.preventDefault();
+      handleDragStart(e.pageX);
+    });
+
+    container.addEventListener('mouseleave', () => handleDragEnd());
+    container.addEventListener('mouseup', () => handleDragEnd());
+
+    container.addEventListener('mousemove', (e: MouseEvent) => {
+      e.preventDefault();
+      handleDragMove(e.pageX);
+    });
+
+    // Touch events
+    container.addEventListener('touchstart', (e: TouchEvent) => {
+      e.preventDefault();
+      handleDragStart(e.touches[0].pageX);
+    });
+
+    container.addEventListener('touchend', () => handleDragEnd());
+
+    container.addEventListener('touchmove', (e: TouchEvent) => {
+      e.preventDefault();
+      handleDragMove(e.touches[0].pageX);
+    });
+
+    // Contact Button Logic
+    const contactBtn = document.getElementById('home-contact-btn') as HTMLButtonElement | null;
+    const contactEmail = document.getElementById('home-contact-email') as HTMLParagraphElement | null;
+    const recaptchaTerms = document.getElementById('home-recaptcha-terms') as HTMLParagraphElement | null;
+    
+    const buttonTextDefault = contactBtn?.textContent || 'Get in Touch'; // Fallback
+    const buttonTextLoading = 'Verifying...'; // Using EN version for simplicity here, consider i18n if needed in script
+
+    if (contactBtn && contactEmail && recaptchaTerms) {
+      contactBtn.addEventListener('click', () => {
+        // Show loading state
+        contactBtn.textContent = buttonTextLoading;
+        contactBtn.disabled = true;
+        
+        // Check if reCAPTCHA is loaded
+        if (typeof window.grecaptcha !== 'undefined' && window.grecaptcha) {
+          window.grecaptcha.ready(function() {
+            // Use the same site key as defined in MainLayout.astro
+            // TODO: Get key from ENV vars
+            const recaptchaSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Replace with your actual v3 site key
+            
+            window.grecaptcha.execute(recaptchaSiteKey, {action: 'showEmail'}) // Use specific action name
+              .then(function(token: string) { // Add type for token
+                // On successful verification, show the email
+                contactEmail.classList.remove('hidden');
+                recaptchaTerms.classList.remove('hidden');
+                contactBtn.classList.add('hidden'); // Hide button
+
+                // Optional: Make email selectable/copyable
+                try {
+                    const range = document.createRange();
+                    const selection = window.getSelection();
+                    if (selection) {
+                        range.selectNodeContents(contactEmail);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                } catch (err) {
+                    console.warn('Could not select email text:', err)
+                }
+
+              })
+              .catch(function(error: any) { // Add type for error
+                console.error('reCAPTCHA error:', error);
+                contactBtn.textContent = buttonTextDefault;
+                contactBtn.disabled = false;
+                alert('Verification failed. Please try again.');
+              });
+          });
+        } else {
+          console.error('reCAPTCHA script not loaded');
+          contactBtn.textContent = buttonTextDefault;
+          contactBtn.disabled = false;
+          alert('Could not initiate verification. Please ensure you are online.');
+        }
+      });
+    }
+  });
+</script>

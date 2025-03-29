@@ -28,23 +28,6 @@ function Profile({ profileData, currentLanguage = 'en' }) {
     });
   }, []);
   
-  // Listen for language changes from the global language selector
-  useEffect(() => {
-    const handleLanguageChange = (event) => {
-      if (event.detail && event.detail.language) {
-        setLanguage(event.detail.language);
-      }
-    };
-    
-    // Add event listener
-    document.addEventListener('languageChange', handleLanguageChange);
-    
-    // Clean up
-    return () => {
-      document.removeEventListener('languageChange', handleLanguageChange);
-    };
-  }, []);
-  
   // Update local state when currentLanguage prop changes
   useEffect(() => {
     setLanguage(currentLanguage);
@@ -120,6 +103,58 @@ function Profile({ profileData, currentLanguage = 'en' }) {
     "LLM Integration": "Integrating Large Language Models into applications and systems, enabling them to process, understand, and generate human-like text for various use cases."
   };
   
+  // <<< START: Moved useEffect Hook for reCAPTCHA >>>
+  useEffect(() => {
+    const contactBtn = document.getElementById('profile-contact-btn');
+    const contactEmail = document.getElementById('profile-contact-email');
+    const recaptchaTerms = document.querySelector('.contact-section .recaptcha-terms');
+    
+    if (contactBtn && contactEmail && recaptchaTerms) {
+      contactBtn.addEventListener('click', () => {
+        // Show loading state
+        contactBtn.textContent = language === 'en' ? 'Verifying...' : 'Verificando...';
+        contactBtn.disabled = true;
+        
+        // Execute reCAPTCHA
+        if (typeof window.grecaptcha !== 'undefined' && window.grecaptcha) {
+          window.grecaptcha.ready(function() {
+            // Use the same site key as defined in MainLayout
+            // TODO: Consider moving site key to environment variables
+            const recaptchaSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Default test key
+            
+            window.grecaptcha.execute(recaptchaSiteKey, {action: 'showEmail'})
+              .then(function(token) {
+                // On successful verification, show the email
+                contactEmail.classList.remove('hidden');
+                contactBtn.classList.add('hidden');
+                recaptchaTerms.classList.remove('hidden');
+                
+                // Make email selectable/copyable
+                const range = document.createRange();
+                const selection = window.getSelection();
+                if (selection) {
+                  range.selectNodeContents(contactEmail);
+                  selection.removeAllRanges();
+                  selection.addRange(range);
+                }
+              })
+              .catch(function(error) {
+                console.error('reCAPTCHA error:', error);
+                contactBtn.textContent = language === 'en' ? 'Get in Touch' : 'Entre em Contato';
+                contactBtn.disabled = false;
+                alert('Verification failed. Please try again.');
+              });
+          });
+        } else {
+          console.error('reCAPTCHA not loaded');
+          contactBtn.textContent = language === 'en' ? 'Get in Touch' : 'Entre em Contato';
+          contactBtn.disabled = false;
+        }
+      });
+    }
+  }, [language]); // Re-run if language changes
+  // <<< END: Moved useEffect Hook for reCAPTCHA >>>
+
   return (
     <div className="profile-container">
       {/* Header Section - Personal Info */}
@@ -165,7 +200,10 @@ function Profile({ profileData, currentLanguage = 'en' }) {
       <section className="profile-section about-section" aria-labelledby="about-heading">
         <h2 className="section-title" id="about-heading">{getUI('about', 'About')}</h2>
         <div className="profile-about-container">
-          <p className="profile-about">{getText(profileData.about)}</p>
+          {/* Split text into paragraphs for better readability */}
+          {getText(profileData.about).split('\n\n').map((paragraph, index) => (
+            <p key={index} className="profile-about">{paragraph}</p>
+          ))}
         </div>
       </section>
       

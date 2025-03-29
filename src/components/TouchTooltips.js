@@ -99,9 +99,11 @@ export function initTouchTooltips() {
   console.log('Touch tooltips initialized for', skillItems.length, 'elements');
 }
 
-// Auto-initialize when the DOM is loaded
+// Remove the auto-initialization block
+/*
 if (typeof document !== 'undefined') {
   document.addEventListener('DOMContentLoaded', initTouchTooltips);
 }
+*/
 
 export default initTouchTooltips; 

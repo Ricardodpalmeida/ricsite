@@ -1,0 +1,51 @@
+---
+/**
+ * About Page - English
+ * 
+ * Displays detailed personal and professional information using the Profile component.
+ */
+import MainLayout from '../../layouts/MainLayout.astro';
+import Profile from '../../components/Profile.jsx';
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Get profile data from content collection
+const profileData = await getCollection('profile');
+const profileInfo = profileData.length > 0 ? profileData[0].data : null;
+---
+
+<MainLayout 
+  title="About | Ricardo Almeida" 
+  description="Learn more about Ricardo Almeida, Data & AI Manager at PwC Portugal and Cloud Solution Architect."
+  currentLanguage={lang}
+>
+  <main class="about-container">
+    <h1 class="about-title">{t('about.title')} <span class="highlight">{t('about.me')}</span></h1>
+    <Profile client:load profileData={profileInfo} currentLanguage={lang} />
+  </main>
+</MainLayout>
+
+<style>
+  .about-container {
+    padding: 2rem 0;
+    min-height: calc(100vh - 150px); /* Ensure footer is at the bottom */
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .about-title {
+    font-size: var(--font-size-3xl);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .about-title {
+      font-size: var(--font-size-2xl);
+      margin-bottom: 1.5rem;
+    }
+  }
+</style> 

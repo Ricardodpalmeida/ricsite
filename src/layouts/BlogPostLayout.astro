@@ -1,157 +1,196 @@
 ---
+/**
+ * Blog Post Layout
+ * 
+ * Layout component for individual blog posts with multilingual support.
+ */
 import MainLayout from './MainLayout.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
-interface Props {
-  post: {
-    data: {
-      title: string;
-      description?: string;
-      pubDate: Date;
-      updatedDate?: Date;
-      heroImage?: string;
-    };
-  };
-}
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
-const { post } = Astro.props;
-const {
-  title,
-  description = '',
-  pubDate,
-  updatedDate,
-  heroImage,
-} = post.data;
+const { frontmatter } = Astro.props;
+const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(
+  lang === 'en' ? 'en-US' : 'pt-BR', 
+  { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }
+);
 ---
 
-<MainLayout title={`${title} | Blog`} description={description}>
-  <article class="blog-post">
-    <div class="container">
-      {heroImage && (
-        <img 
-          class="hero-image" 
-          src={heroImage} 
-          alt="" 
-          transition:name={`blog-hero-${post.id}`}
-        />
+<MainLayout 
+  title={`${frontmatter.title} | Ricardo Almeida`}
+  description={frontmatter.description}
+  image={frontmatter.heroImage}
+  currentLanguage={lang}
+>
+  <main class="blog-post-container">
+    <article class="blog-post">
+      {frontmatter.heroImage && (
+        <div class="post-hero-image">
+          <img 
+            src={frontmatter.heroImage} 
+            alt={`Cover image for ${frontmatter.title}`}
+            width="800"
+            height="400"
+          />
+        </div>
       )}
       
-      <h1 class="title">{title}</h1>
+      <h1 class="post-title">{frontmatter.title}</h1>
       
-      <div class="metadata">
-        <time datetime={pubDate.toISOString()}>
-          {pubDate.toLocaleDateString('en-us', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
+      <div class="post-meta">
+        <time class="post-date" datetime={frontmatter.pubDate}>
+          {formattedDate}
         </time>
-        {updatedDate && (
-          <div class="last-updated-on">
-            Last updated on{' '}
-            <time datetime={updatedDate.toISOString()}>
-              {updatedDate.toLocaleDateString('en-us', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-          </div>
-        )}
       </div>
       
-      <div class="content">
+      <div class="post-content">
         <slot />
       </div>
-    </div>
-  </article>
+      
+      <div class="post-footer">
+        <a href={`/${lang}/blog/`} class="back-link">
+          {lang === 'en' ? '← Back to Blog' : '← Voltar ao Blog'}
+        </a>
+      </div>
+    </article>
+  </main>
 </MainLayout>
 
 <style>
-  .blog-post {
-    padding: 3rem 0;
-    min-height: calc(100vh - 150px);
+  .blog-post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    min-height: calc(100vh - 200px);
+    animation: fadeIn 0.5s ease-out;
   }
-
-  .hero-image {
+  
+  .blog-post {
+    background-color: rgba(30, 30, 30, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--color-gray-200);
+  }
+  
+  .post-hero-image {
     width: 100%;
     max-height: 400px;
+    overflow: hidden;
+  }
+  
+  .post-hero-image img {
+    width: 100%;
+    height: auto;
     object-fit: cover;
-    margin-bottom: 2rem;
-    border-radius: 8px;
   }
-
-  .title {
-    font-size: var(--font-size-3xl);
-    margin-bottom: 1rem;
+  
+  .post-title {
+    font-size: var(--font-size-2xl);
+    margin: 2rem 0 1rem;
+    padding: 0 2rem;
+    font-family: var(--font-family-title);
   }
-
-  .metadata {
-    color: var(--color-cosmic-latte);
+  
+  .post-meta {
+    padding: 0 2rem;
     margin-bottom: 2rem;
+    color: var(--color-gray-600);
     font-size: var(--font-size-sm);
+    font-family: var(--font-family-base);
   }
-
-  .last-updated-on {
-    margin-top: 0.5rem;
-    font-style: italic;
-  }
-
-  .content {
+  
+  .post-content {
+    padding: 0 2rem 2rem;
+    font-family: var(--font-family-base);
     line-height: var(--line-height-loose);
-    
-    :global(h2) {
-      font-size: var(--font-size-2xl);
-      margin: 2rem 0 1rem;
-    }
-    
-    :global(h3) {
-      font-size: var(--font-size-xl);
-      margin: 1.5rem 0 1rem;
-    }
-    
-    :global(p) {
-      margin-bottom: 1.5rem;
-    }
-    
-    :global(ul), :global(ol) {
-      margin-bottom: 1.5rem;
-      padding-left: 1.5rem;
-    }
-    
-    :global(li) {
-      margin-bottom: 0.5rem;
-    }
-    
-    :global(pre) {
-      margin: 1.5rem 0;
-      padding: 1rem;
-      background-color: rgba(255, 248, 231, 0.05);
-      border-radius: 4px;
-      overflow-x: auto;
-    }
-    
-    :global(code) {
-      font-family: monospace;
-      background-color: rgba(255, 248, 231, 0.05);
-      padding: 0.2rem 0.4rem;
-      border-radius: 4px;
-    }
-    
-    :global(blockquote) {
-      margin: 1.5rem 0;
-      padding-left: 1rem;
-      border-left: 4px solid var(--color-cosmic-latte);
-      font-style: italic;
-    }
   }
-
+  
+  .post-content :global(h2) {
+    font-size: var(--font-size-xl);
+    margin: 2rem 0 1rem;
+    font-family: var(--font-family-title);
+  }
+  
+  .post-content :global(h3) {
+    font-size: var(--font-size-lg);
+    margin: 1.5rem 0 1rem;
+    font-family: var(--font-family-title);
+  }
+  
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+  
+  .post-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1.5rem 0;
+  }
+  
+  .post-content :global(blockquote) {
+    border-left: 4px solid var(--color-cosmic-latte);
+    padding-left: 1rem;
+    margin-left: 0;
+    font-style: italic;
+    color: var(--color-gray-600);
+  }
+  
+  .post-content :global(pre) {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .post-content :global(code) {
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 0.2rem 0.4rem;
+    border-radius: 2px;
+  }
+  
+  .post-footer {
+    padding: 2rem;
+    border-top: 1px solid var(--color-gray-200);
+  }
+  
+  .back-link {
+    display: inline-block;
+    color: var(--color-cosmic-latte);
+    font-family: var(--font-family-title);
+    transition: all var(--transition-base);
+    padding: 0.5rem 0;
+  }
+  
+  .back-link:hover {
+    transform: translateX(-5px);
+  }
+  
   @media (max-width: 768px) {
-    .blog-post {
-      padding: 2rem 0;
+    .post-title {
+      font-size: var(--font-size-xl);
+      padding: 0 1.5rem;
+      margin-top: 1.5rem;
     }
-
-    .title {
-      font-size: var(--font-size-2xl);
+    
+    .post-meta {
+      padding: 0 1.5rem;
+    }
+    
+    .post-content {
+      padding: 0 1.5rem 1.5rem;
+    }
+    
+    .post-footer {
+      padding: 1.5rem;
     }
   }
 </style> 
