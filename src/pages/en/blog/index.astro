@@ -28,7 +28,12 @@ const sortedPosts = posts.sort(
   currentLanguage={lang}
 >
   <main class="blog-container">
-    <h1 class="blog-title">Blog</h1>
+    <div class="blog-header">
+      <h1 class="blog-title">Blog</h1>
+      <a href="/en/rss.xml" title="Subscribe to RSS Feed" target="_blank" class="rss-icon-link">
+        <img src="/icons/rss.svg" alt="RSS Feed Icon" class="rss-icon"/>
+      </a>
+    </div>
     
     {sortedPosts.length === 0 ? (
       <p class="no-posts">Coming soon... Blog posts are being prepared.</p>
@@ -77,11 +82,16 @@ const sortedPosts = posts.sort(
     animation: fadeIn 0.5s ease-out;
   }
   
-  .blog-title {
-    font-size: var(--font-size-3xl);
-    text-align: center;
+  .blog-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
     margin-bottom: 3rem;
-    font-family: var(--font-family-title);
+  }
+  
+  .blog-title {
+    margin-bottom: 0;
   }
   
   .no-posts {
@@ -175,5 +185,21 @@ const sortedPosts = posts.sort(
     .posts-grid {
       grid-template-columns: 1fr;
     }
+  }
+  
+  .rss-icon-link {
+    display: inline-block;
+    line-height: 0;
+  }
+  
+  .rss-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    transition: opacity 0.2s ease;
+  }
+  
+  .rss-icon-link:hover .rss-icon {
+    opacity: 0.7;
   }
 </style> 
