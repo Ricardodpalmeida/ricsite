@@ -3,7 +3,6 @@ Disallow: /content/
 Disallow: /src/content/
 Disallow: /profile/
 Disallow: /data.json
-Disallow: /profile-data.json
 
 # Allow main pages
 Allow: /

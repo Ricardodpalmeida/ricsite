@@ -25,7 +25,6 @@ A minimal, responsive personal website built with Astro and React. The site feat
 │   ├── favicon.svg
 │   ├── CNAME
 │   ├── robots.txt
-│   └── profile-data.json
 ├── src/
 │   ├── components/
 │   │   └── Profile.jsx

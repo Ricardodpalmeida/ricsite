@@ -40,8 +40,7 @@ export function onRequest({ request, url, locals }, next) {
     '/src/content/profile/data.json',
     '/content/profile/data.json',
     '/profile/data.json',
-    '/data.json',
-    '/profile-data.json'
+    '/data.json'
   ];
 
   // Check for exact blocked paths

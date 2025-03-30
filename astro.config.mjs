@@ -27,16 +27,6 @@ export default defineConfig({
     '/data.json': '/404',
     '//data.json': '/404',
     
-    // Using object syntax for this problematic redirect
-    '/profile-data.json': {
-      status: 404,
-      destination: '/404'
-    },
-    '//profile-data.json': {
-      status: 404,
-      destination: '/404'
-    },
-    
     // Block content directories
     '/content/*': '/404',
     '//content/*': '/404',
@@ -63,8 +53,15 @@ export default defineConfig({
     server: {
       // Protect sensitive files from direct access in development
       fs: {
-        allow: ['./public', './src/pages', './src/layouts', './src/components', './src/styles'],
-        deny: ['./src/content']
+        allow: [
+          './public', 
+          './src/pages', 
+          './src/layouts', 
+          './src/components', 
+          './src/styles',
+          './src/content'  // Allow content directory for imports
+        ],
+        deny: []
       }
     }
   }
