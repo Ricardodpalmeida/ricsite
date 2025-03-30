@@ -310,18 +310,18 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--color-cosmic-latte-10);
-    border: 1px solid var(--color-cosmic-latte);
-    color: var(--color-white);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 1001;
+    z-index: 110;
+    transition: all 0.3s;
+  }
+
+  .modal-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
   }
 
   .modal-nav.prev {
@@ -348,21 +348,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   /* Responsive Styles */
   @media (max-width: 768px) {
-    .playlist-item {
-      flex: 0 0 100%;
-    }
-
-    .section-title {
-      font-size: var(--font-size-xl);
-    }
-
-    .subsection-title {
-      font-size: var(--font-size-lg);
-    }
-  }
-
-  /* Media Queries */
-  @media (max-width: 768px) {
     .section-container {
       padding: 0;
     }
@@ -378,6 +363,20 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
     .sets-carousel {
       padding: 0 1rem;
+    }
+
+    .carousel-arrow {
+      display: none;
+    }
+
+    .carousel-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-track {
+      min-width: 100%;
+      transition: none;
     }
 
     .photo-gallery {

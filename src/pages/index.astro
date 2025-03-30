@@ -2,23 +2,34 @@
 /**
  * Home Page Redirector
  * 
- * Redirects the user from the root path '/' to the default language path (e.g., '/en/').
+ * Redirects the user from the root path '/' to their browser language path
+ * or the default language path if their language is not supported.
  */
-import { defaultLang } from '../i18n/ui';
+import { defaultLang, languages } from '../i18n/ui';
 ---
 
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="refresh" content={`0;url=/${defaultLang}/`} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
   </head>
   <body>
-    <p>Redirecting to <a href={`/${defaultLang}/`}>the site in {defaultLang}</a>...</p>
+    <p>Redirecting to the site...</p>
     
-    <script define:vars={{ defaultLang }}>
-      window.location.href = `/${defaultLang}/`;
+    <script define:vars={{ defaultLang, languages }}>
+      // Detect browser language
+      function detectBrowserLanguage() {
+        const browserLang = navigator.language?.split('-')[0];
+        return browserLang && browserLang in languages 
+          ? browserLang
+          : defaultLang;
+      }
+      
+      // Redirect to the appropriate language version
+      const detectedLang = detectBrowserLanguage();
+      window.location.href = `/${detectedLang}/`;
     </script>
   </body>
 </html>

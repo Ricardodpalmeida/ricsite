@@ -32,7 +32,7 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
   pubDate = postData.pubDate;
   try {
     formattedDate = new Date(pubDate).toLocaleDateString(
-      lang === 'en' ? 'en-US' : 'pt-BR', 
+      lang === 'en' ? 'en-US' : 'pt-PT', 
       { 
         year: 'numeric', 
         month: 'long', 

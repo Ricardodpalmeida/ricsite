@@ -57,7 +57,7 @@ const sortedPosts = posts.sort(
               <div class="post-content">
                 <h2 class="post-title">{post.data.title}</h2>
                 <time class="post-date" datetime={post.data.pubDate.toISOString()}>
-                  {post.data.pubDate.toLocaleDateString('pt-BR', { 
+                  {post.data.pubDate.toLocaleDateString('pt-PT', { 
                     year: 'numeric', 
                     month: 'long', 
                     day: 'numeric' 
