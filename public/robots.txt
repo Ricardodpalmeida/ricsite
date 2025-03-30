@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /content/
+Disallow: /src/content/
+Disallow: /profile/
+Disallow: /data.json
+Disallow: /profile-data.json
+
+# Allow main pages
+Allow: /
+Allow: /about
+Allow: /blog
+Allow: /en
+Allow: /pt 

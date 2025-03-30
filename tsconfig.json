@@ -12,8 +12,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    ".astro",
-    "src/pages/*/thanks.astro",
-    "src/pages/thanks.astro"
+    ".astro"
   ]
 }

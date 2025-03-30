@@ -86,74 +86,15 @@ function Profile({ profileData, currentLanguage = 'en' }) {
     profileData.skills.length > 0 && 
     typeof profileData.skills[0] === 'object';
     
-  // Skill descriptions - highlighting Low-code Architecture and Cloud Architecture
-  const skillDescriptions = {
-    "Low-code Development": "Creating robust applications with minimal traditional coding, using visual interfaces and pre-built components to accelerate development while maintaining flexibility and scalability.",
-    "Cloud Computing": "Designing and implementing solutions leveraging distributed computing resources provided over the internet, including Infrastructure (IaaS), Platform (PaaS), and Software as a Service (SaaS).",
-    "Microsoft Azure": "Expertise in Microsoft's cloud computing platform for building, deploying, and managing applications and services through Microsoft-managed data centers.",
-    "Microsoft Power Platform": "Creating business solutions using Power Apps, Power Automate, Power BI, and Power Virtual Agents to analyze data, build solutions, automate processes, and create virtual agents.",
-    "Power BI": "Data visualization and business intelligence tool that transforms data from various sources into interactive dashboards and business analytics reports.",
-    "Power Automate": "Cloud-based service that allows users to create automated workflows between apps and services to synchronize files, get notifications, collect data and more.",
-    "Data Science": "Extracting knowledge and insights from structured and unstructured data using scientific methods, algorithms, processes, and systems.",
-    "Azure AI Services": "Suite of AI services and APIs to help developers create intelligent applications without direct ML expertise, including vision, speech, language, and decision services.",
-    "Cloud Architecture": "Designing high-level cloud computing systems that ensure optimal performance, reliability, security, and cost-efficiency while leveraging cloud-native capabilities.",
-    "Dynamics 365": "Microsoft's line of enterprise resource planning and customer relationship management applications.",
-    "Databricks": "Unified analytics platform for large-scale data processing and machine learning, optimized for Spark workloads.",
-    "RAG": "Retrieval-Augmented Generation: An AI framework that enhances large language models by retrieving relevant information from external knowledge sources to generate more accurate and contextual responses.",
-    "LLM Integration": "Integrating Large Language Models into applications and systems, enabling them to process, understand, and generate human-like text for various use cases."
-  };
-  
-  // <<< START: Moved useEffect Hook for reCAPTCHA >>>
-  useEffect(() => {
-    const contactBtn = document.getElementById('profile-contact-btn');
-    const contactEmail = document.getElementById('profile-contact-email');
-    const recaptchaTerms = document.querySelector('.contact-section .recaptcha-terms');
-    
-    if (contactBtn && contactEmail && recaptchaTerms) {
-      contactBtn.addEventListener('click', () => {
-        // Show loading state
-        contactBtn.textContent = language === 'en' ? 'Verifying...' : 'Verificando...';
-        contactBtn.disabled = true;
-        
-        // Execute reCAPTCHA
-        if (typeof window.grecaptcha !== 'undefined' && window.grecaptcha) {
-          window.grecaptcha.ready(function() {
-            // Use the same site key as defined in MainLayout
-            // TODO: Consider moving site key to environment variables
-            const recaptchaSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Default test key
-            
-            window.grecaptcha.execute(recaptchaSiteKey, {action: 'showEmail'})
-              .then(function(token) {
-                // On successful verification, show the email
-                contactEmail.classList.remove('hidden');
-                contactBtn.classList.add('hidden');
-                recaptchaTerms.classList.remove('hidden');
-                
-                // Make email selectable/copyable
-                const range = document.createRange();
-                const selection = window.getSelection();
-                if (selection) {
-                  range.selectNodeContents(contactEmail);
-                  selection.removeAllRanges();
-                  selection.addRange(range);
-                }
-              })
-              .catch(function(error) {
-                console.error('reCAPTCHA error:', error);
-                contactBtn.textContent = language === 'en' ? 'Get in Touch' : 'Entre em Contato';
-                contactBtn.disabled = false;
-                alert('Verification failed. Please try again.');
-              });
-          });
-        } else {
-          console.error('reCAPTCHA not loaded');
-          contactBtn.textContent = language === 'en' ? 'Get in Touch' : 'Entre em Contato';
-          contactBtn.disabled = false;
-        }
-      });
+  // Get skill descriptions from the data file
+  const getSkillDescription = (skillName) => {
+    // Check if we have the description in the JSON file
+    if (profileData.skillDescriptions && profileData.skillDescriptions[skillName]) {
+      return profileData.skillDescriptions[skillName];
     }
-  }, [language]); // Re-run if language changes
-  // <<< END: Moved useEffect Hook for reCAPTCHA >>>
+    // Fallback for skills without descriptions
+    return `${skillName} - Professional expertise and experience`;
+  };
 
   return (
     <div className="profile-container">
@@ -200,10 +141,20 @@ function Profile({ profileData, currentLanguage = 'en' }) {
       <section className="profile-section about-section" aria-labelledby="about-heading">
         <h2 className="section-title" id="about-heading">{getUI('about', 'About')}</h2>
         <div className="profile-about-container">
-          {/* Split text into paragraphs for better readability */}
-          {getText(profileData.about).split('\n\n').map((paragraph, index) => (
-            <p key={index} className="profile-about">{paragraph}</p>
-          ))}
+          {/* Dynamically render paragraphs from the data */}
+          {Array.isArray(getText(profileData.about)) ? (
+            // If about is an array, render each item as a paragraph
+            getText(profileData.about).map((paragraph, index) => (
+              <p key={index} className="profile-about about-paragraph no-hover">{paragraph}</p>
+            ))
+          ) : (
+            // Fallback to original behavior for backward compatibility
+            getText(profileData.about)
+              .split('\n\n')
+              .map((paragraph, index) => (
+                <p key={index} className="profile-about about-paragraph no-hover">{paragraph.trim()}</p>
+              ))
+          )}
         </div>
       </section>
       
@@ -228,7 +179,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                   safeGet(skill, `${language}.category`) || safeGet(skill, 'en.category') : 
                   '';
                 
-                const description = skillDescriptions[skillName] || `Expertise in ${skillName}`;
+                const description = getSkillDescription(skillName);
                 
                 // Use the highlight flag from the data instead of hardcoding
                 const isHighlighted = safeGet(skill, `${language}.highlight`, false) || 
@@ -284,10 +235,6 @@ function Profile({ profileData, currentLanguage = 'en' }) {
               const description = isMultilingual ?
                 safeGet(exp, `${language}.description`) || safeGet(exp, 'en.description', '') :
                 safeGet(exp, 'description', '');
-                
-              const skills = isMultilingual ?
-                safeGet(exp, `${language}.skills`) || safeGet(exp, 'en.skills', '') :
-                safeGet(exp, 'skills', '');
               
               return (
                 <article key={index} className="timeline-item">
@@ -311,11 +258,6 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                       )}
                     </div>
                     {description && <p className="item-description">{description}</p>}
-                    {skills && (
-                      <div className="item-skills">
-                        <span className="skills-label">{getUI('skills', 'Skills')}:</span> {skills}
-                      </div>
-                    )}
                   </div>
                 </article>
               );
@@ -351,10 +293,6 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(edu, `${language}.thesis`) || safeGet(edu, 'en.thesis', '') :
                 safeGet(edu, 'thesis', '');
               
-              const skills = isMultilingual ?
-                safeGet(edu, `${language}.skills`) || safeGet(edu, 'en.skills', '') :
-                safeGet(edu, 'skills', '');
-              
               return (
                 <article key={index} className="timeline-item">
                   <div className="timeline-marker" aria-hidden="true"></div>
@@ -377,11 +315,6 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                       <p className="item-detail">
                         {getUI('thesis', 'Thesis')}: {thesis}
                       </p>
-                    )}
-                    {skills && (
-                      <div className="item-skills">
-                        <span className="skills-label">{getUI('skills', 'Skills')}:</span> {skills}
-                      </div>
                     )}
                   </div>
                 </article>

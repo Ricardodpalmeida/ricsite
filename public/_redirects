@@ -1,0 +1,9 @@
+# Protect content files
+/content/*      /404    404
+/src/content/*  /404    404
+/profile/*      /404    404
+/data.json      /404    404
+/profile-data.json /404 404
+
+# Allow main routes
+/*             /index.html   200 

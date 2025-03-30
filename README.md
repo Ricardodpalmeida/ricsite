@@ -10,6 +10,12 @@ A minimal, responsive personal website built with Astro and React. The site feat
 - Easily updateable profile data through a central JSON file
 - Fast load times using Astro static site generation
 - React components for dynamic elements
+- Internationalization (i18n) support for English and Portuguese
+- Optimized routing system
+- Custom 404 error page
+- Enhanced static asset management
+- SEO optimizations with metadata and sitemaps
+- Performance improvements for faster loading
 
 ## 📋 Project Structure
 
@@ -18,13 +24,22 @@ A minimal, responsive personal website built with Astro and React. The site feat
 ├── public/
 │   ├── favicon.svg
 │   ├── CNAME
+│   ├── robots.txt
 │   └── profile-data.json
 ├── src/
 │   ├── components/
 │   │   └── Profile.jsx
+│   ├── content/
+│   │   └── profile/
+│   │       └── data.json
 │   ├── layouts/
 │   │   └── MainLayout.astro
+│   ├── middleware.js
 │   ├── pages/
+│   │   ├── en/
+│   │   ├── pt/
+│   │   ├── blog/
+│   │   ├── 404.astro
 │   │   └── index.astro
 │   └── styles/
 │       └── profile.css
@@ -60,7 +75,7 @@ A minimal, responsive personal website built with Astro and React. The site feat
 
 ## 🔄 Updating Content
 
-The site content can be easily updated by modifying the `public/profile-data.json` file. This file contains all your personal information including:
+The site content can be easily updated by modifying the `src/content/profile/data.json` file. This file contains all your personal information including:
 
 - Basic personal info
 - About text
@@ -93,15 +108,37 @@ To add new pages (like a blog):
 2. Use the MainLayout component
 3. Add your content and components
 
+### Internationalization
+
+The site supports multiple languages through Astro's i18n routing:
+
+- English content is in `src/pages/en/`
+- Portuguese content is in `src/pages/pt/`
+- Default language is set in `astro.config.mjs`
+
 ## 📜 License
 
 This project is open-source. Feel free to use and modify as needed.
 
 ## ✨ Future Plans
 
-- Blog functionality
+- Expanded blog functionality
 - Podcast and DJ sets hosting
 - More interactive components
+- Additional language support
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
 
 ```sh
 npm create astro@latest -- --template basics

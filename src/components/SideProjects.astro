@@ -1,9 +1,20 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Get profile data from content collection
+const profileData = await getCollection('profile');
+const profileInfo = profileData.length > 0 ? profileData[0].data : null;
+const sideProjects = profileInfo?.sideProjects || {};
+
+// Get titles and descriptions based on language
+const titles = sideProjects.titles?.[lang] || sideProjects.titles?.en || {};
+const descriptions = sideProjects.descriptions?.[lang] || sideProjects.descriptions?.en || {};
+const embeds = sideProjects.embeds || {};
 
 // Get all images using Astro.glob
 const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
@@ -11,23 +22,18 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 ---
 
 <div class="side-projects-container">
-  <h2 class="section-title">{lang === 'pt' ? 'Projetos Paralelos' : 'Side Projects'}</h2>
+  <h2 class="section-title">{titles.section || (lang === 'pt' ? 'Projetos Paralelos' : 'Side Projects')}</h2>
   
   <!-- Podcast Section -->
   <div class="project-container">
-    <h3 class="subsection-title">Podcast</h3>
-    <p class="section-description">
-      {lang === 'pt' 
-        ? "'Mesa do Canto' foi um podcast em português onde eu e um amigo nos reuníamos para discutir vários assuntos, incluindo cultura, política, filosofia, história, economia e tecnologia."
-        : "'Mesa do Canto' was a podcast in Portuguese where a friend and I convened to discuss a variety of subjects, including culture, politics, philosophy, history, economics, and technology."
-      }
-    </p>
+    <h3 class="subsection-title">{titles.podcast || 'Podcast'}</h3>
+    <p class="section-description">{descriptions.podcast || ''}</p>
     <div class="podcast-embed">
       <iframe 
         style="border-radius:12px" 
-        src="https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0" 
-        width="100%" 
-        height="352" 
+        src={embeds.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"} 
+        width={embeds.podcast?.width || "100%"} 
+        height={embeds.podcast?.height || "352"} 
         frameBorder="0" 
         allowfullscreen="" 
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
@@ -38,26 +44,35 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   
   <!-- DJ Sets Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{lang === 'pt' ? 'Sets Recentes' : 'Latest Sets'}</h3>
-    <p class="section-description">
-      {lang === 'pt'
-        ? "Sou DJ especializado em Jazz, Funk Africano, Deep, Future, Disco e Progressive House, além de outras músicas do mundo como Habibi Funk. Todos os meus sets são improvisados, misturando formatos vinil e digital."
-        : "I'm a DJ specializing in Jazz, African Funk and Jazz, Deep, Future, Disco and Progressive House, along with other world music like Habibi Funk. All my sets are improvised, mixing both vinyl and digital formats."
-      }
-    </p>
+    <h3 class="subsection-title">{titles.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
+    <p class="section-description">{descriptions.dj || ''}</p>
     <div class="sets-carousel">
       <button class="carousel-arrow prev" aria-label="Previous set">&#60;</button>
       <div class="carousel-container">
         <div class="carousel-track">
-          <div class="carousel-item">
-            <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" frameborder="0" title="Nadar"></iframe>
-          </div>
-          <div class="carousel-item">
-            <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" frameborder="0" title="Fenix"></iframe>
-          </div>
-          <div class="carousel-item">
-            <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" frameborder="0" title="Lejos"></iframe>
-          </div>
+          {embeds.dj?.map((set, index) => (
+            <div class="carousel-item">
+              <iframe 
+                width="100%" 
+                height="120" 
+                src={set.src} 
+                frameborder="0" 
+                title={set.title || `Set ${index + 1}`}
+              ></iframe>
+            </div>
+          )) || (
+            <>
+              <div class="carousel-item">
+                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" frameborder="0" title="Nadar"></iframe>
+              </div>
+              <div class="carousel-item">
+                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" frameborder="0" title="Fenix"></iframe>
+              </div>
+              <div class="carousel-item">
+                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" frameborder="0" title="Lejos"></iframe>
+              </div>
+            </>
+          )}
         </div>
       </div>
       <button class="carousel-arrow next" aria-label="Next set">&#62;</button>
@@ -66,29 +81,42 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   <!-- Playlists Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{lang === 'pt' ? 'Minhas Playlists' : 'My Playlists'}</h3>
+    <h3 class="subsection-title">{titles.playlists || (lang === 'pt' ? 'Minhas Playlists' : 'My Playlists')}</h3>
     <div class="playlists-gallery">
-      <div class="playlist-item">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1"></iframe>
-      </div>
-      <div class="playlist-item">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2"></iframe>
-      </div>
-      <div class="playlist-item">
-        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3"></iframe>
-      </div>
+      {embeds.playlists?.map((playlist, index) => (
+        <div class="playlist-item">
+          <iframe 
+            style="border-radius:12px" 
+            src={playlist.src} 
+            width="100%" 
+            height="352" 
+            frameBorder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy" 
+            title={`Playlist ${index + 1}`}
+          ></iframe>
+        </div>
+      )) || (
+        <>
+          <div class="playlist-item">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1"></iframe>
+          </div>
+          <div class="playlist-item">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2"></iframe>
+          </div>
+          <div class="playlist-item">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3"></iframe>
+          </div>
+        </>
+      )}
     </div>
   </div>
 
   <!-- Photography Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{lang === 'pt' ? 'Fotografia' : 'Photography'}</h3>
-    <p class="section-description">
-      {lang === 'pt'
-        ? "A fotografia é um hobby que me ajuda a apreciar o mundo ao nosso redor. Gosto particularmente de capturar os humores sempre mutáveis do céu, desde pores do sol dramáticos até o jogo de nuvens e luz."
-        : "Photography is a hobby that helps me appreciate the world around us. I particularly enjoy capturing the ever-changing moods of the sky, from dramatic sunsets to the interplay of clouds and light."
-      }
-    </p>
+    <h3 class="subsection-title">{titles.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h3>
+    <p class="section-description">{descriptions.photography || ''}</p>
     <div class="photo-gallery">
       {galleryImages.map((imageSrc: string, i: number) => (
         <div class="photo-item" data-index={i}>

@@ -155,89 +155,6 @@ button,
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* =============================================
-   FOCUS STYLES - REMOVED (Moved to MainLayout.astro)
-   ============================================= */
-/*
-.profile-link:focus,
-.language-btn:focus,
-.skill-item:focus,
-.credential-link:focus,
-button:focus,
-a:focus,
-input:focus,
-textarea:focus,
-select:focus,
-[role="button"]:focus,
-[tabindex]:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(255, 248, 231, 0.4);
-  border-color: var(--color-cosmic-latte);
-}
-
-/* Focus visible (keyboard focus) styles */
-.profile-link:focus-visible,
-.language-btn:focus-visible,
-.skill-item:focus-visible,
-.credential-link:focus-visible,
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible,
-[role="button"]:focus-visible,
-[tabindex]:focus-visible {
-  outline: 2px solid var(--color-cosmic-latte);
-  outline-offset: 3px;
-  box-shadow: 0 0 0 4px rgba(255, 248, 231, 0.3);
-  border-color: var(--color-cosmic-latte);
-  transform: translateY(-2px);
-  transition: outline 0.2s ease, 
-              box-shadow 0.2s ease, 
-              transform 0.2s ease,
-              border-color 0.2s ease;
-  z-index: 5;
-}
-
-/* Add a focus indicator for interactive elements without natural borders */
-[tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible {
-  position: relative;
-}
-
-[tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible::after {
-  content: '';
-  position: absolute;
-  top: -4px;
-  left: -4px;
-  right: -4px;
-  bottom: -4px;
-  border-radius: 4px;
-  border: 2px solid var(--color-cosmic-latte);
-  pointer-events: none;
-}
-
-/* High contrast mode focus indicators */
-@media (forced-colors: active) {
-  .profile-link:focus-visible,
-  .language-btn:focus-visible,
-  .skill-item:focus-visible,
-  .credential-link:focus-visible,
-  button:focus-visible,
-  a:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible,
-  [role="button"]:focus-visible,
-  [tabindex]:focus-visible {
-    outline: 3px solid CanvasText;
-    outline-offset: 3px;
-  }
-}
-*/
-/* =============================================
-   END REMOVED FOCUS STYLES
-   ============================================= */
-
 /* About section */
 .about-section {
   position: relative;
@@ -245,14 +162,8 @@ select:focus-visible,
   background-color: rgba(30, 30, 30, 0.3);
   border-radius: 8px;
   margin-top: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   border-left: 3px solid var(--color-cosmic-latte);
-}
-
-.about-section:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .profile-about-container {
@@ -260,22 +171,31 @@ select:focus-visible,
 }
 
 .profile-about {
-  line-height: var(--line-height-loose);
-  font-size: var(--font-size-base);
-  margin-bottom: 1.25rem;
-  text-align: justify;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.profile-about:last-child {
-  margin-bottom: 0;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
 
 .profile-about:first-letter {
   font-size: 1.2em;
   font-weight: var(--font-weight-medium);
   color: var(--color-cosmic-latte);
+}
+
+/* Disable hover effects for about paragraphs */
+.profile-about.about-paragraph,
+.profile-about.no-hover {
+  transition: none;
+  transform: none;
+  box-shadow: none;
+}
+
+.profile-about.about-paragraph:hover,
+.profile-about.no-hover:hover {
+  transform: none;
+  box-shadow: none;
+  background: none;
+  border: none;
 }
 
 /* Timeline styling for experience and education */
@@ -764,11 +684,4 @@ select:focus-visible,
     font-size: 0.75rem;
     padding: 0.5rem;
   }
-}
-
-/* Contact Section - REMOVED as it's no longer in Profile.jsx */
-/*
-.contact-section {
-  // ... all styles for .contact-section, .contact-wrapper, .contact-button, .contact-email, .recaptcha-terms ...
-}
-*/ 
+} 

@@ -27,11 +27,14 @@ pnpm-debug.log*
 
 # Custom documentation
 manual.txt
+GUIDE.md
 
 # Editor files
-.vscode/
 *.sublime-project
 *.sublime-workspace
+.vscode/
+.github/
+.cursor/
 
 # Local development settings
 .local/
@@ -43,7 +46,6 @@ manual.txt
 *.bak
 
 # Personal notes and drafts
-GUIDE.md
 TODO.md
 NOTES.md
 RESPONSIVE_TESTING.md
@@ -53,12 +55,19 @@ RESPONSIVE_TESTING.md
 *.key
 *.cert
 *.pub
+SECURITY.md
 
 # Cache files
 .cache/
 
-# GitHub workflows and config (except deployment)
-.github/*
-!.github/workflows/
-.github/workflows/*
-!.github/workflows/deploy.yml
+# Security-related files
+# Only if you want to keep these out of version control
+# src/middleware.js
+# public/.htaccess
+# public/_redirects
+# public/robots.txt
+
+# Sensitive data files
+src/content/profile/data.json
+public/profile-data.json
+**/data.json

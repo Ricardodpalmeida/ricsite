@@ -50,7 +50,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
         </div>
         <!-- Hidden elements for contact -->
         <div class="contact-reveal-container">
-          <p id="home-contact-email" class="contact-email hidden">ricardodpa@gmail.com</p>
+          <p id="home-contact-email" class="contact-email hidden">{import.meta.env.PUBLIC_CONTACT_EMAIL || 'contact@example.com'}</p>
           <p id="home-recaptcha-terms" class="recaptcha-terms hidden">
             {t('contact.recaptcha.prefix')}
             {' '}
