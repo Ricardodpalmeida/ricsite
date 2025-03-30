@@ -25,7 +25,6 @@ A minimal, responsive personal website built with Astro and React. The site feat
 │   ├── favicon.svg
 │   ├── CNAME
 │   ├── robots.txt
-├── docs/                   # Project documentation (not in version control)
 ├── src/
 │   ├── components/
 │   │   └── Profile.jsx
@@ -43,7 +42,6 @@ A minimal, responsive personal website built with Astro and React. The site feat
 │   │   └── index.astro
 │   └── styles/
 │       └── profile.css
-├── notes.txt               # Maintenance guides (not in version control)
 └── package.json
 ```
 
@@ -85,11 +83,6 @@ The site content can be easily updated by modifying the `src/content/profile/dat
 - Skills
 - Languages
 
-For detailed maintenance guides, refer to the `notes.txt` file, which includes:
-- How to add blog posts in both languages
-- How to use markdown in data.json
-- Site maintenance schedule and procedures
-
 ## 🔒 reCAPTCHA Setup
 
 The site uses Google reCAPTCHA v3 to protect the contact email from bots:
@@ -115,8 +108,6 @@ The recommended Git workflow for this project is:
 3. Merge completed features back to dev
 4. Test on staging branch
 5. Merge to main when ready for production
-
-For detailed Git workflow instructions, see `docs/GUIDE.md`.
 
 ## 🚢 Deployment
 
