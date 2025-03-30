@@ -1,21 +1,11 @@
 {
-  "extends": "astro/tsconfigs/strictest",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
     "jsx": "preserve",
-    "jsxImportSource": "astro",
-    "allowJs": true,
-    "skipLibCheck": true
-  },
-  "include": [
-    ".astro/types.d.ts",
-    "src/**/*"
-  ],
-  "exclude": [
-    "dist",
-    "node_modules"
-  ]
+    "jsxImportSource": "astro"
+  }
 }

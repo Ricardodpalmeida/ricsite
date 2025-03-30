@@ -3,6 +3,12 @@
 
 // Define custom JSX namespace for Astro
 declare namespace astroHTML.JSX {
+  // This allows standard HTML attributes like `class`
+  // and Astro directives like `is:inline`
+  interface HTMLAttributes extends astro.JSX.HTMLAttributes {
+    [key: string]: any;
+  }
+
   // Base HTML attributes interface that accepts 'class' and other HTML attributes
   interface HTMLAttributes extends astro.JSX.HTMLAttributes {
     class?: string;
