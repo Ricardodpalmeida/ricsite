@@ -2,16 +2,21 @@
 /**
  * Home Page - Portuguese
  * 
- * The main landing page for the personal website.
+ * The main landing page for the personal website in Portuguese.
  * Features a brief introduction and contact CTA.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import SideProjects from '../../components/SideProjects.astro';
+import { getCollection } from 'astro:content';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Get profile data from content collection
+const profileData = await getCollection('profile');
+const profileInfo = profileData.length > 0 ? profileData[0].data : null;
 
 // Get reCAPTCHA key from environment variable (same as MainLayout)
 const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
@@ -46,7 +51,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         <div class="hero-cta">
           <!-- Removed Learn More button -->
           <!-- <a href={`/${lang}/about`} class="primary-button">{t('hero.cta.learnMore')}</a> -->
-          <button id="home-contact-btn" class="primary-button">{t('contact.button')}</button>
+          <a href={profileInfo?.personal?.pt?.profileUrl || "https://www.linkedin.com/in/ricardodpa"} target="_blank" rel="noopener noreferrer" class="primary-button">{t('contact.button')}</a>
         </div>
         <!-- Hidden elements for contact -->
         <div class="contact-reveal-container">

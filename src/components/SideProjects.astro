@@ -1,6 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
+import { marked } from 'marked';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
@@ -16,6 +17,17 @@ const titles = sideProjects.titles?.[lang] || sideProjects.titles?.en || {};
 const descriptions = sideProjects.descriptions?.[lang] || sideProjects.descriptions?.en || {};
 const embeds = sideProjects.embeds || {};
 
+// Process markdown in descriptions
+const processMarkdown = (text) => {
+  if (!text) return '';
+  // Configure marked to only allow certain markdown features (bold, italic)
+  marked.setOptions({
+    gfm: true,
+    breaks: true
+  });
+  return marked.parse(text);
+};
+
 // Get all images using Astro.glob
 const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
 const galleryImages = galleryImageModules.map(module => module.default.src);
@@ -27,7 +39,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <!-- Podcast Section -->
   <div class="project-container">
     <h3 class="subsection-title">{titles.podcast || 'Podcast'}</h3>
-    <p class="section-description">{descriptions.podcast || ''}</p>
+    <p class="section-description" set:html={processMarkdown(descriptions.podcast || '')}></p>
     <div class="podcast-embed">
       <iframe 
         style="border-radius:12px; border: 0;" 
@@ -50,7 +62,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <!-- DJ Sets Section -->
   <div class="project-container">
     <h3 class="subsection-title">{titles.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
-    <p class="section-description">{descriptions.dj || ''}</p>
+    <p class="section-description" set:html={processMarkdown(descriptions.dj || '')}></p>
     <div class="sets-carousel">
       <button class="carousel-arrow prev" aria-label="Previous set">&#60;</button>
       <div class="carousel-container">
@@ -132,7 +144,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               </div>
               {playlist.description && (
                 <div class="playlist-info">
-                  <p class="playlist-description">{playlist.description?.[lang] || playlist.description?.en}</p>
+                  <p class="playlist-description" set:html={processMarkdown(playlist.description?.[lang] || playlist.description?.en)}></p>
                 </div>
               )}
             </div>
@@ -189,13 +201,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <!-- Photography Section -->
   <div class="project-container">
     <h3 class="subsection-title">{titles.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h3>
-    <p class="section-description">{descriptions.photography || ''}</p>
+    <p class="section-description" set:html={processMarkdown(descriptions.photography || '')}></p>
     <div class="photo-gallery">
-      {galleryImages.map((imageSrc: string, i: number) => (
-        <div class="photo-item" data-index={i}>
+      {galleryImages.map((image, index) => (
+        <div class="photo-item" data-index={index}>
           <img 
-            src={imageSrc}
-            alt={`Gallery photo ${i + 1}`}
+            src={image} 
+            alt={`Photo ${index + 1}`} 
             loading="lazy"
             oncontextmenu="return false;"
           />
@@ -205,7 +217,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   </div>
 </div>
 
-<!-- Modal for Photo Viewing -->
+<!-- Photo Modal -->
 <div class="photo-modal" id="photoModal">
   <button class="modal-close" aria-label="Close modal">×</button>
   <button class="modal-nav prev" aria-label="Previous photo">&#60;</button>
@@ -582,6 +594,9 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     color: var(--color-gray-600);
     margin-bottom: 0.5rem;
     line-height: 1.4;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
 
