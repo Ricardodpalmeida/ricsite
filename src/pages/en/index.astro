@@ -14,7 +14,7 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // Get reCAPTCHA key from environment variable (same as MainLayout)
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Fallback test key
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
 <MainLayout 
@@ -326,6 +326,13 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
 
     if (contactBtn && contactEmail && recaptchaTerms && buttonTextDefault) {
       contactBtn.addEventListener('click', () => {
+        // If no reCAPTCHA key is provided, show email directly
+        if (!recaptchaSiteKey) {
+          contactEmail.classList.remove('hidden');
+          contactBtn.classList.add('hidden');
+          return;
+        }
+        
         // Show loading state using passed verifyingText
         contactBtn.textContent = verifyingText;
         contactBtn.disabled = true;
