@@ -38,7 +38,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         allowfullscreen="" 
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
+        class="media-iframe"
+        onload="this.parentNode.classList.add('loaded')"
+        onerror="this.parentNode.classList.add('error')"
+        title="Mesa do Canto Podcast"
       ></iframe>
+      <div class="iframe-loading">Loading...</div>
+      <div class="iframe-error">Sorry, content couldn't be loaded. Please try again later.</div>
     </div>
   </div>
   
@@ -52,24 +58,44 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         <div class="carousel-track">
           {embeds.dj?.map((set: { src: string, title?: string }, index: number) => (
             <div class="carousel-item">
-              <iframe 
-                width="100%" 
-                height="120" 
-                src={set.src} 
-                style="border: 0;" 
-                title={set.title || `Set ${index + 1}`}
-              ></iframe>
+              <div class="iframe-container">
+                <iframe 
+                  width="100%" 
+                  height="120" 
+                  src={set.src} 
+                  style="border: 0;" 
+                  title={set.title || `Set ${index + 1}`}
+                  loading="lazy"
+                  class="media-iframe"
+                  onload="this.parentNode.classList.add('loaded')"
+                  onerror="this.parentNode.classList.add('error')"
+                ></iframe>
+                <div class="iframe-loading">Loading...</div>
+                <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+              </div>
             </div>
           )) || (
             <>
               <div class="carousel-item">
-                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" style="border: 0;" title="Nadar"></iframe>
+                <div class="iframe-container">
+                  <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" style="border: 0;" title="Nadar" class="media-iframe" loading="lazy" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+                  <div class="iframe-loading">Loading...</div>
+                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+                </div>
               </div>
               <div class="carousel-item">
-                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" style="border: 0;" title="Fenix"></iframe>
+                <div class="iframe-container">
+                  <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" style="border: 0;" title="Fenix" class="media-iframe" loading="lazy" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+                  <div class="iframe-loading">Loading...</div>
+                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+                </div>
               </div>
               <div class="carousel-item">
-                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" style="border: 0;" title="Lejos"></iframe>
+                <div class="iframe-container">
+                  <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" style="border: 0;" title="Lejos" class="media-iframe" loading="lazy" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+                  <div class="iframe-loading">Loading...</div>
+                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+                </div>
               </div>
             </>
           )}
@@ -85,27 +111,46 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     <div class="playlists-gallery">
       {embeds.playlists?.map((playlist: { src: string }, index: number) => (
         <div class="playlist-item">
-          <iframe 
-            style="border-radius:12px; border: 0;" 
-            src={playlist.src} 
-            width="100%" 
-            height="352" 
-            allowfullscreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-            loading="lazy" 
-            title={`Playlist ${index + 1}`}
-          ></iframe>
+          <div class="iframe-container">
+            <iframe 
+              style="border-radius:12px; border: 0;" 
+              src={playlist.src} 
+              width="100%" 
+              height="352" 
+              allowfullscreen="" 
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+              loading="lazy" 
+              title={`Playlist ${index + 1}`}
+              class="media-iframe"
+              onload="this.parentNode.classList.add('loaded')"
+              onerror="this.parentNode.classList.add('error')"
+            ></iframe>
+            <div class="iframe-loading">Loading...</div>
+            <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+          </div>
         </div>
       )) || (
         <>
           <div class="playlist-item">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1"></iframe>
+            <div class="iframe-container">
+              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <div class="iframe-loading">Loading...</div>
+              <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
           </div>
           <div class="playlist-item">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2"></iframe>
+            <div class="iframe-container">
+              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <div class="iframe-loading">Loading...</div>
+              <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
           </div>
           <div class="playlist-item">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3"></iframe>
+            <div class="iframe-container">
+              <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <div class="iframe-loading">Loading...</div>
+              <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
           </div>
         </>
       )}
@@ -246,10 +291,12 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     background: var(--color-cosmic-latte-20);
   }
 
-  /* Firefox scrollbar */
-  .playlists-gallery {
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-cosmic-latte) transparent;
+  /* Firefox scrollbar - not supported in Safari but doesn't cause errors */
+  @supports (scrollbar-width: thin) {
+    .playlists-gallery {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-cosmic-latte) transparent;
+    }
   }
 
   .playlist-item {
@@ -441,6 +488,54 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     .carousel-arrow {
       display: none;
     }
+  }
+
+  .podcast-embed, .iframe-container {
+    position: relative;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .podcast-embed .media-iframe, .iframe-container .media-iframe {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .podcast-embed.loaded .media-iframe, .iframe-container.loaded .media-iframe {
+    opacity: 1;
+  }
+
+  .iframe-loading, .iframe-error {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    z-index: 1;
+  }
+
+  .iframe-error {
+    display: none;
+    color: #ff6b6b;
+  }
+
+  .podcast-embed.loaded .iframe-loading, .iframe-container.loaded .iframe-loading {
+    display: none;
+  }
+
+  .podcast-embed.error .iframe-loading, .iframe-container.error .iframe-loading {
+    display: none;
+  }
+
+  .podcast-embed.error .iframe-error, .iframe-container.error .iframe-error {
+    display: block;
   }
 </style>
 

@@ -221,6 +221,9 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     background-color: var(--color-dark-gray);
     color: var(--color-white);
     transition: background-color var(--transition-slow);
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none;
   }
   
