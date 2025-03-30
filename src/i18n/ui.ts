@@ -7,6 +7,9 @@ export const languages = {
 
 export const defaultLang = 'en';
 
+// Get current year for copyright
+const currentYear = new Date().getFullYear();
+
 // Define UI string translations
 export const ui = {
   en: {
@@ -29,7 +32,7 @@ export const ui = {
     'contact.recaptchaErrorAlert': 'Could not initiate verification. Please ensure you are online.',
     
     // Footer
-    'footer.copyright': '© 2025 Ricardo Almeida. All rights reserved.',
+    'footer.copyright': `© ${currentYear} Ricardo Almeida. All rights reserved.`,
     
     // About page
     'about.title': 'About',
@@ -81,7 +84,7 @@ export const ui = {
     'contact.recaptchaErrorAlert': 'Não foi possível iniciar a verificação. Verifique se está online.',
     
     // Footer
-    'footer.copyright': '© 2025 Ricardo Almeida. Todos os direitos reservados.',
+    'footer.copyright': `© ${currentYear} Ricardo Almeida. Todos os direitos reservados.`,
     
     // About page
     'about.title': 'Sobre',
