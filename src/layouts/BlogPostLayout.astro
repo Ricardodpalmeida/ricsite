@@ -6,48 +6,81 @@
  */
 import MainLayout from './MainLayout.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import type { CollectionEntry } from 'astro:content'; // Import type for safety
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-const { frontmatter } = Astro.props;
-const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString(
-  lang === 'en' ? 'en-US' : 'pt-BR', 
-  { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
+// Access the entire post object from props
+const { post } = Astro.props as { post: CollectionEntry<"blog"> };
+
+// Safely access frontmatter data from post.data
+const postData = post?.data; // Use optional chaining here too
+
+// Check if postData exists before accessing properties
+const title = postData?.title ?? 'Untitled Post';
+const description = postData?.description ?? '';
+const heroImage = postData?.heroImage;
+
+// === Stricter Date Check ===
+let pubDate: Date | undefined = undefined;
+let formattedDate: string = 'Date not available';
+let pubDateISO: string | undefined = undefined;
+
+if (postData?.pubDate && postData.pubDate instanceof Date) {
+  pubDate = postData.pubDate;
+  try {
+    formattedDate = new Date(pubDate).toLocaleDateString(
+      lang === 'en' ? 'en-US' : 'pt-BR', 
+      { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      }
+    );
+    pubDateISO = pubDate.toISOString();
+  } catch (e) {
+    console.error(`Error formatting date for post slug ${post?.slug}:`, e);
+    formattedDate = 'Invalid Date'; // Set fallback on error
+    pubDateISO = undefined;
+    pubDate = undefined; // Mark pubDate as invalid if formatting fails
   }
-);
+} else if (postData?.pubDate) {
+  // Log if pubDate exists but is not a Date object (should have been caught by filter)
+  console.warn(`[BlogPostLayout] pubDate exists for slug ${post?.slug} but is not a Date object:`, postData.pubDate);
+}
+// === End Stricter Date Check ===
 ---
 
 <MainLayout 
-  title={`${frontmatter.title} | Ricardo Almeida`}
-  description={frontmatter.description}
-  image={frontmatter.heroImage}
+  title={`${title} | Ricardo Almeida`}
+  description={description}
+  image={heroImage}
   currentLanguage={lang}
 >
   <main class="blog-post-container">
     <article class="blog-post">
-      {frontmatter.heroImage && (
+      {heroImage && (
         <div class="post-hero-image">
           <img 
-            src={frontmatter.heroImage} 
-            alt={`Cover image for ${frontmatter.title}`}
+            src={heroImage} 
+            alt={`Cover image for ${title}`}
             width="800"
             height="400"
           />
         </div>
       )}
       
-      <h1 class="post-title">{frontmatter.title}</h1>
+      <h1 class="post-title">{title}</h1>
       
-      <div class="post-meta">
-        <time class="post-date" datetime={frontmatter.pubDate}>
-          {formattedDate}
-        </time>
-      </div>
+      {pubDate && (
+        <div class="post-meta">
+          <time class="post-date" datetime={pubDateISO}>
+            {formattedDate}
+          </time>
+        </div>
+      )}
       
       <div class="post-content">
         <slot />
