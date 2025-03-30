@@ -739,12 +739,14 @@
       "en": {
         "podcast": "'Mesa do Canto' was a podcast in Portuguese where a friend and I convened to discuss a variety of subjects, including culture, politics, philosophy, history, economics, and technology.",
         "dj": "When I DJ, I like to play **Jazz**, **African Funk**, **Deep**, **Future**, **Disco** and **Progressive House**, along with other world music like *Habibi Funk*. All my sets are improvised, mixing both vinyl and digital formats.",
-        "photography": "Photography is a hobby that helps me appreciate the world around us. I particularly enjoy capturing the ever-changing moods of the sky, from dramatic sunsets to the interplay of clouds and light."
+        "photography": "Photography is a hobby that helps me appreciate the world around us. I particularly enjoy capturing the ever-changing moods of the sky, from dramatic sunsets to the interplay of clouds and light.",
+        "playlistsIntro": "Music has always been a significant part of my life. These playlists showcase some of my favorite genres and moods, carefully curated over time to create distinctive atmospheres."
       },
       "pt": {
         "podcast": "'*Mesa do Canto*' foi um podcast em português onde eu e um amigo nos reuníamos para discutir vários assuntos, incluindo cultura, política, filosofia, história, economia e tecnologia.",
         "dj": "Quando toco, gosto de passar **Jazz**, **Funk Africano**, **Deep**, **Future**, **Disco** e **Progressive House**, além de outras músicas do mundo como *Habibi Funk*. Todos os meus sets são improvisados, misturando *vinyl* e *digital*.",
-        "photography": "A fotografia é um *hobby* que me ajuda a apreciar o mundo ao nosso redor. Gosto particularmente de capturar os humores sempre mutáveis do céu, desde pores do sol dramáticos até o jogo de nuvens e luz."
+        "photography": "A fotografia é um *hobby* que me ajuda a apreciar o mundo ao nosso redor. Gosto particularmente de capturar os humores sempre mutáveis do céu, desde pores do sol dramáticos até o jogo de nuvens e luz.",
+        "playlistsIntro": "A música sempre foi uma parte significativa da minha vida. Estas playlists apresentam alguns dos meus géneros e ambientes favoritos, cuidadosamente curados ao longo do tempo para criar atmosferas distintas."
       }
     },
     "embeds": {
