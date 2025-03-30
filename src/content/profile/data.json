@@ -347,84 +347,80 @@
       "en": {
         "title": "PL-600: Microsoft Power Platform Solution Architect",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F"
       },
       "pt": {
         "title": "PL-600: Microsoft Power Platform Solution Architect",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "title": "Azure DevOps Fundamentals for Beginners",
-        "issuer": "Udemy",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "title": "Azure DevOps Fundamentals for Beginners",
-        "issuer": "Udemy",
-        "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F"
       }
     },
     {
       "en": {
         "title": "Microsoft Certified: Dynamics 365 Fundamentals (CRM)",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F"
       },
       "pt": {
         "title": "Microsoft Certified: Dynamics 365 Fundamentals (CRM)",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F"
       }
     },
     {
       "en": {
         "title": "Microsoft Certified: Power Platform App Maker Associate",
         "issuer": "Microsoft",
+        "status": "(Discontinued)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform App Maker Associate",
         "issuer": "Microsoft",
+        "status": "(Discontinued)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F"
       }
     },
     {
       "en": {
         "title": "Microsoft Certified: Power Platform Fundamentals",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform Fundamentals",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0"
       }
     },
     {
       "en": {
         "title": "Microsoft 365 Certified: Fundamentals",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0"
       },
       "pt": {
         "title": "Microsoft 365 Certified: Fundamentals",
         "issuer": "Microsoft",
+        "status": "(Active)",
         "credentialID": "",
-        "credentialURL": ""
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0"
       }
     }
   ],

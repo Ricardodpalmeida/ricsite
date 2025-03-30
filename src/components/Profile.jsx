@@ -138,7 +138,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
       </header>
       
       {/* About Section */}
-      <section className="profile-section about-section" aria-labelledby="about-heading">
+      <section className="profile-section" aria-labelledby="about-heading">
         <h2 className="section-title" id="about-heading">{getUI('about', 'About')}</h2>
         <div className="profile-about-container">
           {/* Dynamically render paragraphs from the data */}
