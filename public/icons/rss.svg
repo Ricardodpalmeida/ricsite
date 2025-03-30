@@ -1,6 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="#F9A825">
-  <rect width="256" height="256" rx="32" fill="#F9A825"/>
-  <circle cx="68" cy="188" r="24" fill="#FFFFFF"/>
-  <path d="M44,116 a72,72 0 0 1 72,72" stroke="#FFFFFF" stroke-width="24" fill="none" stroke-linecap="round"/>
-  <path d="M44,44 a144,144 0 0 1 144,144" stroke="#FFFFFF" stroke-width="24" fill="none" stroke-linecap="round"/>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- RSS dot -->
+  <circle cx="12" cy="52" r="4" fill="white"/>
+
+  <!-- RSS arcs -->
+  <path d="M12 36a16 16 0 0 1 16 16" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
+  <path d="M12 20a32 32 0 0 1 32 32" stroke="white" stroke-width="4" fill="none" stroke-linecap="round"/>
 </svg> 
