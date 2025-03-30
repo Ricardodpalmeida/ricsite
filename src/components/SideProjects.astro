@@ -209,7 +209,9 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           <img 
             src={image} 
             alt={`Photo ${index + 1}`} 
-            loading="lazy"
+            loading={index < 3 ? "eager" : "lazy"}
+            width="300"
+            height="400"
             oncontextmenu="return false;"
           />
         </div>
@@ -272,11 +274,14 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     display: flex;
     align-items: center;
     gap: 1rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .carousel-container {
     flex: 1;
     overflow: hidden;
+    width: 100%;
   }
 
   .carousel-track {
@@ -481,11 +486,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     }
 
     .playlists-carousel {
-      flex-direction: column;
+      flex-direction: row;
     }
 
     .playlist-item {
-      flex: 1;
+      flex: 0 0 100%;
       width: 100%;
     }
 
@@ -494,28 +499,61 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       padding: 0 1rem;
     }
 
-    .carousel-arrow,
-    .carousel-arrow.playlist-prev,
-    .carousel-arrow.playlist-next {
-      display: none;
+    .modal-close {
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 32px;
+      height: 32px;
+      font-size: 1.2rem;
     }
 
     .carousel-container,
     .playlists-container {
+      width: 100%;
       overflow-x: auto;
+      overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      padding-bottom: 1rem;
     }
 
     .carousel-track,
     .playlists-track {
-      min-width: 100%;
-      transition: none;
+      display: flex;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .carousel-item,
+    .playlist-item {
+      scroll-snap-align: start;
+      flex: 0 0 100%;
+      width: 100%;
     }
 
     .photo-gallery {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-      padding: 0 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      padding: 0 0.5rem;
+      margin: 0 auto;
+    }
+    
+    .photo-modal {
+      padding: 1rem;
+    }
+    
+    .modal-content {
+      max-width: 95vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content img {
+      max-width: 95%;
+      max-height: 80vh;
+      margin: 0 auto;
     }
   }
 
@@ -526,10 +564,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
     .subsection-title {
       font-size: var(--font-size-lg);
-    }
-
-    .photo-gallery {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 
     .sets-carousel,
@@ -610,6 +644,48 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 </style>
 
 <script>
+  // Add touch swipe functionality for mobile
+  document.addEventListener('DOMContentLoaded', () => {
+    const carouselTracks = document.querySelectorAll('.carousel-track, .playlists-track');
+    
+    carouselTracks.forEach(track => {
+      let startX, startY, startScrollLeft, isDragging = false;
+
+      const startDrag = (e) => {
+        isDragging = true;
+        startX = e.pageX || e.touches[0].pageX;
+        startY = e.pageY || e.touches[0].pageY;
+        startScrollLeft = track.parentElement.scrollLeft;
+      }
+
+      const drag = (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX || e.touches[0].pageX;
+        const y = e.pageY || e.touches[0].pageY;
+        
+        // Calculate horizontal scroll based on drag distance
+        const deltaX = x - startX;
+        track.parentElement.scrollLeft = startScrollLeft - deltaX;
+      }
+
+      const endDrag = () => {
+        isDragging = false;
+      }
+
+      // Mouse events
+      track.addEventListener('mousedown', startDrag);
+      track.addEventListener('mousemove', drag);
+      track.addEventListener('mouseup', endDrag);
+      track.addEventListener('mouseleave', endDrag);
+      
+      // Touch events
+      track.addEventListener('touchstart', startDrag);
+      track.addEventListener('touchmove', drag);
+      track.addEventListener('touchend', endDrag);
+    });
+  });
+
   // Carousel functionality
   const carouselTrack = document.querySelector('.carousel-track') as HTMLElement;
   const carouselItems = document.querySelectorAll('.carousel-item');
