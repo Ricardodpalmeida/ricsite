@@ -26,8 +26,16 @@ export default defineConfig({
     '//profile//data.json': '/404',
     '/data.json': '/404',
     '//data.json': '/404',
-    '/profile-data.json': '/404',
-    '//profile-data.json': '/404',
+    
+    // Using object syntax for this problematic redirect
+    '/profile-data.json': {
+      status: 404,
+      destination: '/404'
+    },
+    '//profile-data.json': {
+      status: 404,
+      destination: '/404'
+    },
     
     // Block content directories
     '/content/*': '/404',
