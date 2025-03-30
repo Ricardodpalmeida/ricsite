@@ -4,7 +4,7 @@ pubDate: 2023-12-25
 description: "Stay tuned for upcoming blog posts"
 author: "Ricardo Almeida"
 language: "en"
-heroImage: "/images/blog/placeholder.jpg"
+heroImage: "/blog-coming-soon.jpg"
 tags: ["news", "blog"]
 ---
 

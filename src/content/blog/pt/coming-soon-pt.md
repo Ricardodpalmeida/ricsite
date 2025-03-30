@@ -4,7 +4,7 @@ pubDate: 2023-12-25
 description: "Fique atento para os próximos posts do blog"
 author: "Ricardo Almeida"
 language: "pt"
-heroImage: "/images/blog/placeholder.jpg"
+heroImage: "/blog-coming-soon.jpg"
 tags: ["novidades", "blog"]
 ---
 
