@@ -2,6 +2,9 @@
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
+import PhotoModal from './PhotoModal.astro';
+import '../styles/photo-gallery.css';
+import '../styles/carousel.css';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
@@ -49,6 +52,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         allowfullscreen
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
+        fetchpriority="low"
         class="media-iframe"
         onload="this.parentNode.classList.add('loaded')"
         onerror="this.parentNode.classList.add('error')"
@@ -77,6 +81,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                   style="border: 0;" 
                   title={set.title || `Set ${index + 1}`}
                   loading="lazy"
+                  fetchpriority="low"
                   class="media-iframe"
                   onload="this.parentNode.classList.add('loaded')"
                   onerror="this.parentNode.classList.add('error')"
@@ -135,6 +140,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                   allowfullscreen
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                   loading="lazy" 
+                  fetchpriority="low"
                   title={playlist.title || `Playlist ${index + 1}`}
                   class="media-iframe"
                   onload="this.parentNode.classList.add('loaded')"
@@ -220,15 +226,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   </div>
 </div>
 
-<!-- Photo Modal -->
-<div class="photo-modal" id="photoModal">
-  <button class="modal-close" aria-label="Close modal">×</button>
-  <button class="modal-nav prev" aria-label="Previous photo">&#60;</button>
-  <button class="modal-nav next" aria-label="Next photo">&#62;</button>
-  <div class="modal-content">
-    <img src="" alt="" oncontextmenu="return false;" />
-  </div>
-</div>
+<!-- Include the Photo Modal component -->
+<PhotoModal />
 
 <style>
   /* User selection disable */
@@ -385,100 +384,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     user-select: none;
   }
 
-  /* Modal Styles */
-  .photo-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    padding: 2rem;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .photo-modal.active {
-    display: flex;
-  }
-
-  .modal-content {
-    position: relative;
-    max-width: 90vw;
-    max-height: 90vh;
-  }
-
-  .modal-content img {
-    max-width: 100%;
-    max-height: 90vh;
-    object-fit: contain;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: var(--color-cosmic-latte-10);
-    border: 1px solid var(--color-cosmic-latte);
-    color: var(--color-white);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 1001;
-  }
-
-  .modal-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    z-index: 110;
-    transition: all 0.3s;
-  }
-
-  .modal-nav:hover {
-    background: rgba(0, 0, 0, 0.8);
-  }
-
-  .modal-nav.prev {
-    left: 1rem;
-  }
-
-  .modal-nav.next {
-    right: 1rem;
-  }
-
-  .modal-close:hover,
-  .modal-nav:hover {
-    background: var(--color-cosmic-latte-20);
-    transform: scale(1.1);
-  }
-
-  .modal-nav.prev:hover {
-    transform: translateY(-50%) scale(1.1);
-  }
-
-  .modal-nav.next:hover {
-    transform: translateY(-50%) scale(1.1);
-  }
-
   /* Responsive Styles */
   @media (max-width: 768px) {
     .section-container {
@@ -497,14 +402,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     .sets-carousel,
     .playlists-carousel {
       padding: 0 1rem;
-    }
-
-    .modal-close {
-      top: 0.5rem;
-      right: 0.5rem;
-      width: 32px;
-      height: 32px;
-      font-size: 1.2rem;
     }
 
     .carousel-container,
@@ -536,23 +433,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       grid-template-columns: repeat(2, 1fr);
       gap: 0.75rem;
       padding: 0 0.5rem;
-      margin: 0 auto;
-    }
-    
-    .photo-modal {
-      padding: 1rem;
-    }
-    
-    .modal-content {
-      max-width: 95vw;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .modal-content img {
-      max-width: 95%;
-      max-height: 80vh;
       margin: 0 auto;
     }
   }
@@ -644,6 +524,38 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 </style>
 
 <script>
+  // Add intersection observer for lazy loading iframes
+  document.addEventListener('DOMContentLoaded', () => {
+    const iframeContainers = document.querySelectorAll('.iframe-container');
+    
+    // Only run this if IntersectionObserver is supported
+    if ('IntersectionObserver' in window) {
+      const iframeObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const container = entry.target;
+            const iframe = container.querySelector('iframe');
+            
+            // If the iframe has a data-src, set it as the real src
+            if (iframe.dataset.src) {
+              iframe.src = iframe.dataset.src;
+              // Remove the data-src attribute so we don't load it again
+              iframe.removeAttribute('data-src');
+            }
+            
+            // Stop observing this container once loaded
+            observer.unobserve(container);
+          }
+        });
+      }, { rootMargin: '200px' }); // Start loading when content is within 200px of viewport
+      
+      // Start observing each iframe container
+      iframeContainers.forEach(container => {
+        iframeObserver.observe(container);
+      });
+    }
+  });
+
   // Add touch swipe functionality for mobile
   document.addEventListener('DOMContentLoaded', () => {
     const carouselTracks = document.querySelectorAll('.carousel-track, .playlists-track');
@@ -757,69 +669,4 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   // Initialize playlist carousel
   updatePlaylistCarousel();
-
-  // Photo Gallery Modal Functionality
-  const modal = document.getElementById('photoModal') as HTMLElement;
-  const modalImg = modal?.querySelector('img') as HTMLImageElement;
-  const modalCloseBtn = modal?.querySelector('.modal-close');
-  const modalPrevBtn = modal?.querySelector('.modal-nav.prev');
-  const modalNextBtn = modal?.querySelector('.modal-nav.next');
-  const photoItems = document.querySelectorAll('.photo-item');
-  let currentPhotoIndex = 0;
-
-  function openModal(index: number) {
-    if (!modal || !modalImg) return;
-    currentPhotoIndex = index;
-    const photoSrc = photoItems[index]?.querySelector('img')?.src;
-    if (photoSrc) {
-      modalImg.src = photoSrc;
-      modalImg.alt = `Photo ${index + 1}`;
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-
-  function navigatePhoto(direction: 'prev' | 'next') {
-    const newIndex = direction === 'prev' 
-      ? Math.max(0, currentPhotoIndex - 1)
-      : Math.min(photoItems.length - 1, currentPhotoIndex + 1);
-    
-    if (newIndex !== currentPhotoIndex) {
-      openModal(newIndex);
-    }
-  }
-
-  // Event Listeners
-  photoItems.forEach((item, index) => {
-    item.addEventListener('click', () => openModal(index));
-  });
-
-  modalCloseBtn?.addEventListener('click', closeModal);
-  modalPrevBtn?.addEventListener('click', () => navigatePhoto('prev'));
-  modalNextBtn?.addEventListener('click', () => navigatePhoto('next'));
-
-  // Close modal on escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-    if (e.key === 'ArrowLeft') navigatePhoto('prev');
-    if (e.key === 'ArrowRight') navigatePhoto('next');
-  });
-
-  // Close modal when clicking outside the image
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  // Prevent right-click on all gallery images
-  document.addEventListener('contextmenu', (e) => {
-    if (e.target instanceof HTMLImageElement) {
-      e.preventDefault();
-    }
-  });
 </script> 

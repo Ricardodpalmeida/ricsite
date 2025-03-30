@@ -1,0 +1,199 @@
+---
+// Photo Modal Component
+---
+
+<!-- Photo Modal -->
+<div class="photo-modal" id="photoModal">
+  <button class="modal-close" aria-label="Close modal">×</button>
+  <button class="modal-nav prev" aria-label="Previous photo">&#60;</button>
+  <button class="modal-nav next" aria-label="Next photo">&#62;</button>
+  <div class="modal-content">
+    <img src="" alt="" oncontextmenu="return false;" />
+  </div>
+</div>
+
+<style>
+  /* Modal Styles */
+  .photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-modal.active {
+    display: flex;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-cosmic-latte-10);
+    border: 1px solid var(--color-cosmic-latte);
+    color: var(--color-white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+  }
+
+  .modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 110;
+    transition: all 0.3s;
+  }
+
+  .modal-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-nav.prev {
+    left: 1rem;
+  }
+
+  .modal-nav.next {
+    right: 1rem;
+  }
+
+  .modal-close:hover,
+  .modal-nav:hover {
+    background: var(--color-cosmic-latte-20);
+    transform: scale(1.1);
+  }
+
+  .modal-nav.prev:hover {
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .modal-nav.next:hover {
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .photo-modal {
+      padding: 1rem;
+    }
+    
+    .modal-content {
+      max-width: 95vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content img {
+      max-width: 95%;
+      max-height: 80vh;
+      margin: 0 auto;
+    }
+    
+    .modal-close {
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 32px;
+      height: 32px;
+      font-size: 1.2rem;
+    }
+  }
+</style>
+
+<script>
+  // Photo Gallery Modal Functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('photoModal');
+    const modalImg = modal?.querySelector('img');
+    const modalCloseBtn = modal?.querySelector('.modal-close');
+    const modalPrevBtn = modal?.querySelector('.modal-nav.prev');
+    const modalNextBtn = modal?.querySelector('.modal-nav.next');
+    const photoItems = document.querySelectorAll('.photo-item');
+    let currentPhotoIndex = 0;
+  
+    window.openPhotoModal = function(index) {
+      if (!modal || !modalImg) return;
+      currentPhotoIndex = index;
+      const photoSrc = photoItems[index]?.querySelector('img')?.src;
+      if (photoSrc) {
+        modalImg.src = photoSrc;
+        modalImg.alt = `Photo ${index + 1}`;
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+  
+    window.closePhotoModal = function() {
+      if (!modal) return;
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  
+    function navigatePhoto(direction) {
+      const newIndex = direction === 'prev' 
+        ? Math.max(0, currentPhotoIndex - 1)
+        : Math.min(photoItems.length - 1, currentPhotoIndex + 1);
+      
+      if (newIndex !== currentPhotoIndex) {
+        window.openPhotoModal(newIndex);
+      }
+    }
+  
+    // Event Listeners
+    photoItems.forEach((item, index) => {
+      item.addEventListener('click', () => window.openPhotoModal(index));
+    });
+  
+    modalCloseBtn?.addEventListener('click', window.closePhotoModal);
+    modalPrevBtn?.addEventListener('click', () => navigatePhoto('prev'));
+    modalNextBtn?.addEventListener('click', () => navigatePhoto('next'));
+  
+    // Close modal on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') window.closePhotoModal();
+      if (e.key === 'ArrowLeft') navigatePhoto('prev');
+      if (e.key === 'ArrowRight') navigatePhoto('next');
+    });
+  
+    // Close modal when clicking outside the image
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) window.closePhotoModal();
+    });
+  });
+</script> 
