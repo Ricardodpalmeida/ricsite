@@ -14,27 +14,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <div class="section-container">
     <h2 class="section-title">Side Projects</h2>
     
-    <!-- Photography Section -->
-    <div class="project-container">
-      <h3 class="subsection-title">Photography</h3>
-      <p class="section-description">
-        Photography allows me to capture the beauty in everyday moments. My work focuses on urban landscapes, 
-        architectural details, and the interplay of light and shadow in city environments.
-      </p>
-      <div class="photo-gallery">
-        {galleryImages.map((imageSrc: string, i: number) => (
-          <div class="photo-item" data-index={i}>
-            <img 
-              src={imageSrc}
-              alt={`Gallery photo ${i + 1}`}
-              loading="lazy"
-              oncontextmenu="return false;"
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-    
     <!-- Podcast Section -->
     <div class="project-container">
       <h3 class="subsection-title">Podcast</h3>
@@ -95,6 +74,27 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         <div class="playlist-item">
           <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3"></iframe>
         </div>
+      </div>
+    </div>
+
+    <!-- Photography Section -->
+    <div class="project-container">
+      <h3 class="subsection-title">Photography</h3>
+      <p class="section-description">
+        Photography allows me to capture the beauty in everyday moments. My work focuses on urban landscapes, 
+        architectural details, and the interplay of light and shadow in city environments.
+      </p>
+      <div class="photo-gallery">
+        {galleryImages.map((imageSrc: string, i: number) => (
+          <div class="photo-item" data-index={i}>
+            <img 
+              src={imageSrc}
+              alt={`Gallery photo ${i + 1}`}
+              loading="lazy"
+              oncontextmenu="return false;"
+            />
+          </div>
+        ))}
       </div>
     </div>
   </div>
@@ -233,22 +233,24 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   /* Photo Gallery Styles */
   .photo-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
     margin-bottom: 2rem;
   }
 
   .photo-item {
     position: relative;
-    aspect-ratio: 3/2;
+    aspect-ratio: 3/4;
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
   .photo-item:hover {
     transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
   }
 
   .photo-item img {
