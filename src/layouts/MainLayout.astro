@@ -59,6 +59,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
+    <!-- reCAPTCHA preconnect resource hints -->
+    <link rel="preconnect" href="https://www.google.com">
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    
     <!-- Google Fonts: Switch to serif for small text and sans serif for headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -74,7 +78,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
     <!-- reCAPTCHA v3 script -->
     {recaptchaSiteKey && 
-      <script is:inline src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}></script>
+      <script is:inline async src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}></script>
     }
 
     <!-- Structured Data for Professional Profile -->
