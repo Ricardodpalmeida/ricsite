@@ -27,7 +27,18 @@ Options -Indexes
   Header always set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; frame-src 'self' https://open.spotify.com https://*.spotify.com https://*.mixcloud.com https://player-widget.mixcloud.com; frame-ancestors 'self';"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+  
+  # Cookie Security
+  Header always edit Set-Cookie (.*) "$1; SameSite=Strict; Secure"
+  Header always set Set-Cookie-Flag "HttpOnly; Secure; SameSite=Strict"
 
+  # CORS settings for embedded content
+  <FilesMatch "\.(html|htm|xml|js|css)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type"
+  </FilesMatch>
+  
   # Proper Content-Type charset for HTML and text files
   <FilesMatch "\.(html|htm)$">
     Header always set Content-Type "text/html; charset=UTF-8"
