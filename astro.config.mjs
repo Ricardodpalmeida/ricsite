@@ -15,6 +15,12 @@ export default defineConfig({
       prefixDefaultLocale: false
     }
   },
+  redirects: {
+    '/en/music': '/',
+    '/en/podcast': '/',
+    '/pt/music': '/pt',
+    '/pt/podcast': '/pt'
+  },
   vite: {
     define: {
       'import.meta.env.SITE': JSON.stringify('https://me.ricbits.cc')
