@@ -37,7 +37,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
             loading="eager"
           />
         </div>
-        <h1 class="hero-title">{t('hero.greeting')} <span class="highlight">Ricardo</span></h1>
+        <h1 class="hero-title">{t('hero.greeting')} <span class="highlight name-tooltip">Ricardo<span class="tooltip-text">My name is highlighted in Cosmic Latte (#FFF8E7), the average color of the universe according to astronomers who analyzed light from 200,000 galaxies</span></span></h1>
         <p class="hero-subtitle">{t('hero.jobTitle')}</p>
         <div class="hero-description">
           <p>
@@ -265,6 +265,55 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
   .hero-cta button.primary-button {
     cursor: pointer; /* Make button look clickable */
     /* Inherits other styles from .primary-button */
+  }
+
+  /* Name tooltip styles */
+  .name-tooltip {
+    position: relative;
+    cursor: help;
+  }
+
+  .name-tooltip .tooltip-text {
+    position: absolute;
+    visibility: hidden;
+    width: 300px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: var(--color-white);
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-cosmic-latte-10);
+  }
+
+  .name-tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+  }
+
+  .name-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .name-tooltip .tooltip-text {
+      width: 250px;
+    }
   }
 </style>
 
