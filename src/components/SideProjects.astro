@@ -489,20 +489,25 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       width: 100%;
     }
 
-    .sets-carousel {
+    .sets-carousel,
+    .playlists-carousel {
       padding: 0 1rem;
     }
 
-    .carousel-arrow {
+    .carousel-arrow,
+    .carousel-arrow.playlist-prev,
+    .carousel-arrow.playlist-next {
       display: none;
     }
 
-    .carousel-container {
+    .carousel-container,
+    .playlists-container {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
 
-    .carousel-track {
+    .carousel-track,
+    .playlists-track {
       min-width: 100%;
       transition: none;
     }
@@ -527,12 +532,15 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 
-    .sets-carousel {
+    .sets-carousel,
+    .playlists-carousel {
       flex-direction: column;
       gap: 0.5rem;
     }
 
-    .carousel-arrow {
+    .carousel-arrow,
+    .carousel-arrow.playlist-prev,
+    .carousel-arrow.playlist-next {
       display: none;
     }
   }

@@ -85,11 +85,23 @@ export function initTouchTooltips() {
     @media (max-width: 768px) {
       .skill-item.tooltip-active::after {
         transform: translateX(0) scale(1) !important;
+        left: 0 !important;
+        right: auto !important;
       }
       
+      /* Adjust tooltip position if it would go off the right side of the screen */
       .skill-item.tooltip-active:nth-child(3n+2)::after,
       .skill-item.tooltip-active:nth-child(3n)::after {
+        left: auto !important;
+        right: 0 !important;
         transform: translateX(0) scale(1) !important;
+      }
+      
+      /* Make tooltip not wider than the screen */
+      .skill-item::after {
+        max-width: 80vw !important;
+        width: auto !important;
+        min-width: 200px !important;
       }
     }
   `;

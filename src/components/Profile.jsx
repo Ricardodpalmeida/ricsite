@@ -96,6 +96,37 @@ function Profile({ profileData, currentLanguage = 'en' }) {
     return `${skillName} - Professional expertise and experience`;
   };
 
+  // Calculate duration based on start and end dates
+  const calculateDuration = (startDate, endDate, language) => {
+    if (!startDate) return '';
+    
+    const start = new Date(startDate);
+    const end = endDate ? new Date(endDate) : new Date();
+    
+    const totalMonths = (end.getFullYear() - start.getFullYear()) * 12 + end.getMonth() - start.getMonth();
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    
+    if (language === 'en') {
+      if (years > 0 && months > 0) {
+        return `${years} yr ${months} mo`;
+      } else if (years > 0) {
+        return `${years} yr`;
+      } else {
+        return `${months} mo`;
+      }
+    } else {
+      // Portuguese translations
+      if (years > 0 && months > 0) {
+        return `${years} ${years === 1 ? 'ano' : 'anos'} ${months} ${months === 1 ? 'mês' : 'meses'}`;
+      } else if (years > 0) {
+        return `${years} ${years === 1 ? 'ano' : 'anos'}`;
+      } else {
+        return `${months} ${months === 1 ? 'mês' : 'meses'}`;
+      }
+    }
+  };
+
   return (
     <div className="profile-container">
       {/* Header Section - Personal Info */}
@@ -224,9 +255,23 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(exp, `${language}.company`) || safeGet(exp, 'en.company', '') :
                 safeGet(exp, 'company', '');
                 
-              const duration = isMultilingual ?
+              const startDate = isMultilingual ?
+                safeGet(exp, `${language}.startDate`) || safeGet(exp, 'en.startDate', '') :
+                safeGet(exp, 'startDate', '');
+                
+              const endDate = isMultilingual ?
+                safeGet(exp, `${language}.endDate`) || safeGet(exp, 'en.endDate', '') :
+                safeGet(exp, 'endDate', '');
+              
+              // Use the duration from the data file if available, otherwise calculate it
+              let duration = isMultilingual ?
                 safeGet(exp, `${language}.duration`) || safeGet(exp, 'en.duration', '') :
                 safeGet(exp, 'duration', '');
+                
+              // Calculate duration if start date is provided but duration isn't
+              if (startDate && !duration) {
+                duration = calculateDuration(startDate, endDate, language);
+              }
                 
               const location = isMultilingual ?
                 safeGet(exp, `${language}.location`) || safeGet(exp, 'en.location', '') :
@@ -249,7 +294,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                         </span>
                       )}
                       {duration && location && (
-                        <span className="item-separator" aria-hidden="true">•</span>
+                        <span className="item-separator">•</span>
                       )}
                       {location && (
                         <span className="item-location">
@@ -257,7 +302,9 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                         </span>
                       )}
                     </div>
-                    {description && <p className="item-description">{description}</p>}
+                    {description && (
+                      <p className="item-description">{description}</p>
+                    )}
                   </div>
                 </article>
               );

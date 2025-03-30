@@ -427,7 +427,7 @@
   "skills": [
     {
       "en": {
-        "name": "AI Solutions Architecture",
+        "name": "AI Solution Architecture",
         "category": "AI",
         "level": "Expert",
         "credentialID": "",
@@ -443,59 +443,7 @@
     },
     {
       "en": {
-        "name": "RAG (Retrieval-Augmented Generation)",
-        "category": "AI",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": "",
-        "highlight": true
-      },
-      "pt": {
-        "name": "RAG (Geração Aumentada por Recuperação)",
-        "category": "AI",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": "",
-        "highlight": true
-      }
-    },
-    {
-      "en": {
-        "name": "LLM Integration",
-        "category": "AI",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": "",
-        "highlight": true
-      },
-      "pt": {
-        "name": "Integração de LLM",
-        "category": "AI",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": "",
-        "highlight": true
-      }
-    },
-    {
-      "en": {
-        "name": "Microsoft Power Platform",
-        "category": "Development",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "name": "Microsoft Power Platform",
-        "category": "Development",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "name": "Azure Cloud Architecture",
+        "name": "Cloud Solution Architecture",
         "category": "Cloud",
         "level": "Expert",
         "credentialID": "",
@@ -503,7 +451,7 @@
         "highlight": true
       },
       "pt": {
-        "name": "Arquitetura Cloud Azure",
+        "name": "Arquitetura de Soluções Cloud",
         "category": "Cloud",
         "level": "Expert",
         "credentialID": "",
@@ -513,87 +461,7 @@
     },
     {
       "en": {
-        "name": "Databricks",
-        "category": "Data",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "name": "Databricks",
-        "category": "Data",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "name": "Product Management",
-        "category": "Leadership",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "name": "Gestão de Produto",
-        "category": "Leadership",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "name": "Power BI",
-        "category": "Data",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "name": "Power BI",
-        "category": "Data",
-        "level": "Expert",
-        "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "name": "Python",
-        "category": "Development",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "name": "Python",
-        "category": "Development",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "name": "Data Science",
-        "category": "Data",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      },
-      "pt": {
-        "name": "Ciência de Dados",
-        "category": "Data",
-        "level": "Advanced",
-        "credentialID": "",
-        "credentialURL": ""
-      }
-    },
-    {
-      "en": {
-        "name": "Low-code Development",
+        "name": "Power Platform Architecture",
         "category": "Development",
         "level": "Expert",
         "credentialID": "",
@@ -601,7 +469,7 @@
         "highlight": true
       },
       "pt": {
-        "name": "Desenvolvimento Low-code",
+        "name": "Arquitetura de Power Platform",
         "category": "Development",
         "level": "Expert",
         "credentialID": "",
@@ -611,16 +479,32 @@
     },
     {
       "en": {
-        "name": "C# (ASP.NET)",
-        "category": "Development",
-        "level": "Intermediate",
+        "name": "Product Owner",
+        "category": "Leadership",
+        "level": "Advanced",
         "credentialID": "",
         "credentialURL": ""
       },
       "pt": {
-        "name": "C# (ASP.NET)",
-        "category": "Development",
-        "level": "Intermediate",
+        "name": "Product Owner",
+        "category": "Leadership",
+        "level": "Advanced",
+        "credentialID": "",
+        "credentialURL": ""
+      }
+    },
+    {
+      "en": {
+        "name": "Project Management",
+        "category": "Leadership",
+        "level": "Advanced",
+        "credentialID": "",
+        "credentialURL": ""
+      },
+      "pt": {
+        "name": "Gestão de Projetos",
+        "category": "Leadership",
+        "level": "Advanced",
         "credentialID": "",
         "credentialURL": ""
       }
