@@ -137,6 +137,14 @@
 </style>
 
 <script>
+  // Add type definitions for window methods
+  declare global {
+    interface Window {
+      openPhotoModal: (index: number) => void;
+      closePhotoModal: () => void;
+    }
+  }
+
   // Photo Gallery Modal Functionality
   document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('photoModal');

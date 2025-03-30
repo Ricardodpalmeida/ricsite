@@ -556,6 +556,19 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     }
   });
 
+  // When using PhotoModal component, set up click handlers to use window.openPhotoModal
+  document.addEventListener('DOMContentLoaded', () => {
+    // Set up photo item clicks to open the modal
+    const photoItems = document.querySelectorAll('.photo-item');
+    photoItems.forEach((item, index) => {
+      item.addEventListener('click', () => {
+        if (typeof window.openPhotoModal === 'function') {
+          window.openPhotoModal(index);
+        }
+      });
+    });
+  });
+
   // Add touch swipe functionality for mobile
   document.addEventListener('DOMContentLoaded', () => {
     const carouselTracks = document.querySelectorAll('.carousel-track, .playlists-track');
