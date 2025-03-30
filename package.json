@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "npm run type-check && astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "type-check": "tsc --noemit --skipLibCheck --project tsconfig.json"
   },
   "dependencies": {
     "@astrojs/react": "^3.0.10",
