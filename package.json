@@ -5,12 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "npm run type-check && astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "type-check": "tsc --noemit --skipLibCheck --project tsconfig.json"
+    "type-check": "tsc --noemit --skipLibCheck --project tsconfig.json",
+    "type-check-strict": "tsc --noemit --skipLibCheck --project tsconfig.json --ignoreMissingFiles"
   },
   "dependencies": {
+    "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^3.0.10",
     "@astrojs/rss": "^4.0.11",
     "@types/markdown-it": "^14.1.2",
@@ -21,7 +23,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-infinite-scroll-component": "^6.1.0",
-    "sanitize-html": "^2.15.0"
+    "sanitize-html": "^2.15.0",
+    "typescript": "^5.8.2"
   },
   "devDependencies": {
     "gh-pages": "^6.1.0"
