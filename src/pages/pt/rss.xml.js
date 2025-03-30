@@ -4,7 +4,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 
 export async function GET(context) {
   const posts = await getCollection('blog', ({ data }) => {
-    return !data.draft && data.language === 'pt';
+    return !data.draft && (!data.language || data.language === 'pt');
   });
   
   return rss({
@@ -15,7 +15,7 @@ export async function GET(context) {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      link: `/pt/blog/${post.slug}/`,
+      link: `pt/blog/${post.slug}/`,
     })),
     customData: `<language>pt-br</language>`,
   });
