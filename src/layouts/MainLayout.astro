@@ -60,6 +60,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
+    <!-- RSS Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Ricardo Almeida (English)" href="/en/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Ricardo Almeida (Português)" href="/pt/rss.xml" />
+    
     <!-- Google Fonts: Switch to serif for small text and sans serif for headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,13 +95,13 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   </head>
   <body>
     <header>
-      <div class="header-wrapper">
+      <div className="header-wrapper">
         {!hideLangSelector && (
-          <div class="language-selector">
+          <div className="language-selector">
             {Object.entries(languages).map(([langCode, langName]) => (
               <a 
                 href={getLocalizedUrl(Astro.url, langCode as ('en' | 'pt'))} 
-                class={`language-btn ${langCode} ${langCode === lang ? 'active' : ''}`}
+                className={`language-btn ${langCode} ${langCode === lang ? 'active' : ''}`}
                 aria-label={langCode === 'en' ? 'Switch to English' : 'Mudar para Português'}
               >
                 {langCode.toUpperCase()}
@@ -106,14 +110,14 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
           </div>
         )}
         
-        <nav class="main-nav">
-          <div class="container nav-container">
+        <nav className="main-nav">
+          <div className="container nav-container">
             <ul>
-              <li><a href={`/${lang}/`} class={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? 'active' : ''}>{t('nav.home')}</a></li>
-              <li><a href={`/${lang}/about`} class={Astro.url.pathname === `/${lang}/about` ? 'active' : ''}>{t('nav.about')}</a></li>
-              <li><a href={`/${lang}/blog`} class={Astro.url.pathname.startsWith(`/${lang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
-              <li><a href={`/${lang}/podcast`} class={Astro.url.pathname === `/${lang}/podcast` ? 'active' : ''}>{t('nav.podcast')}</a></li>
-              <li><a href={`/${lang}/music`} class={Astro.url.pathname === `/${lang}/music` ? 'active' : ''}>{t('nav.music')}</a></li>
+              <li><a href={`/${lang}/`} className={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? 'active' : ''}>{t('nav.home')}</a></li>
+              <li><a href={`/${lang}/about`} className={Astro.url.pathname === `/${lang}/about` ? 'active' : ''}>{t('nav.about')}</a></li>
+              <li><a href={`/${lang}/blog`} className={Astro.url.pathname.startsWith(`/${lang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+              <li><a href={`/${lang}/podcast`} className={Astro.url.pathname === `/${lang}/podcast` ? 'active' : ''}>{t('nav.podcast')}</a></li>
+              <li><a href={`/${lang}/music`} className={Astro.url.pathname === `/${lang}/music` ? 'active' : ''}>{t('nav.music')}</a></li>
             </ul>
           </div>
         </nav>
@@ -123,14 +127,14 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     <slot />
     
     <footer>
-      <div class="container">
-        <p class="footer-text">{t('footer.copyright')}</p>
+      <div className="container">
+        <p className="footer-text">{t('footer.copyright')}</p>
       </div>
     </footer>
   </body>
 </html>
 
-<style is:global>
+<style is="global">
   /**
    * Global Styles
    * 
