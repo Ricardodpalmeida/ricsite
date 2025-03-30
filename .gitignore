@@ -56,3 +56,9 @@ RESPONSIVE_TESTING.md
 
 # Cache files
 .cache/
+
+# GitHub workflows and config (except deployment)
+.github/*
+!.github/workflows/
+.github/workflows/*
+!.github/workflows/deploy.yml

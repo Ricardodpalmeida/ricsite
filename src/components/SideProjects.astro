@@ -11,14 +11,16 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 ---
 
 <div class="side-projects-container">
-  <h2 class="section-title">Side Projects</h2>
+  <h2 class="section-title">{lang === 'pt' ? 'Projetos Paralelos' : 'Side Projects'}</h2>
   
   <!-- Podcast Section -->
   <div class="project-container">
     <h3 class="subsection-title">Podcast</h3>
     <p class="section-description">
-      'Mesa do Canto' was a podcast in Portuguese where a friend and I convened to discuss a variety of subjects, 
-      including culture, politics, philosophy, history, economics, and technology.
+      {lang === 'pt' 
+        ? "'Mesa do Canto' foi um podcast em português onde eu e um amigo nos reuníamos para discutir vários assuntos, incluindo cultura, política, filosofia, história, economia e tecnologia."
+        : "'Mesa do Canto' was a podcast in Portuguese where a friend and I convened to discuss a variety of subjects, including culture, politics, philosophy, history, economics, and technology."
+      }
     </p>
     <div class="podcast-embed">
       <iframe 
@@ -36,13 +38,15 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   
   <!-- DJ Sets Section -->
   <div class="project-container">
-    <h3 class="subsection-title">Latest Sets</h3>
+    <h3 class="subsection-title">{lang === 'pt' ? 'Sets Recentes' : 'Latest Sets'}</h3>
     <p class="section-description">
-      I'm a DJ specializing in Jazz, African Funk and Jazz, Deep, Future, Disco and Progressive House, 
-      along with other world music like Habibi Funk. All my sets are improvised, mixing both vinyl and digital formats.
+      {lang === 'pt'
+        ? "Sou DJ especializado em Jazz, Funk Africano, Deep, Future, Disco e Progressive House, além de outras músicas do mundo como Habibi Funk. Todos os meus sets são improvisados, misturando formatos vinil e digital."
+        : "I'm a DJ specializing in Jazz, African Funk and Jazz, Deep, Future, Disco and Progressive House, along with other world music like Habibi Funk. All my sets are improvised, mixing both vinyl and digital formats."
+      }
     </p>
     <div class="sets-carousel">
-      <button class="carousel-arrow prev" aria-label="Previous set">←</button>
+      <button class="carousel-arrow prev" aria-label="Previous set">&#60;</button>
       <div class="carousel-container">
         <div class="carousel-track">
           <div class="carousel-item">
@@ -56,13 +60,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           </div>
         </div>
       </div>
-      <button class="carousel-arrow next" aria-label="Next set">→</button>
+      <button class="carousel-arrow next" aria-label="Next set">&#62;</button>
     </div>
   </div>
 
   <!-- Playlists Section -->
   <div class="project-container">
-    <h3 class="subsection-title">My Playlists</h3>
+    <h3 class="subsection-title">{lang === 'pt' ? 'Minhas Playlists' : 'My Playlists'}</h3>
     <div class="playlists-gallery">
       <div class="playlist-item">
         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1"></iframe>
@@ -78,10 +82,12 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   <!-- Photography Section -->
   <div class="project-container">
-    <h3 class="subsection-title">Photography</h3>
+    <h3 class="subsection-title">{lang === 'pt' ? 'Fotografia' : 'Photography'}</h3>
     <p class="section-description">
-      Photography is a hobby that helps me appreciate the world around us. I particularly enjoy capturing 
-      the ever-changing moods of the sky, from dramatic sunsets to the interplay of clouds and light.
+      {lang === 'pt'
+        ? "A fotografia é um hobby que me ajuda a apreciar o mundo ao nosso redor. Gosto particularmente de capturar os humores sempre mutáveis do céu, desde pores do sol dramáticos até o jogo de nuvens e luz."
+        : "Photography is a hobby that helps me appreciate the world around us. I particularly enjoy capturing the ever-changing moods of the sky, from dramatic sunsets to the interplay of clouds and light."
+      }
     </p>
     <div class="photo-gallery">
       {galleryImages.map((imageSrc: string, i: number) => (
@@ -101,18 +107,20 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 <!-- Modal for Photo Viewing -->
 <div class="photo-modal" id="photoModal">
   <button class="modal-close" aria-label="Close modal">×</button>
-  <button class="modal-nav prev" aria-label="Previous photo">←</button>
-  <button class="modal-nav next" aria-label="Next photo">→</button>
+  <button class="modal-nav prev" aria-label="Previous photo">&#60;</button>
+  <button class="modal-nav next" aria-label="Next photo">&#62;</button>
   <div class="modal-content">
     <img src="" alt="" oncontextmenu="return false;" />
   </div>
 </div>
 
 <style>
+  /* User selection disable */
   .side-projects-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 4rem 0;
+    user-select: none;
   }
 
   .section-title {
@@ -165,22 +173,21 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   }
 
   .carousel-arrow {
-    background: var(--color-cosmic-latte-10);
-    border: 1px solid var(--color-cosmic-latte);
-    color: var(--color-white);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
     cursor: pointer;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease;
+    transition: all 0.3s;
   }
 
   .carousel-arrow:hover {
-    background: var(--color-cosmic-latte-20);
-    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.8);
   }
 
   /* Playlists Gallery Styles */
@@ -199,7 +206,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   }
 
   .playlists-gallery::-webkit-scrollbar-track {
-    background: var(--color-cosmic-latte-10);
+    background: transparent;
     border-radius: 3px;
   }
 
@@ -215,7 +222,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   /* Firefox scrollbar */
   .playlists-gallery {
     scrollbar-width: thin;
-    scrollbar-color: var(--color-cosmic-latte) var(--color-cosmic-latte-10);
+    scrollbar-color: var(--color-cosmic-latte) transparent;
   }
 
   .playlist-item {
