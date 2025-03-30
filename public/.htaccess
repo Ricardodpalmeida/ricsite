@@ -24,7 +24,7 @@ Options -Indexes
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-XSS-Protection "1; mode=block"
   Header always set X-Frame-Options "SAMEORIGIN"
-  Header always set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; frame-src 'self' https://open.spotify.com https://*.spotify.com https://*.mixcloud.com https://player-widget.mixcloud.com; frame-ancestors 'self';"
+  Header always set Content-Security-Policy "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; frame-src 'self' https://open.spotify.com https://*.spotify.com https://*.mixcloud.com https://player-widget.mixcloud.com; connect-src 'self' https://*.sentry.io https://*.ingest.sentry.io https://*.spotify.com https://*.mixcloud.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.spotify.com https://*.mixcloud.com https://www.google.com https://www.gstatic.com; frame-ancestors 'self';"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
   
