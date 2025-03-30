@@ -95,13 +95,13 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   </head>
   <body>
     <header>
-      <div className="header-wrapper">
+      <div class="header-wrapper">
         {!hideLangSelector && (
-          <div className="language-selector">
+          <div class="language-selector">
             {Object.entries(languages).map(([langCode, langName]) => (
               <a 
                 href={getLocalizedUrl(Astro.url, langCode as ('en' | 'pt'))} 
-                className={`language-btn ${langCode} ${langCode === lang ? 'active' : ''}`}
+                class={`language-btn ${langCode} ${langCode === lang ? 'active' : ''}`}
                 aria-label={langCode === 'en' ? 'Switch to English' : 'Mudar para Português'}
               >
                 {langCode.toUpperCase()}
@@ -110,14 +110,14 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
           </div>
         )}
         
-        <nav className="main-nav">
-          <div className="container nav-container">
+        <nav class="main-nav">
+          <div class="container nav-container">
             <ul>
-              <li><a href={`/${lang}/`} className={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? 'active' : ''}>{t('nav.home')}</a></li>
-              <li><a href={`/${lang}/about`} className={Astro.url.pathname === `/${lang}/about` ? 'active' : ''}>{t('nav.about')}</a></li>
-              <li><a href={`/${lang}/blog`} className={Astro.url.pathname.startsWith(`/${lang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
-              <li><a href={`/${lang}/podcast`} className={Astro.url.pathname === `/${lang}/podcast` ? 'active' : ''}>{t('nav.podcast')}</a></li>
-              <li><a href={`/${lang}/music`} className={Astro.url.pathname === `/${lang}/music` ? 'active' : ''}>{t('nav.music')}</a></li>
+              <li><a href={`/${lang}/`} class={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? 'active' : ''}>{t('nav.home')}</a></li>
+              <li><a href={`/${lang}/about`} class={Astro.url.pathname === `/${lang}/about` ? 'active' : ''}>{t('nav.about')}</a></li>
+              <li><a href={`/${lang}/blog`} class={Astro.url.pathname.startsWith(`/${lang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+              <li><a href={`/${lang}/podcast`} class={Astro.url.pathname === `/${lang}/podcast` ? 'active' : ''}>{t('nav.podcast')}</a></li>
+              <li><a href={`/${lang}/music`} class={Astro.url.pathname === `/${lang}/music` ? 'active' : ''}>{t('nav.music')}</a></li>
             </ul>
           </div>
         </nav>
@@ -127,14 +127,14 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     <slot />
     
     <footer>
-      <div className="container">
-        <p className="footer-text">{t('footer.copyright')}</p>
+      <div class="container">
+        <p class="footer-text">{t('footer.copyright')}</p>
       </div>
     </footer>
   </body>
 </html>
 
-<style is="global">
+<style is:global>
   /**
    * Global Styles
    * 

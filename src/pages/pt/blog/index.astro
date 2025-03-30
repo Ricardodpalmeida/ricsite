@@ -28,10 +28,10 @@ const sortedPosts = posts.sort(
   description="Artigos e insights sobre IA, arquitetura em nuvem e tecnologia por Ricardo Almeida"
   currentLanguage={lang}
 >
-  <main className="blog-container">
-    <div className="blog-header">
-      <h1 className="blog-title">Blog</h1>
-      <a href="/pt/rss.xml" className="rss-link" title="Feed RSS" aria-label="Inscreva-se no feed RSS">
+  <main class="blog-container">
+    <div class="blog-header">
+      <h1 class="blog-title">Blog</h1>
+      <a href="/pt/rss.xml" class="rss-link" title="Feed RSS" aria-label="Inscreva-se no feed RSS">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 11a9 9 0 0 1 9 9"></path>
           <path d="M4 4a16 16 0 0 1 16 16"></path>
@@ -42,25 +42,25 @@ const sortedPosts = posts.sort(
     </div>
     
     {sortedPosts.length === 0 ? (
-      <p className="no-posts">Em breve... Os artigos do blog estão sendo preparados.</p>
+      <p class="no-posts">Em breve... Os artigos do blog estão sendo preparados.</p>
     ) : (
-      <ul className="posts-grid">
+      <ul class="posts-grid">
         {sortedPosts.map((post) => (
-          <li className="post-card">
-            <a href={`/pt/blog/${post.slug}/`} className="post-link">
+          <li class="post-card">
+            <a href={`/pt/blog/${post.slug}/`} class="post-link">
               {post.data.heroImage && (
-                <div className="post-image-container">
+                <div class="post-image-container">
                   <img 
                     src={post.data.heroImage} 
                     alt={`Imagem de capa para ${post.data.title}`}
-                    className="post-image"
+                    class="post-image"
                     loading="lazy" 
                   />
                 </div>
               )}
-              <div className="post-content">
-                <h2 className="post-title">{post.data.title}</h2>
-                <time className="post-date" dateTime={post.data.pubDate.toISOString()}>
+              <div class="post-content">
+                <h2 class="post-title">{post.data.title}</h2>
+                <time class="post-date" datetime={post.data.pubDate.toISOString()}>
                   {post.data.pubDate.toLocaleDateString('pt-BR', { 
                     year: 'numeric', 
                     month: 'long', 
@@ -68,7 +68,7 @@ const sortedPosts = posts.sort(
                   })}
                 </time>
                 {post.data.description && (
-                  <p className="post-description">{post.data.description}</p>
+                  <p class="post-description">{post.data.description}</p>
                 )}
               </div>
             </a>
