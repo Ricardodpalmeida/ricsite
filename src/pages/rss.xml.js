@@ -1,27 +1,33 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import sanitizeHtml from 'sanitize-html'; // Import if using rendered content
+import MarkdownIt from 'markdown-it'; // Import if rendering markdown
+const parser = new MarkdownIt(); // Initialize markdown parser
 
 // Function to get site URL from environment variables or fallback
 // Adapting this from the standard guide - ensure VITE_SITE_URL is set in your .env
 // Or replace import.meta.env.VITE_SITE_URL with your actual site URL string
-const site = import.meta.env.VITE_SITE_URL || 'https://me.ricbits.cc'; // Fallback to config value
+// const site = import.meta.env.VITE_SITE_URL || 'https://me.ricbits.cc'; // Fallback to config value - Not needed as context.site is used
 
 export async function GET(context) {
-  // NOTE: Using Astro.glob assuming posts are Markdown files in src/pages/posts/
-  // Adjust the path '/posts/**/*.md' if your content is elsewhere or uses different extensions.
-  const posts = await Astro.glob('/posts/**/*.md');
+  // Fetch posts from the 'blog' content collection
+  const blogPosts = await getCollection('blog');
 
-  // Filter out draft posts if applicable (assuming a 'draft: true' frontmatter property)
-  const items = posts
-    .filter(post => !post.frontmatter.draft)
+  // Filter out drafts and map to RSS item structure
+  const items = blogPosts
+    .filter(post => !post.data.draft) // Assuming 'draft' is in your collection schema's 'data'
+    .sort((a, b) => new Date(b.data.pubDate).valueOf() - new Date(a.data.pubDate).valueOf()) // Sort by date descending
     .map((post) => ({
-      title: post.frontmatter.title,
-      pubDate: post.frontmatter.pubDate,
-      description: post.frontmatter.description,
-      link: post.url, // Astro.glob provides the final URL
-      // content: sanitizeHtml(post.compiledContent()), // Optional: Include full content
-      // customData: `<language>en-us</language>` // Optional: Add custom data
-  }));
+      title: post.data.title,
+      pubDate: post.data.pubDate,
+      description: post.data.description,
+      // Construct the link: Adjust '/blog/' if your actual blog path is different
+      link: `/blog/${post.slug}/`,
+      // Optional: Include full rendered content (requires sanitizeHtml and a Markdown parser)
+      // content: sanitizeHtml(parser.render(post.body)),
+      // Add custom data if needed
+      // customData: `<language>${post.data.lang || 'en'}</language>` // Example: using lang from frontmatter
+    }));
 
   return rss({
     // `<title>` field in output xml
