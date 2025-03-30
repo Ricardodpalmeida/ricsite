@@ -16,6 +16,16 @@ type Props = {
 };
 
 const { post } = Astro.props;
+
+// Add safety check: Ensure post and post.data exist
+if (!post || !post.data) {
+  // Optionally return a 404 or an error message component
+  // For now, let's just prevent rendering the layout to avoid the error
+  console.error(`Error rendering post: Slug ${Astro.params.slug} - post or post.data is undefined.`);
+  // You might want to redirect or render an error page here
+  return new Response(null, { status: 500, statusText: 'Internal Server Error - Invalid post data' }); 
+}
+
 const { Content } = await post.render();
 ---
 
