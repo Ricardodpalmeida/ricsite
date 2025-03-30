@@ -770,23 +770,47 @@
       "playlists": [
         {
           "src": "https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0",
-          "title": "Dem beats",
-          "description": "Mellow jazz-hop instrumentals for focus and relaxation"
+          "title": {
+            "en": "Dem beats",
+            "pt": "Dem beats"
+          },
+          "description": {
+            "en": "Mellow jazz-hop instrumentals for focus and relaxation",
+            "pt": "Instrumentais suaves de jazz-hop para foco e relaxamento"
+          }
         },
         {
           "src": "https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0",
-          "title": "The random rock assortment",
-          "description": "Essential rock tracks spanning stoner, indie, and alternative genres"
+          "title": {
+            "en": "The random rock assortment",
+            "pt": "A coleção aleatória de rock"
+          },
+          "description": {
+            "en": "Essential rock tracks spanning stoner, indie, and alternative genres",
+            "pt": "Faixas essenciais de rock abrangendo os géneros stoner, indie e alternativo"
+          }
         },
         {
           "src": "https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0",
-          "title": "Hip hop stash",
-          "description": "Curated collection featuring boom bap, conscious and abstract hip hop"
+          "title": {
+            "en": "Hip hop stash",
+            "pt": "Coleção de hip hop"
+          },
+          "description": {
+            "en": "Curated collection featuring boom bap, conscious and abstract hip hop",
+            "pt": "Coleção curada com boom bap, hip hop consciente e abstrato"
+          }
         },
         {
           "src": "https://open.spotify.com/embed/playlist/1I43vFQgN7QBtCm8YLEJSd?utm_source=generator&theme=0",
-          "title": "Jazz café",
-          "description": "Timeless jazz classics and contemporary compositions"
+          "title": {
+            "en": "Jazz café",
+            "pt": "Jazz café"
+          },
+          "description": {
+            "en": "Timeless jazz classics and contemporary compositions",
+            "pt": "Clássicos atemporais de jazz e composições contemporâneas"
+          }
         }
       ]
     }

@@ -108,7 +108,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <div class="project-container">
     <h3 class="subsection-title">{titles.playlists || (lang === 'pt' ? 'Minhas Playlists' : 'My Playlists')}</h3>
     <div class="playlists-gallery">
-      {embeds.playlists?.map((playlist: { src: string, title?: string, description?: string }, index: number) => (
+      {embeds.playlists?.map((playlist: { src: string, title?: {en: string, pt: string}, description?: {en: string, pt: string} }, index: number) => (
         <div class="playlist-item">
           <div class="iframe-container">
             <iframe 
@@ -119,7 +119,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               allowfullscreen
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
               loading="lazy" 
-              title={playlist.title || `Playlist ${index + 1}`}
+              title={playlist.title?.[lang] || playlist.title?.en || `Playlist ${index + 1}`}
               class="media-iframe"
               onload="this.parentNode.classList.add('loaded')"
               onerror="this.parentNode.classList.add('error')"
@@ -129,8 +129,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           </div>
           {playlist.title && (
             <div class="playlist-info">
-              <h4 class="playlist-title">{playlist.title}</h4>
-              {playlist.description && <p class="playlist-description">{playlist.description}</p>}
+              <h4 class="playlist-title">{playlist.title?.[lang] || playlist.title?.en}</h4>
+              {playlist.description && <p class="playlist-description">{playlist.description?.[lang] || playlist.description?.en}</p>}
             </div>
           )}
         </div>
@@ -143,8 +143,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
             <div class="playlist-info">
-              <h4 class="playlist-title">Dem beats</h4>
-              <p class="playlist-description">Mellow jazz-hop instrumentals for focus and relaxation</p>
+              <h4 class="playlist-title">{lang === 'pt' ? 'Dem beats' : 'Dem beats'}</h4>
+              <p class="playlist-description">{lang === 'pt' ? 'Instrumentais suaves de jazz-hop para foco e relaxamento' : 'Mellow jazz-hop instrumentals for focus and relaxation'}</p>
             </div>
           </div>
           <div class="playlist-item">
@@ -154,8 +154,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
             <div class="playlist-info">
-              <h4 class="playlist-title">The random rock assortment</h4>
-              <p class="playlist-description">Essential rock tracks spanning stoner, indie, and alternative genres</p>
+              <h4 class="playlist-title">{lang === 'pt' ? 'A coleção aleatória de rock' : 'The random rock assortment'}</h4>
+              <p class="playlist-description">{lang === 'pt' ? 'Faixas essenciais de rock abrangendo os géneros stoner, indie e alternativo' : 'Essential rock tracks spanning stoner, indie, and alternative genres'}</p>
             </div>
           </div>
           <div class="playlist-item">
@@ -165,8 +165,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
             <div class="playlist-info">
-              <h4 class="playlist-title">Hip hop stash</h4>
-              <p class="playlist-description">Curated collection featuring boom bap, conscious and abstract hip hop</p>
+              <h4 class="playlist-title">{lang === 'pt' ? 'Coleção de hip hop' : 'Hip hop stash'}</h4>
+              <p class="playlist-description">{lang === 'pt' ? 'Coleção curada com boom bap, hip hop consciente e abstrato' : 'Curated collection featuring boom bap, conscious and abstract hip hop'}</p>
             </div>
           </div>
           <div class="playlist-item">
@@ -176,8 +176,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
             <div class="playlist-info">
-              <h4 class="playlist-title">Jazz café</h4>
-              <p class="playlist-description">Timeless jazz classics and contemporary compositions</p>
+              <h4 class="playlist-title">{lang === 'pt' ? 'Jazz café' : 'Jazz café'}</h4>
+              <p class="playlist-description">{lang === 'pt' ? 'Clássicos atemporais de jazz e composições contemporâneas' : 'Timeless jazz classics and contemporary compositions'}</p>
             </div>
           </div>
         </>
