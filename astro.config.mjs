@@ -2,7 +2,6 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://me.ricbits.cc',
   base: '',
   integrations: [react()],
   output: 'static',
@@ -14,6 +13,11 @@ export default defineConfig({
     locales: ['en', 'pt'],
     routing: {
       prefixDefaultLocale: false
+    }
+  },
+  vite: {
+    define: {
+      'import.meta.env.SITE': JSON.stringify('https://me.ricbits.cc')
     }
   }
 });
