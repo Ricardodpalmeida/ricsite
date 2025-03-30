@@ -294,7 +294,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     background: var(--color-cosmic-latte-20);
   }
 
-  /* Firefox scrollbar - not supported in Safari but doesn't cause errors */
+  /* Firefox scrollbar - wrapped in @supports to avoid Safari warnings */
   @supports (scrollbar-width: thin) {
     .playlists-gallery {
       scrollbar-width: thin;

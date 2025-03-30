@@ -52,24 +52,44 @@ Options -Indexes
   <FilesMatch "\.(txt)$">
     Header always set Content-Type "text/plain; charset=UTF-8"
   </FilesMatch>
-
-  # Cache Control Headers
-  # Cache static assets for 1 year
-  <FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|webp|svg|js|css|woff|woff2|ttf|eot)$">
-    Header set Cache-Control "max-age=31536000, public, immutable"
+  <FilesMatch "\.(ts|tsx)$">
+    Header always set Content-Type "text/x-typescript; charset=UTF-8"
   </FilesMatch>
-
-  # HTML files - no caching to ensure latest content
-  <FilesMatch "\.(html|htm)$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
-    Header set Pragma "no-cache"
-    Header set Expires "0"
+  
+  # Image content types
+  <FilesMatch "\.(jpg|jpeg)$">
+    Header always set Content-Type "image/jpeg"
   </FilesMatch>
-
-  # JSON and XML files - minimal caching
-  <FilesMatch "\.(json|xml)$">
-    Header set Cache-Control "max-age=86400, public, must-revalidate"
+  <FilesMatch "\.(png)$">
+    Header always set Content-Type "image/png"
   </FilesMatch>
+  <FilesMatch "\.(gif)$">
+    Header always set Content-Type "image/gif"
+  </FilesMatch>
+  <FilesMatch "\.(webp)$">
+    Header always set Content-Type "image/webp"
+  </FilesMatch>
+  <FilesMatch "\.(svg)$">
+    Header always set Content-Type "image/svg+xml"
+  </FilesMatch>
+  <FilesMatch "\.(ico)$">
+    Header always set Content-Type "image/x-icon"
+  </FilesMatch>
+  
+  # Audio/Video content types
+  <FilesMatch "\.(mp4)$">
+    Header always set Content-Type "video/mp4"
+  </FilesMatch>
+  <FilesMatch "\.(mp3)$">
+    Header always set Content-Type "audio/mpeg"
+  </FilesMatch>
+  
+  # Force all responses to have basic headers
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Cache-Control "max-age=31536000, public, immutable" "expr=%{REQUEST_URI} =~ m#\.(ico|pdf|jpg|jpeg|png|gif|webp|svg|js|css|woff|woff2|ttf|eot)$#"
+  Header always set Cache-Control "no-cache, no-store, must-revalidate" "expr=%{REQUEST_URI} =~ m#\.(html|htm)$#"
+  Header always set Cache-Control "max-age=86400, public, must-revalidate" "expr=%{REQUEST_URI} =~ m#\.(json|xml)$#"
+  Header always set Cache-Control "max-age=0, private, must-revalidate" "expr=%{REQUEST_URI} !~ m#\.(ico|pdf|jpg|jpeg|png|gif|webp|svg|js|css|woff|woff2|ttf|eot|html|htm|json|xml)$#"
 </IfModule>
 
 # Protect specific file types
