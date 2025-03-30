@@ -1,10 +1,11 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { SITE_URL } from '../../consts'; // Import SITE_URL
 import sanitizeHtml from 'sanitize-html'; // Import if using rendered content
 import MarkdownIt from 'markdown-it'; // Import if rendering markdown
 const parser = new MarkdownIt(); // Initialize markdown parser
 
-export async function GET({ site }) {
+export async function GET() {
   // Fetch posts from the 'blog' content collection
   const blogPosts = await getCollection('blog');
 
@@ -29,7 +30,7 @@ export async function GET({ site }) {
   return rss({
     title: 'Ricardo\'s Site Blog (English)', // Language-specific title
     description: 'Thoughts and updates from Ricardo.', // Customize
-    site: site, // Use the destructured site variable
+    site: SITE_URL, // Use the imported SITE_URL
     items: items,
     customData: `<language>en-us</language>`, // Add language tag to feed
     // Optional: Add stylesheet
