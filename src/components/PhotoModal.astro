@@ -52,8 +52,8 @@
     position: absolute;
     top: 1rem;
     right: 1rem;
-    background: var(--color-cosmic-latte-10);
-    border: 1px solid var(--color-cosmic-latte);
+    background: transparent;
+    border: none;
     color: var(--color-white);
     width: 40px;
     height: 40px;
@@ -65,6 +65,11 @@
     justify-content: center;
     transition: all 0.3s ease;
     z-index: 1001;
+  }
+
+  .modal-close:hover {
+    transform: scale(1.2);
+    color: var(--color-cosmic-latte);
   }
 
   .modal-nav {
@@ -91,12 +96,6 @@
 
   .modal-nav.next {
     right: 1rem;
-  }
-
-  .modal-close:hover,
-  .modal-nav:hover {
-    background: var(--color-cosmic-latte-20);
-    transform: scale(1.1);
   }
 
   .modal-nav.prev:hover {

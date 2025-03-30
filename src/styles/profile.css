@@ -161,26 +161,45 @@ button,
   align-items: center;
   gap: 0.5rem;
   color: var(--color-cosmic-latte);
-  background-color: rgba(255, 248, 231, 0.05);
-  padding: 0.5rem 1rem;
+  background-color: rgba(255, 248, 231, 0.08);
+  padding: 0.6rem 1.2rem;
   border-radius: 4px;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
   text-decoration: none;
-  border: 1px solid rgba(255, 248, 231, 0.2);
+  border: 1px solid rgba(255, 248, 231, 0.3);
   transition: all var(--transition-base);
+  font-weight: var(--font-weight-medium);
 }
 
 .verify-link:hover {
-  background-color: rgba(255, 248, 231, 0.1);
-  transform: translateY(-2px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 248, 231, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   border-color: var(--color-cosmic-latte);
-  text-decoration: underline;
+}
+
+.verify-text {
+  position: relative;
+}
+
+.verify-text::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--color-cosmic-latte);
+  transition: width 0.3s ease;
+}
+
+.verify-link:hover .verify-text::after {
+  width: 100%;
 }
 
 .link-icon {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 /* About section */
@@ -420,6 +439,23 @@ button,
 }
 
 .skill-item[data-description]:nth-child(-n+3):hover::after {
+  transform: translateX(0) scale(1);
+}
+
+/* Special case for Project Management tooltip and other skills near the container edge */
+.skill-item[data-description*="Project Management"]::after,
+.skill-item[data-description]:first-child::after,
+.skill-item[data-description]:nth-child(2)::after,
+.skill-item[data-description]:nth-child(3)::after {
+  left: 0;
+  right: auto;
+  transform: translateX(0) scale(0.85);
+}
+
+.skill-item[data-description*="Project Management"]:hover::after,
+.skill-item[data-description]:first-child:hover::after,
+.skill-item[data-description]:nth-child(2):hover::after,
+.skill-item[data-description]:nth-child(3):hover::after {
   transform: translateX(0) scale(1);
 }
 

@@ -263,13 +263,9 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(exp, `${language}.endDate`) || safeGet(exp, 'en.endDate', '') :
                 safeGet(exp, 'endDate', '');
               
-              // Use the duration from the data file if available, otherwise calculate it
-              let duration = isMultilingual ?
-                safeGet(exp, `${language}.duration`) || safeGet(exp, 'en.duration', '') :
-                safeGet(exp, 'duration', '');
-                
-              // Calculate duration if start date is provided but duration isn't
-              if (startDate && !duration) {
+              // Always calculate duration if start date is provided
+              let duration = '';
+              if (startDate) {
                 duration = calculateDuration(startDate, endDate, language);
               }
                 
@@ -431,7 +427,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                           className="verify-link"
                         >
                           <span className="link-icon" aria-hidden="true">🔗</span>
-                          {getUI('verifyCertificate', 'Verify Certificate')}
+                          <span className="verify-text">Verify Certificate</span>
                         </a>
                       </div>
                     )}
