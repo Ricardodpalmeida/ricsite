@@ -34,7 +34,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         src={embeds.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"} 
         width={embeds.podcast?.width || "100%"} 
         height={embeds.podcast?.height || "352"} 
-        allowfullscreen="" 
+        allowfullscreen
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
         class="media-iframe"
@@ -116,14 +116,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               src={playlist.src} 
               width="100%" 
               height="352" 
-              allowfullscreen="" 
+              allowfullscreen
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
               loading="lazy" 
               title={`Playlist ${index + 1}`}
               class="media-iframe"
               onload="this.parentNode.classList.add('loaded')"
               onerror="this.parentNode.classList.add('error')"
-              frameborder="0"
             ></iframe>
             <div class="iframe-loading">Loading...</div>
             <div class="iframe-error">Sorry, content couldn't be loaded.</div>
@@ -133,21 +132,21 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         <>
           <div class="playlist-item">
             <div class="iframe-container">
-              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
               <div class="iframe-loading">Loading...</div>
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
           </div>
           <div class="playlist-item">
             <div class="iframe-container">
-              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
               <div class="iframe-loading">Loading...</div>
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
           </div>
           <div class="playlist-item">
             <div class="iframe-container">
-              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
               <div class="iframe-loading">Loading...</div>
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
             </div>
@@ -267,39 +266,44 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   /* Playlists Gallery Styles */
   .playlists-gallery {
-    display: flex;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
     overflow-x: auto;
-    padding: 1rem 0;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  /* Custom Scrollbar for Playlists */
-  .playlists-gallery::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .playlists-gallery::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 3px;
-  }
-
-  .playlists-gallery::-webkit-scrollbar-thumb {
-    background: var(--color-cosmic-latte);
-    border-radius: 3px;
-  }
-
-  .playlists-gallery::-webkit-scrollbar-thumb:hover {
-    background: var(--color-cosmic-latte-20);
-  }
-
-  /* Firefox scrollbar - wrapped in @supports to avoid Safari warnings */
-  @supports (scrollbar-width: thin) {
-    .playlists-gallery {
+    padding-bottom: 1rem;
+    
+    /* Add Firefox scrollbar colors */
+    @supports (scrollbar-color: auto) {
       scrollbar-width: thin;
-      scrollbar-color: var(--color-cosmic-latte) transparent;
+      scrollbar-color: var(--color-cosmic-latte-20) transparent;
     }
+    
+    /* Add Webkit (Safari/Chrome) scrollbar styles */
+    &::-webkit-scrollbar {
+      height: 8px;
+      background-color: transparent;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+      border-radius: 4px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-cosmic-latte-20);
+      border-radius: 4px;
+      
+      &:hover {
+        background-color: var(--color-cosmic-latte);
+      }
+    }
+  }
+
+  @font-palette-values --playlist-palette {
+    font-family: "Roboto";
+    base-palette: 0;
+    override-colors: 0 #fff;
   }
 
   .playlist-item {
