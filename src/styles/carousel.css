@@ -1,0 +1,177 @@
+/* Carousel Styles for sets and playlists */
+
+/* Base carousel styles */
+.carousel-base {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Sets Carousel */
+.sets-carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.carousel-container {
+  flex: 1;
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item {
+  flex: 0 0 100%;
+  padding: 0 0.5rem;
+}
+
+/* Carousel navigation */
+.carousel-arrow {
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.carousel-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Playlists Carousel */
+.playlists-carousel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.playlists-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.playlists-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.playlist-item {
+  flex: 0 0 100%;
+  padding: 0 0.5rem;
+}
+
+/* Iframe containers */
+.iframe-container {
+  position: relative;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.podcast-embed .media-iframe, 
+.iframe-container .media-iframe {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.podcast-embed.loaded .media-iframe, 
+.iframe-container.loaded .media-iframe {
+  opacity: 1;
+}
+
+.iframe-loading, 
+.iframe-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.iframe-error {
+  display: none;
+  color: #ff6b6b;
+}
+
+.podcast-embed.loaded .iframe-loading, 
+.iframe-container.loaded .iframe-loading {
+  display: none;
+}
+
+.podcast-embed.error .iframe-loading, 
+.iframe-container.error .iframe-loading {
+  display: none;
+}
+
+.podcast-embed.error .iframe-error, 
+.iframe-container.error .iframe-error {
+  display: block;
+}
+
+.playlist-info {
+  margin-top: 0.75rem;
+  padding: 0 0.5rem;
+}
+
+.playlist-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive design for carousels */
+@media (max-width: 768px) {
+  .sets-carousel,
+  .playlists-carousel {
+    padding: 0 1rem;
+  }
+
+  .carousel-container,
+  .playlists-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+  }
+
+  .carousel-track,
+  .playlists-track {
+    display: flex;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .carousel-item,
+  .playlist-item {
+    scroll-snap-align: start;
+    flex: 0 0 100%;
+    width: 100%;
+  }
+} 
