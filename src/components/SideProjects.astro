@@ -4,11 +4,36 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Get all images using Astro.glob
+const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
+const galleryImages = galleryImageModules.map(module => module.default.src);
 ---
 
 <section class="side-projects-section">
   <div class="section-container">
     <h2 class="section-title">Side Projects</h2>
+    
+    <!-- Photography Section -->
+    <div class="project-container">
+      <h3 class="subsection-title">Photography</h3>
+      <p class="section-description">
+        Photography allows me to capture the beauty in everyday moments. My work focuses on urban landscapes, 
+        architectural details, and the interplay of light and shadow in city environments.
+      </p>
+      <div class="photo-gallery">
+        {galleryImages.map((imageSrc: string, i: number) => (
+          <div class="photo-item" data-index={i}>
+            <img 
+              src={imageSrc}
+              alt={`Gallery photo ${i + 1}`}
+              loading="lazy"
+              oncontextmenu="return false;"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
     
     <!-- Podcast Section -->
     <div class="project-container">
@@ -74,6 +99,16 @@ const t = useTranslations(lang);
     </div>
   </div>
 </section>
+
+<!-- Modal for Photo Viewing -->
+<div class="photo-modal" id="photoModal">
+  <button class="modal-close" aria-label="Close modal">×</button>
+  <button class="modal-nav prev" aria-label="Previous photo">←</button>
+  <button class="modal-nav next" aria-label="Next photo">→</button>
+  <div class="modal-content">
+    <img src="" alt="" oncontextmenu="return false;" />
+  </div>
+</div>
 
 <style>
   .side-projects-section {
@@ -195,6 +230,127 @@ const t = useTranslations(lang);
     scroll-snap-align: start;
   }
 
+  /* Photo Gallery Styles */
+  .photo-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .photo-item {
+    position: relative;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .photo-item:hover {
+    transform: scale(1.02);
+  }
+
+  .photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Modal Styles */
+  .photo-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    padding: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-modal.active {
+    display: flex;
+  }
+
+  .modal-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .modal-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--color-cosmic-latte-10);
+    border: 1px solid var(--color-cosmic-latte);
+    color: var(--color-white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+  }
+
+  .modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-cosmic-latte-10);
+    border: 1px solid var(--color-cosmic-latte);
+    color: var(--color-white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+  }
+
+  .modal-nav.prev {
+    left: 1rem;
+  }
+
+  .modal-nav.next {
+    right: 1rem;
+  }
+
+  .modal-close:hover,
+  .modal-nav:hover {
+    background: var(--color-cosmic-latte-20);
+    transform: scale(1.1);
+  }
+
+  .modal-nav.prev:hover {
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .modal-nav.next:hover {
+    transform: translateY(-50%) scale(1.1);
+  }
+
   /* Responsive Styles */
   @media (max-width: 768px) {
     .playlist-item {
@@ -213,33 +369,33 @@ const t = useTranslations(lang);
 
 <script>
   // Carousel functionality
-  const track = document.querySelector('.carousel-track') as HTMLElement;
-  const items = document.querySelectorAll('.carousel-item');
-  const prevBtn = document.querySelector('.carousel-arrow.prev') as HTMLButtonElement;
-  const nextBtn = document.querySelector('.carousel-arrow.next') as HTMLButtonElement;
+  const carouselTrack = document.querySelector('.carousel-track') as HTMLElement;
+  const carouselItems = document.querySelectorAll('.carousel-item');
+  const carouselPrevBtn = document.querySelector('.carousel-arrow.prev') as HTMLButtonElement;
+  const carouselNextBtn = document.querySelector('.carousel-arrow.next') as HTMLButtonElement;
   
   let currentIndex = 0;
 
   function updateCarousel() {
-    if (track) {
+    if (carouselTrack) {
       const percentage = currentIndex * -100;
-      track.style.transform = `translateX(${percentage}%)`;
+      carouselTrack.style.transform = `translateX(${percentage}%)`;
       
       // Update button states
-      if (prevBtn) prevBtn.disabled = currentIndex === 0;
-      if (nextBtn) nextBtn.disabled = currentIndex === items.length - 1;
+      if (carouselPrevBtn) carouselPrevBtn.disabled = currentIndex === 0;
+      if (carouselNextBtn) carouselNextBtn.disabled = currentIndex === carouselItems.length - 1;
     }
   }
 
-  prevBtn?.addEventListener('click', () => {
+  carouselPrevBtn?.addEventListener('click', () => {
     if (currentIndex > 0) {
       currentIndex--;
       updateCarousel();
     }
   });
 
-  nextBtn?.addEventListener('click', () => {
-    if (currentIndex < items.length - 1) {
+  carouselNextBtn?.addEventListener('click', () => {
+    if (currentIndex < carouselItems.length - 1) {
       currentIndex++;
       updateCarousel();
     }
@@ -247,4 +403,69 @@ const t = useTranslations(lang);
 
   // Initialize carousel
   updateCarousel();
+
+  // Photo Gallery Modal Functionality
+  const modal = document.getElementById('photoModal') as HTMLElement;
+  const modalImg = modal?.querySelector('img') as HTMLImageElement;
+  const modalCloseBtn = modal?.querySelector('.modal-close');
+  const modalPrevBtn = modal?.querySelector('.modal-nav.prev');
+  const modalNextBtn = modal?.querySelector('.modal-nav.next');
+  const photoItems = document.querySelectorAll('.photo-item');
+  let currentPhotoIndex = 0;
+
+  function openModal(index: number) {
+    if (!modal || !modalImg) return;
+    currentPhotoIndex = index;
+    const photoSrc = photoItems[index]?.querySelector('img')?.src;
+    if (photoSrc) {
+      modalImg.src = photoSrc;
+      modalImg.alt = `Photo ${index + 1}`;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function navigatePhoto(direction: 'prev' | 'next') {
+    const newIndex = direction === 'prev' 
+      ? Math.max(0, currentPhotoIndex - 1)
+      : Math.min(photoItems.length - 1, currentPhotoIndex + 1);
+    
+    if (newIndex !== currentPhotoIndex) {
+      openModal(newIndex);
+    }
+  }
+
+  // Event Listeners
+  photoItems.forEach((item, index) => {
+    item.addEventListener('click', () => openModal(index));
+  });
+
+  modalCloseBtn?.addEventListener('click', closeModal);
+  modalPrevBtn?.addEventListener('click', () => navigatePhoto('prev'));
+  modalNextBtn?.addEventListener('click', () => navigatePhoto('next'));
+
+  // Close modal on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowLeft') navigatePhoto('prev');
+    if (e.key === 'ArrowRight') navigatePhoto('next');
+  });
+
+  // Close modal when clicking outside the image
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Prevent right-click on all gallery images
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target instanceof HTMLImageElement) {
+      e.preventDefault();
+    }
+  });
 </script> 
