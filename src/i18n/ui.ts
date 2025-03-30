@@ -19,15 +19,19 @@ export const ui = {
     // Hero section
     'hero.greeting': 'Hi, I\'m',
     'hero.jobTitle': 'Data & AI Manager | Cloud Solution Architect',
-    'hero.cta.learnMore': 'Learn More About Me',
+    
+    // Contact Button (New)
+    'contact.button': 'Get in Touch',
+    'contact.verifying': 'Verifying...',
+    'contact.recaptcha.prefix': 'This site is protected by reCAPTCHA v3 and the Google',
+    'contact.recaptcha.privacy': 'Privacy Policy',
+    'contact.recaptcha.terms': 'Terms of Service',
+    'contact.recaptcha.suffix': 'apply.',
+    'contact.errorAlert': 'Verification failed. Please try again.',
+    'contact.recaptchaErrorAlert': 'Could not initiate verification. Please ensure you are online.',
     
     // Footer
     'footer.copyright': '© 2025 Ricardo Almeida. All rights reserved.',
-    'footer.getInTouch': 'Get in Touch',
-    'footer.verifying': 'Verifying...',
-    'footer.recaptcha': 'This site is protected by reCAPTCHA v3 and the Google',
-    'footer.privacyPolicy': 'Privacy Policy',
-    'footer.termsOfService': 'Terms of Service',
     
     // About page
     'about.title': 'About',
@@ -67,15 +71,19 @@ export const ui = {
     // Hero section
     'hero.greeting': 'Olá, sou o',
     'hero.jobTitle': 'Gestor de Data & IA | Arquiteto de Soluções Cloud',
-    'hero.cta.learnMore': 'Saber Mais Sobre Mim',
+    
+    // Contact Button (New)
+    'contact.button': 'Entre em Contato',
+    'contact.verifying': 'Verificando...',
+    'contact.recaptcha.prefix': 'Este site é protegido pelo reCAPTCHA v3 e pela',
+    'contact.recaptcha.privacy': 'Política de Privacidade',
+    'contact.recaptcha.terms': 'Termos de Serviço',
+    'contact.recaptcha.suffix': 'aplicam-se.',
+    'contact.errorAlert': 'Falha na verificação. Por favor, tente novamente.',
+    'contact.recaptchaErrorAlert': 'Não foi possível iniciar a verificação. Verifique se está online.',
     
     // Footer
     'footer.copyright': '© 2025 Ricardo Almeida. Todos os direitos reservados.',
-    'footer.getInTouch': 'Entre em Contato',
-    'footer.verifying': 'Verificando...',
-    'footer.recaptcha': 'Este site é protegido pelo reCAPTCHA v3 e pela',
-    'footer.privacyPolicy': 'Política de Privacidade',
-    'footer.termsOfService': 'Termos de Serviço',
     
     // About page
     'about.title': 'Sobre',

@@ -149,10 +149,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     --color-gray-300: rgba(255, 255, 255, 0.3);
     --color-gray-600: rgba(255, 255, 255, 0.6);
     
-    /* Typography - Swap serif and sans-serif for correct usage */
-    --font-family-base: 'Roboto Slab', serif; /* Changed to serif for body text */
-    --font-family-title: 'Roboto', sans-serif; /* Kept sans-serif for headings */
-    --font-family-alt: 'Roboto', sans-serif;
+    /* Typography - Swapped base and title/alt fonts */
+    --font-family-base: 'Roboto', sans-serif; /* Changed to Roboto for body */
+    --font-family-title: 'Roboto Slab', serif; /* Changed to Roboto Slab for titles */
+    --font-family-alt: 'Roboto Slab', serif; /* Changed to Roboto Slab for alt */
     
     /* Font weights */
     --font-weight-light: 300;
@@ -425,4 +425,43 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
       border-radius: 4px;
     }
   }
+
+  /* Add a focus indicator for interactive elements without natural borders */
+  [tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible {
+    position: relative;
+  }
+
+  [tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border-radius: 4px;
+    border: 2px solid var(--color-cosmic-latte);
+    pointer-events: none;
+  }
+
+  /* High contrast mode focus indicators */
+  @media (forced-colors: active) {
+    .profile-link:focus-visible, /* Keep profile selectors for now if they exist */
+    .language-btn:focus-visible,
+    .skill-item:focus-visible,
+    .credential-link:focus-visible,
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [role="button"]:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 3px solid CanvasText;
+      outline-offset: 3px;
+    }
+  }
+
+  /* =============================================
+     END MOVED FOCUS STYLES
+     ============================================= */
 </style>

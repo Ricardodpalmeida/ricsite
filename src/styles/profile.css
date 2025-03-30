@@ -156,10 +156,9 @@ button,
 }
 
 /* =============================================
-   FOCUS STYLES - CONSISTENT ACROSS ALL INTERACTIVE ELEMENTS
+   FOCUS STYLES - REMOVED (Moved to MainLayout.astro)
    ============================================= */
-
-/* Base focus style for all interactive elements */
+/*
 .profile-link:focus,
 .language-btn:focus,
 .skill-item:focus,
@@ -234,9 +233,9 @@ select:focus-visible,
     outline-offset: 3px;
   }
 }
-
+*/
 /* =============================================
-   END FOCUS STYLES
+   END REMOVED FOCUS STYLES
    ============================================= */
 
 /* About section */

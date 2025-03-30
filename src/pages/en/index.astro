@@ -12,6 +12,9 @@ import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// Get reCAPTCHA key from environment variable (same as MainLayout)
+const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Fallback test key
+
 // Get all images using Astro.glob
 const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
 const galleryImages = galleryImageModules.map(module => module.default.src);
@@ -327,24 +330,22 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   }
 </style>
 
-<script>
-  // Add type declaration for grecaptcha on window
-  declare global {
-    interface Window { 
-      grecaptcha: any; 
-    }
-  }
-
+<script define:vars={{ 
+  recaptchaSiteKey, 
+  verifyingText: t('contact.verifying'), 
+  errorAlertText: lang === 'en' ? 'Verification failed. Please try again.' : 'Falha na verificação. Por favor, tente novamente.', 
+  recaptchaErrorAlertText: lang === 'en' ? 'Could not initiate verification. Please ensure you are online.' : 'Não foi possível iniciar a verificação. Verifique se está online.' 
+}}>
   document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.gallery-container') as HTMLElement;
-    const track = document.querySelector('.gallery-track') as HTMLElement;
+    const container = document.querySelector('.gallery-container');
+    const track = document.querySelector('.gallery-track');
     if (!container || !track) return;
 
     let isDragging = false;
     let startX = 0;
     let scrollLeft = 0;
 
-    const handleDragStart = (clientX: number) => {
+    const handleDragStart = (clientX) => {
       isDragging = true;
       container.classList.add('active');
       startX = clientX - container.offsetLeft;
@@ -356,7 +357,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       container.classList.remove('active');
     };
 
-    const handleDragMove = (clientX: number) => {
+    const handleDragMove = (clientX) => {
       if (!isDragging) return;
       const x = clientX - container.offsetLeft;
       const walk = (x - startX) * 2;
@@ -364,7 +365,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     };
 
     // Mouse events
-    container.addEventListener('mousedown', (e: MouseEvent) => {
+    container.addEventListener('mousedown', (e) => {
       e.preventDefault();
       handleDragStart(e.pageX);
     });
@@ -372,47 +373,43 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     container.addEventListener('mouseleave', () => handleDragEnd());
     container.addEventListener('mouseup', () => handleDragEnd());
 
-    container.addEventListener('mousemove', (e: MouseEvent) => {
+    container.addEventListener('mousemove', (e) => {
       e.preventDefault();
       handleDragMove(e.pageX);
     });
 
     // Touch events
-    container.addEventListener('touchstart', (e: TouchEvent) => {
+    container.addEventListener('touchstart', (e) => {
       e.preventDefault();
       handleDragStart(e.touches[0].pageX);
     });
 
     container.addEventListener('touchend', () => handleDragEnd());
 
-    container.addEventListener('touchmove', (e: TouchEvent) => {
+    container.addEventListener('touchmove', (e) => {
       e.preventDefault();
       handleDragMove(e.touches[0].pageX);
     });
 
     // Contact Button Logic
-    const contactBtn = document.getElementById('home-contact-btn') as HTMLButtonElement | null;
-    const contactEmail = document.getElementById('home-contact-email') as HTMLParagraphElement | null;
-    const recaptchaTerms = document.getElementById('home-recaptcha-terms') as HTMLParagraphElement | null;
+    const contactBtn = document.getElementById('home-contact-btn');
+    const contactEmail = document.getElementById('home-contact-email');
+    const recaptchaTerms = document.getElementById('home-recaptcha-terms');
     
-    const buttonTextDefault = contactBtn?.textContent || 'Get in Touch'; // Fallback
-    const buttonTextLoading = 'Verifying...'; // Using EN version for simplicity here, consider i18n if needed in script
+    const buttonTextDefault = contactBtn?.textContent; // Get initial text set by Astro
 
-    if (contactBtn && contactEmail && recaptchaTerms) {
+    if (contactBtn && contactEmail && recaptchaTerms && buttonTextDefault) {
       contactBtn.addEventListener('click', () => {
-        // Show loading state
-        contactBtn.textContent = buttonTextLoading;
+        // Show loading state using passed verifyingText
+        contactBtn.textContent = verifyingText;
         contactBtn.disabled = true;
         
         // Check if reCAPTCHA is loaded
         if (typeof window.grecaptcha !== 'undefined' && window.grecaptcha) {
           window.grecaptcha.ready(function() {
-            // Use the same site key as defined in MainLayout.astro
-            // TODO: Get key from ENV vars
-            const recaptchaSiteKey = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'; // Replace with your actual v3 site key
-            
-            window.grecaptcha.execute(recaptchaSiteKey, {action: 'showEmail'}) // Use specific action name
-              .then(function(token: string) { // Add type for token
+            // Use the passed recaptchaSiteKey
+            window.grecaptcha.execute(recaptchaSiteKey, {action: 'showEmail'}) 
+              .then(function(token) {
                 // On successful verification, show the email
                 contactEmail.classList.remove('hidden');
                 recaptchaTerms.classList.remove('hidden');
@@ -432,18 +429,18 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                 }
 
               })
-              .catch(function(error: any) { // Add type for error
+              .catch(function(error) {
                 console.error('reCAPTCHA error:', error);
                 contactBtn.textContent = buttonTextDefault;
                 contactBtn.disabled = false;
-                alert('Verification failed. Please try again.');
+                alert(errorAlertText); // Use passed alert text
               });
           });
         } else {
           console.error('reCAPTCHA script not loaded');
           contactBtn.textContent = buttonTextDefault;
           contactBtn.disabled = false;
-          alert('Could not initiate verification. Please ensure you are online.');
+          alert(recaptchaErrorAlertText); // Use passed alert text
         }
       });
     }
