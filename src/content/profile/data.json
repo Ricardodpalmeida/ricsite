@@ -686,14 +686,22 @@
       "languages": "Idiomas",
       "duration": "Duração",
       "location": "Localização",
-      "grade": "Classificação",
+      "grade": "Nota",
       "thesis": "Tese",
       "issued": "Emitido",
-      "expires": "Validade",
-      "status": "Estado",
+      "expires": "Expira",
+      "status": "Status",
       "credential": "ID da Credencial",
       "credentialId": "ID da Credencial",
       "verifyCertificate": "Verificar Certificado"
+    }
+  },
+  "tooltips": {
+    "en": {
+      "name": "My name is highlighted in Cosmic Latte (#FFF8E7), the average color of the universe according to astronomers who analyzed light from 200,000 galaxies"
+    },
+    "pt": {
+      "name": "O meu nome está destacado em Cosmic Latte (#FFF8E7), a cor média do universo de acordo com astrónomos que analisaram a luz de 200.000 galáxias"
     }
   },
   "skillDescriptions": {
