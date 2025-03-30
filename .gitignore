@@ -33,7 +33,6 @@ GUIDE.md
 *.sublime-project
 *.sublime-workspace
 .vscode/
-.github/
 .cursor/
 
 # Local development settings
