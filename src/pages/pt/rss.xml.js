@@ -4,7 +4,7 @@ import sanitizeHtml from 'sanitize-html'; // Import if using rendered content
 import MarkdownIt from 'markdown-it'; // Import if rendering markdown
 const parser = new MarkdownIt(); // Initialize markdown parser
 
-export async function GET(context) {
+export async function GET({ site }) {
   // Fetch posts from the 'blog' content collection
   const blogPosts = await getCollection('blog');
 
@@ -26,7 +26,7 @@ export async function GET(context) {
   return rss({
     title: 'Ricardo\'s Site Blog (Português)', // Language-specific title
     description: 'Pensamentos e atualizações de Ricardo.', // Customize
-    site: context.site, // Uses site URL from astro.config.mjs
+    site: site, // Use the destructured site variable
     items: items,
     customData: `<language>pt-pt</language>`, // Add language tag to feed
     // Optional: Add stylesheet
