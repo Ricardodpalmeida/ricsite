@@ -380,3 +380,197 @@ The language prefix will be automatically added based on the current language.
 5. Deploy changes to production
 
 Always double-check both language versions after publishing to ensure everything looks correct. 
+
+# WEBSITE MAINTENANCE MANUAL
+
+## Regular Maintenance
+
+### Monthly Checks
+1. Verify all links are working correctly
+2. Check that responsive layouts work on all devices
+3. Ensure contact functionality works properly
+4. Check that reCAPTCHA verification is working
+5. Verify that embedded content (Spotify playlists, podcast) loads correctly
+6. Check for any security updates needed for dependencies
+
+### Quarterly Checks
+1. Update package dependencies (npm update)
+2. Review analytics data for potential improvements
+3. Verify SSL certificate expiration date
+4. Check that all integrations continue to work (Spotify, Mixcloud)
+5. Review browser compatibility
+
+### Annual Checks
+1. Major dependency updates (npm audit fix)
+2. Domain renewal check
+3. Review and update content for accuracy
+4. Comprehensive SEO review
+
+## Blog Posts Management
+
+### How to Add a New Blog Post
+1. Navigate to `src/content/blog/` directory
+2. Create a new Markdown file with format: `YYYY-MM-DD-title-slug.md`
+3. Add frontmatter at the top of the file:
+
+```md
+---
+title: "Your Blog Post Title"
+description: "Brief description of the post"
+pubDate: "YYYY-MM-DD"
+heroImage: "/images/blog/your-hero-image.jpg"
+tags: ["tag1", "tag2"]
+---
+
+Your blog content here in Markdown format.
+```
+
+4. Save the file and commit to git
+5. Create translations by adding posts in both languages:
+   - For English: `src/content/blog/en/YYYY-MM-DD-title-slug.md`
+   - For Portuguese: `src/content/blog/pt/YYYY-MM-DD-title-slug.md`
+
+### Blog Image Management
+1. Place blog images in `/public/images/blog/` directory
+2. Use optimized images (compress before uploading)
+3. Include alt text for all images in your markdown
+
+### Markdown in Blog Posts
+In your blog posts, you can use standard Markdown syntax:
+
+1. **Headers**:
+   ```
+   # Heading 1
+   ## Heading 2
+   ### Heading 3
+   ```
+
+2. **Text formatting**:
+   ```
+   **Bold text**
+   *Italic text*
+   ~~Strikethrough~~
+   ```
+
+3. **Lists**:
+   ```
+   - Unordered item
+   - Another item
+     - Nested item
+   
+   1. Ordered item
+   2. Second item
+   ```
+
+4. **Links**:
+   ```
+   [Link text](https://example.com)
+   ```
+
+5. **Images**:
+   ```
+   ![Alt text](/path/to/image.jpg)
+   ```
+
+6. **Code blocks**:
+   ````
+   ```javascript
+   const greeting = "Hello world";
+   console.log(greeting);
+   ```
+   ````
+
+7. **Blockquotes**:
+   ```
+   > This is a blockquote
+   ```
+
+## Using Markdown in data.json
+
+The `data.json` file supports limited markdown formatting in certain text fields, particularly in description fields. When adding markdown to JSON, remember:
+
+1. **Escape special characters**: Since you're writing in JSON, you need to escape quotes and backslashes
+   ```json
+   {
+     "description": "This is **bold** and this is *italic*"
+   }
+   ```
+
+2. **Supported markdown in descriptions**:
+   - Bold: Use `**text**` for bold text
+   - Italic: Use `*text*` for italic text
+   - Links: Use `[text](url)` for hyperlinks
+   - Line breaks: Use `\n\n` for paragraph breaks
+
+3. **Example in `data.json`**:
+   ```json
+   "descriptions": {
+     "en": {
+       "dj": "When I DJ, I like to play **Jazz**, **African Funk**, **Deep**, **Future**, **Disco** and **Progressive House**, along with other world music like *Habibi Funk*."
+     }
+   }
+   ```
+
+4. **Processing**: The site uses the `marked` library to process markdown in the descriptions. This is handled in components like `SideProjects.astro` using the `processMarkdown` function.
+
+5. **Limitations**: Only use markdown in fields that are processed by markdown parsers. Currently, these include:
+   - All description fields in `sideProjects.descriptions`
+   - About section paragraphs
+   - Not all fields support markdown, so check the component that renders the field
+
+## Development Workflow
+
+1. Always create feature branches from dev branch
+2. Test changes locally before committing
+3. Commit regularly with descriptive messages
+4. Merge completed features to dev branch
+5. Deploy to staging for testing
+6. Only merge to main after verification
+7. Use proper git workflow:
+   ```
+   git checkout dev
+   git pull
+   git checkout -b feature/your-feature-name
+   # Make changes
+   git add .
+   git commit -m "Descriptive message"
+   git push -u origin feature/your-feature-name
+   # Create PR to dev, test, then merge
+   ```
+
+## Contact Integration
+
+The contact functionality uses reCAPTCHA v3. If you need to update or change:
+1. Update keys in `.env` file
+2. The contact form shows the real email only after verification
+
+## Data Management
+
+1. Main profile data is stored in `src/content/profile/data.json`
+2. Experience dates are auto-calculated based on start and end dates
+3. Skills can be modified in the same file
+4. Playlists and other embedded content are also configured in the data file
+
+## Deployment
+
+1. The site is deployed using GitHub workflows
+2. See `.github/workflows/deploy.yml` for the configuration
+3. DO NOT run npm run build locally, use the workflow instead
+
+## Troubleshooting
+
+### Embedded Content Not Loading
+1. Check that the embeds are configured correctly in the data file
+2. Verify that the content is still available at the source (Spotify, Mixcloud)
+3. Ensure there are no CORS issues
+
+### Contact Form Issues
+1. Verify reCAPTCHA keys in the .env file
+2. Check browser console for JavaScript errors
+3. Test the API endpoint directly
+
+## Internationalization
+
+1. UI strings are managed in `src/i18n/ui.ts`
+2. Always update both English and Portuguese translations
+3. Content translations are in the respective language folders 
