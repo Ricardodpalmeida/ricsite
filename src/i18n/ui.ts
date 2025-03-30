@@ -13,8 +13,6 @@ export const ui = {
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.blog': 'Blog',
-    'nav.podcast': 'Podcast',
-    'nav.music': 'Music',
     
     // Hero section
     'hero.greeting': 'Hi, I\'m',
@@ -67,8 +65,6 @@ export const ui = {
     'nav.home': 'Início',
     'nav.about': 'Sobre',
     'nav.blog': 'Blog',
-    'nav.podcast': 'Podcast',
-    'nav.music': 'Música',
     
     // Hero section
     'hero.greeting': 'Olá, sou o',

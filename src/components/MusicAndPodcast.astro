@@ -1,0 +1,209 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="music-podcast-section">
+  <!-- Podcast Section -->
+  <div class="section-container">
+    <h2 class="section-title">Podcast</h2>
+    <p class="section-description">
+      I used to host a podcast about technology and innovation. While I'm no longer actively producing new episodes,
+      you can still check out the past episodes below.
+    </p>
+    <div class="podcast-embed">
+      <!-- Add your podcast embed here -->
+    </div>
+  </div>
+
+  <!-- Music Section -->
+  <div class="section-container">
+    <h2 class="section-title">Music</h2>
+    <p class="section-description">
+      I'm a DJ specializing in Jazz, African Funk and Jazz, Deep, Future, Disco and Progressive House, 
+      along with other world music like Habibi Funk. All my sets are improvised, mixing both vinyl and digital formats.
+    </p>
+    
+    <!-- DJ Sets Carousel -->
+    <div class="sets-container">
+      <h3 class="subsection-title">Latest Sets</h3>
+      <div class="sets-carousel">
+        <button class="carousel-arrow prev" aria-label="Previous set">←</button>
+        <div class="carousel-container">
+          <div class="carousel-track">
+            <div class="carousel-item">
+              <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2F" frameborder="0" title="DJ Set 1"></iframe>
+            </div>
+            <div class="carousel-item">
+              <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" frameborder="0" title="DJ Set 2"></iframe>
+            </div>
+            <div class="carousel-item">
+              <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" frameborder="0" title="DJ Set 3"></iframe>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-arrow next" aria-label="Next set">→</button>
+      </div>
+    </div>
+
+    <!-- Playlists Gallery -->
+    <div class="playlists-container">
+      <h3 class="subsection-title">My Playlists</h3>
+      <div class="playlists-gallery">
+        <div class="playlist-item">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1"></iframe>
+        </div>
+        <div class="playlist-item">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2"></iframe>
+        </div>
+        <div class="playlist-item">
+          <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .music-podcast-section {
+    padding: 4rem 0;
+    background: var(--color-gray-900);
+  }
+
+  .section-container {
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    padding: 0 1rem;
+  }
+
+  .section-title {
+    font-size: var(--font-size-2xl);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 1rem;
+    font-family: var(--font-family-title);
+  }
+
+  .section-description {
+    margin-bottom: 2rem;
+    line-height: var(--line-height-loose);
+  }
+
+  .subsection-title {
+    font-size: var(--font-size-xl);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-family-title);
+  }
+
+  /* Sets Carousel Styles */
+  .sets-container {
+    margin-bottom: 3rem;
+  }
+
+  .sets-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .carousel-container {
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.3s ease;
+  }
+
+  .carousel-item {
+    flex: 0 0 100%;
+    padding: 0 0.5rem;
+  }
+
+  .carousel-arrow {
+    background: var(--color-cosmic-latte-10);
+    border: 1px solid var(--color-cosmic-latte);
+    color: var(--color-white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-arrow:hover {
+    background: var(--color-cosmic-latte-20);
+    transform: scale(1.1);
+  }
+
+  /* Playlists Gallery Styles */
+  .playlists-gallery {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .playlist-item {
+    flex: 0 0 50%;
+    scroll-snap-align: start;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .playlist-item {
+      flex: 0 0 100%;
+    }
+
+    .section-title {
+      font-size: var(--font-size-xl);
+    }
+
+    .subsection-title {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>
+
+<script>
+  // Carousel functionality
+  const track = document.querySelector('.carousel-track') as HTMLElement;
+  const items = document.querySelectorAll('.carousel-item');
+  const prevBtn = document.querySelector('.carousel-arrow.prev') as HTMLButtonElement;
+  const nextBtn = document.querySelector('.carousel-arrow.next') as HTMLButtonElement;
+  
+  let currentIndex = 0;
+
+  function updateCarousel() {
+    if (track) {
+      const percentage = currentIndex * -100;
+      track.style.transform = `translateX(${percentage}%)`;
+    }
+  }
+
+  prevBtn?.addEventListener('click', () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    if (currentIndex < items.length - 1) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+
+  // Initialize carousel
+  updateCarousel();
+</script> 
