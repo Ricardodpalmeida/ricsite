@@ -108,7 +108,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <div class="project-container">
     <h3 class="subsection-title">{titles.playlists || (lang === 'pt' ? 'Minhas Playlists' : 'My Playlists')}</h3>
     <div class="playlists-gallery">
-      {embeds.playlists?.map((playlist: { src: string }, index: number) => (
+      {embeds.playlists?.map((playlist: { src: string, title?: string, description?: string }, index: number) => (
         <div class="playlist-item">
           <div class="iframe-container">
             <iframe 
@@ -119,7 +119,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               allowfullscreen
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
               loading="lazy" 
-              title={`Playlist ${index + 1}`}
+              title={playlist.title || `Playlist ${index + 1}`}
               class="media-iframe"
               onload="this.parentNode.classList.add('loaded')"
               onerror="this.parentNode.classList.add('error')"
@@ -127,28 +127,57 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
             <div class="iframe-loading">Loading...</div>
             <div class="iframe-error">Sorry, content couldn't be loaded.</div>
           </div>
+          {playlist.title && (
+            <div class="playlist-info">
+              <h4 class="playlist-title">{playlist.title}</h4>
+              {playlist.description && <p class="playlist-description">{playlist.description}</p>}
+            </div>
+          )}
         </div>
       )) || (
         <>
           <div class="playlist-item">
             <div class="iframe-container">
-              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 1" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Dem beats" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
               <div class="iframe-loading">Loading...</div>
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
+            <div class="playlist-info">
+              <h4 class="playlist-title">Dem beats</h4>
+              <p class="playlist-description">Chill jazz-hop beats</p>
             </div>
           </div>
           <div class="playlist-item">
             <div class="iframe-container">
-              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 2" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="The random rock assortment" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
               <div class="iframe-loading">Loading...</div>
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
+            <div class="playlist-info">
+              <h4 class="playlist-title">The random rock assortment</h4>
+              <p class="playlist-description">Rock music, mostly from the 90s and 2000s, from stoner to indie rock</p>
             </div>
           </div>
           <div class="playlist-item">
             <div class="iframe-container">
-              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Playlist 3" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Hip hop stash" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
               <div class="iframe-loading">Loading...</div>
               <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
+            <div class="playlist-info">
+              <h4 class="playlist-title">Hip hop stash</h4>
+              <p class="playlist-description">My collection of hip hop tracks - a lot of boom bap, abstract and conscious hip hop</p>
+            </div>
+          </div>
+          <div class="playlist-item">
+            <div class="iframe-container">
+              <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/1I43vFQgN7QBtCm8YLEJSd?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Jazz café" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
+              <div class="iframe-loading">Loading...</div>
+              <div class="iframe-error">Sorry, content couldn't be loaded.</div>
+            </div>
+            <div class="playlist-info">
+              <h4 class="playlist-title">Jazz café</h4>
+              <p class="playlist-description">Jazz classics, modern and old</p>
             </div>
           </div>
         </>
@@ -309,6 +338,25 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   .playlist-item {
     flex: 0 0 50%;
     scroll-snap-align: start;
+  }
+
+  .playlist-info {
+    margin-top: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
+  .playlist-title {
+    font-family: var(--font-family-title);
+    font-size: var(--font-size-lg);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 0.25rem;
+  }
+
+  .playlist-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
   }
 
   /* Photo Gallery Styles */
