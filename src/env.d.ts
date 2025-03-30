@@ -1,6 +1,12 @@
 /// <reference types="astro/client" />
 /// <reference path="../.astro/types.d.ts" />
 
+// Extend Window interface for custom methods
+interface Window {
+  openPhotoModal: (index: number) => void;
+  closePhotoModal: () => void;
+}
+
 // Define custom JSX namespace for Astro
 declare namespace astroHTML.JSX {
   // This allows standard HTML attributes like `class`

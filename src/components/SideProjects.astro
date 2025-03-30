@@ -2,6 +2,8 @@
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
+import '../styles/photo-gallery.css';
+import '../styles/carousel.css';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
