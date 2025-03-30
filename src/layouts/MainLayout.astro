@@ -65,9 +65,12 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Slab:wght@400;500;700&display=swap" rel="stylesheet">
     
+    <!-- RSS Feed Link -->
+    <link rel="alternate" type="application/rss+xml" title="Ricardo's Site Blog RSS Feed" href="/rss.xml" />
+
     <!-- reCAPTCHA v3 script -->
     <script is:inline src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}></script>
-    
+
     <!-- Structured Data for Professional Profile -->
     <script type="application/ld+json">
       {
