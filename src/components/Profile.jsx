@@ -428,7 +428,9 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                           target="_blank" 
                           rel="noopener noreferrer"
                           aria-label={`Verify ${certTitle} credential`}
+                          className="verify-link"
                         >
+                          <span className="link-icon" aria-hidden="true">🔗</span>
                           {getUI('verifyCertificate', 'Verify Certificate')}
                         </a>
                       </div>
