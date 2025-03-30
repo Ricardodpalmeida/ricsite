@@ -347,13 +347,9 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(certification, `${language}.credentialURL`) || safeGet(certification, 'en.credentialURL', '') : 
                 safeGet(certification, 'credentialURL', '');
                 
-              const issued = isMultilingual ? 
-                safeGet(certification, `${language}.issued`) || safeGet(certification, 'en.issued', '') : 
-                safeGet(certification, 'issued', '');
-                
-              const expires = isMultilingual ? 
-                safeGet(certification, `${language}.expires`) || safeGet(certification, 'en.expires', '') : 
-                safeGet(certification, 'expires', '');
+              const status = isMultilingual ? 
+                safeGet(certification, `${language}.status`) || safeGet(certification, 'en.status', '') : 
+                safeGet(certification, 'status', '');
                 
               return (
                 <div key={index} className="timeline-item">
@@ -363,19 +359,10 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     {certIssuer && <p className="item-subtitle">{certIssuer}</p>}
                     
                     <div className="item-metadata">
-                      {issued && (
+                      {status && (
                         <span className="item-detail">
-                          <span className="item-label">{getUI('issued', 'Issued')}:</span> {issued}
+                          <span className="item-label">{getUI('status', 'Status')}:</span> {status}
                         </span>
-                      )}
-                      
-                      {expires && (
-                        <>
-                          <span className="item-separator">•</span>
-                          <span className="item-detail">
-                            <span className="item-label">{getUI('expires', 'Expires')}:</span> {expires}
-                          </span>
-                        </>
                       )}
                     </div>
                     
