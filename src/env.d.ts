@@ -4,7 +4,7 @@
 // Define custom JSX namespace for Astro
 declare namespace astroHTML.JSX {
   // Base HTML attributes interface that accepts 'class' and other HTML attributes
-  interface HTMLAttributes {
+  interface HTMLAttributes extends astro.JSX.HTMLAttributes {
     class?: string;
     id?: string;
     title?: string;
@@ -129,5 +129,12 @@ declare namespace astroHTML.JSX {
     allowfullscreen?: boolean;
     sandbox?: string;
     referrerpolicy?: string;
+  }
+
+  // Ensure other Astro-specific directives are recognized if needed
+  interface IntrinsicAttributes {
+    "set:html"?: any;
+    "set:text"?: any;
+    "is:raw"?: boolean;
   }
 }
