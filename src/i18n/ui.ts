@@ -60,6 +60,8 @@ export const ui = {
     
     // Error messages
     'error.profileData': 'Profile data could not be loaded.',
+    // RSS Feed Title (New)
+    'rss.title': 'Blog RSS Feed',
   },
   pt: {
     'nav.home': 'Início',
@@ -112,5 +114,7 @@ export const ui = {
     
     // Error messages
     'error.profileData': 'Não foi possível carregar os dados do perfil.',
+    // RSS Feed Title (New)
+    'rss.title': 'Feed RSS do Blog',
   },
 } as const; 
