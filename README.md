@@ -1,4 +1,4 @@
-# Ricardo Almeida Personal Website
+# Ricardo's Personal Website
 
 A minimal, responsive personal website built with Astro and React. The site features a clean, dark-themed design with easy-to-update profile data.
 
