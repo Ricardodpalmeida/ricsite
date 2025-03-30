@@ -6,30 +6,38 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
 
-<section class="music-podcast-section">
-  <!-- Podcast Section -->
+<section class="side-projects-section">
   <div class="section-container">
-    <h2 class="section-title">Podcast</h2>
-    <p class="section-description">
-      I used to host a podcast about technology and innovation. While I'm no longer actively producing new episodes,
-      you can still check out the past episodes below.
-    </p>
-    <div class="podcast-embed">
-      <!-- Add your podcast embed here -->
-    </div>
-  </div>
-
-  <!-- Music Section -->
-  <div class="section-container">
-    <h2 class="section-title">Music</h2>
-    <p class="section-description">
-      I'm a DJ specializing in Jazz, African Funk and Jazz, Deep, Future, Disco and Progressive House, 
-      along with other world music like Habibi Funk. All my sets are improvised, mixing both vinyl and digital formats.
-    </p>
+    <h2 class="section-title">Side Projects</h2>
     
-    <!-- DJ Sets Carousel -->
-    <div class="sets-container">
+    <!-- Podcast Section -->
+    <div class="project-container">
+      <h3 class="subsection-title">Podcast</h3>
+      <p class="section-description">
+        'Mesa do Canto' was a podcast in Portuguese where a friend and I convened to discuss a variety of subjects, 
+        including culture, politics, philosophy, history, economics, and technology.
+      </p>
+      <div class="podcast-embed">
+        <iframe 
+          style="border-radius:12px" 
+          src="https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0" 
+          width="100%" 
+          height="352" 
+          frameBorder="0" 
+          allowfullscreen="" 
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+    
+    <!-- DJ Sets Section -->
+    <div class="project-container">
       <h3 class="subsection-title">Latest Sets</h3>
+      <p class="section-description">
+        I'm a DJ specializing in Jazz, African Funk and Jazz, Deep, Future, Disco and Progressive House, 
+        along with other world music like Habibi Funk. All my sets are improvised, mixing both vinyl and digital formats.
+      </p>
       <div class="sets-carousel">
         <button class="carousel-arrow prev" aria-label="Previous set">←</button>
         <div class="carousel-container">
@@ -49,8 +57,8 @@ const t = useTranslations(lang);
       </div>
     </div>
 
-    <!-- Playlists Gallery -->
-    <div class="playlists-container">
+    <!-- Playlists Section -->
+    <div class="project-container">
       <h3 class="subsection-title">My Playlists</h3>
       <div class="playlists-gallery">
         <div class="playlist-item">
@@ -68,19 +76,34 @@ const t = useTranslations(lang);
 </section>
 
 <style>
-  .music-podcast-section {
+  .side-projects-section {
     padding: 4rem 0;
     background: var(--color-gray-900);
   }
 
   .section-container {
     max-width: 800px;
-    margin: 0 auto 4rem;
+    margin: 0 auto;
     padding: 0 1rem;
   }
 
   .section-title {
     font-size: var(--font-size-2xl);
+    color: var(--color-cosmic-latte);
+    margin-bottom: 2rem;
+    font-family: var(--font-family-title);
+  }
+
+  .project-container {
+    margin-bottom: 4rem;
+  }
+
+  .project-container:last-child {
+    margin-bottom: 0;
+  }
+
+  .subsection-title {
+    font-size: var(--font-size-xl);
     color: var(--color-cosmic-latte);
     margin-bottom: 1rem;
     font-family: var(--font-family-title);
@@ -91,18 +114,7 @@ const t = useTranslations(lang);
     line-height: var(--line-height-loose);
   }
 
-  .subsection-title {
-    font-size: var(--font-size-xl);
-    color: var(--color-cosmic-latte);
-    margin-bottom: 1.5rem;
-    font-family: var(--font-family-title);
-  }
-
   /* Sets Carousel Styles */
-  .sets-container {
-    margin-bottom: 3rem;
-  }
-
   .sets-carousel {
     display: flex;
     align-items: center;
@@ -153,6 +165,31 @@ const t = useTranslations(lang);
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Custom Scrollbar for Playlists */
+  .playlists-gallery::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .playlists-gallery::-webkit-scrollbar-track {
+    background: var(--color-cosmic-latte-10);
+    border-radius: 3px;
+  }
+
+  .playlists-gallery::-webkit-scrollbar-thumb {
+    background: var(--color-cosmic-latte);
+    border-radius: 3px;
+  }
+
+  .playlists-gallery::-webkit-scrollbar-thumb:hover {
+    background: var(--color-cosmic-latte-20);
+  }
+
+  /* Firefox scrollbar */
+  .playlists-gallery {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-cosmic-latte) var(--color-cosmic-latte-10);
+  }
+
   .playlist-item {
     flex: 0 0 50%;
     scroll-snap-align: start;
@@ -187,6 +224,10 @@ const t = useTranslations(lang);
     if (track) {
       const percentage = currentIndex * -100;
       track.style.transform = `translateX(${percentage}%)`;
+      
+      // Update button states
+      if (prevBtn) prevBtn.disabled = currentIndex === 0;
+      if (nextBtn) nextBtn.disabled = currentIndex === items.length - 1;
     }
   }
 
