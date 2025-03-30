@@ -3,10 +3,8 @@ title: "Blog em Breve"
 pubDate: 2023-12-25
 description: "Fique atento para os próximos posts do blog"
 author: "Ricardo Almeida"
-lang: "pt"
-image:
-    url: "/images/blog/placeholder.jpg"
-    alt: "Blog em Breve"
+language: "pt"
+heroImage: "/images/blog/placeholder.jpg"
 tags: ["novidades", "blog"]
 ---
 

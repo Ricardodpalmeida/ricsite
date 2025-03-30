@@ -3,10 +3,8 @@ title: "Blog Coming Soon"
 pubDate: 2023-12-25
 description: "Stay tuned for upcoming blog posts"
 author: "Ricardo Almeida"
-lang: "en"
-image:
-    url: "/images/blog/placeholder.jpg"
-    alt: "Blog Coming Soon"
+language: "en"
+heroImage: "/images/blog/placeholder.jpg"
 tags: ["news", "blog"]
 ---
 
