@@ -26,9 +26,7 @@ pnpm-debug.log*
 .idea/
 
 # Custom documentation
-manual.txt
 GUIDE.md
-SETUP_GUIDE.md
 
 # Editor files
 *.sublime-project
