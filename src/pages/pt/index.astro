@@ -74,7 +74,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   .home-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 4rem 0;
+    padding: 4rem 2rem;
     min-height: calc(100vh - 150px);
     animation: fadeIn 0.5s ease-out;
   }
@@ -82,7 +82,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   /* Hero Section */
   .hero-section {
     margin-bottom: 0;
-    padding: 0 1rem;
+    padding: 0;
   }
   
   .hero-content {
@@ -190,6 +190,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
       gap: 2rem;
     }
     
+    .home-container {
+      padding: 4rem 1.5rem;
+    }
+    
     .hero-image-container {
       max-width: 100%;
     }
@@ -204,6 +208,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   }
   
   @media (max-width: 480px) {
+    .home-container {
+      padding: 4rem 1rem;
+    }
+    
     .gallery-item {
       flex: 0 0 200px;
       height: 150px;

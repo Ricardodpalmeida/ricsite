@@ -277,7 +277,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 var(--spacing-md);
+    padding: 0 2rem;
   }
   
   /* Header structure and wrapper */
@@ -397,7 +397,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   /* Responsive adjustments */
   @media (max-width: 768px) {
     .container {
-      padding: 0 var(--spacing-md);
+      padding: 0 1.5rem;
     }
     
     .main-nav ul {
@@ -409,6 +409,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
     :root {
       --spacing-lg: 1.5rem;
       --spacing-xl: 2rem;
+    }
+    
+    .container {
+      padding: 0 1rem;
     }
     
     .main-nav {
