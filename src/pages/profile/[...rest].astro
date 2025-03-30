@@ -1,5 +1,15 @@
 ---
 // This is a catch-all page that will handle any attempts to access profile directly
+// For static builds, we need to define getStaticPaths
+
+export function getStaticPaths() {
+  return [
+    { params: { rest: undefined } },
+    { params: { rest: 'data' } },
+    { params: { rest: 'data.json' } }
+  ];
+}
+
 // Immediately redirect to 404
 return Astro.redirect('/404');
 --- 
