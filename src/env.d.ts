@@ -150,3 +150,9 @@ declare namespace astroHTML.JSX {
     "is:raw"?: boolean;
   }
 }
+
+// Extend Window interface for our custom methods
+interface Window {
+  openPhotoModal: (index: number) => void;
+  closePhotoModal: () => void;
+}
