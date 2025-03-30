@@ -256,7 +256,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
   }
 </style>
 
-<script define:vars={{ 
+<script is:inline define:vars={{ 
   recaptchaSiteKey, 
   verifyingText: t('contact.verifying'), 
   errorAlertText: lang === 'en' ? 'Verification failed. Please try again.' : 'Falha na verificação. Por favor, tente novamente.', 
@@ -335,7 +335,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || '6LeIxAcTA
           window.grecaptcha.ready(function() {
             // Use the passed recaptchaSiteKey
             window.grecaptcha.execute(recaptchaSiteKey, {action: 'showEmail'}) 
-              .then(function(token) {
+              .then(function() {
                 // On successful verification, show the email
                 contactEmail.classList.remove('hidden');
                 recaptchaTerms.classList.remove('hidden');

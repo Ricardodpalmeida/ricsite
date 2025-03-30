@@ -18,7 +18,7 @@ import { defaultLang, languages } from '../i18n/ui';
   <body>
     <p>Redirecting to the site...</p>
     
-    <script define:vars={{ defaultLang, languages }}>
+    <script is:inline define:vars={{ defaultLang, languages }}>
       // Detect browser language
       function detectBrowserLanguage() {
         const browserLang = navigator.language?.split('-')[0];

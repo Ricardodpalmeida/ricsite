@@ -34,7 +34,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         src={embeds.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"} 
         width={embeds.podcast?.width || "100%"} 
         height={embeds.podcast?.height || "352"} 
-        frameBorder="0" 
+        style="border: 0;" 
         allowfullscreen="" 
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
@@ -50,26 +50,26 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       <button class="carousel-arrow prev" aria-label="Previous set">&#60;</button>
       <div class="carousel-container">
         <div class="carousel-track">
-          {embeds.dj?.map((set, index) => (
+          {embeds.dj?.map((set: { src: string, title?: string }, index: number) => (
             <div class="carousel-item">
               <iframe 
                 width="100%" 
                 height="120" 
                 src={set.src} 
-                frameborder="0" 
+                style="border: 0;" 
                 title={set.title || `Set ${index + 1}`}
               ></iframe>
             </div>
           )) || (
             <>
               <div class="carousel-item">
-                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" frameborder="0" title="Nadar"></iframe>
+                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" style="border: 0;" title="Nadar"></iframe>
               </div>
               <div class="carousel-item">
-                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" frameborder="0" title="Fenix"></iframe>
+                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" style="border: 0;" title="Fenix"></iframe>
               </div>
               <div class="carousel-item">
-                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" frameborder="0" title="Lejos"></iframe>
+                <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" style="border: 0;" title="Lejos"></iframe>
               </div>
             </>
           )}
@@ -83,14 +83,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   <div class="project-container">
     <h3 class="subsection-title">{titles.playlists || (lang === 'pt' ? 'Minhas Playlists' : 'My Playlists')}</h3>
     <div class="playlists-gallery">
-      {embeds.playlists?.map((playlist, index) => (
+      {embeds.playlists?.map((playlist: { src: string }, index: number) => (
         <div class="playlist-item">
           <iframe 
-            style="border-radius:12px" 
+            style="border-radius:12px; border: 0;" 
             src={playlist.src} 
             width="100%" 
             height="352" 
-            frameBorder="0" 
             allowfullscreen="" 
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
             loading="lazy" 
