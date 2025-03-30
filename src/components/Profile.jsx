@@ -263,8 +263,12 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(exp, `${language}.endDate`) || safeGet(exp, 'en.endDate', '') :
                 safeGet(exp, 'endDate', '');
               
-              // Always calculate duration if start date is provided
-              let duration = '';
+              // Get duration value - use calculated value if startDate exists, otherwise use the provided duration
+              let duration = isMultilingual ?
+                safeGet(exp, `${language}.duration`) || safeGet(exp, 'en.duration', '') :
+                safeGet(exp, 'duration', '');
+                
+              // Calculate duration if start date is provided and override the hardcoded value
               if (startDate) {
                 duration = calculateDuration(startDate, endDate, language);
               }
