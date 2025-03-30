@@ -39,6 +39,8 @@ jobs:
         run: npm run build
       - name: Ensure CNAME exists
         run: |
+          # Make sure dist directory exists
+          mkdir -p dist
           # Check if CNAME exists in dist, if not copy it from public
           if [ ! -f dist/CNAME ]; then
             echo "Copying CNAME file to dist directory"
