@@ -25,10 +25,9 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# Custom documentation
+# Documentation and guides
+docs/
 manual.txt
-SETUP_GUIDE.md
-GUIDE.md
 
 # Editor files
 *.sublime-project
@@ -49,15 +48,13 @@ GUIDE.md
 TODO.md
 NOTES.md
 RESPONSIVE_TESTING.md
-manual.txt
-SETUP_GUIDE.md
+notes.txt
 
 # Security and keys
 *.pem
 *.key
 *.cert
 *.pub
-SECURITY.md
 
 # Cache files
 .cache/
