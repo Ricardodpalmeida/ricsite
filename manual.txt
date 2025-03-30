@@ -1,0 +1,382 @@
+# Responsive Testing Plan
+
+## Overview
+This document outlines a comprehensive testing strategy for ensuring responsive design across all device sizes for the Ricardo Almeida personal website. This plan should be used by developers, QA testers, and the product manager to validate responsive behavior.
+
+## Device Breakpoints
+
+The website uses three primary breakpoints:
+- **Large Desktop**: > 1200px
+- **Desktop/Tablet Landscape**: 769px - 1200px
+- **Tablet Portrait**: 481px - 768px 
+- **Mobile**: ≤ 480px
+
+## Test Environments
+
+### Devices for Testing
+- **Mobile Phones**:
+  - iPhone SE (small iOS)
+  - iPhone 13/14 (medium iOS)
+  - Samsung Galaxy S22 (medium Android)
+  - Google Pixel (Android)
+
+- **Tablets**:
+  - iPad (9.7")
+  - iPad Pro (11")
+  - Samsung Galaxy Tab
+
+- **Desktops/Laptops**:
+  - 13" Laptop (1280 x 800)
+  - 15" Laptop (1366 x 768)
+  - 24" Desktop (1920 x 1080)
+  - 27"+ Desktop (2560 x 1440 or higher)
+
+### Browsers for Testing
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+- Mobile Chrome & Safari
+
+## Testing Methodology
+
+### 1. Visual Inspection
+For each page on each device:
+- Verify layout integrity
+- Check for any overflow issues (horizontal scrolling)
+- Validate text readability (font sizes appropriate)
+- Confirm proper spacing between elements
+- Ensure images scale correctly and maintain aspect ratios
+
+### 2. Interactive Elements Testing
+Test all interactive elements for proper sizing and touch/click targets:
+- Buttons have sufficient tap area (min 44x44px)
+- Form inputs and controls are easily interactable
+- Language switcher functions correctly
+- Navigation elements are accessible
+
+### 3. Component-Specific Testing
+
+#### Profile Component
+- **Skills Section**:
+  - Skill items properly wrap on smaller screens
+  - Tooltips position correctly and remain visible on touchscreens
+  - Highlight styling remains effective at all sizes
+  - Skill category indicators (colored borders) visible at all sizes
+
+- **Timeline Elements**:
+  - Timeline markers align correctly on small screens
+  - Content flows naturally with proper spacing
+  - Text remains readable when compressed
+
+- **Language Selector**:
+  - Positioning appropriate on all screen sizes
+  - Buttons usable on mobile devices
+
+#### Hero Section
+- Proper image scaling
+- Text readability at all screen sizes
+- CTA buttons properly sized and positioned
+
+#### Gallery Section
+- Touch/swipe functionality works on mobile
+- Images scale correctly
+- Gallery container properly sized on all screens
+
+#### Blog Posts Grid
+- Cards properly size and position
+- Images maintain aspect ratio
+- Text remains readable at all sizes
+
+#### Form Elements
+- Labels and inputs properly aligned
+- Error messages clearly visible
+- Sufficient space for touch interactions
+
+### 4. Performance Testing
+- Page load times on mobile networks
+- Scrolling smoothness on mobile devices
+- Animation performance on lower-powered devices
+
+## Critical Issues to Watch For
+
+1. **Tooltip Positioning**: Skills tooltips should adjust position to remain on-screen at all times
+2. **Mobile Touch Targets**: All interactive elements should be at least 44x44px for comfortable tapping
+3. **Text Overflow**: Long titles or content should handle gracefully without breaking layouts
+4. **Horizontal Scrolling**: The page should never allow horizontal scrolling (this indicates a responsive issue)
+5. **Image Loading**: Images should use appropriate sizing for device viewport to minimize data usage
+
+## Testing Checklist by Page
+
+### Home Page
+- [ ] Hero section layout
+- [ ] Profile image scaling
+- [ ] CTA button sizing and spacing
+- [ ] Gallery scrolling/swiping
+- [ ] Language switcher visibility and usability
+
+### About/Profile Page
+- [ ] Profile header spacing
+- [ ] Skills grid wrapping and alignment
+- [ ] Timeline content readability
+- [ ] Certification cards scaling
+- [ ] Interactive elements (links, buttons) sizing
+
+### Blog Index Page
+- [ ] Blog post card grid layout
+- [ ] Featured image sizing
+- [ ] Post title and metadata readability
+- [ ] Card hover effects behave correctly
+
+### Blog Post Page
+- [ ] Content width and readability
+- [ ] Image scaling within content
+- [ ] Navigation elements visibility
+
+### Contact Page
+- [ ] Form field sizing and spacing
+- [ ] Button alignment and sizing
+- [ ] Error message visibility
+- [ ] Form submission behavior
+
+## Mobile-Specific Considerations
+
+### Touch Interactions
+- Replace hover interactions with tap events where needed
+- Ensure tooltips work with touch (tap to show, tap elsewhere to dismiss)
+- Test swipe gestures where implemented
+
+### Portrait vs Landscape Testing
+Test each mobile/tablet device in both orientations to ensure:
+- Layout adjusts appropriately
+- No content gets cut off
+- Interactive elements remain accessible
+
+## Documentation of Issues
+
+When documenting responsive issues:
+1. Note the specific device/browser/orientation
+2. Screenshot the issue
+3. Provide step-by-step reproduction instructions
+4. Categorize severity (critical, high, medium, low)
+
+## Testing Schedule
+
+Responsive testing should be conducted:
+- After major layout changes
+- Before each production release
+- When adding new interactive components
+- When receiving reports of display issues on specific devices
+
+## Responsible Parties
+
+- **Developers**: Self-test during development
+- **QA Team**: Complete full test suite pre-release
+- **Product Manager**: Validate critical user journeys on key devices 
+
+---
+
+# Markdown Guide for Data Files
+
+This guide explains how to use Markdown formatting in the `data.json` file for text formatting.
+
+## Supported Markdown Features
+
+The site supports standard Markdown syntax for text formatting in descriptions and content:
+
+- **Bold text**: Surround text with double asterisks `**like this**`
+- *Italic text*: Surround text with single asterisks `*like this*`
+- Links: `[link text](https://example.com)`
+- Lists:
+  ```
+  - Item 1
+  - Item 2
+  ```
+
+## Using Markdown in data.json
+
+The `data.json` file supports Markdown in description fields. Here are some examples:
+
+```json
+"descriptions": {
+  "en": {
+    "dj": "When I DJ, I like to play **Jazz**, **African Funk**, and **Progressive House**. All my sets are *improvised*."
+  },
+  "pt": {
+    "dj": "Quando toco, gosto de passar **Jazz** e **Funk Africano**. Todos os meus *sets* são improvisados."
+  }
+}
+```
+
+## Best Practices
+
+1. **Use Bold for Emphasis**: Use `**bold**` for genres, important terms, or points you want to emphasize.
+
+2. **Use Italics for Foreign Terms**: In the Portuguese descriptions, use italics for English words: `*digital*`, `*vinyl*`, `*hobby*`.
+
+3. **Keep Formatting Consistent**: If you bold a genre name in English, also bold it in Portuguese.
+
+4. **Don't Overuse**: Too much formatting can make text harder to read.
+
+## Language Keys vs. Tags
+
+The site uses language keys like `en` and `pt` in JSON objects rather than tags like `@en` or `@pt`. This is the recommended approach because:
+
+1. It creates a clear structure for multilingual content
+2. It allows fallbacks (if Portuguese isn't available, it falls back to English)
+3. It follows JSON structure conventions
+4. It's more maintainable and easier to read
+
+Example of the preferred structure:
+
+```json
+"title": {
+  "en": "My Projects",
+  "pt": "Meus Projetos"
+}
+```
+
+This is better than using tags like:
+
+```json
+"title": "My Projects @en Meus Projetos @pt"
+```
+
+## How Markdown Rendering Works
+
+The site uses the `marked` library to process Markdown in the content. When a description is displayed, the `processMarkdown()` function converts Markdown syntax to HTML:
+
+```javascript
+const processMarkdown = (text) => {
+  if (!text) return '';
+  marked.setOptions({
+    gfm: true,
+    breaks: true
+  });
+  return marked.parse(text);
+};
+```
+
+This function is called with the `set:html` directive in Astro templates:
+
+```astro
+<p class="description" set:html={processMarkdown(description)}></p>
+```
+
+---
+
+# Adding Blog Posts in Both Languages
+
+This guide explains how to add new blog posts to the website in both English and Portuguese.
+
+## Blog Post Structure
+
+Blog posts are created using Astro content collections. Each post needs to be available in both English and Portuguese versions.
+
+### File Organization
+
+Blog posts are stored in the `src/content/blog/` directory with the following structure:
+
+```
+src/content/blog/
+├── en/
+│   ├── post-slug-1.md
+│   └── post-slug-2.md
+└── pt/
+    ├── post-slug-1.md
+    └── post-slug-2.md
+```
+
+- Use the same slug for both language versions of the same post
+- Always create both language versions at the same time
+
+## Creating a New Blog Post
+
+### Step 1: Create the English Version
+
+Create a new Markdown file in `src/content/blog/en/` with the following frontmatter:
+
+```markdown
+---
+title: "Your Blog Post Title"
+description: "A brief description of your blog post that will appear in search results and social shares"
+pubDate: "May 15 2024"
+heroImage: "/blog-images/your-image.jpg"
+tags: ["tag1", "tag2"]
+---
+
+Your blog post content goes here. You can use Markdown formatting as described in the Markdown guide section above.
+```
+
+### Step 2: Create the Portuguese Version
+
+Create the corresponding file in `src/content/blog/pt/` with the same slug but translated content:
+
+```markdown
+---
+title: "Título do seu Post de Blog"
+description: "Uma breve descrição do seu post de blog que aparecerá nos resultados de pesquisa e compartilhamentos sociais"
+pubDate: "15 Maio 2024"
+heroImage: "/blog-images/your-image.jpg"
+tags: ["tag1", "tag2"]
+---
+
+O conteúdo do seu post de blog vai aqui. Você pode usar formatação Markdown conforme descrito na seção do guia Markdown acima.
+```
+
+### Step 3: Add Blog Images
+
+Place any images referenced in your blog post in the `public/blog-images/` directory. Use the same image file for both language versions to improve caching.
+
+## Blog Post Frontmatter Fields
+
+| Field | Description | Required |
+|-------|-------------|----------|
+| `title` | The title of your blog post | Yes |
+| `description` | A brief description (150-160 characters) | Yes |
+| `pubDate` | Publication date in "Month Day Year" format | Yes |
+| `heroImage` | Path to the main image, relative to the public directory | Yes |
+| `tags` | Array of relevant tags | No |
+| `draft` | Set to `true` to exclude from production build | No |
+
+## Translating Content
+
+When translating content between English and Portuguese:
+
+1. **Maintain the Same Structure**: Keep the same paragraphs, headings, and general structure in both language versions.
+2. **Adapt Cultural References**: Some references might need adaptation to make sense in different cultural contexts.
+3. **Keep Technical Terms Consistent**: Use the glossary of technical terms to ensure consistency.
+4. **Preview Both Versions**: Always preview both language versions before publishing.
+
+## Adding Code Snippets
+
+For code snippets, use the triple backtick syntax with language specification:
+
+```markdown
+```javascript
+const greeting = "Hello World";
+console.log(greeting);
+```
+```
+
+This will render with syntax highlighting in both language versions.
+
+## Linking Between Posts
+
+To link to other blog posts, use the following format:
+
+```markdown
+[Link text](/blog/post-slug)
+```
+
+The language prefix will be automatically added based on the current language.
+
+## Publishing Workflow
+
+1. Create both language versions of the post
+2. Add all images to the public directory
+3. Test both versions locally
+4. Commit and push changes to the repository
+5. Deploy changes to production
+
+Always double-check both language versions after publishing to ensure everything looks correct. 
