@@ -292,7 +292,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     <div className="item-metadata">
                       {duration && (
                         <span className="item-duration">
-                          <span aria-label="Duration" role="img" aria-hidden="true">⏱️</span> {duration}
+                          <span aria-label="Duration" role="img" aria-hidden="true">🗓️</span> {duration}
                         </span>
                       )}
                       
