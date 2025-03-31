@@ -445,12 +445,12 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     
                     <div className="item-metadata">
                       {issueDate && (
-                        <span className="item-detail">
+                        <span className="item-detail" style={{ display: 'block', marginBottom: '4px' }}>
                           <span className="item-label">{getUI('issued', 'Issued')}:</span> {issueDate}
                         </span>
                       )}
                       {status && (
-                        <span className="item-detail">
+                        <span className="item-detail" style={{ display: 'block' }}>
                           <span className="item-label">{getUI('status', 'Status')}:</span> {status}
                         </span>
                       )}
@@ -563,7 +563,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     
                     <div className="item-metadata">
                       {date && (
-                        <span className="item-detail">
+                        <span className="item-detail" style={{ display: 'block' }}>
                           <span className="item-label">{getUI('issued', 'Issued')}:</span> {date}
                         </span>
                       )}
