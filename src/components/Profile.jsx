@@ -147,13 +147,14 @@ function Profile({ profileData, currentLanguage = 'en' }) {
               : safeGet(profileData, 'personal.title', 'Data & AI Manager | Cloud Solution Architect')
             }
           </h2>
-          <p className="profile-location">
+          {/* Hide location since it's always Lisbon, Portugal */}
+          {/* <p className="profile-location">
             <span aria-label="Location" role="img" aria-hidden="true">📍</span>
             {isMultilingual 
               ? safeGet(profileData, `personal.${language}.location`) || safeGet(profileData, 'personal.en.location', 'Lisbon, Portugal')
               : safeGet(profileData, 'personal.location', 'Lisbon, Portugal')
             }
-          </p>
+          </p> */}
           <div className="profile-links">
             <a 
               href={`https://${safeGet(profileData, 'personal.profileUrl', 'www.linkedin.com/in/ricardodpa')}`} 
@@ -282,31 +283,34 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(exp, 'description', '');
               
               return (
-                <article key={index} className="timeline-item">
-                  <div className="timeline-marker" aria-hidden="true"></div>
+                <div key={index} className="timeline-item">
+                  <div className="timeline-marker"></div>
                   <div className="timeline-content">
                     <h3 className="item-title">{title}</h3>
-                    <h4 className="item-subtitle highlight">{company}</h4>
+                    {company && <p className="item-subtitle">{company}</p>}
+                    
                     <div className="item-metadata">
                       {duration && (
                         <span className="item-duration">
-                          <span aria-label="Duration" role="img" aria-hidden="true">🗓️</span> {duration}
+                          <span aria-label="Duration" role="img" aria-hidden="true">⏱️</span> {duration}
                         </span>
                       )}
-                      {duration && location && (
-                        <span className="item-separator">•</span>
-                      )}
-                      {location && (
+                      
+                      {/* Hide location since it's always Lisbon, Portugal */}
+                      {/* {location && (
                         <span className="item-location">
                           <span aria-label="Location" role="img" aria-hidden="true">📍</span> {location}
                         </span>
-                      )}
+                      )} */}
                     </div>
+                    
                     {description && (
-                      <p className="item-description">{description}</p>
+                      <div className="item-description">
+                        <p>{description}</p>
+                      </div>
                     )}
                   </div>
-                </article>
+                </div>
               );
             })}
           </div>
@@ -397,15 +401,38 @@ function Profile({ profileData, currentLanguage = 'en' }) {
               const status = isMultilingual ? 
                 safeGet(certification, `${language}.status`) || safeGet(certification, 'en.status', '') : 
                 safeGet(certification, 'status', '');
+              
+              const issueDate = isMultilingual ? 
+                safeGet(certification, `${language}.issueDate`) || safeGet(certification, 'en.issueDate', '') : 
+                safeGet(certification, 'issueDate', '');
                 
               return (
                 <div key={index} className="timeline-item">
                   <div className="timeline-marker"></div>
                   <div className="timeline-content">
-                    <h3 className="item-title">{certTitle}</h3>
+                    <h3 className="item-title">
+                      {certTitle}
+                      {credentialURL && (
+                        <a 
+                          href={credentialURL} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          aria-label={`Verify ${certTitle} credential`}
+                          className="cert-link"
+                          style={{ marginLeft: '8px', display: 'inline-flex', verticalAlign: 'middle' }}
+                        >
+                          <img src="/icons/newtab.svg" alt="Verify" width="16" height="16" />
+                        </a>
+                      )}
+                    </h3>
                     {certIssuer && <p className="item-subtitle">{certIssuer}</p>}
                     
                     <div className="item-metadata">
+                      {issueDate && (
+                        <span className="item-detail">
+                          <span className="item-label">{getUI('issued', 'Issued')}:</span> {issueDate}
+                        </span>
+                      )}
                       {status && (
                         <span className="item-detail">
                           <span className="item-label">{getUI('status', 'Status')}:</span> {status}
@@ -418,21 +445,6 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                         <span className="item-detail">
                           <span className="item-label">{getUI('credentialId', 'Credential ID')}:</span> {credentialID}
                         </span>
-                      </div>
-                    )}
-                    
-                    {credentialURL && (
-                      <div className="credential-link">
-                        <a 
-                          href={credentialURL} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          aria-label={`Verify ${certTitle} credential`}
-                          className="verify-link"
-                        >
-                          <span className="link-icon" aria-hidden="true">🔗</span>
-                          <span className="verify-text">Verify Certificate</span>
-                        </a>
                       </div>
                     )}
                   </div>

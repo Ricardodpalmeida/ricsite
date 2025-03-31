@@ -41,12 +41,9 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         <h1 class="hero-title">{t('hero.greeting')} <span class="highlight name-tooltip">Ricardo<span class="tooltip-text">{profileInfo?.tooltips?.pt?.name || "O meu nome está destacado em Cosmic Latte (#FFF8E7), a cor média do universo de acordo com astrónomos que analisaram a luz de 200.000 galáxias"}</span></span></h1>
         <p class="hero-subtitle">{t('hero.jobTitle')}</p>
         <div class="hero-description">
-          <p>
-            Construo soluções de IA que atendem necessidades reais de negócios. Na PwC Portugal, lidero equipes que desenvolvem produtos inteligentes na nuvem combinando o melhor das plataformas low-code com desenvolvimento tradicional.
-          </p>
-          <p>
-            Quando não estou projetando arquiteturas na nuvem ou trabalhando com LLMs, você me encontrará explorando livros de história, tirando fotos ou revendo Star Wars (sim, até mesmo as prequelas). Acredito que as soluções mais interessantes surgem da conexão entre mundos diferentes.
-          </p>
+          {profileInfo?.hero?.pt?.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
         </div>
         <div class="hero-cta">
           <!-- Removed Learn More button -->

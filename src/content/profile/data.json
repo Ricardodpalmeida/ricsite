@@ -14,6 +14,16 @@
     },
     "profileUrl": "www.linkedin.com/in/ricardodpa"
   },
+  "hero": {
+    "en": [
+      "I build AI solutions that address real business needs. At PwC Portugal, I lead teams developing intelligent cloud products combining the best of low-code platforms with traditional development.",
+      "When I'm not designing cloud architectures or working with LLMs, you'll find me exploring history books, taking photos, or rewatching Star Wars (yes, even the prequels). I believe the most interesting solutions emerge from connecting different worlds."
+    ],
+    "pt": [
+      "Construo soluções de IA que atendem necessidades reais de negócios. Na PwC Portugal, lidero equipas que desenvolvem produtos inteligentes na nuvem combinando o melhor das plataformas low-code com desenvolvimento tradicional.",
+      "Quando não estou a projetar arquiteturas na nuvem ou a trabalhar com LLMs, vai encontrar-me a explorar livros de história, a tirar fotos ou a rever Star Wars (sim, até mesmo as prequelas). Acredito que as soluções mais interessantes surgem da conexão entre mundos diferentes."
+    ]
+  },
   "about": {
     "en": [
       "I'm a Data & AI lead with a passion for creating practical, AI-powered cloud-based products that blend low-code and pro-code approaches.",
@@ -205,14 +215,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "3ADCECC1EDEBEF55",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Dec 2024"
       },
       "pt": {
         "title": "Microsoft Certified: Azure Administrator Associate",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "3ADCECC1EDEBEF55",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Dez 2024"
       }
     },
     {
@@ -221,14 +233,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "661603C0B2D5DDA",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Dec 2024"
       },
       "pt": {
         "title": "Microsoft Certified: Azure Solutions Architect Expert",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "661603C0B2D5DDA",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Dez 2024"
       }
     },
     {
@@ -237,14 +251,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Nov 2024"
       },
       "pt": {
         "title": "Microsoft Certified: Azure AI Engineer Associate",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Nov 2024"
       }
     },
     {
@@ -253,14 +269,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Oct 2024"
       },
       "pt": {
         "title": "Microsoft Certified: Azure AI Fundamentals",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Out 2024"
       }
     },
     {
@@ -269,14 +287,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Feb 2024"
       },
       "pt": {
         "title": "Microsoft Certified: Azure Fundamentals",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Fev 2024"
       }
     },
     {
@@ -285,14 +305,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Oct 2023"
       },
       "pt": {
         "title": "Microsoft Applied Skills: Criar e gerir processos automatizados usando Power Automate",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Out 2023"
       }
     },
     {
@@ -301,14 +323,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2023"
       },
       "pt": {
         "title": "Microsoft Certified: Azure Data Fundamentals",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2023"
       }
     },
     {
@@ -317,14 +341,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform Developer Associate",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       }
     },
     {
@@ -333,14 +359,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform Functional Consultant Associate",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       }
     },
     {
@@ -349,14 +377,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform Solution Architect Expert",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       }
     },
     {
@@ -365,14 +395,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       },
       "pt": {
         "title": "PL-600: Microsoft Power Platform Solution Architect",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Mar 2022"
       }
     },
     {
@@ -381,14 +413,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Jan 2022"
       },
       "pt": {
         "title": "Microsoft Certified: Dynamics 365 Fundamentals (CRM)",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Jan 2022"
       }
     },
     {
@@ -397,14 +431,16 @@
         "issuer": "Microsoft",
         "status": "(Discontinued)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Dec 2021"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform App Maker Associate",
         "issuer": "Microsoft",
         "status": "(Discontinued)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "issueDate": "Dez 2021"
       }
     },
     {
@@ -413,14 +449,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0"
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0",
+        "issueDate": "Dec 2021"
       },
       "pt": {
         "title": "Microsoft Certified: Power Platform Fundamentals",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0"
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0",
+        "issueDate": "Dez 2021"
       }
     },
     {
@@ -429,14 +467,16 @@
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0"
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0",
+        "issueDate": "Dec 2021"
       },
       "pt": {
         "title": "Microsoft 365 Certified: Fundamentals",
         "issuer": "Microsoft",
         "status": "(Active)",
         "credentialID": "",
-        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0"
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0",
+        "issueDate": "Dez 2021"
       }
     }
   ],
@@ -662,7 +702,7 @@
       },
       "pt": {
         "podcast": "'*Mesa do Canto*' foi um podcast em português onde eu e um amigo nos reuníamos para discutir vários assuntos, incluindo cultura, política, filosofia, história, economia e tecnologia.",
-        "dj": "Quando toco, gosto de passar **Jazz**, **Funk Africano**, **Deep**, **Future**, **Disco** e **Progressive House**, além de outras músicas do mundo como *Habibi Funk*. Todos os meus sets são improvisados, misturando *vinyl* e *digital*.",
+        "dj": "Quando toco, gosto de passar **Jazz**, **Funk Africano**, **Deep**, **Future**, **Disco** e **Progressive House**, além de outras músicas do mundo como *Habibi Funk*. Todos os meus sets são improvisados, e misturam vinil e digital.",
         "photography": "A fotografia é um *hobby* que me ajuda a apreciar o mundo ao nosso redor. Gosto particularmente de capturar os humores sempre mutáveis do céu, desde pores do sol dramáticos até o jogo de nuvens e luz.",
         "playlistsIntro": "A música sempre foi uma parte significativa da minha vida. Estas playlists apresentam alguns dos meus géneros favoritos, curados ao longo do tempo para criar atmosferas distintas."
       }

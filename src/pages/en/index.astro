@@ -40,12 +40,9 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         <h1 class="hero-title">{t('hero.greeting')} <span class="highlight name-tooltip">Ricardo<span class="tooltip-text">{profileInfo?.tooltips?.en?.name || "My name is highlighted in Cosmic Latte (#FFF8E7), the average color of the universe according to astronomers who analyzed light from 200,000 galaxies"}</span></span></h1>
         <p class="hero-subtitle">{t('hero.jobTitle')}</p>
         <div class="hero-description">
-          <p>
-            I build AI solutions that address real business needs. At PwC Portugal, I lead teams that develop intelligent cloud products combining the best of low-code platforms with traditional development.
-          </p>
-          <p>
-            When I'm not designing cloud architectures or working with LLMs, you'll find me exploring history books, taking photos, or rewatching Star Wars (yes, even the prequels). I believe the most interesting solutions come from connecting different worlds.
-          </p>
+          {profileInfo?.hero?.en?.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
         </div>
         <div class="hero-cta">
           <a href={profileInfo?.personal?.en?.profileUrl || "https://www.linkedin.com/in/ricardodpa"} target="_blank" rel="noopener noreferrer" class="primary-button">{t('contact.button')}</a>
