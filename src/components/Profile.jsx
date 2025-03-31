@@ -432,7 +432,12 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                           className="cert-link"
                           style={{ marginLeft: '8px', display: 'inline-flex', verticalAlign: 'middle' }}
                         >
-                          <img src="/icons/newtab.svg" alt="Verify" width="16" height="16" />
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                            <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3z"/>
+                            <path d="M5 5h5V3H5c-1.1 0-2 .9-2 2v5h2V5z"/>
+                            <path d="M5 19v-5H3v5c0 1.1.9 2 2 2h5v-2H5z"/>
+                            <path d="M19 19h-5v2h5c1.1 0 2-.9 2-2v-5h-2v5z"/>
+                          </svg>
                         </a>
                       )}
                     </h3>
@@ -522,6 +527,10 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                 safeGet(course, `${language}.credential`) || safeGet(course, 'en.credential', '') : 
                 safeGet(course, 'credential', '');
                 
+              const credentialURL = isMultilingual ? 
+                safeGet(course, `${language}.credentialURL`) || safeGet(course, 'en.credentialURL', '') : 
+                safeGet(course, 'credentialURL', '');
+                
               const description = isMultilingual ? 
                 safeGet(course, `${language}.description`) || safeGet(course, 'en.description', '') : 
                 safeGet(course, 'description', '');
@@ -541,7 +550,12 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                           className="cert-link"
                           style={{ marginLeft: '8px', display: 'inline-flex', verticalAlign: 'middle' }}
                         >
-                          <img src="/icons/newtab.svg" alt="Verify" width="16" height="16" />
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                            <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3z"/>
+                            <path d="M5 5h5V3H5c-1.1 0-2 .9-2 2v5h2V5z"/>
+                            <path d="M5 19v-5H3v5c0 1.1.9 2 2 2h5v-2H5z"/>
+                            <path d="M19 19h-5v2h5c1.1 0 2-.9 2-2v-5h-2v5z"/>
+                          </svg>
                         </a>
                       )}
                     </h3>
