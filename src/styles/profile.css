@@ -556,4 +556,28 @@ button,
     font-size: 0.75rem;
     padding: 0.5rem;
   }
+}
+
+.language-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.language-name {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.language-separator {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: -2px;
+}
+
+.language-proficiency {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
 } 
