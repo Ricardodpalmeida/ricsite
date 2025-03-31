@@ -445,7 +445,7 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     
                     <div className="item-metadata">
                       {issueDate && (
-                        <span className="item-detail" style={{ display: 'block', marginBottom: '4px' }}>
+                        <span className="item-detail" style={{ display: 'block', marginBottom: '12px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '8px' }}>
                           <span className="item-label">{getUI('issued', 'Issued')}:</span> {issueDate}
                         </span>
                       )}
