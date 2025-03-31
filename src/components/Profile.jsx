@@ -445,13 +445,8 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     
                     <div className="item-metadata">
                       {issueDate && (
-                        <span className="item-detail" style={{ display: 'block', marginBottom: '12px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '8px' }}>
-                          <span className="item-label">{getUI('issued', 'Issued')}:</span> {issueDate}
-                        </span>
-                      )}
-                      {status && (
-                        <span className="item-detail" style={{ display: 'block' }}>
-                          <span className="item-label">{getUI('status', 'Status')}:</span> {status}
+                        <span className="item-detail">
+                          <span aria-label="Issue Date" role="img" aria-hidden="true">🗓️</span> {issueDate} ({status})
                         </span>
                       )}
                     </div>
@@ -563,8 +558,8 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                     
                     <div className="item-metadata">
                       {date && (
-                        <span className="item-detail" style={{ display: 'block' }}>
-                          <span className="item-label">{getUI('issued', 'Issued')}:</span> {date}
+                        <span className="item-detail">
+                          <span aria-label="Issue Date" role="img" aria-hidden="true">🗓️</span> {date}
                         </span>
                       )}
                     </div>
