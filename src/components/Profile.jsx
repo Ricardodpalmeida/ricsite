@@ -367,6 +367,13 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                         {getUI('thesis', 'Thesis')}: {thesis}
                       </p>
                     )}
+                    
+                    {/* Add display for education description */}
+                    {isMultilingual && (
+                      <div className="item-description">
+                        {safeGet(edu, `${language}.description`) || safeGet(edu, 'en.description', '')}
+                      </div>
+                    )}
                   </div>
                 </article>
               );
@@ -405,6 +412,10 @@ function Profile({ profileData, currentLanguage = 'en' }) {
               const issueDate = isMultilingual ? 
                 safeGet(certification, `${language}.issueDate`) || safeGet(certification, 'en.issueDate', '') : 
                 safeGet(certification, 'issueDate', '');
+                
+              const description = isMultilingual ? 
+                safeGet(certification, `${language}.description`) || safeGet(certification, 'en.description', '') : 
+                safeGet(certification, 'description', '');
                 
               return (
                 <div key={index} className="timeline-item">
@@ -447,6 +458,13 @@ function Profile({ profileData, currentLanguage = 'en' }) {
                         </span>
                       </div>
                     )}
+                    
+                    {/* Add display for certification description */}
+                    {description && (
+                      <div className="item-description">
+                        <p>{description}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -478,6 +496,75 @@ function Profile({ profileData, currentLanguage = 'en' }) {
               );
             })}
           </ul>
+        </section>
+      )}
+
+      {/* Courses Section */}
+      {profileData.courses && profileData.courses.length > 0 && (
+        <section className="profile-section" aria-labelledby="courses-heading">
+          <h2 className="section-title" id="courses-heading">{getUI('courses', 'Courses')}</h2>
+          
+          <div className="timeline">
+            {profileData.courses.map((course, index) => {
+              const courseTitle = isMultilingual ? 
+                safeGet(course, `${language}.title`) || safeGet(course, 'en.title', 'Course') : 
+                safeGet(course, 'title', 'Course');
+                
+              const provider = isMultilingual ? 
+                safeGet(course, `${language}.provider`) || safeGet(course, 'en.provider', '') : 
+                safeGet(course, 'provider', '');
+                
+              const date = isMultilingual ? 
+                safeGet(course, `${language}.date`) || safeGet(course, 'en.date', '') : 
+                safeGet(course, 'date', '');
+                
+              const credential = isMultilingual ? 
+                safeGet(course, `${language}.credential`) || safeGet(course, 'en.credential', '') : 
+                safeGet(course, 'credential', '');
+                
+              const description = isMultilingual ? 
+                safeGet(course, `${language}.description`) || safeGet(course, 'en.description', '') : 
+                safeGet(course, 'description', '');
+                
+              return (
+                <div key={index} className="timeline-item">
+                  <div className="timeline-marker"></div>
+                  <div className="timeline-content">
+                    <h3 className="item-title">
+                      {courseTitle}
+                      {credential && (
+                        <a 
+                          href={credential} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          aria-label={`Verify ${courseTitle} credential`}
+                          className="cert-link"
+                          style={{ marginLeft: '8px', display: 'inline-flex', verticalAlign: 'middle' }}
+                        >
+                          <img src="/icons/newtab.svg" alt="Verify" width="16" height="16" />
+                        </a>
+                      )}
+                    </h3>
+                    {provider && <p className="item-subtitle">{provider}</p>}
+                    
+                    <div className="item-metadata">
+                      {date && (
+                        <span className="item-detail">
+                          <span className="item-label">{getUI('issued', 'Issued')}:</span> {date}
+                        </span>
+                      )}
+                    </div>
+                    
+                    {description && (
+                      <div className="item-description">
+                        <p>{description}</p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </section>
       )}
     </div>
