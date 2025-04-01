@@ -397,7 +397,7 @@ button,
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%) scale(0.85);
-  min-width: 200px;
+  width: max-content;
   max-width: 250px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.8);
@@ -422,51 +422,22 @@ button,
   transform: translateX(-50%) scale(1);
 }
 
-/* Ensure tooltips don't overflow screen bounds */
-.skill-item[data-description] {
+/* Universal approach to keep tooltips on screen */
+.skill-item {
   position: relative;
 }
 
-/* Handle tooltips that would appear off-screen to the right */
-.skill-item[data-description]:nth-last-child(-n+3)::after {
-  left: auto;
-  right: 0;
-  transform: translateX(0) scale(0.85);
+.skill-item[data-description]::after {
+  /* Calculate position based on element and not fixed positions */
+  left: 50%;
+  /* Ensure minimum width for readability but allow it to grow with content */
+  min-width: min(200px, 90vw);
+  max-width: min(250px, 90vw);
+  /* Let browser determine best width based on content */
+  width: max-content;
 }
 
-.skill-item[data-description]:nth-last-child(-n+3):hover::after {
-  transform: translateX(0) scale(1);
-}
-
-/* Handle tooltips that would appear off-screen to the left */
-.skill-item[data-description]:nth-child(-n+3)::after {
-  left: 0;
-  right: auto;
-  transform: translateX(0) scale(0.85);
-}
-
-.skill-item[data-description]:nth-child(-n+3):hover::after {
-  transform: translateX(0) scale(1);
-}
-
-/* Special case for Project Management tooltip and other skills near the container edge */
-.skill-item[data-description*="Project Management"]::after,
-.skill-item[data-description]:first-child::after,
-.skill-item[data-description]:nth-child(2)::after,
-.skill-item[data-description]:nth-child(3)::after {
-  left: 0;
-  right: auto;
-  transform: translateX(0) scale(0.85);
-}
-
-.skill-item[data-description*="Project Management"]:hover::after,
-.skill-item[data-description]:first-child:hover::after,
-.skill-item[data-description]:nth-child(2):hover::after,
-.skill-item[data-description]:nth-child(3):hover::after {
-  transform: translateX(0) scale(1);
-}
-
-/* Mobile tooltip special handling */
+/* Media queries for responsive adjustments */
 @media (max-width: 768px) {
   .profile-container {
     padding: 2rem 1.5rem;
@@ -515,6 +486,12 @@ button,
   .skill-item {
     padding: 0.4rem 0.8rem;
   }
+
+  /* Simplified mobile tooltip */
+  .skill-item[data-description]::after {
+    font-size: 0.85rem;
+    padding: 8px 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -557,11 +534,12 @@ button,
     padding: 0.3rem 0.7rem;
   }
   
+  /* Smaller tooltip on very small screens */
   .skill-item[data-description]::after {
-    min-width: 150px;
-    max-width: 200px;
     font-size: 0.75rem;
-    padding: 0.5rem;
+    min-width: min(160px, 85vw);
+    max-width: min(200px, 85vw);
+    padding: 6px 8px;
   }
 }
 

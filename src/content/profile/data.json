@@ -109,6 +109,10 @@
       {
         "name": "C#",
         "description": "Experience using the C# programming language."
+      },
+      {
+        "name": "Git",
+        "description": "Using version control for tracking code changes, collaborating with teams, and managing source code repositories efficiently."
       }
     ],
     "pt": [
@@ -183,6 +187,10 @@
       {
         "name": "C#",
         "description": "Experiência na utilização da linguagem de programação C#."
+      },
+      {
+        "name": "Git",
+        "description": "Utilização de controlo de versões para monitorizar alterações de código, colaborar com equipas e gerir repositórios de código-fonte de forma eficiente."
       }
     ]
   },
@@ -935,7 +943,7 @@
     "Leadership": "I build environments where team members feel empowered to innovate and grow. My teams consistently deliver exceptional results because people know their contributions matter.",
     "Product Management": "I shepherd products through their lifecycle, balancing user needs with business realities. I've turned vague ideas into defined products that solved real user problems.",
     "Business Development": "Experience in identifying new business opportunities, building client relationships, and contributing to growth strategies, particularly related to cloud and consulting solutions.",
-    "Data Science": "Foundational knowledge and academic experience (NOVA IMS) in data science principles and techniques, including data analysis, modeling, and interpretation. Complements AI and Data roles.",
+    "Data Analytics": "Foundational knowledge and academic experience (NOVA IMS) in data science principles and techniques, including data analysis, modeling, and interpretation. Complements AI and Data roles.",
     "History": "I explore the past to understand our present and future. Historical patterns provide incredible context for current events and technology trends.",
     "SQL": "I speak the language of databases fluently, writing queries that extract precisely the information needed. I've optimized queries that went from taking hours to seconds.",
     "Marketing": "I create compelling stories that connect products with people who need them. I've developed messaging that resonates on an emotional level beyond feature lists.",
