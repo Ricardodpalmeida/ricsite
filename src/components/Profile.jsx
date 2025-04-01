@@ -88,12 +88,34 @@ function Profile({ profileData, currentLanguage = 'en' }) {
     
   // Get skill descriptions from the data file
   const getSkillDescription = (skillName) => {
-    // Check if we have the description in the JSON file
-    if (profileData.skillDescriptions && profileData.skillDescriptions[skillName]) {
-      return profileData.skillDescriptions[skillName];
+    // First, find the corresponding English skill name if we're in PT mode
+    // This is necessary because our description objects use English keys
+    let englishSkillName = skillName;
+    
+    if (language === 'pt' && profileData.skills) {
+      // Try to find the skill object that matches this Portuguese name
+      const matchingSkill = profileData.skills.find(skill => 
+        safeGet(skill, 'pt.name') === skillName
+      );
+      
+      if (matchingSkill) {
+        englishSkillName = safeGet(matchingSkill, 'en.name');
+      }
     }
+    
+    // Now look up the description using the appropriate skill name
+    if (language === 'pt' && profileData.skillDescriptionsPt && profileData.skillDescriptionsPt[englishSkillName]) {
+      return profileData.skillDescriptionsPt[englishSkillName];
+    }
+    // Check if we have the description in English
+    else if (profileData.skillDescriptions && profileData.skillDescriptions[englishSkillName]) {
+      return profileData.skillDescriptions[englishSkillName];
+    }
+    
     // Fallback for skills without descriptions
-    return `${skillName} - Professional expertise and experience`;
+    return language === 'pt' 
+      ? `${skillName} - Experiência e conhecimento profissional` 
+      : `${skillName} - Professional expertise and experience`;
   };
 
   // Calculate duration based on start and end dates
@@ -160,18 +182,26 @@ function Profile({ profileData, currentLanguage = 'en' }) {
               href={`https://${safeGet(profileData, 'personal.profileUrl', 'www.linkedin.com/in/ricardodpa')}`} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="profile-link"
+              className="profile-social-link"
               aria-label="LinkedIn profile"
             >
-              LinkedIn
+              <img src="/icons/linkedin.svg" alt="LinkedIn" className="social-icon" width="16" height="16" />
+            </a>
+            <a 
+              href="https://github.com/Ricardodpalmeida" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="profile-social-link"
+              aria-label="GitHub profile"
+            >
+              <img src="/icons/github.svg" alt="GitHub" className="social-icon" width="16" height="16" />
             </a>
           </div>
         </div>
       </header>
       
       {/* About Section */}
-      <section className="profile-section" aria-labelledby="about-heading">
-        <h2 className="section-title" id="about-heading">{getUI('about', 'About')}</h2>
+      <section className="profile-section no-title" aria-labelledby="about-content">
         <div className="profile-about-container">
           {/* Dynamically render paragraphs from the data */}
           {Array.isArray(getText(profileData.about)) ? (
@@ -190,52 +220,81 @@ function Profile({ profileData, currentLanguage = 'en' }) {
         </div>
       </section>
       
-      {/* Skills Section */}
-      {profileData.skills && profileData.skills.length > 0 && (
+      {/* Skills and Technologies Section */}
+      {((profileData.skills && profileData.skills.length > 0) || 
+         (profileData.technologies && profileData.technologies[language] && profileData.technologies[language].length > 0)) && (
         <section className="profile-section" aria-labelledby="skills-heading">
-          <h2 className="section-title" id="skills-heading">{getUI('skills', 'Skills')}</h2>
+          <h2 className="section-title" id="skills-heading">{getUI('skills', 'Skills')} {getUI('and', 'and')} {getUI('technologies', 'Technologies')}</h2>
           
-          {hasNewSkillsFormat ? (
+          {/* Skills list */}
+          {profileData.skills && profileData.skills.length > 0 && (
             <div className="skills-list" role="list">
-              {profileData.skills.map((skill, index) => {
-                // Safely access properties with fallbacks
-                const skillName = typeof skill === 'object' ? 
-                  safeGet(skill, `${language}.name`) || safeGet(skill, 'en.name') || 'Skill' : 
-                  skill;
-                
-                const skillLevel = typeof skill === 'object' ? 
-                  safeGet(skill, `${language}.level`) || safeGet(skill, 'en.level') : 
-                  '';
-                
-                const skillCategory = typeof skill === 'object' ? 
-                  safeGet(skill, `${language}.category`) || safeGet(skill, 'en.category') : 
-                  '';
-                
-                const description = getSkillDescription(skillName);
-                
-                // Use the highlight flag from the data instead of hardcoding
-                const isHighlighted = safeGet(skill, `${language}.highlight`, false) || 
-                                     safeGet(skill, 'en.highlight', false);
+              {hasNewSkillsFormat ? (
+                profileData.skills.map((skill, index) => {
+                  // Safely access properties with fallbacks
+                  const skillName = typeof skill === 'object' ? 
+                    safeGet(skill, `${language}.name`) || safeGet(skill, 'en.name') || 'Skill' : 
+                    skill;
+                  
+                  const skillLevel = typeof skill === 'object' ? 
+                    safeGet(skill, `${language}.level`) || safeGet(skill, 'en.level') : 
+                    '';
+                  
+                  const skillCategory = typeof skill === 'object' ? 
+                    safeGet(skill, `${language}.category`) || safeGet(skill, 'en.category') : 
+                    '';
+                  
+                  const description = getSkillDescription(skillName);
+                  
+                  // Use the highlight flag from the data instead of hardcoding
+                  const isHighlighted = safeGet(skill, `${language}.highlight`, false) || 
+                                      safeGet(skill, 'en.highlight', false);
+                  
+                  return (
+                    <span 
+                      key={index} 
+                      className={`skill-item ${skillLevel ? `skill-level-${skillLevel.toLowerCase()}` : ''}`} 
+                      role="listitem"
+                      data-category={skillCategory}
+                      data-description={description}
+                      data-highlight={isHighlighted}
+                    >
+                      {skillName}
+                    </span>
+                  );
+                })
+              ) : (
+                profileData.skills.map((skill, index) => (
+                  <span key={index} className="skill-item" role="listitem">{skill}</span>
+                ))
+              )}
+            </div>
+          )}
+          
+          {/* Divider between Skills and Technologies */}
+          {profileData.skills && profileData.skills.length > 0 && 
+           profileData.technologies && profileData.technologies[language] && profileData.technologies[language].length > 0 && (
+            <hr className="section-divider" style={{ height: '1px', background: 'rgba(255, 248, 231, 0.1)', margin: '1.5rem 0', border: 'none' }} />
+          )}
+          
+          {/* Technologies list */}
+          {profileData.technologies && profileData.technologies[language] && profileData.technologies[language].length > 0 && (
+            <div className="skills-list" role="list">
+              {profileData.technologies[language].map((tech, index) => {
+                const techName = safeGet(tech, 'name', '');
+                const techDescription = safeGet(tech, 'description', '');
                 
                 return (
                   <span 
                     key={index} 
-                    className={`skill-item ${skillLevel ? `skill-level-${skillLevel.toLowerCase()}` : ''}`} 
+                    className="skill-item" 
                     role="listitem"
-                    data-category={skillCategory}
-                    data-description={description}
-                    data-highlight={isHighlighted}
+                    data-description={techDescription}
                   >
-                    {skillName}
+                    {techName}
                   </span>
                 );
               })}
-            </div>
-          ) : (
-            <div className="skills-list" role="list">
-              {profileData.skills.map((skill, index) => (
-                <span key={index} className="skill-item" role="listitem">{skill}</span>
-              ))}
             </div>
           )}
         </section>

@@ -38,6 +38,15 @@
   animation-fill-mode: both;
 }
 
+.profile-section:first-of-type {
+  margin-top: 0;
+}
+
+.profile-section.no-title {
+  margin-top: 0.2rem;
+  margin-bottom: 2rem;
+}
+
 .profile-section:nth-child(1) { animation-delay: 0s; }
 .profile-section:nth-child(2) { animation-delay: 0.1s; }
 .profile-section:nth-child(3) { animation-delay: 0.2s; }
@@ -71,7 +80,7 @@
 
 /* Header section specific styles */
 .profile-header {
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
   animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -107,6 +116,10 @@
 
 .profile-links {
   margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
 }
 
 /* Common Interactive Elements - Base Styles */
@@ -216,12 +229,6 @@ button,
   line-height: 1.6;
   margin-bottom: 1.5rem;
   text-align: left;
-}
-
-.profile-about:first-letter {
-  font-size: 1.2em;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-cosmic-latte);
 }
 
 /* Disable hover effects for about paragraphs */
@@ -368,19 +375,19 @@ button,
   right: 0;
   bottom: 0;
   background: var(--color-cosmic-latte-10);
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  transition: transform var(--transition-base);
+  border-radius: 50px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
 }
 
 .skill-item:hover::before {
-  transform: scaleX(1);
+  opacity: 1;
 }
 
 .skill-item:hover {
-  background-color: rgba(255, 248, 231, 0.1);
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-color: rgba(255, 248, 231, 0.3);
 }
 
 /* Skill tooltips */
@@ -580,4 +587,25 @@ button,
 .language-proficiency {
   color: rgba(255, 255, 255, 0.7);
   font-size: 1.1rem;
+}
+
+.profile-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+  border-radius: 50%;
+  padding: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  width: 24px;
+  height: 24px;
+}
+
+.profile-social-link:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile-social-link:hover .social-icon {
+  transform: scale(1.1);
 } 
