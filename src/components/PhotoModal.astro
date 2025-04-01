@@ -172,7 +172,7 @@
       document.body.style.overflow = '';
     }
   
-    function navigatePhoto(direction) {
+    function navigatePhoto(direction: 'prev' | 'next') {
       const newIndex = direction === 'prev' 
         ? Math.max(0, currentPhotoIndex - 1)
         : Math.min(photoItems.length - 1, currentPhotoIndex + 1);

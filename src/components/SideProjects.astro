@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLangFromUrl } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
 import PhotoModal from './PhotoModal.astro';
@@ -8,7 +8,7 @@ import '../styles/carousel.css';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+// const t = useTranslations(lang); // Unused
 
 // Get profile data from content collection
 const profileData = await getCollection('profile');
@@ -21,7 +21,7 @@ const descriptions = sideProjects.descriptions?.[lang] || sideProjects.descripti
 const embeds = sideProjects.embeds || {};
 
 // Process markdown in descriptions
-const processMarkdown = (text) => {
+const processMarkdown = (text: string) => {
   if (!text) return '';
   // Configure marked to only allow certain markdown features (bold, italic)
   marked.setOptions({
@@ -557,7 +557,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
    * @param {number} index - The index of the item to load
    * @param {string} carouselType - Either 'sets' or 'playlists'
    */
-  function loadIframeContent(index, carouselType) {
+  function loadIframeContent(index: number, carouselType: string) {
     // Find the container based on carousel type
     const containerSelector = carouselType === 'sets' ? '.carousel-track' : '.playlists-track';
     const container = document.querySelector(containerSelector);
@@ -599,24 +599,27 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     const carouselTracks = document.querySelectorAll('.carousel-track, .playlists-track');
     
     carouselTracks.forEach(track => {
-      let startX, startY, startScrollLeft, isDragging = false;
+      let startX: number, startScrollLeft: number, isDragging = false;
+      // Remove unused variable
+      // let startY: number;
 
-      const startDrag = (e) => {
+      const startDrag = (e: MouseEvent | TouchEvent) => {
         isDragging = true;
-        startX = e.pageX || e.touches[0].pageX;
-        startY = e.pageY || e.touches[0].pageY;
-        startScrollLeft = track.parentElement.scrollLeft;
+        startX = 'touches' in e ? e.touches[0].pageX : e.pageX;
+        // startY = 'touches' in e ? e.touches[0].pageY : e.pageY; // Not used
+        startScrollLeft = (track.parentElement as HTMLElement).scrollLeft;
       }
 
-      const drag = (e) => {
+      const drag = (e: MouseEvent | TouchEvent) => {
         if (!isDragging) return;
         e.preventDefault();
-        const x = e.pageX || e.touches[0].pageX;
-        const y = e.pageY || e.touches[0].pageY;
+        const x = 'touches' in e ? e.touches[0].pageX : e.pageX;
+        // Remove unused variable
+        // const y = 'touches' in e ? e.touches[0].pageY : e.pageY;
         
         // Calculate horizontal scroll based on drag distance
         const deltaX = x - startX;
-        track.parentElement.scrollLeft = startScrollLeft - deltaX;
+        (track.parentElement as HTMLElement).scrollLeft = startScrollLeft - deltaX;
       }
 
       const endDrag = () => {
@@ -630,8 +633,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       track.addEventListener('mouseleave', endDrag);
       
       // Touch events
-      track.addEventListener('touchstart', startDrag);
-      track.addEventListener('touchmove', drag);
+      track.addEventListener('touchstart', startDrag as EventListener);
+      track.addEventListener('touchmove', drag as EventListener);
       track.addEventListener('touchend', endDrag);
     });
   });

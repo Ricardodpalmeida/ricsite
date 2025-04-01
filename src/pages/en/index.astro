@@ -60,7 +60,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
           </a>
         </div>
         <div class="hero-description">
-          {profileInfo?.hero?.en?.map((paragraph) => (
+          {profileInfo?.hero?.en?.map((paragraph: string) => (
             <p>{paragraph}</p>
           ))}
         </div>

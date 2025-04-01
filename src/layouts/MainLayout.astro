@@ -98,8 +98,10 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       window.sentryErrorHandler = function() {
         // Monkey patch fetch to gracefully handle failed Sentry requests
         const originalFetch = window.fetch;
-        window.fetch = function(url, options) {
-          return originalFetch(url, options).catch(error => {
+        window.fetch = async function(url, options) {
+          try {
+            return await originalFetch(url, options);
+          } catch (error) {
             // Only log if it's not a Sentry URL being blocked
             if (!String(url).includes('sentry.io') && 
                 !String(url).includes('ingest.sentry.io') && 
@@ -111,7 +113,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
               status: 200,
               headers: { 'Content-Type': 'application/json' }
             });
-          });
+          }
         };
       };
       window.sentryErrorHandler();
@@ -123,7 +125,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     }
 
     <!-- Structured Data for Professional Profile -->
-    <script type="application/ld+json">
+    <script is:inline type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
