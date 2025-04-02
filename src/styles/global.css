@@ -68,6 +68,7 @@
 
 html {
   scroll-behavior: smooth;
+  pointer-events: auto !important;
 }
 
 body {
@@ -78,10 +79,8 @@ body {
   background-color: var(--color-dark-gray);
   color: var(--color-white);
   transition: background-color var(--transition-slow);
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
+  user-select: text; /* Changed from 'none' to 'text' to allow text selection and proper link behavior */
+  pointer-events: auto !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -115,6 +114,8 @@ a {
   text-decoration: none;
   transition: all var(--transition-base);
   position: relative;
+  cursor: pointer !important;
+  pointer-events: auto !important;
 }
 
 a:hover, a:focus {

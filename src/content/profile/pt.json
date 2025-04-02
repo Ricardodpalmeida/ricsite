@@ -91,6 +91,52 @@
       "description": "Utilização de controlo de versões para monitorizar alterações de código, colaborar com equipas e gerir repositórios de código-fonte de forma eficiente."
     }
   ],
+  "sectionDescriptions": {
+    "experience": "Ao longo dos últimos anos, tenho construído a minha carreira em dados e IA, focando-me em soluções práticas e orientadas para o negócio que geram valor real.",
+    "education": "A minha formação académica combina gestão empresarial com formação especializada em ciência de dados e gestão da inovação.",
+    "skills": "Desenvolvi competências numa ampla gama de tecnologias e metodologias que combinam conhecimento técnico com compreensão de negócio.",
+    "certifications": "Mantenho certificações ativas que demonstram o meu compromisso com a aprendizagem contínua e o desenvolvimento profissional.",
+    "sideProjects": "Para além do meu trabalho profissional, dedico-me a vários projetos criativos que me mantêm equilibrado e inspirado."
+  },
+  "skillDescriptions": {
+    "Low-code Development": "Crio aplicações empresariais poderosas com o mínimo de código, capacitando não-programadores a construir o que precisam. É como Lego para software - conectando blocos pré-construídos para resolver problemas reais sem mergulhar em código complexo.",
+    "Cloud Computing": "Construo sistemas que vivem e respiram na nuvem, escalando desde o tratamento de alguns utilizadores até milhões sem problemas. É como ter uma oficina digital infinitamente expansível que está sempre ativa.",
+    "Microsoft Azure": "O meu parque de diversões digital onde construí tudo, desde chatbots com IA até pipelines de dados automatizados. Azure é o meu conjunto de ferramentas confiável para criar soluções que se integram perfeitamente com sistemas existentes.",
+    "Microsoft Power Platform": "O meu canivete suíço para problemas empresariais - utilizei-o para criar aplicações que pouparam milhares de horas de trabalho manual e automatizar processos que antes eram pesadelos de folhas de cálculo.",
+    "Power BI": "Transformo montanhas de dados brutos em histórias visuais que revelam padrões ocultos. Construí dashboards que ajudaram líderes a tomar decisões de milhões com confiança em vez de suposições.",
+    "Power Automate": "Automatizei inúmeras tarefas tediosas com esta ferramenta - desde simples fluxos de aprovação até processos complexos multi-sistema que anteriormente exigiam exércitos de pessoas a copiar e colar entre sistemas.",
+    "Data Science": "Conhecimentos fundamentais e experiência académica (NOVA IMS) em princípios e técnicas de ciência de dados, incluindo análise de dados, modelação e interpretação. Complementa funções de IA e Dados.",
+    "Azure AI Services": "Introduzo capacidades inteligentes em aplicações sem reinventar a roda. Utilizei estes serviços para criar aplicações que podem ver, ouvir, falar e compreender necessidades humanas.",
+    "Cloud Architecture": "Projeto ecossistemas digitais que conectam vários serviços em sistemas coesos e resilientes. É como ser um urbanista para cidades na nuvem, garantindo que tudo funcione harmoniosamente.",
+    "Dynamics 365": "Personalizei e estendi estas aplicações empresariais para otimizar operações entre equipas de vendas, serviço e marketing, criando experiências unificadas que eliminam silos departamentais.",
+    "Databricks": "O meu ambiente preferido para lidar com enormes conjuntos de dados. Utilizei-o para processar terabytes de dados e treinar modelos de machine learning que crashariam sistemas inferiores.",
+    "RAG": "Melhoro respostas de IA conectando-as a bases de conhecimento específicas. Construí sistemas que podem responder a perguntas extraindo informações relevantes de milhares de documentos, políticas e registos.",
+    "LLM Integration": "Integro grandes modelos de linguagem em aplicações para torná-las mais intuitivas e úteis. Criei soluções que compreendem pedidos em linguagem natural e geram conteúdo de qualidade humana.",
+    "Python": "A minha linguagem de programação preferida para análise de dados e automação. Escrevi scripts que processaram milhões de registos e construí aplicações web que servem milhares de utilizadores.",
+    "C#/.NET": "O meu conjunto de ferramentas confiável para construir aplicações sólidas. Desenvolvi desde ferramentas internas até plataformas voltadas para clientes que lidam com operações comerciais críticas.",
+    "Microsoft PowerPoint": "Crio apresentações que realmente envolvem o público e transmitem ideias complexas de forma simples. Os meus slides contam histórias que ficam, não apenas tópicos que aborrecem.",
+    "Microsoft Excel": "Além de folhas de cálculo básicas, construo ferramentas analíticas e modelos que fornecem verdadeira inteligência empresarial. Criei modelos de previsão que preveem resultados com surpreendente precisão.",
+    "Microsoft Word": "Crio documentos que comunicam eficazmente e parecem profissionais. Modelos que projetei são utilizados em organizações para manter consistência e poupar tempo.",
+    "Business Strategy": "Conecto possibilidades tecnológicas com oportunidades de negócio. Ajudei equipas a planear transformações digitais alinhadas com objetivos de longo prazo em vez de perseguir novidades tecnológicas.",
+    "Project Management": "Planeamento, execução, monitorização e encerramento de projetos para alcançar objetivos específicos dentro de restrições definidas.",
+    "Communication": "Capacidade comprovada de comunicar tópicos complexos eficazmente, incluindo conceitos técnicos e comunicação empresarial geral.",
+    "Leadership": "Construo ambientes onde membros da equipa se sentem capacitados para inovar e crescer. As minhas equipas entregam consistentemente resultados excecionais porque as pessoas sabem que as suas contribuições importam.",
+    "Product Management": "Guio produtos através do seu ciclo de vida, equilibrando necessidades dos utilizadores com realidades empresariais. Transformei ideias vagas em produtos definidos que resolveram problemas reais dos utilizadores.",
+    "Business Development": "Experiência em identificar novas oportunidades de negócio, construir relações com clientes e contribuir para estratégias de crescimento, particularmente relacionadas com soluções de cloud e consultoria.",
+    "Data Analytics": "Conhecimentos fundamentais e experiência académica (NOVA IMS) em princípios e técnicas de ciência de dados, incluindo análise, modelação e interpretação de dados. Complementa funções de IA e Dados.",
+    "History": "Exploro o passado para compreender o nosso presente e futuro. Padrões históricos fornecem contexto incrível para eventos atuais e tendências tecnológicas.",
+    "SQL": "Falo a linguagem das bases de dados com fluência, escrevendo consultas que extraem precisamente a informação necessária. Otimizei consultas que passaram de horas para segundos.",
+    "Marketing": "Crio histórias convincentes que conectam produtos com pessoas que precisam deles. Desenvolvi mensagens que ressoam a um nível emocional além de listas de funcionalidades.",
+    "Economics": "Analiso como os recursos fluem e as decisões são tomadas. Apliquei princípios económicos a estratégias de preços e análises de mercado que impulsionaram o sucesso empresarial.",
+    "Politics": "Navego nos sistemas humanos que governam como as decisões são tomadas nas organizações. Compreender dinâmicas políticas ajudou-me a implementar mudanças que de outra forma poderiam ter estagnado.",
+    "AI Solution Architecture": "Desenho de soluções de inteligência artificial end-to-end para satisfazer requisitos empresariais.",
+    "Cloud Solution Architecture": "Desenho de infraestrutura e aplicações baseadas na nuvem escaláveis, seguras e resilientes.",
+    "Power Platform Architecture": "Arquitetura de soluções empresariais utilizando componentes da Microsoft Power Platform (Power Apps, Power Automate, Power BI, etc.).",
+    "Product Owner": "Definição da visão do produto, gestão do backlog do produto e maximização do valor entregue pela equipa de desenvolvimento.",
+    "Innovation Management": "Experiência e formação académica (ISEG) na gestão de processos de inovação, fomentando novas ideias e implementando iniciativas estratégicas dentro das organizações.",
+    "Data Visualization": "A capacidade de representar graficamente conjuntos de dados complexos para identificar tendências, padrões e insights eficazmente, utilizando ferramentas como Power BI para comunicar descobertas claramente e apoiar tomadas de decisão baseadas em dados.",
+    "Agentic AI": "Desenho e desenvolvo sistemas de IA que podem operar autonomamente, tomando decisões e realizando ações com mínima intervenção humana. Estes sistemas focam-se em comportamento orientado por objetivos e podem adaptar-se a ambientes em mudança, servindo eficazmente como assistentes digitais que resolvem problemas proativamente."
+  },
   "experience": [
     {
       "title": "Responsável de Produto e Cloud - Equipa de Data & IA",
@@ -186,8 +232,170 @@
       "issueDate": "Dez 2024",
       "status": "Active",
       "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F",
-      "description": "Demonstra competências avançadas em design e implementação de soluções que funcionam em Microsoft Azure, incluindo aspetos de computação, rede, armazenamento, segurança e identidade."
+      "description": "Demonstra competência avançada na conceção e implementação de soluções que funcionam em Microsoft Azure, incluindo aspetos de computação, rede, armazenamento, segurança e identidade."
+    },
+    {
+      "title": "Microsoft Certified: Azure AI Engineer Associate",
+      "issuer": "Microsoft",
+      "issueDate": "Nov 2024",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Valida competências na utilização de serviços cognitivos, machine learning e extração de conhecimento para arquitetar e implementar soluções Microsoft AI que envolvem processamento de linguagem natural, fala, visão computacional e IA conversacional."
+    },
+    {
+      "title": "Microsoft Certified: Azure AI Fundamentals",
+      "issuer": "Microsoft",
+      "issueDate": "Out 2024",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Abrange conceitos básicos de IA, fluxos de trabalho de machine learning e serviços Microsoft Azure AI para processamento de linguagem natural, visão computacional e implementação responsável de IA."
+    },
+    {
+      "title": "Microsoft Certified: Azure Fundamentals",
+      "issuer": "Microsoft",
+      "issueDate": "Fev 2024",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Valida conhecimento fundamental de serviços cloud e como esses serviços são fornecidos com Microsoft Azure, abrangendo conceitos principais, serviços, segurança, privacidade, preços e suporte Azure."
+    },
+    {
+      "title": "Microsoft Applied Skills: Criar e gerir processos automatizados usando Power Automate",
+      "issuer": "Microsoft",
+      "issueDate": "Out 2023",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Demonstra competências na criação e gestão de fluxos de trabalho automatizados com Microsoft Power Automate, incluindo a construção de fluxos com vários acionadores, condições e ações para otimizar processos empresariais."
+    },
+    {
+      "title": "Microsoft Certified: Azure Data Fundamentals",
+      "issuer": "Microsoft",
+      "issueDate": "Mar 2023",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Abrange conhecimento fundamental de conceitos de dados e como são implementados com serviços de dados Microsoft Azure, incluindo dados relacionais e não relacionais, big data e análises."
+    },
+    {
+      "title": "Microsoft Certified: Power Platform Developer Associate",
+      "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Valida competências na criação de soluções personalizadas com Power Apps, Power Automate e Power Virtual Agents, incluindo o trabalho com Dataverse, integrações e técnicas de desenvolvimento para expandir a plataforma."
+    },
+    {
+      "title": "Microsoft Certified: Power Platform Functional Consultant Associate",
+      "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Demonstra experiência na implementação de soluções que utilizam Power Apps, Power Automate, Power BI e Power Virtual Agents para analisar requisitos e traduzir necessidades de negócio em soluções seguras e escaláveis."
+    },
+    {
+      "title": "Microsoft Certified: Power Platform Solution Architect Expert",
+      "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Valida competências de nível especialista na arquitetura de soluções abrangentes de Power Platform que atendem às necessidades de negócio, incluindo estratégias de integração, modelos de dados, segurança e planeamento de escalabilidade."
+    },
+    {
+      "title": "PL-600: Microsoft Power Platform Solution Architect",
+      "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Demonstra capacidade para projetar soluções holísticas com Power Platform para satisfazer requisitos de negócio, através da integração com sistemas de dados externos, serviços e implementação de requisitos complexos de segurança."
+    },
+    {
+      "title": "Microsoft Certified: Dynamics 365 Fundamentals (CRM)",
+      "issuer": "Microsoft",
+      "issueDate": "Jan 2022",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Abrange conhecimento fundamental das aplicações de envolvimento com clientes do Dynamics 365 (Vendas, Serviço ao Cliente, Serviço de Campo, Marketing) e funcionalidades relacionadas do Power Platform."
+    },
+    {
+      "title": "Microsoft Certified: Power Platform App Maker Associate",
+      "issuer": "Microsoft",
+      "issueDate": "Dez 2021",
+      "status": "Discontinued",
+      "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Validava a capacidade de criar aplicações com Microsoft Power Apps, ligar a fontes de dados, modelar dados, criar interfaces de utilizador, configurar lógica de negócio e integrar com outros componentes do Power Platform."
+    },
+    {
+      "title": "Microsoft Certified: Power Platform Fundamentals",
+      "issuer": "Microsoft",
+      "issueDate": "Dez 2021",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0",
+      "description": "Demonstra conhecimento fundamental das capacidades do Power Platform, valor de negócio e funcionalidade básica do Microsoft Power Apps, Power Automate, Power BI e Power Virtual Agents."
+    },
+    {
+      "title": "Microsoft 365 Certified: Fundamentals",
+      "issuer": "Microsoft",
+      "issueDate": "Dez 2021",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0",
+      "description": "Valida conhecimento fundamental de serviços cloud, serviços cloud Microsoft 365, SaaS, segurança, conformidade, privacidade e opções de preços e suporte do Microsoft 365."
     }
   ],
+  "sideProjects": {
+    "titles": {
+      "section": "Projetos Paralelos",
+      "podcast": "Podcast",
+      "dj": "Sets Recentes",
+      "playlists": "As Minhas Playlists",
+      "photography": "Fotografia"
+    },
+    "descriptions": {
+      "podcast": "Mesa do Canto é um podcast em português onde dois amigos discutem vários tópicos incluindo cultura, política, filosofia, história, economia e tecnologia.",
+      "dj": "Faço DJing desde 2015, misturando vários estilos desde deep house e techno até hip-hop e jazz.",
+      "playlistsIntro": "Uma seleção das minhas playlists cuidadosamente curadas, refletindo diferentes estados de espírito e géneros.",
+      "photography": "A fotografia tem sido uma paixão minha durante anos. Aqui estão algumas das minhas fotos favoritas."
+    },
+    "embeds": {
+      "podcast": {
+        "src": "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0",
+        "width": "100%",
+        "height": "352"
+      },
+      "dj": [
+        {
+          "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F",
+          "title": "Nadar"
+        },
+        {
+          "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F",
+          "title": "Fenix"
+        },
+        {
+          "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F",
+          "title": "Lejos"
+        }
+      ],
+      "playlists": [
+        {
+          "src": "https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0",
+          "title": "Dem beats",
+          "description": "Instrumentais suaves de jazz-hop para foco e relaxamento"
+        },
+        {
+          "src": "https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0",
+          "title": "The random rock assortment",
+          "description": "Faixas essenciais de rock abrangendo os géneros stoner, indie e alternativo"
+        },
+        {
+          "src": "https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0",
+          "title": "Hip hop stash",
+          "description": "Coleção curada com boom bap, hip hop consciente e abstrato"
+        },
+        {
+          "src": "https://open.spotify.com/embed/playlist/1I43vFQgN7QBtCm8YLEJSd?utm_source=generator&theme=0",
+          "title": "Jazz café",
+          "description": "Clássicos atemporais de jazz e composições contemporâneas"
+        }
+      ]
+    }
+  },
   "language": "pt"
 } 

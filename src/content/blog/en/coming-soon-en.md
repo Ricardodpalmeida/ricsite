@@ -6,7 +6,7 @@ author: "Ricardo Almeida"
 language: "en"
 heroImage: "/images/blog/coming-soon.jpg"
 tags: ["news", "blog"]
-guid: "d23b0612-8cf7-4b0a-a126-8e73b9a20a05"
+translationKey: "d23b0612-8cf7-4b0a-a126-8e73b9a20a05"
 ---
 
 Thank you for visiting my blog. I'm currently working on creating valuable content that I'll be sharing here soon.

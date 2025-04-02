@@ -10,8 +10,9 @@ import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../.
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
 
-// Get the lang and slug from the URL path parameters
-const { lang, slug } = Astro.params;
+// Get the lang from the URL path parameters
+const { lang } = Astro.params;
+const { post } = Astro.props;
 
 // Validate the lang parameter - if invalid, redirect to the default language
 if (!lang || !(lang in languages)) {
@@ -21,14 +22,26 @@ if (!lang || !(lang in languages)) {
 // Get translations for the current language
 const t = useTranslations(lang as keyof typeof languages);
 
-// Get the blog post with matching slug/guid and language
-const post = (await getCollection('blog')).find(
-  (post) => (post.slug === slug || post.data.guid === slug) && post.data.language === lang
-);
+// Generate language alternatives for this post
+const alternateLanguageUrls = {};
 
-// If post not found, redirect to the blog index
-if (!post) {
-  return Astro.redirect(`/${lang}/blog`);
+// If post has a translationKey, find alternate language versions
+if (post.data.translationKey) {
+  // This is critical for language switching to work
+  // We need to find all posts with the same translationKey
+  const allPosts = await getCollection('blog');
+  
+  const alternateVersions = allPosts.filter(p => 
+    p.data.translationKey === post.data.translationKey && 
+    p.data.language !== post.data.language
+  );
+  
+  // Create alternate URLs using the post slug (not translationKey)
+  for (const altPost of alternateVersions) {
+    if (altPost.data.language in languages) {
+      alternateLanguageUrls[altPost.data.language] = `/${altPost.data.language}/blog/${altPost.slug}/`;
+    }
+  }
 }
 
 // Render the blog post content
@@ -38,38 +51,39 @@ const { Content } = await post.render();
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   
-  // Create path entries for both slugs and GUIDs
-  const paths = [];
-  
-  for (const post of posts) {
+  // Create path entries for both slugs and translationKeys
+  return posts.flatMap((post) => {
+    const paths = [];
+    
     // Add path for regular slug
     paths.push({
       params: {
         lang: post.data.language,
         slug: post.slug,
       },
+      props: { post },
     });
     
-    // If post has a GUID, add path for that too
-    if (post.data.guid) {
-      // Using any[] to bypass TypeScript's strict checking
-      // This is safe because Astro will handle any string as slug
+    // If post has a translationKey, add path for that too
+    if (post.data.translationKey) {
       paths.push({
         params: {
           lang: post.data.language,
-          slug: post.data.guid,
-        } as any,
+          slug: post.data.translationKey,
+        },
+        props: { post },
       });
     }
-  }
-  
-  return paths;
+    
+    return paths;
+  });
 }
 ---
 
 <MainLayout 
   title={`${post.data.title} | Blog | Ricardo Almeida`}
   currentLanguage={lang as keyof typeof languages}
+  alternateLanguageUrls={alternateLanguageUrls}
 >
   <main class="blog-post-container">
     <article>

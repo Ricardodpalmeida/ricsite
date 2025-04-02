@@ -5,7 +5,7 @@
  * This page redirects visitors from the root URL to the default language
  * version of the homepage (e.g., /en/ or based on browser preference).
  */
-import { defaultLang, detectBrowserLanguage } from '../i18n/utils';
+import { defaultLang, detectBrowserLanguage, languages } from '../i18n/utils';
 
 // Attempt to detect browser language or fall back to default
 const detectedLang = detectBrowserLanguage();

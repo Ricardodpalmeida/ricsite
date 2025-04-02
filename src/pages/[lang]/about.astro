@@ -8,6 +8,7 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
+import PageHeader from '../../components/PageHeader.astro';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -35,21 +36,17 @@ export async function getStaticPaths() {
   currentLanguage={lang as keyof typeof languages}
 >
   <main class="about-container">
-    <div class="about-header">
-      <h1>{t('about.title')} <span class="highlight">{t('about.me')}</span></h1>
-    </div>
-
-    <section class="profile-section" id="about">
-      <h2>{t('profile.about')}</h2>
-      <div class="content-container">
-        {profileInfo && profileInfo.about.map((paragraph: string) => (
-          <p>{paragraph}</p>
-        ))}
-      </div>
-    </section>
+    <PageHeader profileData={profileInfo} currentLanguage={lang as keyof typeof languages}>
+      {profileInfo && profileInfo.about.map((paragraph: string) => (
+        <p>{paragraph}</p>
+      ))}
+    </PageHeader>
 
     <section class="profile-section" id="experience">
       <h2>{t('profile.experience')}</h2>
+      {profileInfo?.sectionDescriptions?.experience && (
+        <p class="section-intro">{profileInfo.sectionDescriptions.experience}</p>
+      )}
       <div class="timeline-container">
         {profileInfo && profileInfo.experience.map((job: any) => (
           <div class="timeline-item">
@@ -67,6 +64,9 @@ export async function getStaticPaths() {
 
     <section class="profile-section" id="education">
       <h2>{t('profile.education')}</h2>
+      {profileInfo?.sectionDescriptions?.education && (
+        <p class="section-intro">{profileInfo.sectionDescriptions.education}</p>
+      )}
       <div class="timeline-container">
         {profileInfo && profileInfo.education.map((edu: any) => (
           <div class="timeline-item">
@@ -83,8 +83,26 @@ export async function getStaticPaths() {
       </div>
     </section>
 
+    <section class="profile-section" id="skills">
+      <h2>{t('profile.skills')}</h2>
+      {profileInfo?.sectionDescriptions?.skills && (
+        <p class="section-intro">{profileInfo.sectionDescriptions.skills}</p>
+      )}
+      <div class="skills-container">
+        {profileInfo && profileInfo.skillDescriptions && Object.keys(profileInfo.skillDescriptions).map((skill: string) => (
+          <div class="skill-card">
+            <h3 class="skill-title">{skill}</h3>
+            <p class="skill-description">{profileInfo.skillDescriptions[skill]}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <section class="profile-section" id="certifications">
       <h2>{t('profile.certifications')}</h2>
+      {profileInfo?.sectionDescriptions?.certifications && (
+        <p class="section-intro">{profileInfo.sectionDescriptions.certifications}</p>
+      )}
       <div class="certification-grid">
         {profileInfo && profileInfo.certifications.map((cert: any) => (
           <div class="certification-card">
@@ -113,21 +131,6 @@ export async function getStaticPaths() {
     min-height: calc(100vh - 150px);
     animation: fadeIn 0.5s ease-out;
   }
-  
-  .about-header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-  
-  .about-header h1 {
-    font-size: var(--font-size-3xl);
-    margin-bottom: 1rem;
-    font-family: var(--font-family-title);
-  }
-  
-  .highlight {
-    color: var(--color-cosmic-latte);
-  }
 
   /* Profile sections */
   .profile-section {
@@ -142,9 +145,45 @@ export async function getStaticPaths() {
     font-family: var(--font-family-title);
   }
 
-  .content-container p {
-    margin-bottom: 1rem;
+  .section-intro {
+    margin-bottom: 2rem;
+    color: var(--color-gray-200);
+    font-size: var(--font-size-base);
     line-height: var(--line-height-loose);
+    font-style: italic;
+  }
+
+  /* Skills section */
+  .skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .skill-card {
+    padding: 1.5rem;
+    background: var(--color-gray-900);
+    border: 1px solid var(--color-gray-700);
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-cosmic-latte-10);
+  }
+  
+  .skill-title {
+    font-size: var(--font-size-base);
+    margin-bottom: 0.75rem;
+    color: var(--color-cosmic-latte);
+    font-family: var(--font-family-title);
+  }
+  
+  .skill-description {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
   }
 
   /* Timeline */
@@ -284,7 +323,7 @@ export async function getStaticPaths() {
       padding: 4rem 1.5rem;
     }
     
-    .certification-grid {
+    .certification-grid, .skills-container {
       grid-template-columns: 1fr;
     }
   }

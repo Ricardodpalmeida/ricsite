@@ -9,7 +9,16 @@ import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLan
 // Import global styles
 import '../styles/global.css';
 
-const { title, description, image, canonical, hideLangSelector = false, currentLanguage, alternateLanguageUrl } = Astro.props;
+const { 
+  title, 
+  description, 
+  image, 
+  canonical, 
+  hideLangSelector = false, 
+  currentLanguage, 
+  alternateLanguageUrl,
+  alternateLanguageUrls = {}  // New prop for blog posts with translations
+} = Astro.props;
 
 // Get language and translations
 const lang = currentLanguage || getLangFromUrl(Astro.url);
@@ -108,7 +117,7 @@ const jsonLdData = {
       <link 
         rel="alternate" 
         hreflang={altLang} 
-        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, altLang as keyof typeof languages)}
+        href={alternateLanguageUrls[altLang] || alternateLanguageUrl || getLocalizedUrl(Astro.url, altLang as keyof typeof languages)}
       />
     ))}
     <link rel="alternate" hreflang="x-default" href={`/${defaultLang}`} />
@@ -117,7 +126,7 @@ const jsonLdData = {
     {otherLangs.map(altLang => (
       <link 
         rel="prefetch" 
-        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, altLang as keyof typeof languages)}
+        href={alternateLanguageUrls[altLang] || alternateLanguageUrl || getLocalizedUrl(Astro.url, altLang as keyof typeof languages)}
         as="document"
       />
     ))}
@@ -136,6 +145,11 @@ const jsonLdData = {
     </script>
   </head>
   <body>
+    <script is:inline>
+      // Force enable pointer events on all elements
+      document.documentElement.style.pointerEvents = 'auto';
+      document.body.style.pointerEvents = 'auto';
+    </script>
     <header>
       <div class="header-wrapper">
         {!hideLangSelector && (
@@ -144,7 +158,9 @@ const jsonLdData = {
               <>
                 {code !== Object.keys(languages)[0] && <span class="language-separator">/</span>}
                 <a 
-                  href={code === validLang ? '#' : (alternateLanguageUrl || getLocalizedUrl(Astro.url, code as keyof typeof languages))}
+                  href={code === validLang 
+                    ? '#' 
+                    : (alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code as keyof typeof languages))}
                   class={`language-btn ${code === validLang ? 'active' : ''}`}
                   aria-label={code === 'en' ? t('lang.switchToEn') : t('lang.switchToPt')}
                   data-lang-link={code}

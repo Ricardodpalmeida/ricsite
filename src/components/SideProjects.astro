@@ -12,13 +12,10 @@ const lang = getLangFromUrl(Astro.url);
 
 // Get profile data from content collection
 const profileData = await getCollection('profile');
-const profileInfo = profileData.length > 0 ? profileData[0].data : null;
+const profileEntry = profileData.find(entry => entry.data.language === lang);
+const profileInfo = profileEntry?.data || null;
 const sideProjects = profileInfo?.sideProjects || {};
-
-// Get titles and descriptions based on language
-const titles = sideProjects.titles?.[lang] || sideProjects.titles?.en || {};
-const descriptions = sideProjects.descriptions?.[lang] || sideProjects.descriptions?.en || {};
-const embeds = sideProjects.embeds || {};
+const sectionDescription = profileInfo?.sectionDescriptions?.sideProjects || '';
 
 // Process markdown in descriptions
 const processMarkdown = (text: string) => {
@@ -37,18 +34,20 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 ---
 
 <div class="side-projects-container">
-  <h2 class="section-title">{titles.section || (lang === 'pt' ? 'Projetos Paralelos' : 'Side Projects')}</h2>
+  <h2 class="section-title">{sideProjects.titles?.section || (lang === 'pt' ? 'Projetos Paralelos' : 'Side Projects')}</h2>
+  
+  {sectionDescription && <p class="section-intro">{sectionDescription}</p>}
   
   <!-- Podcast Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{titles.podcast || 'Podcast'}</h3>
-    <p class="section-description" set:html={processMarkdown(descriptions.podcast || '')}></p>
+    <h3 class="subsection-title">{sideProjects.titles?.podcast || 'Podcast'}</h3>
+    <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.podcast || '')}></p>
     <div class="podcast-embed">
       <iframe 
         style="border-radius:12px; border: 0;" 
-        src={embeds.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"} 
-        width={embeds.podcast?.width || "100%"} 
-        height={embeds.podcast?.height || "352"} 
+        src={sideProjects.embeds?.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"} 
+        width={sideProjects.embeds?.podcast?.width || "100%"} 
+        height={sideProjects.embeds?.podcast?.height || "352"} 
         allowfullscreen
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
         loading="lazy"
@@ -65,13 +64,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   
   <!-- DJ Sets Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{titles.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
-    <p class="section-description" set:html={processMarkdown(descriptions.dj || '')}></p>
+    <h3 class="subsection-title">{sideProjects.titles?.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
+    <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.dj || '')}></p>
     <div class="sets-carousel">
       <button class="carousel-arrow prev" aria-label="Previous set">&#60;</button>
       <div class="carousel-container">
         <div class="carousel-track">
-          {embeds.dj?.map((set: { src: string, title?: string }, index: number) => (
+          {sideProjects.embeds?.dj?.map((set: { src: string, title?: string }, index: number) => (
             <div class="carousel-item">
               <div class="iframe-container" data-index={index}>
                 {index === 0 ? (
@@ -103,31 +102,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                 <div class="iframe-error">Sorry, content couldn't be loaded.</div>
               </div>
             </div>
-          )) || (
-            <>
-              <div class="carousel-item">
-                <div class="iframe-container" data-index="0">
-                  <iframe width="100%" height="120" src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F" style="border: 0;" title="Nadar" class="media-iframe" loading="lazy" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="iframe-container" data-index="1">
-                  <iframe width="100%" height="120" data-src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F" style="border: 0;" title="Fenix" class="media-iframe" loading="lazy" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="iframe-container" data-index="2">
-                  <iframe width="100%" height="120" data-src="https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F" style="border: 0;" title="Lejos" class="media-iframe" loading="lazy" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-              </div>
-            </>
-          )}
+          ))}
         </div>
       </div>
       <button class="carousel-arrow next" aria-label="Next set">&#62;</button>
@@ -136,13 +111,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   <!-- Playlists Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{titles.playlists || (lang === 'pt' ? 'As Minhas Playlists' : 'My Playlists')}</h3>
-    <p class="section-description" set:html={processMarkdown(descriptions.playlistsIntro || '')}></p>
+    <h3 class="subsection-title">{sideProjects.titles?.playlists || (lang === 'pt' ? 'As Minhas Playlists' : 'My Playlists')}</h3>
+    <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.playlistsIntro || '')}></p>
     <div class="playlists-carousel">
       <button class="carousel-arrow playlist-prev" aria-label="Previous playlist">&#60;</button>
       <div class="playlists-container">
         <div class="playlists-track">
-          {embeds.playlists?.map((playlist: { src: string, title?: string, description?: {en: string, pt: string} }, index: number) => (
+          {sideProjects.embeds?.playlists?.map((playlist: { src: string, title?: string, description?: string }, index: number) => (
             <div class="playlist-item">
               <div class="iframe-container" data-index={index}>
                 {index === 0 ? (
@@ -179,54 +154,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               </div>
               {playlist.description && (
                 <div class="playlist-info">
-                  <p class="playlist-description" set:html={processMarkdown(playlist.description?.[lang] || playlist.description?.en)}></p>
+                  <p class="playlist-description" set:html={processMarkdown(playlist.description)}></p>
                 </div>
               )}
             </div>
-          )) || (
-            <>
-              <div class="playlist-item">
-                <div class="iframe-container" data-index="0">
-                  <iframe style="border-radius:12px; border: 0;" src="https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Dem beats" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-                <div class="playlist-info">
-                  <p class="playlist-description">{lang === 'pt' ? 'Instrumentais suaves de jazz-hop para foco e relaxamento' : 'Mellow jazz-hop instrumentals for focus and relaxation'}</p>
-                </div>
-              </div>
-              <div class="playlist-item">
-                <div class="iframe-container" data-index="1">
-                  <iframe style="border-radius:12px; border: 0;" data-src="https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="The random rock assortment" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-                <div class="playlist-info">
-                  <p class="playlist-description">{lang === 'pt' ? 'Faixas essenciais de rock abrangendo os géneros stoner, indie e alternativo' : 'Essential rock tracks spanning stoner, indie, and alternative genres'}</p>
-                </div>
-              </div>
-              <div class="playlist-item">
-                <div class="iframe-container" data-index="2">
-                  <iframe style="border-radius:12px; border: 0;" data-src="https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Hip hop stash" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-                <div class="playlist-info">
-                  <p class="playlist-description">{lang === 'pt' ? 'Coleção curada com boom bap, hip hop consciente e abstrato' : 'Curated collection featuring boom bap, conscious and abstract hip hop'}</p>
-                </div>
-              </div>
-              <div class="playlist-item">
-                <div class="iframe-container" data-index="3">
-                  <iframe style="border-radius:12px; border: 0;" data-src="https://open.spotify.com/embed/playlist/1I43vFQgN7QBtCm8YLEJSd?utm_source=generator&theme=0" width="100%" height="352" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Jazz café" class="media-iframe" onload="this.parentNode.classList.add('loaded')" onerror="this.parentNode.classList.add('error')"></iframe>
-                  <div class="iframe-loading">Loading...</div>
-                  <div class="iframe-error">Sorry, content couldn't be loaded.</div>
-                </div>
-                <div class="playlist-info">
-                  <p class="playlist-description">{lang === 'pt' ? 'Clássicos atemporais de jazz e composições contemporâneas' : 'Timeless jazz classics and contemporary compositions'}</p>
-                </div>
-              </div>
-            </>
-          )}
+          ))}
         </div>
       </div>
       <button class="carousel-arrow playlist-next" aria-label="Next playlist">&#62;</button>
@@ -235,8 +167,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 
   <!-- Photography Section -->
   <div class="project-container">
-    <h3 class="subsection-title">{titles.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h3>
-    <p class="section-description" set:html={processMarkdown(descriptions.photography || '')}></p>
+    <h3 class="subsection-title">{sideProjects.titles?.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h3>
+    <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.photography || '')}></p>
     <div class="photo-gallery">
       {galleryImages.map((image, index) => (
         <div class="photo-item" data-index={index}>
@@ -276,6 +208,14 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     font-family: var(--font-family-title);
   }
 
+  .section-intro {
+    margin-bottom: 2rem;
+    color: var(--color-gray-200);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-loose);
+    font-style: italic;
+  }
+
   .project-container {
     margin-bottom: 4rem;
   }
@@ -294,37 +234,48 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   .section-description {
     margin-bottom: 2rem;
     line-height: var(--line-height-loose);
+    color: var(--color-gray-300);
+    font-size: var(--font-size-base);
+    max-width: 90%;
+    border-left: 3px solid var(--color-cosmic-latte-20);
+    padding-left: 1rem;
+    font-style: italic;
   }
 
   /* Sets Carousel Styles */
-  .sets-carousel {
+  .sets-carousel, .playlists-carousel {
     display: flex;
     align-items: center;
     gap: 1rem;
     width: 100%;
     max-width: 100%;
+    margin-bottom: 1rem;
   }
 
-  .carousel-container {
+  .carousel-container, .playlists-container {
     flex: 1;
     overflow: hidden;
     width: 100%;
+    border-radius: 12px;
+    background-color: var(--color-gray-900);
+    border: 1px solid var(--color-gray-700);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   }
 
-  .carousel-track {
+  .carousel-track, .playlists-track {
     display: flex;
     transition: transform 0.3s ease;
   }
 
-  .carousel-item {
+  .carousel-item, .playlist-item {
     flex: 0 0 100%;
-    padding: 0 0.5rem;
+    padding: 0.75rem;
   }
 
-  .carousel-arrow {
+  .carousel-arrow, .playlist-arrow {
     background: rgba(0, 0, 0, 0.5);
     color: white;
-    border: none;
+    border: 2px solid var(--color-gray-700);
     font-size: 1.5rem;
     padding: 0.5rem 1rem;
     cursor: pointer;
@@ -333,57 +284,26 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     align-items: center;
     justify-content: center;
     transition: all 0.3s;
+    width: 40px;
+    height: 40px;
   }
 
-  .carousel-arrow:hover {
-    background: rgba(0, 0, 0, 0.8);
+  .carousel-arrow:hover, .playlist-arrow:hover {
+    background: var(--color-cosmic-latte-10);
+    border-color: var(--color-cosmic-latte);
+    transform: translateY(-2px);
   }
 
-  /* Playlists Carousel Styles */
-  .playlists-carousel {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .playlists-container {
-    flex: 1;
-    overflow: hidden;
-  }
-
-  .playlists-track {
-    display: flex;
-    transition: transform 0.3s ease;
-  }
-
-  .playlist-item {
-    flex: 0 0 100%;
-    padding: 0 0.5rem;
-  }
-
-  .playlist-arrow {
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-  }
-
-  .playlist-arrow:hover {
-    background: rgba(0, 0, 0, 0.8);
+  .carousel-arrow:disabled, .playlist-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
   /* Photo Gallery Styles */
   .photo-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin-bottom: 2rem;
   }
 
@@ -393,13 +313,15 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-gray-700);
   }
 
   .photo-item:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-cosmic-latte);
   }
 
   .photo-item img {
@@ -410,6 +332,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    transition: transform 0.5s ease;
+  }
+  
+  .photo-item:hover img {
+    transform: scale(1.05);
   }
 
   /* Responsive Styles */
@@ -418,18 +345,36 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       padding: 0;
     }
 
+    .side-projects-container {
+      padding: 2rem 1rem;
+    }
+
+    .section-title {
+      font-size: var(--font-size-xl);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-intro, .section-description {
+      max-width: 100%;
+      font-size: var(--font-size-sm);
+    }
+
+    .project-container {
+      margin-bottom: 3rem;
+    }
+
     .playlists-carousel {
       flex-direction: row;
     }
 
-    .playlist-item {
+    .playlist-item, .carousel-item {
       flex: 0 0 100%;
       width: 100%;
     }
 
     .sets-carousel,
     .playlists-carousel {
-      padding: 0 1rem;
+      padding: 0;
     }
 
     .carousel-container,
@@ -439,7 +384,8 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       overflow-y: hidden;
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
-      padding-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-radius: 8px;
     }
 
     .carousel-track,
@@ -455,23 +401,24 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       scroll-snap-align: start;
       flex: 0 0 100%;
       width: 100%;
+      padding: 0.5rem;
     }
 
     .photo-gallery {
       grid-template-columns: repeat(2, 1fr);
       gap: 0.75rem;
-      padding: 0 0.5rem;
+      padding: 0;
       margin: 0 auto;
     }
   }
 
   @media (max-width: 480px) {
     .section-title {
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-lg);
     }
 
     .subsection-title {
-      font-size: var(--font-size-lg);
+      font-size: var(--font-size-base);
     }
 
     .sets-carousel,
@@ -485,6 +432,10 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     .carousel-arrow.playlist-next {
       display: none;
     }
+
+    .photo-gallery {
+      grid-template-columns: 1fr;
+    }
   }
 
   .podcast-embed, .iframe-container {
@@ -495,11 +446,16 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-gray-700);
   }
 
   .podcast-embed .media-iframe, .iframe-container .media-iframe {
     opacity: 0;
     transition: opacity 0.5s ease;
+    width: 100%;
+    height: 100%;
   }
 
   .podcast-embed.loaded .media-iframe, .iframe-container.loaded .media-iframe {
@@ -536,18 +492,19 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   }
 
   .playlist-info {
-    margin-top: 0.75rem;
-    padding: 0 0.5rem;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: var(--color-gray-900);
+    border-radius: 6px;
+    border: 1px solid var(--color-gray-700);
   }
 
   .playlist-description {
     font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
-    margin-bottom: 0.5rem;
-    line-height: 1.4;
-    max-width: 90%;
-    margin-left: auto;
-    margin-right: auto;
+    color: var(--color-gray-300);
+    margin: 0;
+    line-height: 1.5;
+    text-align: center;
   }
 </style>
 
