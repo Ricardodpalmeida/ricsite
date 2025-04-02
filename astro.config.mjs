@@ -65,13 +65,13 @@ export default defineConfig({
     '/data.json': '/404',
     '//data.json': '/404',
     
-    // Block content directories
-    '/content/*': '/404',
-    '//content/*': '/404',
-    '/src/content/*': '/404',
-    '//src//content/*': '/404',
-    '/profile/*': '/404',
-    '//profile/*': '/404'
+    // Instead of using wildcards, define specific paths to block
+    '/content': '/404',
+    '//content': '/404',
+    '/src/content': '/404',
+    '//src//content': '/404',
+    '/profile': '/404',
+    '//profile': '/404'
   },
   server: {
     // Add security headers for development server
