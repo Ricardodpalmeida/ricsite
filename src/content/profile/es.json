@@ -442,6 +442,9 @@
     "profile.grade": "Nota",
     "profile.thesis": "Tesis",
     "profile.issued": "Emitido",
-    "profile.verifyCertificate": "Verificar Certificado"
+    "profile.verifyCertificate": "Verificar Certificado",
+    
+    "blog.notAvailableInLanguage": "Versión {0} de este artículo no está disponible",
+    "blog.redirectedToDefault": "Has sido redirigido a la versión en inglés"
   }
 }

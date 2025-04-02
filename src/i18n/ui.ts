@@ -1,6 +1,60 @@
 // src/i18n/ui.ts
 import { getCollection } from 'astro:content';
 
+// Language code to full name mapping for accessibility
+export const languageNames: Record<string, string> = {
+  'en': 'English',
+  'pt': 'Português',
+  'es': 'Español',
+  'zh': '中文',
+  'hi': 'हिन्दी',
+  'ar': 'اللغة العربية',
+  'bn': 'বাংলা',
+  'ru': 'Русский',
+  'ja': '日本語',
+  'pa': 'ਪੰਜਾਬੀ',
+  'jv': 'basa Jawa',
+  'de': 'Deutsch',
+  'ko': '한국어',
+  'fr': 'Français',
+  'te': 'తెలుగు',
+  'mr': 'मराठी',
+  'tr': 'Türkçe',
+  'ta': 'தமிழ்',
+  'vi': 'Tiếng Việt',
+  'ur': 'اردو',
+  'ms': 'Bahasa Malaysia',
+  'id': 'Bahasa Indonesia',
+  'it': 'Italiano',
+  'fa': 'فارسی',
+  'gu': 'ગુજરાતી',
+  'pl': 'Polski',
+  'uk': 'Українська',
+  'ro': 'Română',
+  'nl': 'Nederlands',
+  'th': 'ไทย',
+  'yo': 'Yorùbá',
+  'ha': 'هَوُسَ',
+  'ps': 'پښتو',
+  'uz': 'Oʻzbekcha',
+  'sv': 'Svenska',
+  'am': 'አማርኛ',
+  'hu': 'magyar',
+  'el': 'Ελληνικά',
+  'cs': 'čeština',
+  'sw': 'Kiswahili',
+  'om': 'Afaan Oromoo',
+  'he': 'עברית',
+  'fi': 'suomi',
+  'bg': 'български език',
+  'my': 'ဗမာစာ',
+  'km': 'ខេមរភាសា',
+  'ne': 'नेपाली',
+  'si': 'සිංහල',
+  'sk': 'slovenčina',
+  'af': 'Afrikaans'
+};
+
 // Minimal default (only used before content collections are loaded)
 // Empty object that will be populated at runtime with detected languages
 export let languages: Record<string, string> = {};
@@ -18,8 +72,8 @@ export async function loadLanguages() {
     profileCollection.forEach(profile => {
       const lang = profile.data.language;
       if (lang) {
-        // Just use the language code itself as the display name
-        detectedLanguages[lang] = lang;
+        // Use the full language name if available, otherwise fallback to code
+        detectedLanguages[lang] = languageNames[lang] || lang;
       }
     });
     
@@ -31,16 +85,41 @@ export async function loadLanguages() {
       return detectedLanguages;
     }
     
-    // Fallback with single default language if nothing was detected
-    console.warn('No languages detected from profile files, using default language only');
-    // Use at minimum these hardcoded values to ensure site functions
-    languages = { 'en': 'en', 'pt': 'pt', 'es': 'es' };
+    // Fallback with default languages if nothing was detected
+    console.warn('No languages detected from profile files, using default languages');
+    
+    // Default fallback languages, ensure at least English is available
+    const fallbackLanguages = {} as Record<string, string>;
+    
+    // Always include English as the primary fallback
+    fallbackLanguages['en'] = languageNames['en'] || 'en';
+    
+    // Add any other common fallbacks if their names are defined
+    const fallbackCodes = ['pt', 'es', 'fr', 'de', 'zh'];
+    fallbackCodes.forEach(code => {
+      if (languageNames[code]) {
+        fallbackLanguages[code] = languageNames[code];
+      }
+    });
+    
+    languages = fallbackLanguages;
     console.log('UI Module - Default languages used:', Object.keys(languages));
     return languages;
   } catch (error) {
     console.error('Error loading languages:', error);
-    // Ensure we at least have these languages available
-    languages = { 'en': 'en', 'pt': 'pt', 'es': 'es' };
+    
+    // Ensure we at least have English available
+    const errorFallbackLanguages = {} as Record<string, string>;
+    errorFallbackLanguages['en'] = languageNames['en'] || 'en';
+    
+    // Add a few more common languages if possible
+    ['pt', 'es', 'fr', 'de', 'zh'].forEach(code => {
+      if (languageNames[code]) {
+        errorFallbackLanguages[code] = languageNames[code];
+      }
+    });
+    
+    languages = errorFallbackLanguages;
     console.log('UI Module - Fallback languages used after error:', Object.keys(languages));
     return languages;
   }
@@ -71,6 +150,8 @@ const defaultUIStrings: Record<string, string> = {
   'blog.shareOnX': 'Share on X',
   'blog.shareOnLinkedIn': 'Share on LinkedIn',
   'blog.shareOnFacebook': 'Share on Facebook',
+  'blog.notAvailableInLanguage': '{0} version of this post is not available',
+  'blog.redirectedToDefault': 'You have been redirected to the English version',
   'carousel.previous': 'Previous set',
   'carousel.next': 'Next set',
   'carousel.previousPlaylist': 'Previous playlist',

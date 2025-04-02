@@ -6,13 +6,14 @@
  * using the [lang] and [slug] parameters in the URL.
  */
 import MainLayout from '../../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../../i18n/utils';
+import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings, languageNames } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
+import Notification from '../../../components/Notification.astro';
 
-// Get the lang from the URL path parameters
-const { lang } = Astro.params;
-const { post } = Astro.props;
+// Get the lang and slug from the URL path parameters
+const { lang, slug } = Astro.params;
+const { post, redirectedFromLanguage = null } = Astro.props;
 
 // Validate the lang parameter - if invalid, redirect to the default language
 if (!lang || !(lang in languages)) {
@@ -50,12 +51,28 @@ if (post.data.translationKey) {
 // Render the blog post content
 const { Content } = await post.render();
 
+// Prepare notification message if redirected from another language
+let notificationMessage = null;
+if (redirectedFromLanguage) {
+  // Get the full language name for the redirected language
+  const redirectedLanguageName = languageNames[redirectedFromLanguage] || redirectedFromLanguage;
+  notificationMessage = t('blog.notAvailableInLanguage').replace('{0}', redirectedLanguageName);
+}
+
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
+  const allTranslationKeys = new Set();
   
-  // Create path entries for both slugs and translationKeys
-  return posts.flatMap((post) => {
+  // First, collect all unique translationKeys
+  posts.forEach(post => {
+    if (post.data.translationKey) {
+      allTranslationKeys.add(post.data.translationKey);
+    }
+  });
+  
+  // Create paths for each post
+  const directPaths = posts.flatMap((post) => {
     const paths = [];
     
     // Clean slug to remove language prefix if it exists
@@ -83,6 +100,46 @@ export async function getStaticPaths() {
     
     return paths;
   });
+  
+  // For each translationKey, create redirect paths for languages without content
+  const redirectPaths = [];
+  
+  for (const translationKey of allTranslationKeys) {
+    // For each language
+    for (const language of Object.keys(languages)) {
+      // Check if this language has a post with this translationKey
+      const existingPost = posts.find(p => 
+        p.data.translationKey === translationKey && 
+        p.data.language === language
+      );
+      
+      // If not, create a redirect to the default language version
+      if (!existingPost) {
+        // Find default language version
+        const defaultPost = posts.find(p => 
+          p.data.translationKey === translationKey && 
+          p.data.language === defaultLang
+        );
+        
+        // Only create redirect if default language version exists
+        if (defaultPost) {
+          redirectPaths.push({
+            params: {
+              lang: language,
+              slug: translationKey.toString(),
+            },
+            props: { 
+              post: defaultPost, 
+              redirectedFromLanguage: language
+            },
+          });
+        }
+      }
+    }
+  }
+  
+  // Combine direct paths and redirect paths
+  return [...directPaths, ...redirectPaths];
 }
 ---
 
@@ -91,6 +148,14 @@ export async function getStaticPaths() {
   currentLanguage={lang as keyof typeof languages}
   alternateLanguageUrls={alternateLanguageUrls}
 >
+  {redirectedFromLanguage && (
+    <Notification 
+      message={notificationMessage} 
+      type="warning" 
+      dismissTime={6000}
+    />
+  )}
+  
   <main class="blog-post-container">
     <article>
       <div class="blog-post-header">

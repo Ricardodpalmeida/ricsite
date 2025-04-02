@@ -1,0 +1,146 @@
+---
+/**
+ * Notification Component
+ * 
+ * Shows a temporary notification that automatically disappears after a specified duration.
+ * Used for displaying language availability messages and other temporary notifications.
+ */
+const { message, type = "info", autoDismiss = true, dismissTime = 5000 } = Astro.props;
+
+// Generate unique ID for this notification instance
+const notificationId = `notification-${Math.random().toString(36).substring(2, 11)}`;
+---
+
+<div 
+  id={notificationId} 
+  class={`notification notification-${type} ${autoDismiss ? 'auto-dismiss' : ''}`}
+  data-dismiss-time={dismissTime}
+  role="alert"
+>
+  <div class="notification-content">
+    <span class="notification-message">{message}</span>
+    <button class="notification-close" aria-label="Close notification">×</button>
+  </div>
+</div>
+
+<style>
+  .notification {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    min-width: 250px;
+    max-width: 80%;
+    background-color: rgba(40, 40, 40, 0.95);
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-left: 4px solid transparent;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .notification.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: all;
+  }
+
+  .notification-info {
+    border-left-color: #3498db;
+  }
+  
+  .notification-warning {
+    border-left-color: #f39c12;
+  }
+  
+  .notification-error {
+    border-left-color: #e74c3c;
+  }
+  
+  .notification-success {
+    border-left-color: #2ecc71;
+  }
+
+  .notification-content {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .notification-message {
+    flex: 1;
+    font-size: 0.9rem;
+    color: #ffffff;
+  }
+  
+  .notification-close {
+    background: transparent;
+    border: none;
+    color: #aaa;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+    border-radius: 50%;
+  }
+  
+  .notification-close:hover {
+    color: #fff;
+  }
+
+  @media (max-width: 768px) {
+    .notification {
+      min-width: unset;
+      width: 90%;
+    }
+  }
+</style>
+
+<script define:vars={{ notificationId, autoDismiss, dismissTime }}>
+  // Handle notification visibility and dismissal
+  document.addEventListener('DOMContentLoaded', () => {
+    const notification = document.getElementById(notificationId);
+    if (!notification) return;
+    
+    // Make notification visible after a small delay
+    setTimeout(() => {
+      notification.classList.add('visible');
+    }, 100);
+    
+    // Set up auto-dismiss if enabled
+    if (autoDismiss) {
+      setTimeout(() => {
+        dismissNotification();
+      }, dismissTime);
+    }
+    
+    // Set up close button
+    const closeBtn = notification.querySelector('.notification-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        dismissNotification();
+      });
+    }
+    
+    // Function to dismiss the notification
+    function dismissNotification() {
+      notification.classList.remove('visible');
+      
+      // Remove the element from DOM after transition
+      setTimeout(() => {
+        notification.remove();
+      }, 300);
+    }
+  });
+</script> 

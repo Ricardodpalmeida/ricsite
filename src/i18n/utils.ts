@@ -1,7 +1,7 @@
-import { ui, defaultLang, languages, loadLanguages } from './ui';
+import { ui, defaultLang, languages, loadLanguages, languageNames } from './ui';
 import { getCollection } from 'astro:content';
 
-export { defaultLang, languages, loadLanguages }; // Export these variables for use in other modules
+export { defaultLang, languages, loadLanguages, languageNames }; // Export these variables for use in other modules
 
 // Initialize language data at server-startup time
 let initializedLanguageList: Record<string, string> = {};
