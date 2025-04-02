@@ -1,0 +1,52 @@
+---
+/**
+ * FormattedDate Component
+ * 
+ * A reusable component for formatting dates consistently across the site.
+ * Takes a Date object and formats it in a human-readable way based on the current language.
+ */
+import { getLangFromUrl } from '../i18n/utils';
+
+export interface Props {
+  date: Date;
+  format?: 'long' | 'short';
+  lang?: string;
+}
+
+const { date, format = 'long', lang } = Astro.props;
+
+// Get language from URL or from prop
+const currentLang = lang || getLangFromUrl(Astro.url);
+
+// Map language codes to locale codes
+const localeMap = {
+  en: 'en-US',
+  pt: 'pt-PT'
+};
+
+// Get locale based on language
+const locale = localeMap[currentLang as keyof typeof localeMap] || 'en-US';
+
+// Format the date based on the format prop and locale
+const formattedDate = format === 'long' 
+  ? date.toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : date.toLocaleDateString(locale, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+---
+
+<time datetime={date.toISOString()}>
+  {formattedDate}
+</time>
+
+<style>
+  time {
+    font-family: var(--font-family-base);
+  }
+</style> 

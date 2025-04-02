@@ -1,0 +1,193 @@
+{
+  "personal": {
+    "name": "Ricardo Almeida",
+    "title": "Manager, Data & AI | Smart Products, Automation and Gen AI",
+    "location": "Lisbon, Portugal",
+    "connections": "500+",
+    "profileUrl": "www.linkedin.com/in/ricardodpa"
+  },
+  "hero": [
+    "I build AI solutions that address real business needs. At PwC Portugal, I lead teams developing intelligent cloud products combining the best of low-code platforms with traditional development.",
+    "When I'm not designing cloud architectures or working with LLMs, you'll probably find me reading, taking bookbinding courses, listening to music or rewatching Star Wars (yes, even the prequels). I believe the most interesting solutions emerge from connecting different worlds."
+  ],
+  "about": [
+    "Building AI-powered solutions that work"
+  ],
+  "technologies": [
+    {
+      "name": "Microsoft Azure",
+      "description": "Utilizing Azure cloud services for building, deploying, and managing applications and infrastructure."
+    },
+    {
+      "name": "AI Foundry (Azure AI)",
+      "description": "Using Azure's unified platform for building, evaluating, and deploying AI models."
+    },
+    {
+      "name": "Amazon Web Services (AWS)",
+      "description": "Foundational knowledge of AWS cloud platform concepts."
+    },
+    {
+      "name": "Databricks",
+      "description": "Utilizing the Databricks platform for data engineering, data science, and machine learning."
+    },
+    {
+      "name": "Microsoft Power Platform",
+      "description": "Architecting and developing solutions using Power Apps, Power Automate, Power BI, and Dataverse."
+    },
+    {
+      "name": "Power BI",
+      "description": "Developing interactive reports, dashboards, and data visualizations for business insights."
+    },
+    {
+      "name": "OpenAI API",
+      "description": "Experience leveraging OpenAI's API for integrating advanced AI capabilities."
+    },
+    {
+      "name": "LLM Integration",
+      "description": "Integrating Large Language Models into products or business processes to enhance functionality like chatbots, assistants, or analysis tools."
+    },
+    {
+      "name": "RAG (Retrieval-Augmented Generation)",
+      "description": "Optimizing large language model outputs by referencing external authoritative knowledge bases before generating responses."
+    },
+    {
+      "name": "Fine-tuning",
+      "description": "Adjusting pre-trained AI models using specific datasets to improve performance for particular tasks."
+    },
+    {
+      "name": "Agentic AI",
+      "description": "Developing AI systems capable of operating independently, making decisions, and performing tasks without direct human intervention."
+    },
+    {
+      "name": "Containers",
+      "description": "Packaging software with all necessary elements to run consistently across different environments."
+    },
+    {
+      "name": "RESTful APIs",
+      "description": "Designing and working with application programming interfaces conforming to REST architectural principles for web service integration."
+    },
+    {
+      "name": "SQL",
+      "description": "Writing and optimizing queries for database management, data extraction, and manipulation."
+    },
+    {
+      "name": "Python",
+      "description": "Using the Python programming language for data analysis, automation, scripting, and AI/ML development support."
+    },
+    {
+      "name": "Microsoft Dynamics 365",
+      "description": "Knowledge of Microsoft's suite of CRM and ERP business applications."
+    },
+    {
+      "name": "SharePoint",
+      "description": "Experience with Microsoft SharePoint for collaboration and content management."
+    },
+    {
+      "name": "C#",
+      "description": "Experience using the C# programming language."
+    },
+    {
+      "name": "Git",
+      "description": "Using version control for tracking code changes, collaborating with teams, and managing source code repositories efficiently."
+    }
+  ],
+  "experience": [
+    {
+      "title": "Product and Cloud Lead - Data & AI team",
+      "company": "PwC Portugal",
+      "duration": "Jan 2024 - Present (1 yr 3 mos)",
+      "location": "Lisbon, Portugal",
+      "description": "Since January 2024, I have been at the helm of managing, designing, and implementing AI-focused, cloud-based solutions, including Retrieval-Augmented Generation (RAG) and integration of Large Language Models (LLMs), as a leader within PwC Portugal's Data & AI team. Our aim is to deliver top-tier AI-powered products, striking a balance between pro-code and low-code methodologies, and leveraging cloud-based deployment for scalability. I lead a team of experts, setting architectural standards and leading the orchestration of AI automation workflows. My proficiency in Microsoft Azure and Power Platform is crucial for advancing these solutions from concept to worldwide implementation."
+    },
+    {
+      "title": "Cloud and Business Apps Lead - Consulting Solutions team",
+      "company": "PwC Portugal",
+      "duration": "Jul 2023 - Jan 2024 (7 mos)",
+      "location": "Lisbon, Portugal",
+      "description": "As the Cloud and Business Apps Consulting Lead, I design cutting-edge cloud architectures, having contributed to over 90 opportunities for global partners and clients. I manage a team of specialized technical consultants within a Consulting Solutions team of about 80 professionals."
+    },
+    {
+      "title": "Specialist - Consulting Solutions team",
+      "company": "PwC Portugal",
+      "duration": "Jul 2021 - Jul 2023 (2 yrs 1 mo)",
+      "location": "Portugal",
+      "description": "As a Microsoft Power Platform specialist, I utilize the full suite of Power Platform tools, from Canvas Apps and Power BI reports to Power Portals/Pages and Chatbots (Virtual Agents/Copilot Studio). I integrated these solutions with Azure (e.g., Functions, Logic Apps, Data Factory & Data Lake Gen2), Microsoft 365 (e.g Teams, Outlook), Dynamics 365, SQL Server, Dataverse, and SharePoint services. In addition to this expertise, I've successfully led full-stack pro-code app development projects, overseeing them from concept to delivery. Notably, I also earned PwC Portugal's first ever Hackathon as the team leader and technical specialist. This initiative has evolved into a product that we are now beginning to sell worldwide."
+    },
+    {
+      "title": "Podcaster",
+      "company": "Mesa do Canto - Self-employed",
+      "duration": "Feb 2021 - Feb 2022 (1 yr 1 mo)",
+      "location": "Lisbon, Portugal",
+      "description": "\"Mesa do Canto\" is a podcast in Portuguese where two friends convene to discuss a variety of subjects, including culture, politics, philosophy, history, economics, and technology. Each episode introduces a new topic, accompanied by a succinct overview of recent news and personal recommendations for media."
+    },
+    {
+      "title": "Analyst",
+      "company": "Avanade",
+      "duration": "Dec 2020 - Jun 2021 (7 mos)",
+      "location": "Lisbon, Portugal",
+      "description": "In a team of six, we developed Power Platform solutions for the daily operations of over a thousand employees at a multinational corporation in Portugal. The backoffice was developed on SharePoint, with data migration from an existing database. We utilized low-code development with Power Fx and Canvas Apps, and created Power Automate Flows. I also took on team lead responsibilities and managed the backlog using Azure DevOps."
+    },
+    {
+      "title": "Analyst",
+      "company": "Avanade",
+      "duration": "Apr 2020 - Dec 2020 (9 mos)",
+      "description": "Software Engineering Talent Community | Full-stack development. Learning on-the-job and working with: - MVC Pattern - C# (ASP.NET) - HTML - Analytics - Reporting - Power BI"
+    },
+    {
+      "title": "Consultant",
+      "company": "SPMS, EPE - Serviços Partilhados do Ministério da Saúde",
+      "duration": "Oct 2018 - Mar 2020 (1 yr 6 mos)",
+      "location": "Lisbon",
+      "description": "Provided advisory and administrative support to the IT Directors of the Portuguese National Health System; initiated a Sharepoint website project to centralize information on company-wide projects, teams, and project managers; accountable for numerous official internal and external communications to all entities within the Portuguese National Health System; prepared manuals, process documentation, and training materials; compiled reports, Power BI reports, and meeting minutes; led teams and trained new members; managed projects and products; served as a Project Management Officer (PMO); collaborated in a 12-person team."
+    },
+    {
+      "title": "The Career Exploration Years",
+      "company": "Various Retail, Marketing & Academic Roles",
+      "duration": "2010 - 2018 (8 yrs)",
+      "location": "Lisbon, Portugal",
+      "description": "Survived a whirlwind tour through Portugal's service economy - from cold-calling as a telemarketer (REDITUS), folding clothes with surgical precision (ZARA), explaining why wasabi isn't guacamole (Yo! Sushi), and selling suspiciously overpriced hot dogs. Worked in a university call center answering frantic students' questions about campus locations, created marketing materials nobody read at Le Wagon, and participated in organizing festivals and publicity campaigns for Sagres, but ended up doing powerpoints about lemon beer packaging. A character-building odyssey that taught me patience, resilience, and how to smile while a tourist explains that in Portugal it's called a 'galão' not a 'meia de leite'."
+    }
+  ],
+  "education": [
+    {
+      "school": "NOVA IMS Information Management School",
+      "degree": "Post-Graduate, Enterprise Data Science and Analytics",
+      "duration": "Feb 2022 - Jan 2023",
+      "grade": "17 (1-20)",
+      "description": "Advanced program focused on enterprise applications of data science, covering machine learning, big data technologies, data visualization, and business analytics with emphasis on practical applications and case studies."
+    },
+    {
+      "school": "ISEG - Lisbon School of Economics & Management",
+      "degree": "Master's degree, Economics and Management of Science, Technology and Innovation",
+      "duration": "2017 - 2020",
+      "grade": "17 (1-20)",
+      "thesis": "The Role of Strategic Partnerships in the Internationalization of Digital Platforms (grade: 18)",
+      "description": "Interdisciplinary program combining economics, management, and technology studies. Focused on innovation management, technology policy, and the economics of technological change with emphasis on digital transformation strategies."
+    },
+    {
+      "school": "ISEG - Lisbon School of Economics & Management",
+      "degree": "Bachelor's degree, Management",
+      "duration": "",
+      "description": "Comprehensive program covering key areas of business management including accounting, finance, marketing, operations, human resources, and strategic planning with a solid foundation in economics and quantitative methods."
+    }
+  ],
+  "certifications": [
+    {
+      "title": "Microsoft Certified: Azure Administrator Associate",
+      "issuer": "Microsoft",
+      "issueDate": "Dec 2024",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Validates expertise in implementing, monitoring, and maintaining Microsoft Azure solutions, including major services related to compute, storage, network, and security."
+    },
+    {
+      "title": "Microsoft Certified: Azure Solutions Architect Expert",
+      "issuer": "Microsoft",
+      "issueDate": "Dec 2024",
+      "status": "Active",
+      "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+      "description": "Demonstrates advanced expertise in designing and implementing solutions that run on Microsoft Azure, including aspects of compute, network, storage, security and identity."
+    }
+  ],
+  "language": "en"
+} 

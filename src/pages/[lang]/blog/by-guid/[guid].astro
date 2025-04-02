@@ -1,0 +1,57 @@
+/**
+ * Dynamic Blog Post GUID Page with i18n Support
+ * 
+ * This page handles blog posts using a GUID identifier in the URL.
+ * It supports both language variants and redirects to the appropriate slug URL.
+ */
+import { getCollection } from 'astro:content';
+import { defaultLang, languages } from '../../../../i18n/utils';
+
+export const prerender = true;
+
+// Get the lang and guid from the URL path parameters
+const { lang, guid } = Astro.params;
+
+// Validate the lang parameter - if invalid, redirect to the default language
+if (!lang || !(lang in languages)) {
+  return Astro.redirect(`/${defaultLang}/blog`);
+}
+
+// Find the blog post with this GUID
+const allPosts = await getCollection('blog');
+const matchingPost = allPosts.find(post => post.data.guid === guid && post.data.language === lang);
+
+// If post not found, redirect to blog index
+if (!matchingPost) {
+  return Astro.redirect(`/${lang}/blog`);
+}
+
+// Redirect to the proper slug URL
+return Astro.redirect(`/${lang}/blog/${matchingPost.slug}/`);
+
+// Export a prerender function for static site generation
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  
+  // Only create paths for posts with a GUID
+  const paths = [];
+  
+  // First, we'll collect all posts with a GUID
+  const postsWithGuid = blogPosts.filter(post => post.data.guid);
+  
+  // Then, for each GUID, create a path for each supported language
+  postsWithGuid.forEach(post => {
+    const langCode = post.data.language;
+    
+    if (langCode in languages) {
+      paths.push({
+        params: {
+          lang: langCode,
+          guid: post.data.guid,
+        }
+      });
+    }
+  });
+  
+  return paths;
+} 

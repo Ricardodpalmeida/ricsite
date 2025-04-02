@@ -3,6 +3,16 @@
 /src/content/*  /404    404
 /profile/*      /404    404
 /data.json      /404    404
+/en.json        /404    404
+/pt.json        /404    404
 
-# Allow main routes
-/*             /index.html   200 
+# Redirect old language-specific URLs to dynamic paths
+/en/*           /:splat    301
+/pt/*           /:splat    301
+
+# Legacy blog post GUID redirects - forward with query parameters
+/en/blog/by-guid/:guid   /en/blog/by-guid?id=:guid   301
+/pt/blog/by-guid/:guid   /pt/blog/by-guid?id=:guid   301
+
+# Allow main routes with language param
+/:lang/*        /index.html   200 

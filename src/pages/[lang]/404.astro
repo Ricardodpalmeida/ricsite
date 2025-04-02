@@ -1,0 +1,114 @@
+---
+/**
+ * Dynamic 404 Page with i18n Support
+ * 
+ * This page handles 404 errors with language-specific content.
+ */
+import MainLayout from '../../layouts/MainLayout.astro';
+import { useTranslations, defaultLang, languages } from '../../i18n/utils';
+
+export const prerender = true;
+
+// Get the lang from the URL path parameter
+const { lang } = Astro.params;
+
+// Ensure we have a valid language
+const validLang = lang && lang in languages ? lang : defaultLang;
+
+// Get translations for the current language
+const t = useTranslations(validLang as keyof typeof languages);
+
+// Export a prerender function for static site generation
+export async function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+---
+
+<MainLayout
+  title={`404 - ${t('404.title')}`}
+  currentLanguage={validLang}
+>
+  <main class="not-found-container">
+    <h1 class="not-found-title">404</h1>
+    <p class="not-found-subtitle">{t('404.title')}</p>
+    
+    <p class="not-found-message">
+      {t('404.message')}
+    </p>
+    
+    <div class="not-found-actions">
+      <a href={`/${validLang}/`} class="home-button">
+        {t('404.returnHome')}
+      </a>
+    </div>
+  </main>
+</MainLayout>
+
+<style>
+  .not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 200px);
+    text-align: center;
+    padding: 2rem;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .not-found-title {
+    font-size: 6rem;
+    margin-bottom: 0;
+    color: var(--color-cosmic-latte);
+    line-height: 1;
+  }
+  
+  .not-found-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+  
+  .not-found-message {
+    margin-bottom: 2rem;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  
+  .not-found-actions {
+    margin-top: 1rem;
+  }
+  
+  .home-button {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--color-cosmic-latte-10);
+    border: 1px solid var(--color-cosmic-latte);
+    color: var(--color-white);
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all var(--transition-base);
+  }
+  
+  .home-button:hover {
+    background-color: var(--color-cosmic-latte-20);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @media (max-width: 480px) {
+    .not-found-title {
+      font-size: 4rem;
+    }
+    
+    .not-found-subtitle {
+      font-size: 1.25rem;
+    }
+  }
+</style> 

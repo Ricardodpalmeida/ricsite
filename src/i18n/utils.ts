@@ -1,5 +1,7 @@
 import { ui, defaultLang, languages } from './ui';
 
+export { defaultLang, languages }; // Export these variables for use in other modules
+
 // Get the language from a URL
 export function getLangFromUrl(url: URL) {
   const [, lang] = url.pathname.split('/');

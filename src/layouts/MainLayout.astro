@@ -5,7 +5,9 @@
  * This layout sets up the basic structure for all pages on the site,
  * including global styles and meta tags.
  */
-import { getLangFromUrl, useTranslations, getLocalizedUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLang } from '../i18n/utils';
+// Import global styles
+import '../styles/global.css';
 
 const { title, description, image, canonical, hideLangSelector = false, currentLanguage, alternateLanguageUrl } = Astro.props;
 
@@ -13,18 +15,43 @@ const { title, description, image, canonical, hideLangSelector = false, currentL
 const lang = currentLanguage || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Default meta values
-const defaultTitle = "Ricardo Almeida | Data & AI Manager";
-const defaultDescription = "Data & AI Manager at PwC Portugal specializing in AI solutions, Cloud Architecture, Microsoft Power Platform, and RAG implementations.";
+// Ensure lang is a valid language code
+const validLang = lang in languages ? lang : defaultLang;
+
+// Default meta values from i18n
+const defaultTitle = t('site.title');
+const defaultDescription = t('site.description');
 const defaultImage = "/images/profile-cover.jpg";
 const siteUrl = "https://me.ricbits.cc";
 
 // Use reCAPTCHA v3 site key
 const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
+
+// Prepare alternate language URLs for language switcher
+const otherLangs = Object.keys(languages).filter(l => l !== validLang);
+
+// JSON-LD structured data with i18n
+const jsonLdData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ricardo Almeida",
+  "url": "https://me.ricbits.cc",
+  "jobTitle": t('jsonld.jobTitle'),
+  "worksFor": {
+    "@type": "Organization",
+    "name": t('jsonld.organization')
+  },
+  "description": t('jsonld.description'),
+  "skills": t('jsonld.skills'),
+  "image": "/images/profile-cover.jpg",
+  "sameAs": [
+    "https://www.linkedin.com/in/ricardodpa"
+  ]
+};
 ---
 
 <!DOCTYPE html>
-<html lang={lang}>
+<html lang={validLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,8 +63,8 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     <title>{title || defaultTitle}</title>
     <meta name="title" content={title || defaultTitle} />
     <meta name="description" content={description || defaultDescription} />
-    <meta name="author" content="Ricardo Almeida" />
-    <meta name="keywords" content="AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture, Data & AI Manager, Power BI, Data Science, Low-code Development" />
+    <meta name="author" content={t('site.author')} />
+    <meta name="keywords" content={t('site.keywords')} />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical || siteUrl} />
@@ -73,51 +100,30 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       rel="alternate" 
       type="application/rss+xml" 
       title={t('rss.title')} 
-      href={`/${lang}/rss.xml`} 
+      href={`/${validLang}/rss.xml`} 
     />
 
+    <!-- Alternate Language URLs -->
+    {otherLangs.map(altLang => (
+      <link 
+        rel="alternate" 
+        hreflang={altLang} 
+        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, altLang as keyof typeof languages)}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={`/${defaultLang}`} />
+
     <!-- Preload alternate language versions for faster switching -->
-    {lang === 'en' && (
+    {otherLangs.map(altLang => (
       <link 
         rel="prefetch" 
-        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, 'pt')}
+        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, altLang as keyof typeof languages)}
         as="document"
       />
-    )}
-    {lang === 'pt' && (
-      <link 
-        rel="prefetch" 
-        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, 'en')}
-        as="document"
-      />
-    )}
+    ))}
 
     <!-- Add script to handle Sentry errors gracefully -->
-    <script is:inline>
-      // Handle Sentry errors gracefully - prevent console errors for blocked requests
-      window.sentryErrorHandler = function() {
-        // Monkey patch fetch to gracefully handle failed Sentry requests
-        const originalFetch = window.fetch;
-        window.fetch = async function(url, options) {
-          try {
-            return await originalFetch(url, options);
-          } catch (error) {
-            // Only log if it's not a Sentry URL being blocked
-            if (!String(url).includes('sentry.io') && 
-                !String(url).includes('ingest.sentry.io') && 
-                !String(url).includes('o22381.ingest.us.sentry.io')) {
-              console.error('Fetch error:', error);
-            }
-            // Return empty response to prevent cascading errors
-            return new Response(JSON.stringify({ status: "ok" }), { 
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            });
-          }
-        };
-      };
-      window.sentryErrorHandler();
-    </script>
+    <script src="/scripts/sentry-handler.js" is:inline></script>
 
     <!-- reCAPTCHA v3 script -->
     {recaptchaSiteKey && 
@@ -126,23 +132,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 
     <!-- Structured Data for Professional Profile -->
     <script is:inline type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Ricardo Almeida",
-        "url": "https://me.ricbits.cc",
-        "jobTitle": "Manager, Data & AI",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "PwC Portugal"
-        },
-        "description": "Data & AI lead with a passion for creating practical, AI-powered cloud-based products that blend low-code and pro-code approaches.",
-        "skills": "AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture",
-        "image": "/images/profile-cover.jpg",
-        "sameAs": [
-          "https://www.linkedin.com/in/ricardodpa"
-        ]
-      }
+      {JSON.stringify(jsonLdData)}
     </script>
   </head>
   <body>
@@ -150,32 +140,28 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       <div class="header-wrapper">
         {!hideLangSelector && (
           <div class="language-selector">
-            <a 
-              href={lang === 'en' && alternateLanguageUrl ? alternateLanguageUrl : getLocalizedUrl(Astro.url, 'pt')} 
-              class={`language-btn ${lang === 'pt' ? 'active' : ''}`}
-              aria-label="Mudar para Português"
-              data-lang-link="pt"
-            >
-              PT
-            </a>
-            <span class="language-separator">/</span>
-            <a 
-              href={lang === 'pt' && alternateLanguageUrl ? alternateLanguageUrl : getLocalizedUrl(Astro.url, 'en')} 
-              class={`language-btn ${lang === 'en' ? 'active' : ''}`}
-              aria-label="Switch to English"
-              data-lang-link="en"
-            >
-              EN
-            </a>
+            {Object.entries(languages).map(([code, name]) => (
+              <>
+                {code !== Object.keys(languages)[0] && <span class="language-separator">/</span>}
+                <a 
+                  href={code === validLang ? '#' : (alternateLanguageUrl || getLocalizedUrl(Astro.url, code as keyof typeof languages))}
+                  class={`language-btn ${code === validLang ? 'active' : ''}`}
+                  aria-label={code === 'en' ? t('lang.switchToEn') : t('lang.switchToPt')}
+                  data-lang-link={code}
+                >
+                  {code.toUpperCase()}
+                </a>
+              </>
+            ))}
           </div>
         )}
         
         <nav class="main-nav">
           <div class="container nav-container">
             <ul>
-              <li><a href={`/${lang}/`} class={Astro.url.pathname === `/${lang}/` || Astro.url.pathname === `/${lang}` ? 'active' : ''}>{t('nav.home')}</a></li>
-              <li><a href={`/${lang}/about`} class={Astro.url.pathname.includes(`/${lang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
-              <li><a href={`/${lang}/blog`} class={Astro.url.pathname.startsWith(`/${lang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+              <li><a href={`/${validLang}/`} class={Astro.url.pathname === `/${validLang}/` || Astro.url.pathname === `/${validLang}` ? 'active' : ''}>{t('nav.home')}</a></li>
+              <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
+              <li><a href={`/${validLang}/blog`} class={Astro.url.pathname.startsWith(`/${validLang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
             </ul>
           </div>
         </nav>
@@ -190,31 +176,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
       </div>
     </footer>
 
-    <script is:inline>
-      // Optimize language switching to prevent flashes
-      document.addEventListener('DOMContentLoaded', () => {
-        const langLinks = document.querySelectorAll('[data-lang-link]');
-        
-        langLinks.forEach(link => {
-          link.addEventListener('click', (e) => {
-            // Only handle if it's not the current language
-            if (!link.classList.contains('active')) {
-              e.preventDefault();
-              const href = link.getAttribute('href');
-              
-              // Create a smooth transition effect
-              document.body.style.opacity = '0.8';
-              document.body.style.transition = 'opacity 0.2s ease';
-              
-              // Navigate after a very short delay to allow transition to start
-              setTimeout(() => {
-                window.location.href = href;
-              }, 50);
-            }
-          });
-        });
-      });
-    </script>
+    <script src="/scripts/language-switcher.js" defer></script>
   </body>
 </html>
 

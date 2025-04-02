@@ -59,18 +59,12 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
     }
   };
   
-  // Check if profile data has multilingual structure
-  const isMultilingual = profileData.personal && 
-    (profileData.personal.en || profileData.personal.pt);
+  // Check if profile data has multilingual structure - now always false since we use separate language files
+  const isMultilingual = false;
   
-  // Get text content based on current language
+  // Get text content based on current language - simplified since we're in a language-specific file
   const getText = (field, defaultValue = '') => {
     if (!field) return defaultValue;
-    
-    if (isMultilingual) {
-      return field[language] || field.en || defaultValue;
-    }
-    
     return field;
   };
   
@@ -89,28 +83,13 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
     
   // Get skill descriptions from the data file
   const getSkillDescription = (skillName) => {
-    // First, find the corresponding English skill name if we're in PT mode
-    // This is necessary because our description objects use English keys
-    let englishSkillName = skillName;
-    
-    if (language === 'pt' && profileData.skills) {
-      // Try to find the skill object that matches this Portuguese name
-      const matchingSkill = profileData.skills.find(skill => 
-        safeGet(skill, 'pt.name') === skillName
-      );
-      
-      if (matchingSkill) {
-        englishSkillName = safeGet(matchingSkill, 'en.name');
-      }
-    }
-    
-    // Now look up the description using the appropriate skill name
-    if (language === 'pt' && profileData.skillDescriptionsPt && profileData.skillDescriptionsPt[englishSkillName]) {
-      return profileData.skillDescriptionsPt[englishSkillName];
+    // Look up the description using appropriate object based on language
+    if (language === 'pt' && profileData.skillDescriptionsPt && profileData.skillDescriptionsPt[skillName]) {
+      return profileData.skillDescriptionsPt[skillName];
     }
     // Check if we have the description in English
-    else if (profileData.skillDescriptions && profileData.skillDescriptions[englishSkillName]) {
-      return profileData.skillDescriptions[englishSkillName];
+    else if (profileData.skillDescriptions && profileData.skillDescriptions[skillName]) {
+      return profileData.skillDescriptions[skillName];
     }
     
     // Fallback for skills without descriptions
@@ -160,24 +139,15 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
               <img src="/images/profile.png" alt="Ricardo Almeida" className="rounded-profile-image" />
             </div>
             <h1 className="profile-name">
-              {isMultilingual 
-                ? safeGet(profileData, `personal.${language}.name`) || safeGet(profileData, 'personal.en.name', 'Ricardo Almeida')
-                : safeGet(profileData, 'personal.name', 'Ricardo Almeida')
-              }
+              {safeGet(profileData, 'personal.name', 'Ricardo Almeida')}
             </h1>
             <h2 className="profile-title highlight">
-              {isMultilingual 
-                ? safeGet(profileData, `personal.${language}.title`) || safeGet(profileData, 'personal.en.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI')
-                : safeGet(profileData, 'personal.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI')
-              }
+              {safeGet(profileData, 'personal.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI')}
             </h2>
             {/* Hide location since it's always Lisbon, Portugal */}
             {/* <p className="profile-location">
               <span aria-label="Location" role="img" aria-hidden="true">📍</span>
-              {isMultilingual 
-                ? safeGet(profileData, `personal.${language}.location`) || safeGet(profileData, 'personal.en.location', 'Lisbon, Portugal')
-                : safeGet(profileData, 'personal.location', 'Lisbon, Portugal')
-              }
+              {safeGet(profileData, 'personal.location', 'Lisbon, Portugal')}
             </p> */}
             <div className="profile-links">
               <a 
@@ -227,7 +197,7 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
       
       {/* Skills and Technologies Section */}
       {((profileData.skills && profileData.skills.length > 0) || 
-         (profileData.technologies && profileData.technologies[language] && profileData.technologies[language].length > 0)) && (
+         (profileData.technologies && profileData.technologies.length > 0)) && (
         <section className="profile-section" aria-labelledby="skills-heading">
           <h2 className="section-title" id="skills-heading">{getUI('skills', 'Skills')} {getUI('and', 'and')} {getUI('technologies', 'Technologies')}</h2>
           
@@ -238,22 +208,21 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
                 profileData.skills.map((skill, index) => {
                   // Safely access properties with fallbacks
                   const skillName = typeof skill === 'object' ? 
-                    safeGet(skill, `${language}.name`) || safeGet(skill, 'en.name') || 'Skill' : 
+                    safeGet(skill, 'name') || 'Skill' : 
                     skill;
                   
                   const skillLevel = typeof skill === 'object' ? 
-                    safeGet(skill, `${language}.level`) || safeGet(skill, 'en.level') : 
+                    safeGet(skill, 'level') : 
                     '';
                   
                   const skillCategory = typeof skill === 'object' ? 
-                    safeGet(skill, `${language}.category`) || safeGet(skill, 'en.category') : 
+                    safeGet(skill, 'category') : 
                     '';
                   
                   const description = getSkillDescription(skillName);
                   
                   // Use the highlight flag from the data instead of hardcoding
-                  const isHighlighted = safeGet(skill, `${language}.highlight`, false) || 
-                                      safeGet(skill, 'en.highlight', false);
+                  const isHighlighted = safeGet(skill, 'highlight', false);
                   
                   return (
                     <span 
@@ -278,14 +247,14 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
           
           {/* Divider between Skills and Technologies */}
           {profileData.skills && profileData.skills.length > 0 && 
-           profileData.technologies && profileData.technologies[language] && profileData.technologies[language].length > 0 && (
+           profileData.technologies && profileData.technologies.length > 0 && (
             <hr className="section-divider" style={{ height: '1px', background: 'rgba(255, 248, 231, 0.1)', margin: '1.5rem 0', border: 'none' }} />
           )}
           
           {/* Technologies list */}
-          {profileData.technologies && profileData.technologies[language] && profileData.technologies[language].length > 0 && (
+          {profileData.technologies && profileData.technologies.length > 0 && (
             <div className="skills-list" role="list">
-              {profileData.technologies[language].map((tech, index) => {
+              {profileData.technologies.map((tech, index) => {
                 const techName = safeGet(tech, 'name', '');
                 const techDescription = safeGet(tech, 'description', '');
                 
@@ -312,39 +281,21 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
           <div className="timeline">
             {profileData.experience.map((exp, index) => {
               // Safely extract experience data
-              const title = isMultilingual ? 
-                safeGet(exp, `${language}.title`) || safeGet(exp, 'en.title', '') :
-                safeGet(exp, 'title', '');
-                
-              const company = isMultilingual ?
-                safeGet(exp, `${language}.company`) || safeGet(exp, 'en.company', '') :
-                safeGet(exp, 'company', '');
-                
-              const startDate = isMultilingual ?
-                safeGet(exp, `${language}.startDate`) || safeGet(exp, 'en.startDate', '') :
-                safeGet(exp, 'startDate', '');
-                
-              const endDate = isMultilingual ?
-                safeGet(exp, `${language}.endDate`) || safeGet(exp, 'en.endDate', '') :
-                safeGet(exp, 'endDate', '');
+              const title = safeGet(exp, 'title', '');
+              const company = safeGet(exp, 'company', '');
+              const startDate = safeGet(exp, 'startDate', '');
+              const endDate = safeGet(exp, 'endDate', '');
               
               // Get duration value - use calculated value if startDate exists, otherwise use the provided duration
-              let duration = isMultilingual ?
-                safeGet(exp, `${language}.duration`) || safeGet(exp, 'en.duration', '') :
-                safeGet(exp, 'duration', '');
-                
+              let duration = safeGet(exp, 'duration', '');
+              
               // Calculate duration if start date is provided and override the hardcoded value
               if (startDate) {
                 duration = calculateDuration(startDate, endDate, language);
               }
-                
-              const location = isMultilingual ?
-                safeGet(exp, `${language}.location`) || safeGet(exp, 'en.location', '') :
-                safeGet(exp, 'location', '');
-                
-              const description = isMultilingual ?
-                safeGet(exp, `${language}.description`) || safeGet(exp, 'en.description', '') :
-                safeGet(exp, 'description', '');
+              
+              const location = safeGet(exp, 'location', '');
+              const description = safeGet(exp, 'description', '');
               
               return (
                 <div key={index} className="timeline-item">
@@ -388,25 +339,12 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
           <div className="timeline">
             {profileData.education.map((edu, index) => {
               // Safely extract education data
-              const school = isMultilingual ?
-                safeGet(edu, `${language}.school`) || safeGet(edu, 'en.school', '') :
-                safeGet(edu, 'school', '');
-              
-              const degree = isMultilingual ?
-                safeGet(edu, `${language}.degree`) || safeGet(edu, 'en.degree', '') :
-                safeGet(edu, 'degree', '');
-              
-              const duration = isMultilingual ?
-                safeGet(edu, `${language}.duration`) || safeGet(edu, 'en.duration', '') :
-                safeGet(edu, 'duration', '');
-              
-              const grade = isMultilingual ?
-                safeGet(edu, `${language}.grade`) || safeGet(edu, 'en.grade', '') :
-                safeGet(edu, 'grade', '');
-              
-              const thesis = isMultilingual ?
-                safeGet(edu, `${language}.thesis`) || safeGet(edu, 'en.thesis', '') :
-                safeGet(edu, 'thesis', '');
+              const school = safeGet(edu, 'school', '');
+              const degree = safeGet(edu, 'degree', '');
+              const duration = safeGet(edu, 'duration', '');
+              const grade = safeGet(edu, 'grade', '');
+              const thesis = safeGet(edu, 'thesis', '');
+              const description = safeGet(edu, 'description', '');
               
               return (
                 <article key={index} className="timeline-item">
@@ -431,11 +369,9 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
                         {getUI('thesis', 'Thesis')}: {thesis}
                       </p>
                     )}
-                    
-                    {/* Add display for education description */}
-                    {isMultilingual && (
+                    {description && (
                       <div className="item-description">
-                        {safeGet(edu, `${language}.description`) || safeGet(edu, 'en.description', '')}
+                        <p>{description}</p>
                       </div>
                     )}
                   </div>
@@ -450,86 +386,65 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
       {profileData.certifications && profileData.certifications.length > 0 && (
         <section className="profile-section" aria-labelledby="certifications-heading">
           <h2 className="section-title" id="certifications-heading">{getUI('certifications', 'Certifications')}</h2>
-          
-          <div className="timeline">
-            {profileData.certifications.map((certification, index) => {
-              const certTitle = isMultilingual ? 
-                safeGet(certification, `${language}.title`) || safeGet(certification, 'en.title', 'Certification') : 
-                safeGet(certification, 'title', 'Certification');
-                
-              const certIssuer = isMultilingual ? 
-                safeGet(certification, `${language}.issuer`) || safeGet(certification, 'en.issuer', '') : 
-                safeGet(certification, 'issuer', '');
-                
-              const credentialID = isMultilingual ? 
-                safeGet(certification, `${language}.credentialID`) || safeGet(certification, 'en.credentialID', '') : 
-                safeGet(certification, 'credentialID', '');
-                
-              const credentialURL = isMultilingual ? 
-                safeGet(certification, `${language}.credentialURL`) || safeGet(certification, 'en.credentialURL', '') : 
-                safeGet(certification, 'credentialURL', '');
-                
-              const status = isMultilingual ? 
-                safeGet(certification, `${language}.status`) || safeGet(certification, 'en.status', '') : 
-                safeGet(certification, 'status', '');
+          <div className="certificates-grid">
+            {profileData.certifications.map((cert, index) => {
+              // Safely extract certification data
+              const title = safeGet(cert, 'title', '');
+              const issuer = safeGet(cert, 'issuer', '');
+              const issueDate = safeGet(cert, 'issueDate', '');
+              const expiryDate = safeGet(cert, 'expiryDate', '');
+              const status = safeGet(cert, 'status', '');
+              const credentialId = safeGet(cert, 'credentialId', '');
+              const credentialURL = safeGet(cert, 'credentialURL', '');
+              const description = safeGet(cert, 'description', '');
               
-              const issueDate = isMultilingual ? 
-                safeGet(certification, `${language}.issueDate`) || safeGet(certification, 'en.issueDate', '') : 
-                safeGet(certification, 'issueDate', '');
-                
-              const description = isMultilingual ? 
-                safeGet(certification, `${language}.description`) || safeGet(certification, 'en.description', '') : 
-                safeGet(certification, 'description', '');
-                
               return (
-                <div key={index} className="timeline-item">
-                  <div className="timeline-marker"></div>
-                  <div className="timeline-content">
-                    <h3 className="item-title">
-                      {certTitle}
-                      {credentialURL && (
-                        <a 
-                          href={credentialURL} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          aria-label={`Verify ${certTitle} credential`}
-                          className="cert-link"
-                          style={{ marginLeft: '8px', display: 'inline-flex', verticalAlign: 'middle' }}
-                        >
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                            <path d="M14 3h7v7h-2V6.41l-9.29 9.3-1.42-1.42 9.3-9.29H14V3z"/>
-                            <path d="M5 5h5V3H5c-1.1 0-2 .9-2 2v5h2V5z"/>
-                            <path d="M5 19v-5H3v5c0 1.1.9 2 2 2h5v-2H5z"/>
-                            <path d="M19 19h-5v2h5c1.1 0 2-.9 2-2v-5h-2v5z"/>
-                          </svg>
-                        </a>
-                      )}
-                    </h3>
-                    {certIssuer && <p className="item-subtitle">{certIssuer}</p>}
-                    
-                    <div className="item-metadata">
-                      {issueDate && (
-                        <span className="item-detail">
-                          <span aria-label="Issue Date" role="img" aria-hidden="true">🗓️</span> {issueDate} ({status})
-                        </span>
-                      )}
-                    </div>
-                    
-                    {credentialID && (
-                      <div className="item-metadata">
-                        <span className="item-detail">
-                          <span className="item-label">{getUI('credentialId', 'Credential ID')}:</span> {credentialID}
-                        </span>
-                      </div>
+                <div key={index} className="certificate-item">
+                  <h3 className="certificate-title">{title}</h3>
+                  {issuer && <p className="certificate-issuer">{issuer}</p>}
+                  
+                  <div className="certificate-metadata">
+                    {issueDate && (
+                      <span className="certificate-issue-date">
+                        <strong>{getUI('issued', 'Issued')}:</strong> {issueDate}
+                      </span>
                     )}
                     
-                    {/* Add display for certification description */}
-                    {description && (
-                      <div className="item-description">
-                        <p>{description}</p>
-                      </div>
+                    {expiryDate && (
+                      <span className="certificate-expiry-date">
+                        <strong>{getUI('expires', 'Expires')}:</strong> {expiryDate}
+                      </span>
+                    )}
+                    
+                    {status && (
+                      <span className="certificate-status">
+                        <strong>{getUI('status', 'Status')}:</strong> {status}
+                      </span>
                     )}
                   </div>
+                  
+                  {credentialId && (
+                    <p className="certificate-credential-id">
+                      <strong>{getUI('credentialId', 'Credential ID')}:</strong> {credentialId}
+                    </p>
+                  )}
+                  
+                  {credentialURL && (
+                    <a 
+                      href={credentialURL} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="certificate-verify-link"
+                    >
+                      {getUI('verifyCertificate', 'Verify Certificate')}
+                    </a>
+                  )}
+                  
+                  {description && (
+                    <div className="certificate-description">
+                      <p>{description}</p>
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -544,13 +459,8 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
           <ul className="languages-list">
             {profileData.languages.map((lang, index) => {
               // Safely extract language data
-              const langName = isMultilingual ?
-                safeGet(lang, `${language}.language`) || safeGet(lang, 'en.language', '') :
-                safeGet(lang, 'language', '');
-              
-              const proficiency = isMultilingual ?
-                safeGet(lang, `${language}.proficiency`) || safeGet(lang, 'en.proficiency', '') :
-                safeGet(lang, 'proficiency', '');
+              const langName = safeGet(lang, 'language', '');
+              const proficiency = safeGet(lang, 'proficiency', '');
               
               return (
                 <li key={index} className="language-item">

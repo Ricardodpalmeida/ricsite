@@ -8,6 +8,15 @@
   RewriteRule ^profile/.*$ - [F,L]
   RewriteRule ^data\.json$ - [F,L]
   RewriteRule ^profile-data\.json$ - [F,L]
+  RewriteRule ^en\.json$ - [F,L]
+  RewriteRule ^pt\.json$ - [F,L]
+  
+  # Redirect root to dynamic language detection
+  RewriteRule ^$ /index.html [L]
+  
+  # Redirect old language-specific pages to the new dynamic structure
+  RewriteRule ^en/(.*)$ /$1 [R=301,L]
+  RewriteRule ^pt/(.*)$ /$1 [R=301,L]
   
   # If a requested file or directory doesn't exist, serve the 404 page
   RewriteCond %{REQUEST_FILENAME} !-f
@@ -103,8 +112,8 @@ Options -Indexes
   </IfModule>
 </FilesMatch>
 
-# Allow specific paths
-<FilesMatch "^(index\.html|about\.html|blog\.html)$">
+# Allow language-specific paths and dynamic routes
+<FilesMatch "^(index\.html|about\.html|blog\.html|en/.*|pt/.*)$">
   <IfModule mod_authz_core.c>
     Require all granted
   </IfModule>

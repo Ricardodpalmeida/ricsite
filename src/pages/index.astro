@@ -1,11 +1,17 @@
 ---
 /**
- * Home Page Redirector
+ * Root Index Page - Redirects to Default Language
  * 
- * Redirects the user from the root path '/' to their browser language path
- * or the default language path if their language is not supported.
+ * This page redirects visitors from the root URL to the default language
+ * version of the homepage (e.g., /en/ or based on browser preference).
  */
-import { defaultLang, languages } from '../i18n/ui';
+import { defaultLang, detectBrowserLanguage } from '../i18n/utils';
+
+// Attempt to detect browser language or fall back to default
+const detectedLang = detectBrowserLanguage();
+
+// Redirect to the detected or default language
+return Astro.redirect(`/${detectedLang}`);
 ---
 
 <!DOCTYPE html>

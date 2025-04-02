@@ -1,0 +1,213 @@
+---
+/**
+ * Dynamic Blog Index Page with i18n Support
+ * 
+ * This page dynamically handles multiple languages using the [lang] parameter in the URL.
+ * Lists blog posts filtered by the current language.
+ */
+import MainLayout from '../../../layouts/MainLayout.astro';
+import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../../i18n/utils';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../../components/FormattedDate.astro';
+
+// Get the lang from the URL path parameter
+const { lang } = Astro.params;
+
+// Validate the lang parameter - if invalid, redirect to the default language
+if (!lang || !(lang in languages)) {
+  return Astro.redirect(`/${defaultLang}/blog`);
+}
+
+// Get translations for the current language
+const t = useTranslations(lang as keyof typeof languages);
+
+// Get blog posts filtered by language and not draft
+const posts = await getCollection('blog', (post) => {
+  return post.data.language === lang && !post.data.draft;
+}).then(posts => posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+));
+
+// Export a prerender function for static site generation
+export async function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+---
+
+<MainLayout 
+  title={`${t('blog.title')} | ${t('site.title')}`}
+  currentLanguage={lang as keyof typeof languages}
+>
+  <main class="blog-container">
+    <div class="blog-header">
+      <h1>{t('blog.title')}</h1>
+    </div>
+
+    <section class="posts-grid">
+      {
+        posts.length > 0 ? (
+          posts.map((post) => (
+            <div class="post-card">
+              {post.data.heroImage && (
+                <div class="post-image-container">
+                  <img src={post.data.heroImage} alt="" class="post-image" />
+                </div>
+              )}
+              <div class="post-content">
+                <h2 class="post-title">
+                  <a href={`/${lang}/blog/${post.data.guid || post.slug}/`}>{post.data.title}</a>
+                </h2>
+                <div class="post-meta">
+                  <FormattedDate date={post.data.pubDate} lang={lang} />
+                  {post.data.updatedDate && (
+                    <span class="post-updated">
+                      · {t('blog.updated')}: <FormattedDate date={post.data.updatedDate} lang={lang} />
+                    </span>
+                  )}
+                </div>
+                {post.data.description && (
+                  <p class="post-description">{post.data.description}</p>
+                )}
+                {post.data.tags && post.data.tags.length > 0 && (
+                  <div class="post-tags">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="post-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        ) : (
+          <p class="no-posts">{t('blog.noPostsMessage')}</p>
+        )
+      }
+    </section>
+  </main>
+</MainLayout>
+
+<style>
+  .blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 0;
+    min-height: calc(100vh - 150px);
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .blog-header h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
+    font-family: var(--font-family-title);
+  }
+  
+  .posts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .post-card {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-gray-900);
+    border: 1px solid var(--color-gray-800);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+  
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-color: var(--color-cosmic-latte-10);
+  }
+  
+  .post-image-container {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+  }
+  
+  .post-card:hover .post-image {
+    transform: scale(1.05);
+  }
+  
+  .post-content {
+    padding: 1.5rem;
+  }
+  
+  .post-title {
+    font-size: var(--font-size-lg);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-family-title);
+    line-height: 1.3;
+  }
+  
+  .post-title a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+  
+  .post-title a:hover {
+    color: var(--color-cosmic-latte);
+  }
+  
+  .post-meta {
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-400);
+    margin-bottom: 1rem;
+  }
+  
+  .post-updated {
+    font-style: italic;
+  }
+  
+  .post-description {
+    font-size: var(--font-size-sm);
+    margin-bottom: 1rem;
+    line-height: var(--line-height-normal);
+    color: var(--color-gray-200);
+  }
+  
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  .post-tag {
+    font-size: var(--font-size-xs);
+    background-color: var(--color-gray-800);
+    color: var(--color-cosmic-latte);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+  }
+  
+  .no-posts {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--color-gray-400);
+    font-style: italic;
+  }
+  
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .blog-container {
+      padding: 4rem 1.5rem;
+    }
+  }
+</style> 

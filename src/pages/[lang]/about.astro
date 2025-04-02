@@ -1,0 +1,291 @@
+---
+/**
+ * Dynamic About Page with i18n Support
+ * 
+ * This page dynamically handles multiple languages using the [lang] parameter in the URL.
+ * The content is rendered based on the language detected from the URL.
+ */
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../i18n/utils';
+import { getCollection } from 'astro:content';
+
+// Get the lang from the URL path parameter
+const { lang } = Astro.params;
+
+// Validate the lang parameter - if invalid, redirect to the default language
+if (!lang || !(lang in languages)) {
+  return Astro.redirect(`/${defaultLang}/about`);
+}
+
+// Get translations for the current language
+const t = useTranslations(lang as keyof typeof languages);
+
+// Get profile data from content collection for the specific language
+const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
+const profileInfo = profileCollection.length > 0 ? profileCollection[0].data : null;
+
+// Export a prerender function for static site generation
+export async function getStaticPaths() {
+  return Object.keys(languages).map(lang => ({ params: { lang } }));
+}
+---
+
+<MainLayout
+  title={`${t('about.title')} | Ricardo Almeida`}
+  currentLanguage={lang as keyof typeof languages}
+>
+  <main class="about-container">
+    <div class="about-header">
+      <h1>{t('about.title')} <span class="highlight">{t('about.me')}</span></h1>
+    </div>
+
+    <section class="profile-section" id="about">
+      <h2>{t('profile.about')}</h2>
+      <div class="content-container">
+        {profileInfo && profileInfo.about.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <section class="profile-section" id="experience">
+      <h2>{t('profile.experience')}</h2>
+      <div class="timeline-container">
+        {profileInfo && profileInfo.experience.map((job: any) => (
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>{job.title}</h3>
+              <h4>{job.company}</h4>
+              <p class="timeline-period">{job.duration}</p>
+              {job.location && <p class="timeline-location">{job.location}</p>}
+              <p class="timeline-description">{job.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="profile-section" id="education">
+      <h2>{t('profile.education')}</h2>
+      <div class="timeline-container">
+        {profileInfo && profileInfo.education.map((edu: any) => (
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <h3>{edu.school}</h3>
+              <h4>{edu.degree}</h4>
+              {edu.duration && <p class="timeline-period">{edu.duration}</p>}
+              {edu.grade && <p class="timeline-meta"><strong>{t('profile.grade')}:</strong> {edu.grade}</p>}
+              {edu.thesis && <p class="timeline-meta"><strong>{t('profile.thesis')}:</strong> {edu.thesis}</p>}
+              {edu.description && <p class="timeline-description">{edu.description}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="profile-section" id="certifications">
+      <h2>{t('profile.certifications')}</h2>
+      <div class="certification-grid">
+        {profileInfo && profileInfo.certifications.map((cert: any) => (
+          <div class="certification-card">
+            <h3>{cert.title}</h3>
+            <p class="certification-issuer">{cert.issuer}</p>
+            <p class="certification-date"><strong>{t('profile.issued')}:</strong> {cert.issueDate}</p>
+            {cert.status && <p class="certification-status">{cert.status}</p>}
+            {cert.description && <p class="certification-description">{cert.description}</p>}
+            {cert.credentialURL && (
+              <a href={cert.credentialURL} target="_blank" rel="noopener noreferrer" class="certification-link">
+                {t('profile.verifyCertificate')}
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+</MainLayout>
+
+<style>
+  .about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 0;
+    min-height: calc(100vh - 150px);
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .about-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .about-header h1 {
+    font-size: var(--font-size-3xl);
+    margin-bottom: 1rem;
+    font-family: var(--font-family-title);
+  }
+  
+  .highlight {
+    color: var(--color-cosmic-latte);
+  }
+
+  /* Profile sections */
+  .profile-section {
+    margin-bottom: 4rem;
+  }
+  
+  .profile-section h2 {
+    font-size: var(--font-size-xl);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-gray-700);
+    padding-bottom: 0.5rem;
+    font-family: var(--font-family-title);
+  }
+
+  .content-container p {
+    margin-bottom: 1rem;
+    line-height: var(--line-height-loose);
+  }
+
+  /* Timeline */
+  .timeline-container {
+    position: relative;
+    margin-left: 1rem;
+  }
+  
+  .timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2.5rem;
+  }
+  
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+  
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background-color: var(--color-cosmic-latte);
+    border-radius: 50%;
+  }
+  
+  .timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 0.8rem;
+    width: 2px;
+    height: calc(100% - 0.5rem);
+    background-color: var(--color-gray-700);
+  }
+  
+  .timeline-item:last-child::after {
+    display: none;
+  }
+  
+  .timeline-content h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: 0.25rem;
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-title);
+  }
+  
+  .timeline-content h4 {
+    font-size: var(--font-size-base);
+    margin-bottom: 0.5rem;
+    color: var(--color-cosmic-latte);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .timeline-period, .timeline-location {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-400);
+    margin-bottom: 0.5rem;
+  }
+  
+  .timeline-description {
+    margin-top: 0.75rem;
+    line-height: var(--line-height-loose);
+  }
+
+  .timeline-meta {
+    font-size: var(--font-size-sm);
+    margin-bottom: 0.25rem;
+  }
+
+  /* Certification Grid */
+  .certification-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .certification-card {
+    background-color: var(--color-gray-900);
+    border: 1px solid var(--color-gray-700);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+  
+  .certification-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-cosmic-latte-10);
+  }
+  
+  .certification-card h3 {
+    font-size: var(--font-size-base);
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-family-title);
+  }
+  
+  .certification-issuer {
+    color: var(--color-cosmic-latte);
+    font-size: var(--font-size-sm);
+    margin-bottom: 0.75rem;
+  }
+  
+  .certification-date, .certification-status {
+    font-size: var(--font-size-xs);
+    margin-bottom: 0.5rem;
+    color: var(--color-gray-400);
+  }
+  
+  .certification-description {
+    font-size: var(--font-size-sm);
+    margin: 0.75rem 0;
+    line-height: var(--line-height-normal);
+  }
+  
+  .certification-link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-size: var(--font-size-xs);
+    color: var(--color-cosmic-latte);
+    text-decoration: none;
+    transition: color var(--transition-base);
+  }
+  
+  .certification-link:hover {
+    color: var(--color-white);
+    text-decoration: underline;
+  }
+
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 4rem 1.5rem;
+    }
+    
+    .certification-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 

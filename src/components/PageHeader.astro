@@ -36,18 +36,10 @@ const safeGet = (obj: any, path: string, defaultValue = '') => {
 };
 
 // Get profile info based on language
-const isMultilingual = profileData?.personal && (profileData.personal.en || profileData.personal.pt);
-const name = isMultilingual 
-  ? safeGet(profileData, `personal.${lang}.name`) || safeGet(profileData, 'personal.en.name', 'Ricardo Almeida')
-  : safeGet(profileData, 'personal.name', 'Ricardo Almeida');
-
-const title = isMultilingual 
-  ? safeGet(profileData, `personal.${lang}.title`) || safeGet(profileData, 'personal.en.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI')
-  : safeGet(profileData, 'personal.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI');
-
-const profileUrl = isMultilingual
-  ? safeGet(profileData, `personal.${lang}.profileUrl`) || safeGet(profileData, 'personal.en.profileUrl', 'https://www.linkedin.com/in/ricardodpa')
-  : safeGet(profileData, 'personal.profileUrl', 'https://www.linkedin.com/in/ricardodpa');
+const isMultilingual = false; // We use separate files now
+const name = safeGet(profileData, 'personal.name', 'Ricardo Almeida');
+const title = safeGet(profileData, 'personal.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI');
+const profileUrl = safeGet(profileData, 'personal.profileUrl', 'https://www.linkedin.com/in/ricardodpa');
 
 // Localized aria labels
 const linkedinLabel = lang === 'en' ? 'LinkedIn profile' : 'Perfil do LinkedIn';
