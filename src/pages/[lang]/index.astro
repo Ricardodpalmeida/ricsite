@@ -6,7 +6,7 @@
  * The content is rendered based on the language detected from the URL.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../i18n/utils';
+import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../i18n/utils';
 import SideProjects from '../../components/SideProjects.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import { getCollection } from 'astro:content';
@@ -22,6 +22,9 @@ if (!lang || !(lang in languages)) {
 // Get translations for the current language
 const t = useTranslations(lang as keyof typeof languages);
 
+// Load dynamic UI strings
+const uiStrings = await getUIStrings(lang as keyof typeof languages);
+
 // Get profile data from content collection for the specific language
 const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
 const profileInfo = profileCollection.length > 0 ? profileCollection[0].data : null;
@@ -36,7 +39,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout 
-  title="Ricardo Almeida | Personal Website" 
+  title={uiStrings['site.title'] || "Ricardo Almeida | Personal Website"} 
   currentLanguage={lang as keyof typeof languages}
 >
   <main class="home-container">
@@ -49,15 +52,15 @@ export async function getStaticPaths() {
     <div class="contact-reveal-container">
       <p id="home-contact-email" class="contact-email hidden">{import.meta.env.PUBLIC_CONTACT_EMAIL || 'contact@example.com'}</p>
       <p id="home-recaptcha-terms" class="recaptcha-terms hidden">
-        {t('contact.recaptcha.prefix')}
+        {uiStrings['contact.recaptcha.prefix'] || ''}
         {' '}
         <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-          {t('contact.recaptcha.privacy')}
+          {uiStrings['contact.recaptcha.privacy'] || ''}
         </a>{' & '}
         <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
-          {t('contact.recaptcha.terms')}
+          {uiStrings['contact.recaptcha.terms'] || ''}
         </a>{' '}
-        {t('contact.recaptcha.suffix')}
+        {uiStrings['contact.recaptcha.suffix'] || ''}
       </p>
     </div>
 

@@ -6,7 +6,7 @@
  * Lists blog posts filtered by the current language.
  */
 import MainLayout from '../../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../../i18n/utils';
+import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
 
@@ -20,6 +20,9 @@ if (!lang || !(lang in languages)) {
 
 // Get translations for the current language
 const t = useTranslations(lang as keyof typeof languages);
+
+// Load dynamic UI strings
+const uiStrings = await getUIStrings(lang as keyof typeof languages);
 
 // Get blog posts filtered by language and not draft
 const posts = await getCollection('blog', (post) => {
@@ -35,19 +38,19 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout 
-  title={`${t('blog.title')} | ${t('site.title')}`}
+  title={`${uiStrings['blog.title']} | ${uiStrings['site.title']}`}
   currentLanguage={lang as keyof typeof languages}
 >
   <main class="blog-container">
     <div class="blog-header">
-      <h1>{t('blog.title')}</h1>
+      <h1>{uiStrings['blog.title']}</h1>
     </div>
 
     <section class="posts-grid">
       {
         posts.length > 0 ? (
           posts.map((post) => (
-            <a href={`/${lang}/blog/${post.slug}/`} class="post-card-link">
+            <a href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}/`} class="post-card-link">
               <div class="post-card">
                 {post.data.heroImage && (
                   <div class="post-image-container">
@@ -62,7 +65,7 @@ export async function getStaticPaths() {
                     <FormattedDate date={post.data.pubDate} lang={lang} />
                     {post.data.updatedDate && (
                       <span class="post-updated">
-                        · {t('blog.updated')}: <FormattedDate date={post.data.updatedDate} lang={lang} />
+                        · {uiStrings['blog.updated']}: <FormattedDate date={post.data.updatedDate} lang={lang} />
                       </span>
                     )}
                   </div>
@@ -81,7 +84,7 @@ export async function getStaticPaths() {
             </a>
           ))
         ) : (
-          <p class="no-posts">{t('blog.noPostsMessage')}</p>
+          <p class="no-posts">{uiStrings['blog.noPostsMessage']}</p>
         )
       }
     </section>

@@ -1,5 +1,5 @@
 ---
-import { getLangFromUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
 import PhotoModal from './PhotoModal.astro';
@@ -8,7 +8,7 @@ import '../styles/carousel.css';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
-// const t = useTranslations(lang); // Unused
+const t = useTranslations(lang);
 
 // Get profile data from content collection
 const profileData = await getCollection('profile');
@@ -67,7 +67,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     <h3 class="subsection-title">{sideProjects.titles?.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.dj || '')}></p>
     <div class="sets-carousel">
-      <button class="carousel-arrow prev" aria-label="Previous set">&#60;</button>
+      <button class="carousel-arrow prev" aria-label={t('carousel.previous')}>&#60;</button>
       <div class="carousel-container">
         <div class="carousel-track">
           {sideProjects.embeds?.dj?.map((set: { src: string, title?: string }, index: number) => (
@@ -105,7 +105,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           ))}
         </div>
       </div>
-      <button class="carousel-arrow next" aria-label="Next set">&#62;</button>
+      <button class="carousel-arrow next" aria-label={t('carousel.next')}>&#62;</button>
     </div>
   </div>
 
@@ -114,7 +114,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     <h3 class="subsection-title">{sideProjects.titles?.playlists || (lang === 'pt' ? 'As Minhas Playlists' : 'My Playlists')}</h3>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.playlistsIntro || '')}></p>
     <div class="playlists-carousel">
-      <button class="carousel-arrow playlist-prev" aria-label="Previous playlist">&#60;</button>
+      <button class="carousel-arrow playlist-prev" aria-label={t('carousel.previousPlaylist')}>&#60;</button>
       <div class="playlists-container">
         <div class="playlists-track">
           {sideProjects.embeds?.playlists?.map((playlist: { src: string, title?: string, description?: string }, index: number) => (
@@ -161,7 +161,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           ))}
         </div>
       </div>
-      <button class="carousel-arrow playlist-next" aria-label="Next playlist">&#62;</button>
+      <button class="carousel-arrow playlist-next" aria-label={t('carousel.nextPlaylist')}>&#62;</button>
     </div>
   </div>
 

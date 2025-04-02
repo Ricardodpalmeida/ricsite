@@ -7,7 +7,7 @@
  */
 import { defaultLang, detectBrowserLanguage, languages } from '../i18n/utils';
 
-// Attempt to detect browser language or fall back to default
+// Use the non-async browser language detection
 const detectedLang = detectBrowserLanguage();
 
 // Redirect to the detected or default language
@@ -34,17 +34,22 @@ return Astro.redirect(`/${detectedLang}`);
       }
     </style>
     <script is:inline define:vars={{ defaultLang, languages }}>
-      // Detect browser language
+      // Function to detect the browser language
       function detectBrowserLanguage() {
         const browserLang = navigator.language?.split('-')[0];
-        return browserLang && browserLang in languages 
-          ? browserLang
-          : defaultLang;
+        
+        // Check if browser language is directly supported
+        if (browserLang && browserLang in languages) {
+          return browserLang;
+        }
+        
+        // Otherwise return the default language
+        return defaultLang;
       }
       
       // Execute redirect immediately without painting the page
-      const detectedLang = detectBrowserLanguage();
-      window.location.replace(`/${detectedLang}/`);
+      const lang = detectBrowserLanguage();
+      window.location.replace(`/${lang}/`);
     </script>
   </head>
   <body>

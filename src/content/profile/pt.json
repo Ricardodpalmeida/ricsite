@@ -1,7 +1,7 @@
 {
   "personal": {
     "name": "Ricardo Almeida",
-    "title": "Manager de Data & IA | Produtos Inteligentes, Automação e IA Gen",
+    "title": "Manager de Data & IA | Produtos Inteligentes, Automação e Gen AI",
     "location": "Lisboa, Portugal",
     "connections": "500+",
     "profileUrl": "www.linkedin.com/in/ricardodpa"
@@ -397,5 +397,51 @@
       ]
     }
   },
-  "language": "pt"
+  "language": "pt",
+  "ui": {
+    "lang.switchTo": "Mudar para {0}",
+    
+    "nav.home": "Início",
+    "nav.about": "Sobre",
+    "nav.blog": "Blog",
+    
+    "contact.button": "Entre em Contato",
+    "contact.verifying": "Verificando...",
+    "contact.errorAlert": "Falha na verificação. Por favor tente novamente.",
+    "contact.recaptchaErrorAlert": "Não foi possível iniciar a verificação. Certifique-se de que está online.",
+    
+    "footer.copyright": "© 2024 Ricardo Almeida. Todos os direitos reservados.",
+    
+    "error.profileData": "Não foi possível carregar os dados do perfil.",
+    
+    "blog.title": "Blog",
+    "blog.updated": "Atualizado",
+    "blog.noPostsMessage": "Não há posts disponíveis neste idioma.",
+    "blog.back": "← Voltar ao Blog",
+    "blog.postedBy": "Publicado por",
+    "blog.readingTime": "min de leitura",
+    "blog.shareText": "Partilhar este artigo",
+    "blog.shareOnX": "Partilhar no X",
+    "blog.shareOnLinkedIn": "Partilhar no LinkedIn",
+    "blog.shareOnFacebook": "Partilhar no Facebook",
+    
+    "carousel.previous": "Set anterior",
+    "carousel.next": "Próximo set",
+    "carousel.previousPlaylist": "Playlist anterior",
+    "carousel.nextPlaylist": "Próxima playlist",
+    
+    "modal.close": "Fechar modal",
+    "modal.previousPhoto": "Foto anterior",
+    "modal.nextPhoto": "Próxima foto",
+    
+    "about.title": "Sobre",
+    "profile.experience": "Experiência",
+    "profile.education": "Educação",
+    "profile.skills": "Competências",
+    "profile.certifications": "Certificações",
+    "profile.grade": "Nota",
+    "profile.thesis": "Tese",
+    "profile.issued": "Emitido",
+    "profile.verifyCertificate": "Verificar Certificado"
+  }
 } 

@@ -1,5 +1,39 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
+import fs from 'fs';
+import path from 'path';
+
+// Dynamically determine available languages from profile JSON files
+function getAvailableLanguages() {
+  try {
+    const profileDir = path.resolve('./src/content/profile');
+    
+    // Check if directory exists
+    if (!fs.existsSync(profileDir)) {
+      console.warn('Profile directory not found:', profileDir);
+      return ['en']; // Default fallback
+    }
+    
+    // Read directory and filter for JSON files
+    const files = fs.readdirSync(profileDir)
+      .filter(file => file.endsWith('.json'))
+      .map(file => file.replace('.json', ''));
+    
+    // Ensure we have at least the default language
+    if (!files.includes('en')) {
+      files.push('en');
+    }
+    
+    console.log('Detected languages from profile files:', files);
+    return files;
+  } catch (error) {
+    console.error('Error detecting languages:', error);
+    return ['en']; // Default fallback
+  }
+}
+
+// Get available languages
+const locales = getAvailableLanguages();
 
 export default defineConfig({
   base: '',
@@ -10,12 +44,16 @@ export default defineConfig({
   },
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'pt'],
+    // Dynamically generated from profile JSON files
+    locales,
     routing: {
-      prefixDefaultLocale: false
+      prefixDefaultLocale: true  // Always prefix the default language for consistent URLs
     }
   },
   redirects: {
+    // Redirect root to default language
+    '/': '/en/',
+    
     // Block specific paths including variations with double slashes
     '/src/content/profile/data.json': '/404',
     '//src/content/profile/data.json': '/404',

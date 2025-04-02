@@ -5,7 +5,7 @@
  * This layout sets up the basic structure for all pages on the site,
  * including global styles and meta tags.
  */
-import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLang } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLang, getProfileStrings } from '../i18n/utils';
 // Import global styles
 import '../styles/global.css';
 
@@ -24,12 +24,20 @@ const {
 const lang = currentLanguage || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// Debug logging
+console.log('MainLayout - Current URL:', Astro.url.pathname);
+console.log('MainLayout - Detected language:', lang);
+console.log('MainLayout - Available languages:', Object.keys(languages));
+
+// Load profile-based translations
+const profileData = await getProfileStrings(lang);
+
 // Ensure lang is a valid language code
 const validLang = lang in languages ? lang : defaultLang;
 
-// Default meta values from i18n
-const defaultTitle = t('site.title');
-const defaultDescription = t('site.description');
+// Default meta values from profile data
+const defaultTitle = profileData['site.title'] || t('site.title');
+const defaultDescription = profileData['site.description'] || t('site.description');
 const defaultImage = "/images/profile-cover.jpg";
 const siteUrl = "https://me.ricbits.cc";
 
@@ -39,19 +47,19 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 // Prepare alternate language URLs for language switcher
 const otherLangs = Object.keys(languages).filter(l => l !== validLang);
 
-// JSON-LD structured data with i18n
+// JSON-LD structured data with dynamic data
 const jsonLdData = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": "Ricardo Almeida",
+  "name": profileData['site.author'] || "Ricardo Almeida",
   "url": "https://me.ricbits.cc",
-  "jobTitle": t('jsonld.jobTitle'),
+  "jobTitle": profileData['jsonld.jobTitle'] || t('jsonld.jobTitle'),
   "worksFor": {
     "@type": "Organization",
-    "name": t('jsonld.organization')
+    "name": profileData['jsonld.organization'] || t('jsonld.organization')
   },
-  "description": t('jsonld.description'),
-  "skills": t('jsonld.skills'),
+  "description": profileData['jsonld.description'] || t('jsonld.description'),
+  "skills": profileData['jsonld.skills'] || t('jsonld.skills'),
   "image": "/images/profile-cover.jpg",
   "sameAs": [
     "https://www.linkedin.com/in/ricardodpa"
@@ -72,8 +80,8 @@ const jsonLdData = {
     <title>{title || defaultTitle}</title>
     <meta name="title" content={title || defaultTitle} />
     <meta name="description" content={description || defaultDescription} />
-    <meta name="author" content={t('site.author')} />
-    <meta name="keywords" content={t('site.keywords')} />
+    <meta name="author" content={profileData['site.author'] || "Ricardo Almeida"} />
+    <meta name="keywords" content={profileData['site.keywords'] || ""} />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical || siteUrl} />
@@ -108,7 +116,7 @@ const jsonLdData = {
     <link 
       rel="alternate" 
       type="application/rss+xml" 
-      title={t('rss.title')} 
+      title={profileData['rss.title'] || "RSS Feed"} 
       href={`/${validLang}/rss.xml`} 
     />
 
@@ -154,21 +162,31 @@ const jsonLdData = {
       <div class="header-wrapper">
         {!hideLangSelector && (
           <div class="language-selector">
-            {Object.entries(languages).map(([code, name]) => (
-              <>
-                {code !== Object.keys(languages)[0] && <span class="language-separator">/</span>}
-                <a 
-                  href={code === validLang 
-                    ? '#' 
-                    : (alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code as keyof typeof languages))}
-                  class={`language-btn ${code === validLang ? 'active' : ''}`}
-                  aria-label={code === 'en' ? t('lang.switchToEn') : t('lang.switchToPt')}
-                  data-lang-link={code}
-                >
-                  {code.toUpperCase()}
-                </a>
-              </>
-            ))}
+            {/* Debug output */}
+            <span style="display: none;">Current: {validLang}, All: {JSON.stringify(Object.keys(languages))}</span>
+            
+            {Object.entries(languages).map(([code, name], index) => {
+              // Calculate the URL for this language
+              const langUrl = code === validLang 
+                ? '#' 
+                : (alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code));
+                
+              console.log(`Language button for ${code} - URL: ${langUrl}, Current: ${validLang}`);
+                
+              return (
+                <>
+                  {index !== 0 && <span class="language-separator">/</span>}
+                  <a 
+                    href={langUrl}
+                    class={`language-btn ${code === validLang ? 'active' : ''}`}
+                    aria-label={t('lang.switchTo').replace('{0}', code.toUpperCase())}
+                    data-lang-link={code}
+                  >
+                    {code.toUpperCase()}
+                  </a>
+                </>
+              );
+            })}
           </div>
         )}
         

@@ -6,7 +6,7 @@
  * using the [lang] and [slug] parameters in the URL.
  */
 import MainLayout from '../../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../../i18n/utils';
+import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
 
@@ -21,6 +21,9 @@ if (!lang || !(lang in languages)) {
 
 // Get translations for the current language
 const t = useTranslations(lang as keyof typeof languages);
+
+// Load dynamic UI strings
+const uiStrings = await getUIStrings(lang as keyof typeof languages);
 
 // Generate language alternatives for this post
 const alternateLanguageUrls = {};
@@ -39,7 +42,7 @@ if (post.data.translationKey) {
   // Create alternate URLs using the post slug (not translationKey)
   for (const altPost of alternateVersions) {
     if (altPost.data.language in languages) {
-      alternateLanguageUrls[altPost.data.language] = `/${altPost.data.language}/blog/${altPost.slug}/`;
+      alternateLanguageUrls[altPost.data.language] = `/${altPost.data.language}/blog/${altPost.slug.replace(`${altPost.data.language}/`, '')}/`;
     }
   }
 }
@@ -55,11 +58,14 @@ export async function getStaticPaths() {
   return posts.flatMap((post) => {
     const paths = [];
     
+    // Clean slug to remove language prefix if it exists
+    const cleanSlug = post.slug.replace(`${post.data.language}/`, '');
+    
     // Add path for regular slug
     paths.push({
       params: {
         lang: post.data.language,
-        slug: post.slug,
+        slug: cleanSlug,
       },
       props: { post },
     });
@@ -81,7 +87,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout 
-  title={`${post.data.title} | Blog | Ricardo Almeida`}
+  title={`${post.data.title} | ${uiStrings['blog.title']} | Ricardo Almeida`}
   currentLanguage={lang as keyof typeof languages}
   alternateLanguageUrls={alternateLanguageUrls}
 >
@@ -103,7 +109,7 @@ export async function getStaticPaths() {
           <FormattedDate date={post.data.pubDate} lang={lang} />
           {post.data.updatedDate && (
             <span class="blog-post-updated">
-              · {t('blog.updated')}: <FormattedDate date={post.data.updatedDate} lang={lang} />
+              · {uiStrings['blog.updated']}: <FormattedDate date={post.data.updatedDate} lang={lang} />
             </span>
           )}
         </div>
@@ -123,7 +129,7 @@ export async function getStaticPaths() {
     
     <div class="blog-post-navigation">
       <a href={`/${lang}/blog`} class="back-to-blog-link">
-        &larr; {t('blog.back')}
+        &larr; {uiStrings['blog.back']}
       </a>
     </div>
   </main>

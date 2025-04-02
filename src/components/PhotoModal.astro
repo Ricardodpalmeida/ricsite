@@ -1,12 +1,17 @@
 ---
 // Photo Modal Component
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+// Get current language and translations
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <!-- Photo Modal -->
 <div class="photo-modal" id="photoModal">
-  <button class="modal-close" aria-label="Close modal">×</button>
-  <button class="modal-nav prev" aria-label="Previous photo">&#60;</button>
-  <button class="modal-nav next" aria-label="Next photo">&#62;</button>
+  <button class="modal-close" aria-label={t('modal.close')}>×</button>
+  <button class="modal-nav prev" aria-label={t('modal.previousPhoto')}>&#60;</button>
+  <button class="modal-nav next" aria-label={t('modal.nextPhoto')}>&#62;</button>
   <div class="modal-content">
     <img src="" alt="" oncontextmenu="return false;" />
   </div>

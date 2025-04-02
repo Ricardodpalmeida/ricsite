@@ -1,181 +1,231 @@
 // src/i18n/ui.ts
-// Define supported languages
-export const languages = {
-  en: 'English',
-  pt: 'Português',
-};
+import { getCollection } from 'astro:content';
 
+// Minimal default (only used before content collections are loaded)
+// Empty object that will be populated at runtime with detected languages
+export let languages: Record<string, string> = {};
+
+// Default language - can be overridden in environment
 export const defaultLang = 'en';
+
+// Function to load available languages dynamically from profile JSON files
+export async function loadLanguages() {
+  try {
+    const profileCollection = await getCollection('profile');
+    const detectedLanguages = {} as Record<string, string>;
+    
+    // Create language map from profile files
+    profileCollection.forEach(profile => {
+      const lang = profile.data.language;
+      if (lang) {
+        // Just use the language code itself as the display name
+        detectedLanguages[lang] = lang;
+      }
+    });
+    
+    // If languages were found, update the global languages object
+    if (Object.keys(detectedLanguages).length > 0) {
+      // Update the global languages object with detected values
+      languages = detectedLanguages;
+      console.log('UI Module - Available languages detected:', Object.keys(languages));
+      return detectedLanguages;
+    }
+    
+    // Fallback with single default language if nothing was detected
+    console.warn('No languages detected from profile files, using default language only');
+    // Use at minimum these hardcoded values to ensure site functions
+    languages = { 'en': 'en', 'pt': 'pt', 'es': 'es' };
+    console.log('UI Module - Default languages used:', Object.keys(languages));
+    return languages;
+  } catch (error) {
+    console.error('Error loading languages:', error);
+    // Ensure we at least have these languages available
+    languages = { 'en': 'en', 'pt': 'pt', 'es': 'es' };
+    console.log('UI Module - Fallback languages used after error:', Object.keys(languages));
+    return languages;
+  }
+}
 
 // Get current year for copyright
 const currentYear = new Date().getFullYear();
 
-// Define UI string translations
-export const ui = {
-  en: {
-    // Site Metadata
-    'site.title': 'Ricardo Almeida | Data & AI Manager',
-    'site.description': 'Data & AI Manager at PwC Portugal specializing in AI solutions, Cloud Architecture, Microsoft Power Platform, and RAG implementations.',
-    'site.author': 'Ricardo Almeida',
-    'site.keywords': 'AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture, Data & AI Manager, Power BI, Data Science, Low-code Development',
+// Default fallback UI strings (English)
+const defaultUIStrings: Record<string, string> = {
+  'lang.switchTo': 'Switch to {0}',
+  'nav.home': 'Home',
+  'nav.about': 'About',
+  'nav.blog': 'Blog',
+  'contact.button': 'Get in Touch',
+  'contact.verifying': 'Verifying...',
+  'contact.errorAlert': 'Verification failed. Please try again.',
+  'contact.recaptchaErrorAlert': 'Could not initiate verification. Please ensure you are online.',
+  'footer.copyright': `© ${currentYear} Ricardo Almeida. All rights reserved.`,
+  'error.profileData': 'Profile data could not be loaded.',
+  'blog.title': 'Blog',
+  'blog.updated': 'Updated',
+  'blog.noPostsMessage': 'No posts available in this language.',
+  'blog.back': '← Back to Blog',
+  'blog.postedBy': 'Posted by',
+  'blog.readingTime': 'min read',
+  'blog.shareText': 'Share this post',
+  'blog.shareOnX': 'Share on X',
+  'blog.shareOnLinkedIn': 'Share on LinkedIn',
+  'blog.shareOnFacebook': 'Share on Facebook',
+  'carousel.previous': 'Previous set',
+  'carousel.next': 'Next set',
+  'carousel.previousPlaylist': 'Previous playlist',
+  'carousel.nextPlaylist': 'Next playlist',
+  'modal.close': 'Close modal',
+  'modal.previousPhoto': 'Previous photo',
+  'modal.nextPhoto': 'Next photo',
+  'about.title': 'About',
+  'profile.experience': 'Experience',
+  'profile.education': 'Education',
+  'profile.skills': 'Skills',
+  'profile.certifications': 'Certifications',
+  'profile.grade': 'Grade',
+  'profile.thesis': 'Thesis',
+  'profile.issued': 'Issued',
+  'profile.verifyCertificate': 'Verify Certificate'
+};
+
+// Initialize ui with default values - will be populated at runtime
+export let ui: Record<string, Record<string, string>> = {
+  default: { ...defaultUIStrings }
+};
+
+// Function to load UI translations from profile files
+export async function loadUITranslations(): Promise<Record<string, Record<string, string>>> {
+  try {
+    const profileCollection = await getCollection('profile');
+    const translations: Record<string, Record<string, string>> = {
+      default: { ...defaultUIStrings }
+    };
     
-    // JSON-LD Data
-    'jsonld.jobTitle': 'Manager, Data & AI',
-    'jsonld.organization': 'PwC Portugal',
-    'jsonld.description': 'Data & AI lead with a passion for creating practical, AI-powered cloud-based products that blend low-code and pro-code approaches.',
-    'jsonld.skills': 'AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture',
+    // Load translations from each profile
+    for (const profile of profileCollection) {
+      const lang = profile.data.language;
+      const uiStrings = profile.data.ui || {};
+      
+      if (lang && Object.keys(uiStrings).length > 0) {
+        translations[lang] = { ...uiStrings };
+      }
+    }
     
-    // Language Switcher
-    'lang.switchToEn': 'Switch to English',
-    'lang.switchToPt': 'Mudar para Português',
+    return translations;
+  } catch (error) {
+    console.error('Error loading UI translations:', error);
+    return { default: { ...defaultUIStrings } };
+  }
+}
+
+// Dynamic initialization of UI translations and languages
+// This will run once at server startup time
+(async function initialize() {
+  console.log('UI Module - Initializing languages and translations...');
+  try {
+    // Load languages first - must be done before translations
+    const availableLanguages = await loadLanguages();
     
-    // Navigation
-    'nav.home': 'Home',
-    'nav.about': 'About',
-    'nav.blog': 'Blog',
+    // Then load UI translations
+    ui = await loadUITranslations();
     
-    // Hero section
-    'hero.greeting': 'Hi, I\'m',
-    'hero.jobTitle': 'Data & AI Manager | Cloud Solution Architect',
+    console.log('UI Module - Successfully loaded languages:', Object.keys(languages));
+    console.log('UI Module - Available languages:', Object.keys(availableLanguages));
+  } catch (error) {
+    console.error('Failed to initialize languages and translations:', error);
+  }
+})();
+
+// Get translations in the current language
+export function useTranslations(lang: string) {
+  return function t(key: string) {
+    // First check if we have translations for this language
+    if (ui[lang] && ui[lang][key]) {
+      return ui[lang][key];
+    }
     
-    // Contact Button
-    'contact.button': 'Get in Touch',
-    'contact.verifying': 'Verifying...',
-    'contact.recaptcha.prefix': 'This site is protected by reCAPTCHA v3 and the Google',
-    'contact.recaptcha.privacy': 'Privacy Policy',
-    'contact.recaptcha.terms': 'Terms of Service',
-    'contact.recaptcha.suffix': 'apply.',
-    'contact.errorAlert': 'Verification failed. Please try again.',
-    'contact.recaptchaErrorAlert': 'Could not initiate verification. Please ensure you are online.',
+    // Fall back to default language
+    return ui.default[key] || key;
+  };
+}
+
+// Function to detect the browser language and return the closest supported language
+export function detectBrowserLanguage(): string {
+  if (typeof navigator === 'undefined') return defaultLang;
+  
+  // Get browser language
+  const browserLang = navigator.language?.split('-')[0];
+  
+  // Check if browser language is directly supported in our default languages
+  if (browserLang && browserLang in languages) {
+    return browserLang;
+  }
+  
+  // Return default language
+  return defaultLang;
+}
+
+// Load profile data for a specific language to use as UI strings
+export async function getProfileStrings(lang: string) {
+  try {
+    // Get profile data for the given language
+    const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
+    const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
     
-    // Footer
-    'footer.copyright': `© ${currentYear} Ricardo Almeida. All rights reserved.`,
+    if (!profileData) {
+      console.warn(`No profile data found for language: ${lang}`);
+      return {} as Record<string, string>;
+    }
+
+    // Get translations for generic fields based on language
+    const translations = getGenericTranslations(lang);
+
+    // Prepare UI strings from profile data
+    const profileStrings: Record<string, string> = {
+      'site.title': `${profileData.personal?.name || 'Ricardo Almeida'} | ${profileData.personal?.title || ''}`,
+      'site.description': profileData.hero?.join(' ') || '',
+      'site.author': profileData.personal?.name || 'Ricardo Almeida',
+      'site.keywords': profileData.technologies?.map(tech => tech.name).join(', ') || '',
+      
+      // JSON-LD Data
+      'jsonld.jobTitle': profileData.personal?.title || '',
+      'jsonld.organization': 'PwC Portugal',
+      'jsonld.description': profileData.hero?.join(' ') || '',
+      'jsonld.skills': profileData.technologies?.map(tech => tech.name).join(', ') || '',
+      
+      // Add dynamically translated strings
+      ...translations
+    };
     
-    // About page
-    'about.title': 'About',
-    'about.me': 'Me',
-    
-    // Profile sections
-    'profile.about': 'About',
-    'profile.skills': 'Skills',
-    'profile.technologies': 'Technologies',
-    'profile.and': 'and',
-    'profile.experience': 'Experience',
-    'profile.education': 'Education',
-    'profile.certifications': 'Certifications',
-    'profile.languages': 'Languages',
-    'profile.grade': 'Grade',
-    'profile.thesis': 'Thesis',
-    'profile.issued': 'Issued',
-    'profile.expires': 'Expires',
-    'profile.credentialId': 'Credential ID',
-    'profile.verifyCertificate': 'Verify Certificate',
-    'profile.contact': 'Contact',
-    
-    // Thank you page
-    'thanks.title': 'Thank',
-    'thanks.highlight': 'You',
-    'thanks.message': 'I\'ve received your message and will get back to you as soon as possible.',
-    'thanks.returnHome': 'Return to Home',
-    
-    // Error messages
-    'error.profileData': 'Profile data could not be loaded.',
-    
-    // RSS Feed Title
-    'rss.title': 'Blog RSS Feed',
-    
-    // Error pages
-    '404.title': 'Page Not Found',
-    '404.message': 'Sorry, the page you\'re looking for doesn\'t exist or has been moved.',
-    '404.returnHome': 'Return to Home',
-    
-    // Blog
-    'blog.title': 'Blog',
-    'blog.updated': 'Updated',
-    'blog.noPostsMessage': 'No posts available in this language.',
-    'blog.back': 'Back to Blog',
-  },
-  pt: {
-    // Site Metadata
-    'site.title': 'Ricardo Almeida | Gestor de Data & IA',
-    'site.description': 'Gestor de Data & IA na PwC Portugal especializado em soluções de IA, Arquitetura Cloud, Microsoft Power Platform e implementações RAG.',
-    'site.author': 'Ricardo Almeida',
-    'site.keywords': 'Arquitetura de Soluções de IA, RAG, Integração de LLM, Microsoft Power Platform, Arquitetura Cloud Azure, Gestor de Data & IA, Power BI, Ciência de Dados, Desenvolvimento Low-code',
-    
-    // JSON-LD Data
-    'jsonld.jobTitle': 'Gestor, Data & IA',
-    'jsonld.organization': 'PwC Portugal',
-    'jsonld.description': 'Líder de Data & IA com paixão por criar produtos cloud práticos com IA que combinam abordagens low-code e pro-code.',
-    'jsonld.skills': 'Arquitetura de Soluções de IA, RAG, Integração de LLM, Microsoft Power Platform, Arquitetura Cloud Azure',
-    
-    // Language Switcher
-    'lang.switchToEn': 'Switch to English',
-    'lang.switchToPt': 'Mudar para Português',
-    
-    // Navigation
-    'nav.home': 'Início',
-    'nav.about': 'Sobre',
-    'nav.blog': 'Blog',
-    
-    // Hero section
-    'hero.greeting': 'Olá, sou o',
-    'hero.jobTitle': 'Gestor de Data & IA | Arquiteto de Soluções Cloud',
-    
-    // Contact Button
-    'contact.button': 'Entre em Contato',
-    'contact.verifying': 'Verificando...',
-    'contact.recaptcha.prefix': 'Este site é protegido pelo reCAPTCHA v3 e pela',
-    'contact.recaptcha.privacy': 'Política de Privacidade',
-    'contact.recaptcha.terms': 'Termos de Serviço',
-    'contact.recaptcha.suffix': 'aplicam-se.',
-    'contact.errorAlert': 'Falha na verificação. Por favor, tente novamente.',
-    'contact.recaptchaErrorAlert': 'Não foi possível iniciar a verificação. Verifique se está online.',
-    
-    // Footer
-    'footer.copyright': `© ${currentYear} Ricardo Almeida. Todos os direitos reservados.`,
-    
-    // About page
-    'about.title': 'Sobre',
-    'about.me': 'Mim',
-    
-    // Profile sections
-    'profile.about': 'Sobre',
-    'profile.skills': 'Competências',
-    'profile.technologies': 'Tecnologias',
-    'profile.and': 'e',
-    'profile.experience': 'Experiência',
-    'profile.education': 'Educação',
-    'profile.certifications': 'Certificações',
-    'profile.languages': 'Idiomas',
-    'profile.grade': 'Nota',
-    'profile.thesis': 'Tese',
-    'profile.issued': 'Emitido',
-    'profile.expires': 'Expira',
-    'profile.credentialId': 'ID da Credencial',
-    'profile.verifyCertificate': 'Verificar Certificado',
-    'profile.contact': 'Contato',
-    
-    // Thank you page
-    'thanks.title': 'Obrigado',
-    'thanks.highlight': '!',
-    'thanks.message': 'Recebi a sua mensagem e responderei o mais breve possível.',
-    'thanks.returnHome': 'Voltar para o Início',
-    
-    // Error messages
-    'error.profileData': 'Não foi possível carregar os dados do perfil.',
-    
-    // RSS Feed Title
-    'rss.title': 'Feed RSS do Blog',
-    
-    // Error pages
-    '404.title': 'Página Não Encontrada',
-    '404.message': 'Desculpe, a página que procura não existe ou foi movida.',
-    '404.returnHome': 'Voltar ao Início',
-    
-    // Blog
-    'blog.title': 'Blog',
-    'blog.updated': 'Atualizado',
-    'blog.noPostsMessage': 'Não há posts disponíveis neste idioma.',
-    'blog.back': 'Voltar ao Blog',
-  },
-} as const; 
+    return profileStrings;
+  } catch (error) {
+    console.error(`Error loading profile strings for ${lang}:`, error);
+    return {} as Record<string, string>;
+  }
+}
+
+// Generate translations for common phrases based on the language
+function getGenericTranslations(lang: string): Record<string, string> {
+  // If we have UI translations for this language, use them
+  if (ui[lang]) {
+    return { ...ui[lang] };
+  }
+  
+  // Otherwise use default translations
+  return { ...ui.default };
+}
+
+// Combine base UI translations with profile data
+export async function getUIStrings(lang: string): Promise<Record<string, string>> {
+  const profileStrings = await getProfileStrings(lang);
+  
+  // Create a merged object with base UI translations and profile-based strings
+  const combinedStrings: Record<string, string> = { 
+    ...ui.default,      // Include default language fallbacks
+    ...(ui[lang] || {}), // Include language-specific strings if available
+    ...profileStrings    // Override with profile data strings
+  };
+  
+  return combinedStrings;
+} 

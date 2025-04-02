@@ -6,7 +6,7 @@
  * The content is rendered based on the language detected from the URL.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages } from '../../i18n/utils';
+import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
 
@@ -21,6 +21,9 @@ if (!lang || !(lang in languages)) {
 // Get translations for the current language
 const t = useTranslations(lang as keyof typeof languages);
 
+// Load dynamic UI strings
+const uiStrings = await getUIStrings(lang as keyof typeof languages);
+
 // Get profile data from content collection for the specific language
 const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
 const profileInfo = profileCollection.length > 0 ? profileCollection[0].data : null;
@@ -32,7 +35,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout
-  title={`${t('about.title')} | Ricardo Almeida`}
+  title={`${uiStrings['about.title']} | Ricardo Almeida`}
   currentLanguage={lang as keyof typeof languages}
 >
   <main class="about-container">
@@ -43,7 +46,7 @@ export async function getStaticPaths() {
     </PageHeader>
 
     <section class="profile-section" id="experience">
-      <h2>{t('profile.experience')}</h2>
+      <h2>{uiStrings['profile.experience']}</h2>
       {profileInfo?.sectionDescriptions?.experience && (
         <p class="section-intro">{profileInfo.sectionDescriptions.experience}</p>
       )}
@@ -63,7 +66,7 @@ export async function getStaticPaths() {
     </section>
 
     <section class="profile-section" id="education">
-      <h2>{t('profile.education')}</h2>
+      <h2>{uiStrings['profile.education']}</h2>
       {profileInfo?.sectionDescriptions?.education && (
         <p class="section-intro">{profileInfo.sectionDescriptions.education}</p>
       )}
@@ -74,8 +77,8 @@ export async function getStaticPaths() {
               <h3>{edu.school}</h3>
               <h4>{edu.degree}</h4>
               {edu.duration && <p class="timeline-period">{edu.duration}</p>}
-              {edu.grade && <p class="timeline-meta"><strong>{t('profile.grade')}:</strong> {edu.grade}</p>}
-              {edu.thesis && <p class="timeline-meta"><strong>{t('profile.thesis')}:</strong> {edu.thesis}</p>}
+              {edu.grade && <p class="timeline-meta"><strong>{uiStrings['profile.grade']}:</strong> {edu.grade}</p>}
+              {edu.thesis && <p class="timeline-meta"><strong>{uiStrings['profile.thesis']}:</strong> {edu.thesis}</p>}
               {edu.description && <p class="timeline-description">{edu.description}</p>}
             </div>
           </div>
@@ -84,7 +87,7 @@ export async function getStaticPaths() {
     </section>
 
     <section class="profile-section" id="skills">
-      <h2>{t('profile.skills')}</h2>
+      <h2>{uiStrings['profile.skills']}</h2>
       {profileInfo?.sectionDescriptions?.skills && (
         <p class="section-intro">{profileInfo.sectionDescriptions.skills}</p>
       )}
@@ -99,7 +102,7 @@ export async function getStaticPaths() {
     </section>
 
     <section class="profile-section" id="certifications">
-      <h2>{t('profile.certifications')}</h2>
+      <h2>{uiStrings['profile.certifications']}</h2>
       {profileInfo?.sectionDescriptions?.certifications && (
         <p class="section-intro">{profileInfo.sectionDescriptions.certifications}</p>
       )}
@@ -108,12 +111,12 @@ export async function getStaticPaths() {
           <div class="certification-card">
             <h3>{cert.title}</h3>
             <p class="certification-issuer">{cert.issuer}</p>
-            <p class="certification-date"><strong>{t('profile.issued')}:</strong> {cert.issueDate}</p>
+            <p class="certification-date"><strong>{uiStrings['profile.issued']}:</strong> {cert.issueDate}</p>
             {cert.status && <p class="certification-status">{cert.status}</p>}
             {cert.description && <p class="certification-description">{cert.description}</p>}
             {cert.credentialURL && (
               <a href={cert.credentialURL} target="_blank" rel="noopener noreferrer" class="certification-link">
-                {t('profile.verifyCertificate')}
+                {uiStrings['profile.verifyCertificate']}
               </a>
             )}
           </div>

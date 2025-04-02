@@ -1,14 +1,68 @@
+import fs from 'fs';
+import path from 'path';
+
+// Cache for the supported languages (so we don't read from disk on every request)
+let cachedLanguages = null;
+
+// Dynamically determine available languages from profile JSON files
+function getAvailableLanguages() {
+  // Return cached languages if already determined
+  if (cachedLanguages) {
+    return cachedLanguages;
+  }
+
+  try {
+    const profileDir = path.resolve('./src/content/profile');
+    
+    // Check if directory exists
+    if (!fs.existsSync(profileDir)) {
+      console.warn('Profile directory not found:', profileDir);
+      cachedLanguages = ['en']; // Default fallback
+      return cachedLanguages;
+    }
+    
+    // Read directory and filter for JSON files
+    const files = fs.readdirSync(profileDir)
+      .filter(file => file.endsWith('.json'))
+      .map(file => file.replace('.json', ''));
+    
+    // Ensure we have at least the default language
+    if (!files.includes('en')) {
+      files.push('en');
+    }
+    
+    console.log('Middleware - Detected languages from profile files:', files);
+    cachedLanguages = files;
+    return files;
+  } catch (error) {
+    console.error('Error detecting languages in middleware:', error);
+    cachedLanguages = ['en']; // Default fallback
+    return cachedLanguages;
+  }
+}
+
 export function onRequest({ request, url, locals }, next) {
   // Normalize URL path (handle double slashes and similar issues)
   const normalizedPath = url.pathname.replace(/\/+/g, '/');
+  
+  // Debug logging for troubleshooting
+  console.log(`Middleware handling: ${normalizedPath}`);
 
-  // List of supported languages
-  const supportedLanguages = ['en', 'pt'];
+  // Dynamically get supported languages
+  const supportedLanguages = getAvailableLanguages();
+  console.log('Middleware - Languages:', supportedLanguages);
   
   // Extract the first segment of the path to check if it's a language code
   const pathSegments = normalizedPath.split('/').filter(Boolean);
   const firstSegment = pathSegments[0];
   const isLanguagePath = supportedLanguages.includes(firstSegment);
+  console.log(`First segment: ${firstSegment}, Is language path: ${isLanguagePath}`);
+  
+  // For language paths, always allow them if the language is supported
+  if (isLanguagePath) {
+    console.log(`Allowing language path: ${normalizedPath}`);
+    return next();
+  }
   
   // List of allowed routes/paths patterns
   const allowedPaths = [
@@ -39,41 +93,45 @@ export function onRequest({ request, url, locals }, next) {
     return next();
   }
   
-  // Specific patterns to block (exact matches for critical files)
-  const blockedPatterns = [
-    '/src/content/profile/data.json',
-    '/content/profile/data.json',
-    '/profile/data.json',
-    '/data.json',
-    '/src/content/profile/en.json',
-    '/content/profile/en.json',
-    '/profile/en.json',
-    '/en.json',
-    '/src/content/profile/pt.json',
-    '/content/profile/pt.json',
-    '/profile/pt.json',
-    '/pt.json'
-  ];
-
-  // Check for exact blocked paths
-  for (const pattern of blockedPatterns) {
-    if (normalizedPath === pattern || normalizedPath.includes(pattern)) {
-      return new Response('Not Found', { status: 404 });
-    }
-  }
-  
-  // Check if the path contains restricted content keywords
+  // Generate restricted keywords based on languages
   const restrictedKeywords = [
     '/content/',
     '/src/content/',
     '/profile/',
     'data.json',
-    'en.json',
-    'pt.json'
   ];
   
+  // Add language-specific JSON files to restricted keywords
+  supportedLanguages.forEach(lang => {
+    restrictedKeywords.push(`${lang}.json`);
+  });
+  
+  // Check if the path contains restricted content keywords
   for (const keyword of restrictedKeywords) {
     if (normalizedPath.includes(keyword)) {
+      return new Response('Not Found', { status: 404 });
+    }
+  }
+  
+  // Generate blocked patterns for each language
+  const blockedPatterns = [
+    '/src/content/profile/data.json',
+    '/content/profile/data.json',
+    '/profile/data.json',
+    '/data.json',
+  ];
+  
+  // Add language-specific patterns
+  supportedLanguages.forEach(lang => {
+    blockedPatterns.push(`/src/content/profile/${lang}.json`);
+    blockedPatterns.push(`/content/profile/${lang}.json`);
+    blockedPatterns.push(`/profile/${lang}.json`);
+    blockedPatterns.push(`/${lang}.json`);
+  });
+
+  // Check for exact blocked paths
+  for (const pattern of blockedPatterns) {
+    if (normalizedPath === pattern || normalizedPath.includes(pattern)) {
       return new Response('Not Found', { status: 404 });
     }
   }
@@ -83,62 +141,28 @@ export function onRequest({ request, url, locals }, next) {
     return next();
   }
   
-  // For language paths, check if the path after the language code is allowed
-  if (isLanguagePath) {
-    const pathWithoutLang = '/' + pathSegments.slice(1).join('/');
-    
-    // If it's just a language prefix with nothing after it, allow it (e.g., /en, /pt)
-    if (pathWithoutLang === '/') {
-      return next();
+  // For non-language paths, check if the path is in the allowed list
+  const isAllowedPath = allowedPaths.some(path => {
+    // Exact match
+    if (normalizedPath === path) {
+      return true;
     }
     
-    // Check if the path without language is in the allowed paths
-    const isAllowedPath = allowedPaths.some(path => {
-      // Exact match
-      if (pathWithoutLang === path) {
-        return true;
-      }
-      
-      // Blog post paths (allow any path under /blog/)
-      if (path.includes('/blog') && pathWithoutLang.includes('/blog/')) {
-        return true;
-      }
-      
-      // Check for nested paths under allowed main sections
-      if (path !== '/' && pathWithoutLang.startsWith(path + '/')) {
-        return true;
-      }
-      
-      return false;
-    });
-    
-    if (isAllowedPath) {
-      return next();
+    // Blog post paths (allow any path under /blog/)
+    if (path.includes('/blog') && normalizedPath.includes('/blog/')) {
+      return true;
     }
-  } else {
-    // For non-language paths, check if the path is in the allowed list
-    const isAllowedPath = allowedPaths.some(path => {
-      // Exact match
-      if (normalizedPath === path) {
-        return true;
-      }
-      
-      // Blog post paths (allow any path under /blog/)
-      if (path.includes('/blog') && normalizedPath.includes('/blog/')) {
-        return true;
-      }
-      
-      // Check for nested paths under allowed main sections
-      if (path !== '/' && normalizedPath.startsWith(path + '/')) {
-        return true;
-      }
-      
-      return false;
-    });
     
-    if (isAllowedPath) {
-      return next();
+    // Check for nested paths under allowed main sections
+    if (path !== '/' && normalizedPath.startsWith(path + '/')) {
+      return true;
     }
+    
+    return false;
+  });
+  
+  if (isAllowedPath) {
+    return next();
   }
   
   // For disallowed paths, return 404

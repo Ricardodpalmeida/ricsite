@@ -1,13 +1,4 @@
 import { defineCollection, z } from 'astro:content';
-import { languages } from '../i18n/utils';
-
-// Create a dynamic language type based on available languages
-const languageType = z.string().refine(
-  (lang) => Object.keys(languages).includes(lang),
-  {
-    message: 'Language must be one of the supported languages',
-  }
-);
 
 // Define the blog collection schema
 const blogCollection = defineCollection({
@@ -20,7 +11,7 @@ const blogCollection = defineCollection({
     heroImage: z.string().optional(),
     tags: z.array(z.string()).optional(),
     authors: z.array(z.string()).optional(),
-    language: languageType,
+    language: z.string(), // Any language code is acceptable
     // UUID used to link translations of the same content
     translationKey: z.string().uuid(),
     // Optional draft flag
@@ -32,7 +23,7 @@ const blogCollection = defineCollection({
 const profileCollection = defineCollection({
   type: 'data', // Use data collection for JSON
   schema: z.object({
-    language: languageType,
+    language: z.string(), // Any language code is acceptable
     personal: z.object({
       name: z.string().optional(),
       title: z.string().optional(),
@@ -108,6 +99,8 @@ const profileCollection = defineCollection({
         })).optional(),
       }).optional(),
     }).optional(),
+    // UI Translations section for all interface text
+    ui: z.record(z.string()).optional(),
   }),
 });
 
