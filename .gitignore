@@ -70,3 +70,15 @@ notes.txt
 src/content/profile/data.json
 public/profile-data.json
 **/data.json
+
+# Folder descriptions added by AI assistant
+# **/_about_this_folder.txt # Remove or comment out the old pattern
+public/images/images.txt
+public/icons/icons.txt
+src/assets/assets.txt
+src/components/components.txt
+src/content/content.txt
+src/i18n/i18n.txt
+src/layouts/layouts.txt
+src/pages/pages.txt
+src/styles/styles.txt
