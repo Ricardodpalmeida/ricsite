@@ -205,7 +205,7 @@ const jsonLdData = {
             <ul>
               <li><a href={`/${validLang}/`} class={Astro.url.pathname === `/${validLang}/` || Astro.url.pathname === `/${validLang}` ? 'active' : ''}>{t('nav.home')}</a></li>
               <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
-              <li><a href={`/${validLang}/blog`} class={Astro.url.pathname.startsWith(`/${validLang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+              <li><a href="#" class="disabled">{t('nav.blog')}</a></li>
             </ul>
           </div>
         </nav>

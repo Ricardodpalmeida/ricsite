@@ -205,6 +205,32 @@ a:focus-visible {
   pointer-events: auto;
 }
 
+.main-nav a.disabled {
+  color: var(--color-gray-400);
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.7;
+  position: relative;
+}
+
+.main-nav a.disabled::before {
+  content: "Coming Soon";
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.6rem;
+  background-color: var(--color-gray-800);
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.main-nav a.disabled:hover::before {
+  opacity: 1;
+}
+
 .main-nav a.active {
   color: var(--color-cosmic-latte);
   pointer-events: auto;

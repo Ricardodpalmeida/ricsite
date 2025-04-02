@@ -130,10 +130,6 @@
         "description": "使用Microsoft SharePoint进行协作和内容管理的经验。"
       },
       {
-        "name": "C#",
-        "description": "使用C#编程语言的经验。"
-      },
-      {
         "name": "Git",
         "description": "使用版本控制跟踪代码更改、与团队协作和高效管理源代码存储库。"
       }
@@ -444,4 +440,3 @@
     "profile.verifyCertificate": "验证证书"
   }
   }
-  
