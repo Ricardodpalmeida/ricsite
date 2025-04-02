@@ -7,15 +7,15 @@
  */
 import { getLangFromUrl, useTranslations, getLocalizedUrl } from '../i18n/utils';
 
-const { title, description, image, canonical, hideLangSelector = false, currentLanguage } = Astro.props;
+const { title, description, image, canonical, hideLangSelector = false, currentLanguage, alternateLanguageUrl } = Astro.props;
 
 // Get language and translations
 const lang = currentLanguage || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 // Default meta values
-const defaultTitle = "Ricardo Almeida | Data & AI Manager | Cloud Solution Architect";
-const defaultDescription = "Data & AI Manager at PwC Portugal specializing in AI solutions, Cloud Architecture, Microsoft Power Platform, and RAG implementations. Certified Azure and Power Platform solution architect.";
+const defaultTitle = "Ricardo Almeida | Data & AI Manager";
+const defaultDescription = "Data & AI Manager at PwC Portugal specializing in AI solutions, Cloud Architecture, Microsoft Power Platform, and RAG implementations.";
 const defaultImage = "/images/profile-cover.jpg";
 const siteUrl = "https://me.ricbits.cc";
 
@@ -37,7 +37,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     <meta name="title" content={title || defaultTitle} />
     <meta name="description" content={description || defaultDescription} />
     <meta name="author" content="Ricardo Almeida" />
-    <meta name="keywords" content="AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture, Data & AI Manager, Cloud Solution Architect, Power BI, Data Science, Low-code Development" />
+    <meta name="keywords" content="AI Solutions Architecture, RAG, LLM Integration, Microsoft Power Platform, Azure Cloud Architecture, Data & AI Manager, Power BI, Data Science, Low-code Development" />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical || siteUrl} />
@@ -80,14 +80,14 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
     {lang === 'en' && (
       <link 
         rel="prefetch" 
-        href={getLocalizedUrl(Astro.url, 'pt')}
+        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, 'pt')}
         as="document"
       />
     )}
     {lang === 'pt' && (
       <link 
         rel="prefetch" 
-        href={getLocalizedUrl(Astro.url, 'en')}
+        href={alternateLanguageUrl || getLocalizedUrl(Astro.url, 'en')}
         as="document"
       />
     )}
@@ -131,7 +131,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         "@type": "Person",
         "name": "Ricardo Almeida",
         "url": "https://me.ricbits.cc",
-        "jobTitle": "Manager, Data & AI | Cloud Solution Architect",
+        "jobTitle": "Manager, Data & AI",
         "worksFor": {
           "@type": "Organization",
           "name": "PwC Portugal"
@@ -151,7 +151,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
         {!hideLangSelector && (
           <div class="language-selector">
             <a 
-              href={getLocalizedUrl(Astro.url, 'pt')} 
+              href={lang === 'en' && alternateLanguageUrl ? alternateLanguageUrl : getLocalizedUrl(Astro.url, 'pt')} 
               class={`language-btn ${lang === 'pt' ? 'active' : ''}`}
               aria-label="Mudar para Português"
               data-lang-link="pt"
@@ -160,7 +160,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
             </a>
             <span class="language-separator">/</span>
             <a 
-              href={getLocalizedUrl(Astro.url, 'en')} 
+              href={lang === 'pt' && alternateLanguageUrl ? alternateLanguageUrl : getLocalizedUrl(Astro.url, 'en')} 
               class={`language-btn ${lang === 'en' ? 'active' : ''}`}
               aria-label="Switch to English"
               data-lang-link="en"

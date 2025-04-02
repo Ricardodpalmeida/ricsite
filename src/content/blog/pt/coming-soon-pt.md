@@ -6,9 +6,8 @@ author: "Ricardo Almeida"
 language: "pt"
 heroImage: "/images/blog/coming-soon.jpg"
 tags: ["novidades", "blog"]
+guid: "d23b0612-8cf7-4b0a-a126-8e73b9a20a05"
 ---
-
-# Blog em Breve
 
 Obrigado por visitar o meu blog. Estou atualmente a trabalhar na criação de conteúdo de valor que partilharei aqui em breve.
 

@@ -7,10 +7,10 @@
 import MainLayout from './MainLayout.astro';
 import { getLangFromUrl } from '../i18n/utils';
 import type { CollectionEntry } from 'astro:content'; // Import type for safety
+import { getCollection } from 'astro:content';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
-// const t = useTranslations(lang); // Removing unused variable
 
 // Access the entire post object from props
 const { post } = Astro.props as { post: CollectionEntry<"blog"> };
@@ -22,11 +22,15 @@ const postData = post?.data; // Use optional chaining here too
 const title = postData?.title ?? 'Untitled Post';
 const description = postData?.description ?? '';
 const heroImage = postData?.heroImage;
+// Fix hero image path to ensure it works
+const absoluteHeroImage = heroImage 
+  ? (heroImage.startsWith('http') ? heroImage : new URL(heroImage, Astro.url).href)
+  : undefined;
+console.log('Hero image path:', absoluteHeroImage); // Debug log
+const postGuid = postData?.guid || '';
 
-// Author details - could be moved to a central configuration if needed
-const authorName = "Ricardo Almeida";
-const authorPhoto = "/images/profile-photo.jpg"; // Using the same image from profile
-const authorRole = lang === "en" ? "Manager, Data & AI | Cloud Solution Architect" : "Manager, Data & AI | Arquiteto de Soluções Cloud";
+// Simplified author details - just name
+const authorName = "Ricardo";
 
 // Calculate read time
 function getReadingTime(content: string, wordsPerMinute = 200): number {
@@ -46,10 +50,12 @@ const readingTimeText = lang === 'en'
 let pubDate: Date | undefined = undefined;
 let formattedDate: string = 'Date not available';
 let pubDateISO: string | undefined = undefined;
+let formattedDisplayDate: string = '';
 
 if (postData?.pubDate && postData.pubDate instanceof Date) {
   pubDate = postData.pubDate;
   try {
+    // Format for display in the body (localized)
     formattedDate = new Date(pubDate).toLocaleDateString(
       lang === 'en' ? 'en-US' : 'pt-PT', 
       { 
@@ -58,6 +64,10 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
         day: 'numeric' 
       }
     );
+    
+    // Format for the "Posted by" section (yyyy-mm-dd)
+    formattedDisplayDate = pubDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+    
     pubDateISO = pubDate.toISOString();
   } catch (e) {
     console.error(`Error formatting date for post slug ${post?.slug}:`, e);
@@ -70,54 +80,97 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
   console.warn(`[BlogPostLayout] pubDate exists for slug ${post?.slug} but is not a Date object:`, postData.pubDate);
 }
 // === End Stricter Date Check ===
+
+// Find the corresponding post in the other language using the guid
+const otherLang = lang === 'en' ? 'pt' : 'en';
+let alternateLanguageUrl: string | undefined = undefined;
+
+if (postGuid) {
+  try {
+    const allBlogPosts = await getCollection('blog');
+    const matchingPost = allBlogPosts.find(p => 
+      p.data.guid === postGuid && 
+      p.data.language === otherLang
+    );
+    
+    if (matchingPost) {
+      // Use the guid directly in the URL for proper language switching
+      alternateLanguageUrl = `/${otherLang}/blog/${postGuid}/`;
+    }
+  } catch (error) {
+    console.error('Error finding matching post:', error);
+  }
+}
+
+// Prepare structured data for the blog post
+const structuredDataBlogPost = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": absoluteHeroImage,
+  "datePublished": pubDateISO,
+  "author": {
+    "@type": "Person",
+    "name": authorName
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": authorName
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.href
+  },
+  "inLanguage": lang
+};
+
+// Create absolute URL for sharing
+const absoluteUrl = `${Astro.url.origin}${Astro.url.pathname}`;
 ---
 
 <MainLayout 
   title={`${title} | Ricardo Almeida`}
   description={description}
-  image={heroImage}
+  image={absoluteHeroImage}
   currentLanguage={lang}
+  alternateLanguageUrl={alternateLanguageUrl}
 >
+  <script is:inline type="application/ld+json">
+    {JSON.stringify(structuredDataBlogPost)}
+  </script>
+  
   <main class="blog-post-container">
     <article class="blog-post">
+      <div class="post-meta">
+        <div class="post-author-date">
+          {lang === 'en' ? 'Posted by ' : 'Publicado por '}
+          <span class="author-name">{authorName}</span>
+          {pubDate && (
+            <span class="post-date">
+              , {formattedDisplayDate}
+            </span>
+          )}
+        </div>
+      </div>
+      
+      <div class="post-header">
+        <h1 class="post-title">{title}</h1>
+        <div class="reading-time">{readingTimeText}</div>
+      </div>
+      
       {heroImage && (
         <div class="post-hero-image">
           <img 
-            src={heroImage} 
+            src={absoluteHeroImage} 
             alt={`Cover image for ${title}`}
-            width="800"
-            height="400"
+            width="100%"
+            height="auto"
+            loading="eager"
+            style="display: block; max-width: 100%;"
           />
         </div>
       )}
-      
-      <h1 class="post-title">{title}</h1>
-      
-      <div class="post-meta">
-        {pubDate && (
-          <time class="post-date" datetime={pubDateISO}>
-            {formattedDate}
-          </time>
-        )}
-        <span class="meta-separator">·</span>
-        <span class="reading-time">{readingTimeText}</span>
-      </div>
-      
-      <!-- Author Section -->
-      <div class="author-section">
-        <div class="author-photo">
-          <img 
-            src={authorPhoto} 
-            alt={authorName}
-            width="50"
-            height="50"
-          />
-        </div>
-        <div class="author-info">
-          <p class="author-name">{authorName}</p>
-          <p class="author-role">{authorRole}</p>
-        </div>
-      </div>
       
       <div class="post-content">
         <slot />
@@ -132,19 +185,22 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
           <div class="social-share">
             <p class="share-text">{lang === 'en' ? 'Share this post:' : 'Partilhar este artigo:'}</p>
             <div class="share-buttons">
+              <!-- X/Twitter Share Button -->
               <a 
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(Astro.url.href)}`} 
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(absoluteUrl)}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="share-button twitter"
-                aria-label={lang === 'en' ? 'Share on Twitter' : 'Partilhar no Twitter'}
+                aria-label={lang === 'en' ? 'Share on X' : 'Partilhar no X'}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
                 </svg>
               </a>
+              
+              <!-- LinkedIn Share Button -->
               <a 
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(Astro.url.href)}`} 
+                href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(absoluteUrl)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="share-button linkedin"
@@ -156,8 +212,10 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
                   <circle cx="4" cy="4" r="2"></circle>
                 </svg>
               </a>
+              
+              <!-- Facebook Share Button -->
               <a 
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`} 
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(absoluteUrl)}&quote=${encodeURIComponent(title)}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="share-button facebook"
@@ -193,75 +251,73 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
   
   .post-hero-image {
     width: 100%;
-    max-height: 400px;
+    max-height: 80px; /* Reduced to 1/5 of original height */
     overflow: hidden;
+    display: block;
+    position: relative;
+    text-align: center;
+    background-color: rgba(20, 20, 20, 0.5);
+    margin: 0 0 1.5rem 0;
   }
   
   .post-hero-image img {
     width: 100%;
     height: auto;
     object-fit: cover;
-  }
-  
-  .post-title {
-    font-size: var(--font-size-2xl);
-    margin: 2rem 0 1rem;
-    padding: 0 2rem;
-    font-family: var(--font-family-title);
+    display: block;
+    margin: 0 auto;
+    max-height: 80px;
   }
   
   .post-meta {
-    padding: 0 2rem;
+    padding: 2rem 2rem 0;
     margin-bottom: 1rem;
     color: var(--color-gray-600);
     font-size: var(--font-size-sm);
     font-family: var(--font-family-base);
+  }
+  
+  .post-author-date {
     display: flex;
     align-items: center;
-  }
-  
-  .meta-separator {
-    margin: 0 0.5rem;
-  }
-  
-  /* Author Section Styles */
-  .author-section {
-    display: flex;
-    align-items: center;
-    padding: 0 2rem 1.5rem;
-    border-bottom: 1px solid var(--color-gray-200);
-    margin-bottom: 1.5rem;
-  }
-  
-  .author-photo {
-    margin-right: 1rem;
-  }
-  
-  .author-photo img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--color-cosmic-latte);
-  }
-  
-  .author-info {
-    flex: 1;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    justify-content: center;
   }
   
   .author-name {
-    font-family: var(--font-family-title);
     font-weight: var(--font-weight-medium);
-    margin: 0;
-    line-height: 1.2;
-    color: var(--color-white);
+    color: var(--color-cosmic-latte);
   }
   
-  .author-role {
-    font-size: var(--font-size-sm);
+  .post-date {
+    color: var(--color-gray-400);
+    font-weight: var(--font-weight-normal);
+  }
+  
+  .post-header {
+    position: relative;
+    margin: 0.5rem 0 1.5rem;
+    padding: 0 2rem;
+    text-align: center;
+  }
+  
+  .post-title {
+    font-size: var(--font-size-2xl);
+    font-family: var(--font-family-title);
+    margin: 0 auto 0.5rem;
+    padding: 0;
+    text-align: center;
+    max-width: 90%;
+  }
+  
+  .reading-time {
     color: var(--color-gray-600);
-    margin: 0;
-    line-height: 1.4;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-family-base);
+    text-align: center;
+    display: block;
+    width: 100%;
   }
   
   .post-content {
@@ -272,13 +328,13 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
   
   .post-content :global(h2) {
     font-size: var(--font-size-xl);
-    margin: 2rem 0 1rem;
+    margin: 2.5rem 0 1rem;
     font-family: var(--font-family-title);
   }
   
   .post-content :global(h3) {
     font-size: var(--font-size-lg);
-    margin: 1.5rem 0 1rem;
+    margin: 2rem 0 1rem;
     font-family: var(--font-family-title);
   }
   
@@ -290,7 +346,8 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
     max-width: 100%;
     height: auto;
     border-radius: 4px;
-    margin: 1.5rem 0;
+    margin: 1.5rem auto;
+    display: block;
   }
   
   .post-content :global(blockquote) {
@@ -299,6 +356,15 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
     margin-left: 0;
     font-style: italic;
     color: var(--color-gray-600);
+    margin: 2rem 0;
+  }
+  
+  .post-content :global(ul), .post-content :global(ol) {
+    margin: 1.5rem 0 1.5rem 1.5rem;
+  }
+  
+  .post-content :global(li) {
+    margin-bottom: 0.5rem;
   }
   
   .post-content :global(pre) {
@@ -388,18 +454,18 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
   }
   
   @media (max-width: 768px) {
+    .post-header {
+      margin-top: 0.5rem;
+      padding: 0 1.5rem;
+    }
+    
     .post-title {
       font-size: var(--font-size-xl);
-      padding: 0 1.5rem;
-      margin-top: 1.5rem;
+      max-width: 100%;
     }
     
     .post-meta {
-      padding: 0 1.5rem;
-    }
-    
-    .author-section {
-      padding: 0 1.5rem 1.5rem;
+      padding: 1.5rem 1.5rem 0;
     }
     
     .post-content {
@@ -412,12 +478,12 @@ if (postData?.pubDate && postData.pubDate instanceof Date) {
     
     .post-footer-content {
       flex-direction: column;
-      align-items: flex-start;
+      align-items: center;
     }
     
     .social-share {
       width: 100%;
-      justify-content: space-between;
+      justify-content: center;
     }
   }
 </style> 

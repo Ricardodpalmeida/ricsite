@@ -6,6 +6,7 @@
  */
 import MainLayout from '../../layouts/MainLayout.astro';
 import Profile from '../../components/Profile.jsx';
+import PageHeader from '../../components/PageHeader.astro';
 import { getCollection } from 'astro:content';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
@@ -24,28 +25,43 @@ const profileInfo = profileData.length > 0 ? profileData[0].data : null;
   currentLanguage={lang}
 >
   <main class="about-container">
-    <h1 class="about-title">{t('about.title')} <span class="highlight">{t('about.me')}</span></h1>
-    <Profile client:load profileData={profileInfo} currentLanguage={lang} />
+    <PageHeader profileData={profileInfo} currentLanguage={lang}>
+      {Array.isArray(profileInfo?.about?.en) && 
+        profileInfo?.about?.en.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))
+      }
+    </PageHeader>
+    <Profile client:load profileData={profileInfo} currentLanguage={lang} hideHeader={true} />
   </main>
 </MainLayout>
 
 <style>
   .about-container {
-    padding: 2rem 0;
-    min-height: calc(100vh - 150px); /* Ensure footer is at the bottom */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 0;
+    min-height: calc(100vh - 150px);
     animation: fadeIn 0.5s ease-out;
   }
   
-  .about-title {
-    font-size: var(--font-size-3xl);
-    text-align: center;
-    margin-bottom: 2rem;
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 4rem 1.5rem;
+    }
   }
   
-  @media (max-width: 768px) {
-    .about-title {
-      font-size: var(--font-size-2xl);
-      margin-bottom: 1.5rem;
+  @media (max-width: 480px) {
+    .about-container {
+      padding: 4rem 1.25rem;
     }
+  }
+
+  :global(.profile-section.no-title) {
+    margin-top: 0;
+  }
+
+  :global(.profile-about-container) {
+    text-align: center;
   }
 </style> 

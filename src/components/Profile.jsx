@@ -11,9 +11,10 @@ import '../styles/profile.css';
  * @param {Object} props - Component props
  * @param {Object} props.profileData - The profile data object from content collection
  * @param {string} props.currentLanguage - The current language (en or pt)
+ * @param {boolean} props.hideHeader - Whether to hide the header section (optional)
  * @returns {JSX.Element} The Profile component
  */
-function Profile({ profileData, currentLanguage = 'en' }) {
+function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
   const [language, setLanguage] = useState(currentLanguage);
   
   // Initialize touch tooltip functionality
@@ -152,73 +153,77 @@ function Profile({ profileData, currentLanguage = 'en' }) {
   return (
     <div className="profile-container">
       {/* Header Section - Personal Info */}
-      <header className="profile-header">
-        <div className="profile-intro">
-          <div className="profile-image">
-            <img src="/images/profile.png" alt="Ricardo Almeida" className="rounded-profile-image" />
+      {!hideHeader && (
+        <header className="profile-header">
+          <div className="profile-intro">
+            <div className="profile-image">
+              <img src="/images/profile.png" alt="Ricardo Almeida" className="rounded-profile-image" />
+            </div>
+            <h1 className="profile-name">
+              {isMultilingual 
+                ? safeGet(profileData, `personal.${language}.name`) || safeGet(profileData, 'personal.en.name', 'Ricardo Almeida')
+                : safeGet(profileData, 'personal.name', 'Ricardo Almeida')
+              }
+            </h1>
+            <h2 className="profile-title highlight">
+              {isMultilingual 
+                ? safeGet(profileData, `personal.${language}.title`) || safeGet(profileData, 'personal.en.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI')
+                : safeGet(profileData, 'personal.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI')
+              }
+            </h2>
+            {/* Hide location since it's always Lisbon, Portugal */}
+            {/* <p className="profile-location">
+              <span aria-label="Location" role="img" aria-hidden="true">📍</span>
+              {isMultilingual 
+                ? safeGet(profileData, `personal.${language}.location`) || safeGet(profileData, 'personal.en.location', 'Lisbon, Portugal')
+                : safeGet(profileData, 'personal.location', 'Lisbon, Portugal')
+              }
+            </p> */}
+            <div className="profile-links">
+              <a 
+                href={`https://${safeGet(profileData, 'personal.profileUrl', 'www.linkedin.com/in/ricardodpa')}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="profile-social-link"
+                aria-label="LinkedIn profile"
+              >
+                <img src="/icons/linkedin.svg" alt="LinkedIn" className="social-icon" width="16" height="16" />
+              </a>
+              <a 
+                href="https://github.com/Ricardodpalmeida" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="profile-social-link"
+                aria-label="GitHub profile"
+              >
+                <img src="/icons/github.svg" alt="GitHub" className="social-icon" width="16" height="16" />
+              </a>
+            </div>
           </div>
-          <h1 className="profile-name">
-            {isMultilingual 
-              ? safeGet(profileData, `personal.${language}.name`) || safeGet(profileData, 'personal.en.name', 'Ricardo Almeida')
-              : safeGet(profileData, 'personal.name', 'Ricardo Almeida')
-            }
-          </h1>
-          <h2 className="profile-title highlight">
-            {isMultilingual 
-              ? safeGet(profileData, `personal.${language}.title`) || safeGet(profileData, 'personal.en.title', 'Data & AI Manager | Cloud Solution Architect')
-              : safeGet(profileData, 'personal.title', 'Data & AI Manager | Cloud Solution Architect')
-            }
-          </h2>
-          {/* Hide location since it's always Lisbon, Portugal */}
-          {/* <p className="profile-location">
-            <span aria-label="Location" role="img" aria-hidden="true">📍</span>
-            {isMultilingual 
-              ? safeGet(profileData, `personal.${language}.location`) || safeGet(profileData, 'personal.en.location', 'Lisbon, Portugal')
-              : safeGet(profileData, 'personal.location', 'Lisbon, Portugal')
-            }
-          </p> */}
-          <div className="profile-links">
-            <a 
-              href={`https://${safeGet(profileData, 'personal.profileUrl', 'www.linkedin.com/in/ricardodpa')}`} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="profile-social-link"
-              aria-label="LinkedIn profile"
-            >
-              <img src="/icons/linkedin.svg" alt="LinkedIn" className="social-icon" width="16" height="16" />
-            </a>
-            <a 
-              href="https://github.com/Ricardodpalmeida" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="profile-social-link"
-              aria-label="GitHub profile"
-            >
-              <img src="/icons/github.svg" alt="GitHub" className="social-icon" width="16" height="16" />
-            </a>
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
       
-      {/* About Section */}
-      <section className="profile-section no-title" aria-labelledby="about-content">
-        <div className="profile-about-container">
-          {/* Dynamically render paragraphs from the data */}
-          {Array.isArray(getText(profileData.about)) ? (
-            // If about is an array, render each item as a paragraph
-            getText(profileData.about).map((paragraph, index) => (
-              <p key={index} className="profile-about about-paragraph no-hover">{paragraph}</p>
-            ))
-          ) : (
-            // Fallback to original behavior for backward compatibility
-            getText(profileData.about)
-              .split('\n\n')
-              .map((paragraph, index) => (
-                <p key={index} className="profile-about about-paragraph no-hover">{paragraph.trim()}</p>
+      {/* About Section - Only show when not hiding header */}
+      {!hideHeader && (
+        <section className="profile-section no-title" aria-labelledby="about-content">
+          <div className="profile-about-container">
+            {/* Dynamically render paragraphs from the data */}
+            {Array.isArray(getText(profileData.about)) ? (
+              // If about is an array, render each item as a paragraph
+              getText(profileData.about).map((paragraph, index) => (
+                <p key={index} className="profile-about about-paragraph no-hover">{paragraph}</p>
               ))
-          )}
-        </div>
-      </section>
+            ) : (
+              // Fallback to original behavior for backward compatibility
+              getText(profileData.about)
+                .split('\n\n')
+                .map((paragraph, index) => (
+                  <p key={index} className="profile-about about-paragraph no-hover">{paragraph.trim()}</p>
+                ))
+            )}
+          </div>
+        </section>
+      )}
       
       {/* Skills and Technologies Section */}
       {((profileData.skills && profileData.skills.length > 0) || 

@@ -17,8 +17,8 @@ export async function GET() {
       title: post.data.title,
       pubDate: post.data.pubDate,
       description: post.data.description,
-      // Construct the link for Portuguese posts
-      link: `/pt/blog/${post.slug}/`,
+      // Use guid-based URLs when available
+      link: post.data.guid ? `/pt/blog/${post.data.guid}/` : `/pt/blog/${post.slug}/`,
       // Optional: Include full rendered content (requires sanitizeHtml and a Markdown parser)
       // content: sanitizeHtml(parser.render(post.body)),
       customData: `<language>pt-pt</language>` // Specify language

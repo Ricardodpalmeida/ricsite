@@ -2,12 +2,13 @@
 /**
  * Home Page - Portuguese
  * 
- * The main landing page for the personal website in Portuguese.
+ * The main landing page for the personal website.
  * Features a brief introduction and contact CTA.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import SideProjects from '../../components/SideProjects.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import { getCollection } from 'astro:content';
 
 // Get current language and translations
@@ -28,60 +29,26 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
   currentLanguage={lang}
 >
   <main class="home-container">
-    <section class="hero-section">
-      <div class="hero-content">
-        <div class="profile-circle">
-          <img 
-            src="/images/profile.png" 
-            alt="Ricardo Almeida" 
-            class="profile-image"
-            loading="eager"
-          />
-        </div>
-        <h1 class="hero-title">{t('hero.greeting')} <span class="highlight name-tooltip">Ricardo<span class="tooltip-text">{profileInfo?.tooltips?.pt?.name || "O meu nome está destacado em Cosmic Latte (#FFF8E7), a cor média do universo de acordo com astrónomos que analisaram a luz de 200.000 galáxias"}</span></span></h1>
-        <p class="hero-subtitle">{t('hero.jobTitle')}</p>
-        <div class="hero-social-links">
-          <a 
-            href={profileInfo?.personal?.pt?.profileUrl || "https://www.linkedin.com/in/ricardodpa"} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="hero-social-link"
-            aria-label="Perfil do LinkedIn"
-          >
-            <img src="/icons/linkedin.svg" alt="LinkedIn" class="social-icon" width="16" height="16" />
-          </a>
-          <a 
-            href="https://github.com/Ricardodpalmeida" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            class="hero-social-link"
-            aria-label="Perfil do GitHub"
-          >
-            <img src="/icons/github.svg" alt="GitHub" class="social-icon" width="16" height="16" />
-          </a>
-        </div>
-        <div class="hero-description">
-          {profileInfo?.hero?.pt?.map((paragraph: string) => (
-            <p>{paragraph}</p>
-          ))}
-        </div>
-        <!-- Hidden elements for contact -->
-        <div class="contact-reveal-container">
-          <p id="home-contact-email" class="contact-email hidden">{import.meta.env.PUBLIC_CONTACT_EMAIL || 'contact@example.com'}</p>
-          <p id="home-recaptcha-terms" class="recaptcha-terms hidden">
-            {t('contact.recaptcha.prefix')}
-            {' '}
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
-              {t('contact.recaptcha.privacy')}
-            </a>{' & '}
-            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
-              {t('contact.recaptcha.terms')}
-            </a>{' '}
-            {t('contact.recaptcha.suffix')}
-          </p>
-        </div>
-      </div>
-    </section>
+    <PageHeader profileData={profileInfo} currentLanguage={lang}>
+      {profileInfo?.hero?.pt && profileInfo.hero.pt.map((paragraph: string) => (
+        <p>{paragraph}</p>
+      ))}
+    </PageHeader>
+
+    <div class="contact-reveal-container">
+      <p id="home-contact-email" class="contact-email hidden">{import.meta.env.PUBLIC_CONTACT_EMAIL || 'contact@example.com'}</p>
+      <p id="home-recaptcha-terms" class="recaptcha-terms hidden">
+        {t('contact.recaptcha.prefix')}
+        {' '}
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+          {t('contact.recaptcha.privacy')}
+        </a>{' & '}
+        <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">
+          {t('contact.recaptcha.terms')}
+        </a>{' '}
+        {t('contact.recaptcha.suffix')}
+      </p>
+    </div>
 
     <SideProjects />
   </main>
@@ -137,7 +104,7 @@ const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
   
   .hero-subtitle {
     text-align: center;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     color: var(--color-cosmic-latte);
     margin-bottom: 1.5rem;
     font-weight: var(--font-weight-medium);
