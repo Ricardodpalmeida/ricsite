@@ -1,0 +1,141 @@
+/* Card Component Styles */
+
+.card {
+  background: var(--color-gray-900);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.certification-card {
+  border-left: 3px solid var(--color-cosmic-latte);
+}
+
+.card-content {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+  
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.certification-card:hover {
+  border-color: var(--color-cosmic-latte);
+}
+
+.card-header {
+  margin-bottom: 1.25rem;
+}
+
+.title-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+  
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-cosmic-latte);
+  font-family: var(--font-family-title);
+  margin: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.card-subtitle {
+  font-size: 1rem;
+  color: var(--color-white);
+  margin: 0.25rem 0 0 0;
+  opacity: 0.9;
+}
+
+.card-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.metadata-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--color-gray-400);
+  font-size: 0.85rem;
+}
+
+.card-date, .card-credential {
+  display: inline-block;
+}
+
+.card-status {
+  display: inline-block;
+  background-color: rgba(255, 248, 231, 0.15);
+  color: var(--color-cosmic-latte);
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: fit-content;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+  
+.card-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-white);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  background-color: rgba(255, 248, 231, 0.05);
+}
+
+.icon-container:hover {
+  background-color: rgba(255, 248, 231, 0.2);
+}
+
+.icon-newtab {
+  width: 18px;
+  height: 18px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.card-link:hover .icon-newtab {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .card-description {
+    font-size: 0.9rem;
+  }
+} 

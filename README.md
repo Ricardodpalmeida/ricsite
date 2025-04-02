@@ -83,22 +83,6 @@ The site content can be easily updated by modifying the `src/content/profile/dat
 - Skills
 - Languages
 
-## 🔒 reCAPTCHA Setup
-
-The site uses Google reCAPTCHA v3 to protect the contact email from bots:
-
-1. Register your site at [Google reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin)
-2. Choose reCAPTCHA v3
-3. Add your domain(s) to the list of allowed domains
-4. Get the Site Key
-5. Add the Site Key to the `.env` file:
-   ```
-   PUBLIC_RECAPTCHA_SITE_KEY=your_recaptcha_site_key
-   ```
-6. The site will automatically handle the reCAPTCHA integration when a key is provided
-
-> **Note:** If no reCAPTCHA key is provided, the site will still function, but the contact email will be shown directly without verification.
-
 ## 🛠️ Git Workflow
 
 The recommended Git workflow for this project is:

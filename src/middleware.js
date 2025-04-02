@@ -8,11 +8,13 @@ let cachedLanguages = null;
 function getAvailableLanguages() {
   // Return cached languages if already determined
   if (cachedLanguages) {
+    console.log('Middleware - Using cached languages:', cachedLanguages);
     return cachedLanguages;
   }
 
   try {
     const profileDir = path.resolve('./src/content/profile');
+    console.log('Middleware - Looking for profile files in:', profileDir);
     
     // Check if directory exists
     if (!fs.existsSync(profileDir)) {
@@ -22,13 +24,27 @@ function getAvailableLanguages() {
     }
     
     // Read directory and filter for JSON files
-    const files = fs.readdirSync(profileDir)
+    const allFiles = fs.readdirSync(profileDir);
+    console.log('Middleware - All files in profile directory:', allFiles);
+    
+    const files = allFiles
       .filter(file => file.endsWith('.json'))
       .map(file => file.replace('.json', ''));
     
+    console.log('Middleware - Filtered language codes:', files);
+    
     // Ensure we have at least the default language
     if (!files.includes('en')) {
-      files.push('en');
+      files.unshift('en'); // Add at the beginning to prioritize
+      console.log('Middleware - Added missing default language (en) at the beginning');
+    } else {
+      // If 'en' exists but is not first, move it to the front
+      const enIndex = files.indexOf('en');
+      if (enIndex > 0) {
+        files.splice(enIndex, 1); // Remove 'en'
+        files.unshift('en'); // Add at beginning
+        console.log('Middleware - Moved default language (en) to the beginning of the list');
+      }
     }
     
     console.log('Middleware - Detected languages from profile files:', files);
@@ -46,21 +62,21 @@ export function onRequest({ request, url, locals }, next) {
   const normalizedPath = url.pathname.replace(/\/+/g, '/');
   
   // Debug logging for troubleshooting
-  console.log(`Middleware handling: ${normalizedPath}`);
+  console.log(`Middleware handling request for: ${normalizedPath}`);
 
   // Dynamically get supported languages
   const supportedLanguages = getAvailableLanguages();
-  console.log('Middleware - Languages:', supportedLanguages);
+  console.log('Middleware - Supported languages:', supportedLanguages);
   
   // Extract the first segment of the path to check if it's a language code
   const pathSegments = normalizedPath.split('/').filter(Boolean);
   const firstSegment = pathSegments[0];
   const isLanguagePath = supportedLanguages.includes(firstSegment);
-  console.log(`First segment: ${firstSegment}, Is language path: ${isLanguagePath}`);
+  console.log(`First segment: "${firstSegment}", Is language path: ${isLanguagePath}`);
   
   // For language paths, always allow them if the language is supported
   if (isLanguagePath) {
-    console.log(`Allowing language path: ${normalizedPath}`);
+    console.log(`Allowing supported language path: ${normalizedPath}`);
     return next();
   }
   

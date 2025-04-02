@@ -9,325 +9,205 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
+import CardComponent from '../../components/CardComponent.astro';
+import '../../styles/profile.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
 
-// Validate the lang parameter - if invalid, redirect to the default language
-if (!lang || !(lang in languages)) {
-  return Astro.redirect(`/${defaultLang}/about`);
+// Ensure languages object is available and has at least English
+const supportedLanguages = { ...languages };
+if (!('en' in supportedLanguages)) {
+  supportedLanguages['en'] = 'English';
+}
+
+// Validate the lang parameter - if invalid, redirect to English
+const validLang = lang && (lang in supportedLanguages) ? lang : 'en';
+
+// If the requested language is invalid, redirect to English about page
+if (validLang !== lang) {
+  console.log(`Invalid language '${lang}' requested, redirecting to English about page`);
+  return Astro.redirect('/en/about');
 }
 
 // Get translations for the current language
-const t = useTranslations(lang as keyof typeof languages);
+const t = useTranslations(validLang);
 
-// Load dynamic UI strings
-const uiStrings = await getUIStrings(lang as keyof typeof languages);
+// Load dynamic UI strings with error handling
+let uiStrings;
+try {
+  uiStrings = await getUIStrings(validLang);
+} catch (error) {
+  console.error(`Error loading UI strings for ${validLang}:`, error);
+  uiStrings = {}; // Fallback to empty object
+}
 
-// Get profile data from content collection for the specific language
-const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
-const profileInfo = profileCollection.length > 0 ? profileCollection[0].data : null;
+// Get profile data from content collection with error handling
+let profileInfo = null;
+let englishFallback = false;
+
+try {
+  // First try to get profile in the requested language
+  const profileCollection = await getCollection('profile', (entry) => entry.data.language === validLang);
+  profileInfo = profileCollection.length > 0 ? profileCollection[0].data : null;
+  
+  // If not found or critical sections are missing, try English as fallback
+  if (!profileInfo || 
+      !profileInfo.experience || 
+      !profileInfo.education || 
+      !profileInfo.skillDescriptions ||
+      !profileInfo.certifications) {
+    console.log(`Missing required content in ${validLang} profile, trying English fallback`);
+    
+    if (validLang !== 'en') {
+      const enProfileCollection = await getCollection('profile', (entry) => entry.data.language === 'en');
+      
+      if (enProfileCollection.length > 0) {
+        // Keep original profile data but merge in English data for missing sections
+        const enProfile = enProfileCollection[0].data;
+        
+        if (!profileInfo) {
+          profileInfo = enProfile;
+          englishFallback = true;
+        } else {
+          // Merge in English sections only where needed
+          if (!profileInfo.experience || profileInfo.experience.length === 0) {
+            profileInfo.experience = enProfile.experience;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.education || profileInfo.education.length === 0) {
+            profileInfo.education = enProfile.education;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.skillDescriptions || Object.keys(profileInfo.skillDescriptions).length === 0) {
+            profileInfo.skillDescriptions = enProfile.skillDescriptions;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.certifications || profileInfo.certifications.length === 0) {
+            profileInfo.certifications = enProfile.certifications;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.sectionDescriptions) {
+            profileInfo.sectionDescriptions = enProfile.sectionDescriptions;
+            englishFallback = true;
+          }
+        }
+      }
+    }
+  }
+} catch (error) {
+  console.error(`Error loading profile data:`, error);
+}
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
-  return Object.keys(languages).map(lang => ({ params: { lang } }));
+  const paths = [{ params: { lang: 'en' } }];
+  
+  Object.keys(languages).forEach(lang => {
+    if (lang !== 'en') {
+      paths.push({ params: { lang } });
+    }
+  });
+  
+  return paths;
 }
 ---
 
 <MainLayout
-  title={`${uiStrings['about.title']} | Ricardo Almeida`}
-  currentLanguage={lang as keyof typeof languages}
+  title={`${uiStrings['about.title'] || 'About'} | Ricardo Almeida`}
+  currentLanguage={validLang}
 >
   <main class="about-container">
-    <PageHeader profileData={profileInfo} currentLanguage={lang as keyof typeof languages}>
-      {profileInfo && profileInfo.about.map((paragraph: string) => (
-        <p>{paragraph}</p>
-      ))}
-    </PageHeader>
-
-    <section class="profile-section" id="experience">
-      <h2>{uiStrings['profile.experience']}</h2>
-      {profileInfo?.sectionDescriptions?.experience && (
-        <p class="section-intro">{profileInfo.sectionDescriptions.experience}</p>
-      )}
-      <div class="timeline-container">
-        {profileInfo && profileInfo.experience.map((job: any) => (
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3>{job.title}</h3>
-              <h4>{job.company}</h4>
-              <p class="timeline-period">{job.duration}</p>
-              {job.location && <p class="timeline-location">{job.location}</p>}
-              <p class="timeline-description">{job.description}</p>
-            </div>
-          </div>
-        ))}
+    {!profileInfo ? (
+      <div class="error-message">
+        <h2>{t('error.profileData')}</h2>
+        <p>Please try refreshing the page or switching to English.</p>
       </div>
-    </section>
+    ) : (
+      <>
+        <PageHeader profileData={profileInfo} currentLanguage={validLang}>
+          {profileInfo.about && profileInfo.about.map((paragraph: string) => (
+            <p>{paragraph}</p>
+          ))}
+        </PageHeader>
 
-    <section class="profile-section" id="education">
-      <h2>{uiStrings['profile.education']}</h2>
-      {profileInfo?.sectionDescriptions?.education && (
-        <p class="section-intro">{profileInfo.sectionDescriptions.education}</p>
-      )}
-      <div class="timeline-container">
-        {profileInfo && profileInfo.education.map((edu: any) => (
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3>{edu.school}</h3>
-              <h4>{edu.degree}</h4>
-              {edu.duration && <p class="timeline-period">{edu.duration}</p>}
-              {edu.grade && <p class="timeline-meta"><strong>{uiStrings['profile.grade']}:</strong> {edu.grade}</p>}
-              {edu.thesis && <p class="timeline-meta"><strong>{uiStrings['profile.thesis']}:</strong> {edu.thesis}</p>}
-              {edu.description && <p class="timeline-description">{edu.description}</p>}
-            </div>
+        {englishFallback && (
+          <div class="notice-message">
+            <p>Some content is displayed in English because it's not available in {validLang.toUpperCase()}.</p>
           </div>
-        ))}
-      </div>
-    </section>
+        )}
 
-    <section class="profile-section" id="skills">
-      <h2>{uiStrings['profile.skills']}</h2>
-      {profileInfo?.sectionDescriptions?.skills && (
-        <p class="section-intro">{profileInfo.sectionDescriptions.skills}</p>
-      )}
-      <div class="skills-container">
-        {profileInfo && profileInfo.skillDescriptions && Object.keys(profileInfo.skillDescriptions).map((skill: string) => (
-          <div class="skill-card">
-            <h3 class="skill-title">{skill}</h3>
-            <p class="skill-description">{profileInfo.skillDescriptions[skill]}</p>
+        <section class="profile-section" id="experience">
+          <h2>{uiStrings['profile.experience'] || 'Experience'}</h2>
+          <div class="timeline-container">
+            {profileInfo.experience && profileInfo.experience.map((job: any) => (
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <h3>{job.title}</h3>
+                  <h4>{job.company}</h4>
+                  <p class="timeline-period">{job.duration}</p>
+                  {job.location && <p class="timeline-location">{job.location}</p>}
+                  <p class="timeline-description">{job.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </section>
+        </section>
 
-    <section class="profile-section" id="certifications">
-      <h2>{uiStrings['profile.certifications']}</h2>
-      {profileInfo?.sectionDescriptions?.certifications && (
-        <p class="section-intro">{profileInfo.sectionDescriptions.certifications}</p>
-      )}
-      <div class="certification-grid">
-        {profileInfo && profileInfo.certifications.map((cert: any) => (
-          <div class="certification-card">
-            <h3>{cert.title}</h3>
-            <p class="certification-issuer">{cert.issuer}</p>
-            <p class="certification-date"><strong>{uiStrings['profile.issued']}:</strong> {cert.issueDate}</p>
-            {cert.status && <p class="certification-status">{cert.status}</p>}
-            {cert.description && <p class="certification-description">{cert.description}</p>}
-            {cert.credentialURL && (
-              <a href={cert.credentialURL} target="_blank" rel="noopener noreferrer" class="certification-link">
-                {uiStrings['profile.verifyCertificate']}
-              </a>
-            )}
+        <section class="profile-section" id="education">
+          <h2>{uiStrings['profile.education'] || 'Education'}</h2>
+          <div class="timeline-container">
+            {profileInfo.education && profileInfo.education.map((edu: any) => (
+              <div class="timeline-item">
+                <div class="timeline-content">
+                  <h3>{edu.school}</h3>
+                  <h4>{edu.degree}</h4>
+                  {edu.duration && <p class="timeline-period">{edu.duration}</p>}
+                  {edu.grade && <p class="timeline-meta"><strong>{uiStrings['profile.grade'] || 'Grade'}:</strong> {edu.grade}</p>}
+                  {edu.thesis && <p class="timeline-meta"><strong>{uiStrings['profile.thesis'] || 'Thesis'}:</strong> {edu.thesis}</p>}
+                  {edu.description && <p class="timeline-description">{edu.description}</p>}
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </section>
+        </section>
+
+        <section class="profile-section" id="skills">
+          <h2>{uiStrings['profile.skills'] || 'Skills'}</h2>
+          <div class="skills-container">
+            {profileInfo.skillDescriptions && Object.keys(profileInfo.skillDescriptions).map((skill: string) => (
+              <CardComponent
+                title={skill}
+                description={profileInfo.skillDescriptions[skill]}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section class="profile-section" id="certifications">
+          <h2>{uiStrings['profile.certifications'] || 'Certifications'}</h2>
+          <div class="certifications-container">
+            {profileInfo.certifications && profileInfo.certifications.map((cert: any) => (
+              <CardComponent
+                title={cert.title || cert.name}
+                subtitle={cert.issuer}
+                description={cert.description || ''}
+                url={cert.credentialURL || cert.url}
+                metadata={{
+                  issued: cert.issueDate || cert.issued,
+                  expires: cert.expiryDate || cert.expires,
+                  credential: cert.credential,
+                  status: cert.status
+                }}
+              />
+            ))}
+          </div>
+        </section>
+      </>
+    )}
   </main>
-</MainLayout>
-
-<style>
-  .about-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 4rem 0;
-    min-height: calc(100vh - 150px);
-    animation: fadeIn 0.5s ease-out;
-  }
-
-  /* Profile sections */
-  .profile-section {
-    margin-bottom: 4rem;
-  }
-  
-  .profile-section h2 {
-    font-size: var(--font-size-xl);
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid var(--color-gray-700);
-    padding-bottom: 0.5rem;
-    font-family: var(--font-family-title);
-  }
-
-  .section-intro {
-    margin-bottom: 2rem;
-    color: var(--color-gray-200);
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-loose);
-    font-style: italic;
-  }
-
-  /* Skills section */
-  .skills-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .skill-card {
-    padding: 1.5rem;
-    background: var(--color-gray-900);
-    border: 1px solid var(--color-gray-700);
-    border-radius: 6px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .skill-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    border-color: var(--color-cosmic-latte-10);
-  }
-  
-  .skill-title {
-    font-size: var(--font-size-base);
-    margin-bottom: 0.75rem;
-    color: var(--color-cosmic-latte);
-    font-family: var(--font-family-title);
-  }
-  
-  .skill-description {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-normal);
-  }
-
-  /* Timeline */
-  .timeline-container {
-    position: relative;
-    margin-left: 1rem;
-  }
-  
-  .timeline-item {
-    position: relative;
-    padding-left: 2rem;
-    padding-bottom: 2.5rem;
-  }
-  
-  .timeline-item:last-child {
-    padding-bottom: 0;
-  }
-  
-  .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.5rem;
-    width: 12px;
-    height: 12px;
-    background-color: var(--color-cosmic-latte);
-    border-radius: 50%;
-  }
-  
-  .timeline-item::after {
-    content: '';
-    position: absolute;
-    left: 5px;
-    top: 0.8rem;
-    width: 2px;
-    height: calc(100% - 0.5rem);
-    background-color: var(--color-gray-700);
-  }
-  
-  .timeline-item:last-child::after {
-    display: none;
-  }
-  
-  .timeline-content h3 {
-    font-size: var(--font-size-lg);
-    margin-bottom: 0.25rem;
-    font-weight: var(--font-weight-bold);
-    font-family: var(--font-family-title);
-  }
-  
-  .timeline-content h4 {
-    font-size: var(--font-size-base);
-    margin-bottom: 0.5rem;
-    color: var(--color-cosmic-latte);
-    font-weight: var(--font-weight-medium);
-  }
-  
-  .timeline-period, .timeline-location {
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-400);
-    margin-bottom: 0.5rem;
-  }
-  
-  .timeline-description {
-    margin-top: 0.75rem;
-    line-height: var(--line-height-loose);
-  }
-
-  .timeline-meta {
-    font-size: var(--font-size-sm);
-    margin-bottom: 0.25rem;
-  }
-
-  /* Certification Grid */
-  .certification-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-  
-  .certification-card {
-    background-color: var(--color-gray-900);
-    border: 1px solid var(--color-gray-700);
-    border-radius: 6px;
-    padding: 1.5rem;
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
-  }
-  
-  .certification-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    border-color: var(--color-cosmic-latte-10);
-  }
-  
-  .certification-card h3 {
-    font-size: var(--font-size-base);
-    margin-bottom: 0.5rem;
-    font-weight: var(--font-weight-bold);
-    font-family: var(--font-family-title);
-  }
-  
-  .certification-issuer {
-    color: var(--color-cosmic-latte);
-    font-size: var(--font-size-sm);
-    margin-bottom: 0.75rem;
-  }
-  
-  .certification-date, .certification-status {
-    font-size: var(--font-size-xs);
-    margin-bottom: 0.5rem;
-    color: var(--color-gray-400);
-  }
-  
-  .certification-description {
-    font-size: var(--font-size-sm);
-    margin: 0.75rem 0;
-    line-height: var(--line-height-normal);
-  }
-  
-  .certification-link {
-    display: inline-block;
-    margin-top: 0.75rem;
-    font-size: var(--font-size-xs);
-    color: var(--color-cosmic-latte);
-    text-decoration: none;
-    transition: color var(--transition-base);
-  }
-  
-  .certification-link:hover {
-    color: var(--color-white);
-    text-decoration: underline;
-  }
-
-  /* Media Queries */
-  @media (max-width: 768px) {
-    .about-container {
-      padding: 4rem 1.5rem;
-    }
-    
-    .certification-grid, .skills-container {
-      grid-template-columns: 1fr;
-    }
-  }
-</style> 
+</MainLayout> 

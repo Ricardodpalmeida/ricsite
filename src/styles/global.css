@@ -6,8 +6,8 @@
  */
 :root {
   /* Color palette */
-  --color-dark-gray: #2c2c2c;
-  --color-white: #ffffff;
+  --color-dark-gray: #222222;
+  --color-white: #eeeeee;
   --color-cosmic-latte: #fff8e7;
   --color-cosmic-latte-10: rgba(255, 248, 231, 0.1);
   --color-cosmic-latte-20: rgba(255, 248, 231, 0.2);
@@ -60,7 +60,8 @@
   --transition-slow: 0.5s ease;
 }
 
-* {
+/* Global reset */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -68,7 +69,6 @@
 
 html {
   scroll-behavior: smooth;
-  pointer-events: auto !important;
 }
 
 body {
@@ -81,6 +81,19 @@ body {
   transition: background-color var(--transition-slow);
   user-select: text; /* Changed from 'none' to 'text' to allow text selection and proper link behavior */
   pointer-events: auto !important;
+}
+
+/* Redirect page styles (merged from redirect.css) */
+body.redirect-page {
+  background-color: #2c2c2c;
+  color: #fff;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -114,8 +127,8 @@ a {
   text-decoration: none;
   transition: all var(--transition-base);
   position: relative;
-  cursor: pointer !important;
-  pointer-events: auto !important;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 a:hover, a:focus {
@@ -187,10 +200,14 @@ a:focus-visible {
   text-transform: capitalize;
   padding: var(--spacing-xs) 0;
   position: relative;
+  user-select: text;
+  cursor: pointer;
+  pointer-events: auto;
 }
 
 .main-nav a.active {
   color: var(--color-cosmic-latte);
+  pointer-events: auto;
 }
 
 .main-nav a::after {
@@ -213,42 +230,35 @@ a:focus-visible {
 /* Language Selector in Header */
 .language-selector {
   display: flex;
-  gap: 0.2rem;
-  position: absolute;
-  top: 0.8rem;
-  right: 1rem;
-  z-index: 10;
+  justify-content: flex-end;
   align-items: center;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-xs);
 }
 
 .language-btn {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  border: none;
-  color: var(--color-white);
-  padding: 0.25rem 0.2rem;
-  cursor: pointer;
+  display: inline-block;
+  padding: 2px 4px;
+  color: var(--color-gray-400);
+  transition: color var(--transition-fast);
+  text-transform: uppercase;
   font-size: 0.75rem;
-  font-weight: var(--font-weight-light);
-  transition: all var(--transition-base);
-  text-align: center;
-  text-decoration: none;
 }
 
 .language-btn:hover {
-  color: var(--color-cosmic-latte);
+  color: var(--color-white);
 }
 
 .language-btn.active {
-  color: var(--color-cosmic-latte);
-  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+  font-weight: var(--font-weight-medium);
 }
 
 .language-separator {
   color: var(--color-gray-300);
-  font-size: 0.75rem;
+  margin: 0 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 /* Footer */
@@ -256,14 +266,12 @@ footer {
   margin-top: var(--spacing-xl);
   padding: var(--spacing-lg) 0;
   border-top: 1px solid var(--color-gray-100);
-  text-align: center;
-  transition: border-color var(--transition-base);
 }
 
 .footer-text {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-600);
-  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-xs);
+  color: var(--color-gray-400);
+  text-align: center;
 }
 
 /* Animations */
@@ -365,4 +373,9 @@ footer {
     outline: 3px solid CanvasText;
     outline-offset: 3px;
   }
+}
+
+/* FormattedDate Component */
+time {
+  font-family: var(--font-family-base);
 } 

@@ -1,0 +1,441 @@
+{
+    "personal": {
+      "name": "Ricardo Almeida",
+      "title": "数据与人工智能经理 | 智能产品、自动化与生成式人工智能",
+      "location": "葡萄牙里斯本",
+      "connections": "500+",
+      "profileUrl": "www.linkedin.com/in/ricardodpa"
+    },
+    "hero": [
+      "我构建满足实际业务需求的 AI 解决方案。在普华永道葡萄牙，我领导团队，结合低代码平台和传统开发的优势，开发云端的智能产品。",
+      "当我不在设计云架构或使用 LLM 时，我可能在阅读、上装订课程、听音乐或重温《星球大战》（是的，甚至是前传）。我相信最有趣的解决方案来自于不同世界的连接。"
+    ],
+    "about": [
+      "构建有效的 AI 解决方案"
+    ],
+    "technologies": [
+      {
+        "name": "Microsoft Azure",
+        "description": "利用 Azure 云服务构建、部署和管理应用程序与基础设施。"
+      },
+      {
+        "name": "AI Foundry (Azure AI)",
+        "description": "使用 Azure 统一平台构建、评估和部署 AI 模型。"
+      },
+      {
+        "name": "Amazon Web Services (AWS)",
+        "description": "AWS 云平台概念的基础知识。"
+      },
+      {
+        "name": "Databricks",
+        "description": "利用 Databricks 平台进行数据工程、数据科学和机器学习。"
+      },
+      {
+        "name": "Microsoft Power Platform",
+        "description": "使用 Power Apps、Power Automate、Power BI 和 Dataverse 架构和开发解决方案。"
+      },
+      {
+        "name": "Power BI",
+        "description": "开发交互式报告、仪表板和数据可视化，以获取业务洞察。"
+      },
+      {
+        "name": "OpenAI API",
+        "description": "利用 OpenAI API 集成先进 AI 功能的经验。"
+      },
+      {
+      "name": "LLM Integration",
+        "description": "将大型语言模型集成到产品或业务流程中，以增强聊天机器人、助手或分析工具等功能。"
+      },
+      {
+      "name": "RAG (Retrieval-Augmented Generation)",
+        "description": "通过在生成响应前引用外部权威知识库来优化大型语言模型的输出。"
+      },
+      {
+        "name": "Fine-tuning",
+        "description": "使用特定数据集调整预训练的 AI 模型，以提高特定任务的性能。"
+      },
+      {
+      "name": "Agentic AI",
+        "description": "开发能够独立运行、做出决策并在无需直接人工干预的情况下执行任务的 AI 系统。"
+      },
+      {
+      "name": "Containers",
+        "description": "将软件及其所有必要元素打包，以便在不同环境中一致地运行。"
+      },
+      {
+        "name": "RESTful APIs",
+        "description": "设计和使用符合 REST 架构原则的应用程序编程接口，用于 Web 服务集成。"
+      },
+      {
+        "name": "SQL",
+        "description": "编写和优化用于数据库管理、数据提取和操作的查询。"
+      },
+      {
+        "name": "Python",
+        "description": "使用 Python 编程语言进行数据分析、自动化、脚本编写和 AI/ML 开发支持。"
+      },
+      {
+        "name": "Microsoft Dynamics 365",
+        "description": "了解微软的 CRM 和 ERP 业务应用程序套件。"
+      },
+      {
+        "name": "SharePoint",
+        "description": "使用 Microsoft SharePoint 进行协作和内容管理的经验。"
+      },
+      {
+        "name": "C#",
+        "description": "使用 C# 编程语言的经验。"
+      },
+      {
+        "name": "Git",
+        "description": "使用版本控制跟踪代码更改、与团队协作并高效管理源代码库。"
+      }
+    ],
+    "sectionDescriptions": {
+      "experience": "在过去的几年里，我一直在数据和人工智能领域发展我的职业生涯，专注于提供真正价值的、面向业务的实用解决方案。",
+      "education": "我的学术背景结合了工商管理以及数据科学和创新管理的专业培训。",
+      "skills": "我在广泛的技术和方法论方面积累了专业知识，将技术知识与商业头脑融为一体。",
+      "certifications": "我持有有效的认证，这表明我致力于持续学习和专业发展。",
+      "sideProjects": "除了我的专业工作，我还追求一些创造性的爱好，让我保持平衡和灵感。"
+    },
+    "skillDescriptions": {
+      "Low-code Development": "我用最少的编码创建强大的业务应用程序，使非开发人员能够构建他们需要的东西。可以把它想象成软件的乐高积木——连接预构建的模块来解决实际问题，而无需深入研究复杂的代码。",
+      "Cloud Computing": "我在云中构建能够生存和呼吸的系统，可以从处理少数用户扩展到数百万用户而不会崩溃。这就像拥有一个无限扩展且始终在线的数字工作室。",
+      "Microsoft Azure": "我的数字游乐场，我在其中构建了从 AI 驱动的聊天机器人到自动化数据管道的一切。Azure 是我值得信赖的工具包，用于创建与现有系统无缝集成的解决方案。",
+      "Microsoft Power Platform": "我解决业务问题的瑞士军刀——我用它创建的应用程序为团队节省了数千小时的手动工作，并自动化了曾经是电子表格噩梦的流程。",
+      "Power BI": "我将堆积如山的原始数据转化为揭示隐藏模式的可视化故事。我构建的仪表板帮助领导者充满信心地做出价值数百万美元的决策，而不是凭猜测。",
+      "Power Automate": "我用这个工具自动化了无数繁琐的任务——从简单的审批工作流到复杂的多系统流程，这些流程以前需要大量人员在系统之间复制粘贴。",
+      "Data Science": "在数据科学原理和技术方面拥有基础知识和学术经验（NOVA IMS），包括数据分析、建模和解释。补充了 AI 和数据角色。",
+      "Azure AI Services": "我为应用程序带来了智能功能，而无需重新发明轮子。我使用这些服务创建了能够看、听、说和理解人类需求的应用程序。",
+      "Cloud Architecture": "我设计将各种服务连接成有凝聚力、有弹性的系统的数字生态系统。这就像是云城市的城市规划师，确保一切和谐地协同工作。",
+      "Dynamics 365": "我定制和扩展了这些业务应用程序，以简化销售、服务和营销团队的运营，创建消除部门孤岛的统一体验。",
+      "Databricks": "我处理海量数据集的首选环境。我用它处理了 TB 级的数据，并训练了那些会让较差系统崩溃的机器学习模型。",
+      "RAG": "我通过将 AI 响应连接到特定的知识库来增强它们。我构建的系统可以通过从数千份文档、政策和记录中提取相关信息来回答问题。",
+      "LLM Integration": "我将大型语言模型融入应用程序，使其更加直观和有用。我创建的解决方案能够理解自然语言请求并生成人类质量的内容。",
+      "Python": "我进行数据分析和自动化的首选编程语言。我编写的脚本处理了数百万条记录，并构建了为数千用户提供服务的 Web 应用程序。",
+      "C#/.NET": "我构建坚如磐石的应用程序的可靠工具集。我开发了从内部工具到处理关键业务运营的面向客户的平台等各种应用。",
+      "Microsoft PowerPoint": "我制作能够真正吸引观众并简单传达复杂想法的演示文稿。我的幻灯片讲述的是令人印象深刻的故事，而不仅仅是枯燥的项目符号。",
+      "Microsoft Excel": "除了基本的电子表格，我还构建提供真正商业智能的分析工具和模型。我创建的预测模型能够以惊人的准确性预测结果。",
+      "Microsoft Word": "我创建能够有效沟通且看起来专业的文档。我设计的模板在整个组织中使用，以保持一致性并节省时间。",
+      "Business Strategy": "我将技术可能性与商业机会联系起来。我帮助团队规划与长期目标一致的数字化转型，而不是追逐时髦的新玩具。",
+      "Project Management": "规划、执行、监控和结束项目，以在定义的约束内实现特定目标。",
+      "Communication": "证明了有效沟通复杂主题的能力，包括技术概念和一般业务沟通。",
+      "Leadership": "我创建了一个让团队成员感到有能力去创新和成长的环境。我的团队持续交付卓越成果，因为人们知道他们的贡献很重要。",
+      "Product Management": "我引导产品完成其生命周期，平衡用户需求与商业现实。我将模糊的想法转化为解决实际用户问题的明确产品。",
+      "Business Development": "在识别新的商业机会、建立客户关系以及为增长战略做出贡献方面具有经验，特别是在云和咨询解决方案方面。",
+      "Data Analytics": "在数据科学原理和技术方面拥有基础知识和学术经验（NOVA IMS），包括数据分析、建模和解释。补充了 AI 和数据角色。",
+      "History": "我探索过去以理解我们的现在和未来。历史模式为当前事件和技术趋势提供了令人难以置信的背景。",
+      "SQL": "我能流利地使用数据库语言，编写精确提取所需信息的查询。我优化过的查询从耗时数小时缩短到只需几秒钟。",
+      "Marketing": "我创作引人入胜的故事，将产品与需要它们的人联系起来。我开发的信息在情感层面上产生共鸣，超越了功能列表。",
+      "Economics": "我分析资源如何流动以及决策如何制定。我将经济学原理应用于推动业务成功的定价策略和市场分析。",
+      "Politics": "我驾驭管理人组织中决策制定方式的人类系统。理解政治动态帮助我实施了否则可能会停滞的变革。",
+      "AI Solution Architecture": "设计端到端的人工智能解决方案以满足业务需求。",
+      "Cloud Solution Architecture": "设计可扩展、安全且有弹性的基于云的基础设施和应用程序。",
+      "Power Platform Architecture": "使用 Microsoft Power Platform 组件（Power Apps、Power Automate、Power BI 等）构建业务解决方案的架构。",
+      "Product Owner": "定义产品愿景，管理产品待办事项列表，并最大化开发团队交付的价值。",
+      "Innovation Management": "在管理创新流程、培养新想法以及在组织内实施战略举措方面具有经验和学术背景（ISEG）。",
+      "Data Visualization": "能够以图形方式表示复杂数据集，以有效地识别趋势、模式和见解，使用 Power BI 等工具清晰地传达发现并支持数据驱动的决策。",
+      "Agentic AI": "我设计和开发能够自主运行、做出决策并在最少人为干预下采取行动的 AI 系统。这些系统专注于目标导向行为，并能适应变化的环境，有效地充当主动解决问题的数字助手。"
+    },
+    "experience": [
+      {
+        "title": "产品与云负责人 - 数据与人工智能团队",
+        "company": "普华永道葡萄牙",
+        "duration": "2024年1月 - 至今 (1年3个月)",
+        "location": "葡萄牙里斯本",
+        "description": "自2024年1月起，作为普华永道葡萄牙数据与人工智能团队的负责人，我一直负责管理、设计和实施以人工智能为重点的、基于云的解决方案，包括检索增强生成（RAG）和大型语言模型（LLM）的集成。我们的目标是提供顶级的 AI 驱动产品，在专业代码和低代码方法之间取得平衡，并利用基于云的部署实现可扩展性。我领导一个专家团队，制定架构标准并主导 AI 自动化工作流程的编排。我对 Microsoft Azure 和 Power Platform 的熟练掌握对于将这些解决方案从概念推进到全球实施至关重要。"
+      },
+      {
+        "title": "云与业务应用负责人 - 咨询解决方案团队",
+        "company": "普华永道葡萄牙",
+        "duration": "2023年7月 - 2024年1月 (7个月)",
+        "location": "葡萄牙里斯本",
+        "description": "作为云与业务应用咨询负责人，我设计尖端的云架构，为全球合作伙伴和客户贡献了超过90个机会。我在一个约80名专业人士组成的咨询解决方案团队中管理一个专业技术顾问团队。"
+      },
+      {
+        "title": "专家 - 咨询解决方案团队",
+        "company": "普华永道葡萄牙",
+        "duration": "2021年7月 - 2023年7月 (2年1个月)",
+        "location": "葡萄牙",
+        "description": "作为 Microsoft Power Platform 专家，我利用了全套 Power Platform 工具，从 Canvas Apps 和 Power BI 报告到 Power Portals/Pages 和聊天机器人（Virtual Agents/Copilot Studio）。我将这些解决方案与 Azure（例如 Functions、Logic Apps、Data Factory 和 Data Lake Gen2）、Microsoft 365（例如 Teams、Outlook）、Dynamics 365、SQL Server、Dataverse 和 SharePoint 服务集成。除了这项专业知识外，我还成功领导了全栈专业代码应用程序开发项目，从概念到交付进行监督。值得注意的是，我还作为团队负责人和技术专家赢得了普华永道葡萄牙有史以来的第一次黑客马拉松。这项倡议已发展成为我们现在开始在全球销售的产品。"
+      },
+      {
+        "title": "播客主持人",
+        "company": "Mesa do Canto - 自雇",
+        "duration": "2021年2月 - 2022年2月 (1年1个月)",
+        "location": "葡萄牙里斯本",
+        "description": "“Mesa do Canto” 是一个葡萄牙语播客，两位朋友聚在一起讨论各种主题，包括文化、政治、哲学、历史、经济和技术。每集介绍一个新主题，并附有近期新闻的简要概述和个人媒体推荐。"
+      },
+      {
+        "title": "分析师",
+        "company": "Avanade",
+        "duration": "2020年12月 - 2021年6月 (7个月)",
+        "location": "葡萄牙里斯本",
+        "description": "在一个六人团队中，我们为葡萄牙一家跨国公司超过一千名员工的日常运营开发了 Power Platform 解决方案。后台在 SharePoint 上开发，并从现有数据库迁移数据。我们利用 Power Fx 和 Canvas Apps 进行低代码开发，并创建了 Power Automate Flows。我还承担了团队领导职责，并使用 Azure DevOps 管理了待办事项列表。"
+      },
+      {
+        "title": "分析师",
+        "company": "Avanade",
+        "duration": "2020年4月 - 2020年12月 (9个月)",
+        "description": "软件工程人才社区 | 全栈开发。在职学习并使用：- MVC 模式 - C# (ASP.NET) - HTML - 分析 - 报告 - Power BI"
+      },
+      {
+        "title": "顾问",
+        "company": "SPMS, EPE - 葡萄牙卫生部共享服务中心",
+        "duration": "2018年10月 - 2020年3月 (1年6个月)",
+        "location": "里斯本",
+        "description": "为葡萄牙国家卫生系统的 IT 主管提供咨询和行政支持；启动了一个 Sharepoint 网站项目，以集中管理公司范围内的项目、团队和项目经理信息；负责向葡萄牙国家卫生系统内所有实体发布大量官方内部和外部通讯；编写手册、流程文档和培训材料；编制报告、Power BI 报告和会议纪要；领导团队并培训新成员；管理项目和产品；担任项目管理办公室（PMO）成员；在一个12人的团队中协作。"
+      },
+      {
+        "title": "职业探索岁月",
+        "company": "各种零售、市场营销和学术职位",
+        "duration": "2010年 - 2018年 (8年)",
+        "location": "葡萄牙里斯本",
+        "description": "在葡萄牙服务经济中经历了一段旋风般的旅程——从担任电话推销员（REDITUS）进行陌生拜访，以手术般的精确度折叠衣服（ZARA），解释为什么芥末不是鳄梨酱（Yo! Sushi），到销售价格可疑过高的热狗。曾在大学呼叫中心工作，回答学生们关于校园位置的焦急问题，在 Le Wagon 制作无人阅读的营销材料，并参与组织 Sagres 的节日和宣传活动，但最终却在制作关于柠檬啤酒包装的PPT。这是一段塑造性格的漫长旅程，教会了我耐心、韧性，以及如何在游客解释在葡萄牙这叫 'galão' 而不是 'meia de leite' 时保持微笑。"
+      }
+    ],
+    "education": [
+      {
+        "school": "NOVA IMS 信息管理学院",
+        "degree": "研究生文凭，企业数据科学与分析",
+        "duration": "2022年2月 - 2023年1月",
+      "grade": "17 (1-20)",
+        "gradeCN": "优秀 (90/100)",
+        "description": "专注于数据科学企业应用的高级课程，涵盖机器学习、大数据技术、数据可视化和商业分析，强调实际应用和案例研究。"
+      },
+      {
+        "school": "ISEG - 里斯本经济与管理学院",
+        "degree": "硕士学位，科技与创新经济与管理",
+        "duration": "2017年 - 2020年",
+      "grade": "17 (1-20)",
+        "gradeCN": "优秀 (90/100)",
+      "thesis": "The Role of Strategic Partnerships in the Internationalization of Digital Platforms (grade: 18)",
+        "thesisCN": "数字平台国际化中战略伙伴关系的作用 (成绩：92/100)",
+        "description": "结合经济学、管理学和技术研究的跨学科课程。专注于创新管理、技术政策和技术变革经济学，重点关注数字化转型战略。"
+      },
+      {
+        "school": "ISEG - 里斯本经济与管理学院",
+        "degree": "学士学位，管理学",
+        "duration": "",
+        "description": "涵盖商业管理关键领域的综合课程，包括会计、金融、市场营销、运营、人力资源和战略规划，并具备扎实的经济学和定量方法基础。"
+      }
+    ],
+    "certifications": [
+      {
+        "title": "Microsoft Certified: Azure Administrator Associate",
+        "issuer": "Microsoft",
+      "issueDate": "Dec 2024",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "验证在实施、监控和维护 Microsoft Azure 解决方案方面的专业知识，包括与计算、存储、网络和安全相关的主要服务。"
+      },
+      {
+        "title": "Microsoft Certified: Azure Solutions Architect Expert",
+        "issuer": "Microsoft",
+      "issueDate": "Dec 2024",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "展示在设计和实施在 Microsoft Azure 上运行的解决方案方面的高级专业知识，包括计算、网络、存储、安全和身份等方面。"
+      },
+      {
+        "title": "Microsoft Certified: Azure AI Engineer Associate",
+        "issuer": "Microsoft",
+      "issueDate": "Nov 2024",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "验证使用认知服务、机器学习和知识挖掘来架构和实施涉及自然语言处理、语音、计算机视觉和对话式 AI 的 Microsoft AI 解决方案的技能。"
+      },
+      {
+        "title": "Microsoft Certified: Azure AI Fundamentals",
+        "issuer": "Microsoft",
+      "issueDate": "Oct 2024",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "涵盖基础 AI 概念、机器学习工作流程以及用于自然语言处理、计算机视觉和负责任 AI 实施的 Microsoft Azure AI 服务。"
+      },
+      {
+        "title": "Microsoft Certified: Azure Fundamentals",
+        "issuer": "Microsoft",
+      "issueDate": "Feb 2024",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "验证对云服务以及如何通过 Microsoft Azure 提供这些服务的基础知识，涵盖核心 Azure 概念、服务、安全性、隐私、定价和支持。"
+      },
+      {
+      "title": "Microsoft Applied Skills: Create and manage automated processes by using Power Automate",
+        "issuer": "Microsoft",
+      "issueDate": "Oct 2023",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "展示使用 Microsoft Power Automate 创建和管理自动化工作流程的技能，包括使用各种触发器、条件和操作构建流程以简化业务流程。"
+      },
+      {
+        "title": "Microsoft Certified: Azure Data Fundamentals",
+        "issuer": "Microsoft",
+      "issueDate": "Mar 2023",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "涵盖核心数据概念的基础知识以及如何使用 Microsoft Azure 数据服务实现这些概念，包括关系型和非关系型数据、大数据和分析。"
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Developer Associate",
+        "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "验证使用 Power Apps、Power Automate 和 Power Virtual Agents 创建自定义解决方案的技能，包括使用 Dataverse、集成和开发技术来扩展平台。"
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Functional Consultant Associate",
+        "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "展示在实施使用 Power Apps、Power Automate、Power BI 和 Power Virtual Agents 的解决方案方面的专业知识，以分析需求并将业务需求转化为安全、可扩展的解决方案。"
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Solution Architect Expert",
+        "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "验证在构建满足业务需求的全面 Power Platform 解决方案方面的专家级技能，包括集成策略、数据模型、安全性和可扩展性规划。"
+      },
+      {
+        "title": "PL-600: Microsoft Power Platform Solution Architect",
+        "issuer": "Microsoft",
+      "issueDate": "Mar 2022",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "展示使用 Power Platform 设计整体解决方案以满足业务需求的能力，包括与外部数据系统、服务集成以及实施复杂的安全要求。"
+      },
+      {
+        "title": "Microsoft Certified: Dynamics 365 Fundamentals (CRM)",
+        "issuer": "Microsoft",
+      "issueDate": "Jan 2022",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "涵盖 Dynamics 365 客户互动应用（销售、客户服务、现场服务、市场营销）及相关 Power Platform 功能的基础知识。"
+      },
+      {
+        "title": "Microsoft Certified: Power Platform App Maker Associate",
+        "issuer": "Microsoft",
+      "issueDate": "Dec 2021",
+      "status": "Discontinued",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "验证了使用 Microsoft Power Apps 构建应用程序、连接到数据源、建模数据、创建用户界面、配置业务逻辑以及与 Power Platform 的其他组件集成的能力。"
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Fundamentals",
+        "issuer": "Microsoft",
+      "issueDate": "Dec 2021",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0",
+        "description": "展示 Power Platform 功能、业务价值以及 Microsoft Power Apps、Power Automate、Power BI 和 Power Virtual Agents 基本功能的基础知识。"
+      },
+      {
+        "title": "Microsoft 365 Certified: Fundamentals",
+        "issuer": "Microsoft",
+      "issueDate": "Dec 2021",
+      "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0",
+        "description": "验证云服务、Microsoft 365 云服务、SaaS、安全性、合规性、隐私以及 Microsoft 365 定价和支持选项的基础知识。"
+      }
+    ],
+    "sideProjects": {
+      "titles": {
+        "section": "个人项目",
+        "podcast": "播客",
+        "dj": "最新混音集",
+        "playlists": "我的播放列表",
+        "photography": "摄影"
+      },
+      "descriptions": {
+        "podcast": "Mesa do Canto 是一个葡萄牙语播客，两位朋友在此讨论各种主题，包括文化、政治、哲学、历史、经济和技术。",
+        "dj": "自 2015 年以来我一直在做 DJ，混合各种风格，从 Deep House 和 Techno 到 Hip-Hop 和 Jazz。",
+        "playlistsIntro": "精选了我精心策划的播放列表，反映了不同的情绪和流派。",
+        "photography": "摄影多年来一直是我的热情所在。这里有一些我最喜欢的照片。"
+      },
+      "embeds": {
+        "podcast": {
+          "src": "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0",
+          "width": "100%",
+          "height": "352"
+        },
+        "dj": [
+          {
+            "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F",
+            "title": "Nadar"
+          },
+          {
+            "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F",
+            "title": "Fenix"
+          },
+          {
+            "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F",
+            "title": "Lejos"
+          }
+        ],
+        "playlists": [
+          {
+            "src": "https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0",
+            "title": "Dem beats",
+            "description": "用于专注和放松的柔和爵士嘻哈器乐"
+          },
+          {
+            "src": "https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0",
+            "title": "The random rock assortment",
+            "description": "涵盖 Stoner、Indie 和 Alternative 风格的基本摇滚曲目"
+          },
+          {
+            "src": "https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0",
+            "title": "Hip hop stash",
+            "description": "精选收藏，包含 Boom Bap、Conscious 和 Abstract Hip Hop"
+          },
+          {
+            "src": "https://open.spotify.com/embed/playlist/1I43vFQgN7QBtCm8YLEJSd?utm_source=generator&theme=0",
+            "title": "Jazz café",
+            "description": "永恒的爵士经典和当代作品"
+          }
+        ]
+      }
+    },
+  "language": "zh",
+  "ui": {
+    "lang.switchTo": "切换到 {0}",
+    "nav.home": "主页",
+    "nav.about": "关于",
+    "nav.blog": "博客",
+    "footer.copyright": "© 2024 Ricardo Almeida。保留所有权利。",
+    "error.profileData": "无法加载个人资料数据。",
+    "blog.title": "博客",
+    "blog.updated": "更新于",
+    "blog.noPostsMessage": "该语言没有可用帖子。",
+    "blog.back": "← 返回博客",
+    "blog.postedBy": "发布者",
+    "blog.readingTime": "分钟阅读",
+    "blog.shareText": "分享这篇文章",
+    "blog.shareOnX": "在 X 上分享",
+    "blog.shareOnLinkedIn": "在 LinkedIn 上分享",
+    "blog.shareOnFacebook": "在 Facebook 上分享",
+    "blog.notAvailableInLanguage": "此文章的{0}版本不可用",
+    "blog.redirectedToDefault": "您已被重定向到英文版本",
+    "carousel.previous": "上一组",
+    "carousel.next": "下一组",
+    "carousel.previousPlaylist": "上一个播放列表",
+    "carousel.nextPlaylist": "下一个播放列表",
+    "modal.close": "关闭模态框",
+    "modal.previousPhoto": "上一张照片",
+    "modal.nextPhoto": "下一张照片",
+    "about.title": "关于",
+    "profile.experience": "经验",
+    "profile.education": "教育",
+    "profile.skills": "技能",
+    "profile.certifications": "认证",
+    "profile.grade": "成绩",
+    "profile.thesis": "论文",
+    "profile.issued": "颁发",
+    "profile.verifyCertificate": "验证证书"
+  }
+  }
+  

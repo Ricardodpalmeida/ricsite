@@ -2,7 +2,7 @@
 .photo-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
+  gap: 1.25rem;
   margin-bottom: 2rem;
 }
 
@@ -12,13 +12,14 @@
   overflow: hidden;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: none;
 }
 
 .photo-item:hover {
-  transform: scale(1.02);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
 
 .photo-item img {
@@ -29,6 +30,104 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  transition: transform 0.5s ease;
+}
+
+.photo-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Photo Modal Styles */
+.photo-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 1000;
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-modal.active {
+  display: flex;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.modal-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 1001;
+}
+
+.modal-close:hover {
+  transform: scale(1.2);
+  color: var(--color-cosmic-latte);
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 110;
+  transition: all 0.3s;
+}
+
+.modal-nav:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-nav.prev {
+  left: 1rem;
+}
+
+.modal-nav.next {
+  right: 1rem;
+}
+
+.modal-nav.prev:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+.modal-nav.next:hover {
+  transform: translateY(-50%) scale(1.1);
 }
 
 /* Responsive styles */
@@ -36,7 +135,52 @@
   .photo-gallery {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
-    padding: 0 0.5rem;
+    padding: 0;
     margin: 0 auto;
+  }
+  
+  .photo-modal {
+    padding: 1rem;
+  }
+  
+  .modal-content {
+    max-width: 95vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content img {
+    max-width: 95%;
+    max-height: 80vh;
+    margin: 0 auto;
+  }
+  
+  .modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+  
+  .modal-prev, .modal-next {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-gallery {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-close {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
   }
 } 

@@ -9,45 +9,69 @@ let isLanguageListInitialized = false;
 
 // Get supported languages - first from dynamic loader, then fallback to whatever's available
 export async function getSupportedLanguages(): Promise<Record<string, string>> {
+  console.log('Utils - getSupportedLanguages called, initialized:', isLanguageListInitialized);
+  
   if (isLanguageListInitialized) {
+    console.log('Utils - Returning initialized language list:', Object.keys(initializedLanguageList));
     return initializedLanguageList;
   }
   
   try {
     // Try to dynamically load languages from profile content
+    console.log('Utils - Attempting to dynamically load languages');
     const dynamicLanguages = await loadLanguages();
+    console.log('Utils - Dynamic languages loaded:', Object.keys(dynamicLanguages));
     
     if (Object.keys(dynamicLanguages).length > 0) {
+      // ALWAYS ensure English is available as the default
+      if (!dynamicLanguages['en']) {
+        console.log('Utils - Adding missing default English language');
+        dynamicLanguages['en'] = languageNames['en'] || 'English';
+      }
+      
       initializedLanguageList = dynamicLanguages;
       isLanguageListInitialized = true;
+      console.log('Utils - Using dynamically loaded languages:', Object.keys(initializedLanguageList));
       return dynamicLanguages;
     }
     
     // Fallback to whatever languages we have UI translations for
+    console.log('Utils - No dynamic languages found, falling back to UI language keys');
     const uiLanguages: Record<string, string> = {};
+    
+    // ALWAYS add English first as the default language
+    uiLanguages['en'] = languageNames['en'] || 'English';
+    console.log('Utils - Added default English language');
+    
     for (const lang in ui) {
-      if (lang !== 'default') {
-        uiLanguages[lang] = lang; // Use the language code as display name
+      if (lang !== 'default' && lang !== 'en') { // Skip default and English (already added)
+        uiLanguages[lang] = languageNames[lang] || lang; // Try to use language names
+        console.log(`Utils - Added UI-based language: ${lang} => ${uiLanguages[lang]}`);
       }
     }
     
-    if (Object.keys(uiLanguages).length > 0) {
-      initializedLanguageList = uiLanguages;
-      isLanguageListInitialized = true;
-      return uiLanguages;
-    }
-    
-    // Last resort fallback - use English
-    const fallback = { en: 'en' };
-    initializedLanguageList = fallback;
+    initializedLanguageList = uiLanguages;
     isLanguageListInitialized = true;
-    return fallback;
-    
+    console.log('Utils - Using UI-based languages:', Object.keys(initializedLanguageList));
+    return uiLanguages;
   } catch (error) {
-    console.error('Error loading languages:', error);
-    const fallback = { en: 'en' };
+    console.error('Utils - Error loading languages:', error);
+    // Always ensure English is first in the fallback
+    const fallback: Record<string, string> = { 
+      'en': languageNames['en'] || 'English'
+    };
+    
+    // Add other languages
+    const otherLangs = ['zh', 'pt', 'es'];
+    otherLangs.forEach(code => {
+      if (languageNames[code]) {
+        fallback[code] = languageNames[code];
+      }
+    });
+    
     initializedLanguageList = fallback;
     isLanguageListInitialized = true;
+    console.log('Utils - Using error fallback languages:', Object.keys(initializedLanguageList));
     return fallback;
   }
 }
@@ -55,12 +79,15 @@ export async function getSupportedLanguages(): Promise<Record<string, string>> {
 // Get the language from a URL
 export function getLangFromUrl(url: URL) {
   const [, lang] = url.pathname.split('/');
+  console.log(`Utils - getLangFromUrl called for ${url.pathname}, extracted lang: "${lang}"`);
   
   // Just check if it's a string for now - we'll validate actual languages at runtime
   if (typeof lang === 'string' && lang.length > 0) {
+    console.log(`Utils - Returning detected language: ${lang}`);
     return lang;
   }
   
+  console.log(`Utils - No language in URL, returning default: ${defaultLang}`);
   return defaultLang;
 }
 
@@ -117,22 +144,28 @@ export function detectBrowserLanguage(): string {
 }
 
 // Load profile data for a specific language to use as UI strings
-export async function getProfileStrings(lang: string) {
+export async function getProfileStrings(lang: string): Promise<any> {
+  console.log(`Utils - getProfileStrings called for language: ${lang}`);
   try {
     // Get profile data for the given language
     const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
+    console.log(`Utils - Found ${profileCollection.length} profile entries for language: ${lang}`);
+    
     const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
     
     if (!profileData) {
-      console.warn(`No profile data found for language: ${lang}`);
+      console.warn(`Utils - No profile data found for language: ${lang}`);
       return {} as Record<string, string>;
     }
 
+    console.log(`Utils - Profile data loaded for ${lang}, getting translations`);
     // Get translations for generic fields based on language
     const translations = getGenericTranslations(lang);
 
-    // Prepare UI strings from profile data
-    const profileStrings: Record<string, string> = {
+    // Extract the full profile data including hero and about arrays
+    return {
+      ...profileData,
+      // Add UI strings as well for backward compatibility
       'site.title': `${profileData.personal?.name || 'Ricardo Almeida'} | ${profileData.personal?.title || ''}`,
       'site.description': profileData.hero?.join(' ') || '',
       'site.author': profileData.personal?.name || 'Ricardo Almeida',
@@ -147,11 +180,9 @@ export async function getProfileStrings(lang: string) {
       // Add dynamically translated strings
       ...translations
     };
-    
-    return profileStrings;
   } catch (error) {
-    console.error(`Error loading profile strings for ${lang}:`, error);
-    return {} as Record<string, string>;
+    console.error(`Utils - Error loading profile strings for ${lang}:`, error);
+    return {};
   }
 }
 

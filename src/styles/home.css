@@ -1,0 +1,126 @@
+/* Home Page Styles */
+@import '../styles/page-header.css';
+
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 0;
+  min-height: calc(100vh - 150px);
+  animation: fadeIn 0.5s ease-out;
+  user-select: none;
+}
+
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 4px;
+  margin: 2rem 0;
+}
+
+/* Hero CTA - specific to home page */
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.primary-button, 
+.secondary-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--transition-base);
+  text-decoration: none;
+  font-family: var(--font-family-title);
+}
+
+.primary-button {
+  background-color: var(--color-cosmic-latte-10);
+  color: var(--color-white);
+  border: 1px solid var(--color-cosmic-latte);
+}
+
+.primary-button:hover {
+  background-color: var(--color-cosmic-latte-20);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: var(--color-white);
+  border: 1px solid var(--color-cosmic-latte);
+}
+
+.secondary-button:hover {
+  border-color: var(--color-cosmic-latte);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Name tooltip styles */
+.name-tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.name-tooltip .tooltip-text {
+  position: absolute;
+  visibility: hidden;
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--color-white);
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-cosmic-latte-10);
+}
+
+.name-tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}
+
+.name-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 3rem 1rem;
+  }
+  
+  .name-tooltip .tooltip-text {
+    width: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 2rem 1rem;
+  }
+  
+  .gallery-item {
+    width: 100%;
+  }
+}

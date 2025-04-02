@@ -96,7 +96,7 @@
     "education": "A minha formação académica combina gestão empresarial com formação especializada em ciência de dados e gestão da inovação.",
     "skills": "Desenvolvi competências numa ampla gama de tecnologias e metodologias que combinam conhecimento técnico com compreensão de negócio.",
     "certifications": "Mantenho certificações ativas que demonstram o meu compromisso com a aprendizagem contínua e o desenvolvimento profissional.",
-    "sideProjects": "Para além do meu trabalho profissional, dedico-me a vários projetos criativos que me mantêm equilibrado e inspirado."
+    "sideProjects": ""
   },
   "skillDescriptions": {
     "Low-code Development": "Crio aplicações empresariais poderosas com o mínimo de código, capacitando não-programadores a construir o que precisam. É como Lego para software - conectando blocos pré-construídos para resolver problemas reais sem mergulhar em código complexo.",
@@ -348,10 +348,10 @@
       "photography": "Fotografia"
     },
     "descriptions": {
-      "podcast": "Mesa do Canto é um podcast em português onde dois amigos discutem vários tópicos incluindo cultura, política, filosofia, história, economia e tecnologia.",
-      "dj": "Faço DJing desde 2015, misturando vários estilos desde deep house e techno até hip-hop e jazz.",
-      "playlistsIntro": "Uma seleção das minhas playlists cuidadosamente curadas, refletindo diferentes estados de espírito e géneros.",
-      "photography": "A fotografia tem sido uma paixão minha durante anos. Aqui estão algumas das minhas fotos favoritas."
+      "podcast": "Mesa do Canto é um podcast em português onde eu e um amigo nos reunimos para discutir vários assuntos, incluindo cultura, política, filosofia, história, economia e tecnologia.",
+      "dj": "Quando toco, gosto de passear por jazz, funk africano, deep, future disco e progressive house, além de outras músicas do mundo como Hadra/Funk. Todos os meus sets são improvisados e misturam vinil e digital.",
+      "playlistsIntro": "A música sempre foi uma parte significativa da minha vida. Estas playlists apresentam alguns dos meus géneros favoritos, curados ao longo do tempo para criar atmosferas distintas.",
+      "photography": "A fotografia é um hobby que me ajuda a apreciar o mundo ao nosso redor. Gosto particularmente de capturar os humores sempre mutáveis do céu, desde pores do sol dramáticos até o jogo de nuvens e luz."
     },
     "embeds": {
       "podcast": {
@@ -404,11 +404,6 @@
     "nav.home": "Início",
     "nav.about": "Sobre",
     "nav.blog": "Blog",
-    
-    "contact.button": "Entre em Contato",
-    "contact.verifying": "Verificando...",
-    "contact.errorAlert": "Falha na verificação. Por favor tente novamente.",
-    "contact.recaptchaErrorAlert": "Não foi possível iniciar a verificação. Certifique-se de que está online.",
     
     "footer.copyright": "© 2024 Ricardo Almeida. Todos os direitos reservados.",
     

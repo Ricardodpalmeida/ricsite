@@ -402,13 +402,8 @@
     "lang.switchTo": "Cambiar a {0}",
     
     "nav.home": "Inicio",
-    "nav.about": "Sobre mí",
+    "nav.about": "Acerca de",
     "nav.blog": "Blog",
-    
-    "contact.button": "Contactar",
-    "contact.verifying": "Verificando...",
-    "contact.errorAlert": "Error de verificación. Por favor, inténtelo de nuevo.",
-    "contact.recaptchaErrorAlert": "No se pudo iniciar la verificación. Asegúrese de estar conectado a Internet.",
     
     "footer.copyright": "© 2024 Ricardo Almeida. Todos los derechos reservados.",
     

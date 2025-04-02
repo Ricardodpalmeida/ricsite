@@ -37,7 +37,7 @@ jobs:
         run: npx astro clean
       - name: Build
         env:
-          PUBLIC_RECAPTCHA_SITE_KEY: ${{ secrets.PUBLIC_RECAPTCHA_SITE_KEY }}
+          NODE_VERSION: '18.x'
         run: npm run build
       - name: Ensure CNAME exists
         run: |

@@ -6,12 +6,22 @@
  * version of the homepage (e.g., /en/ or based on browser preference).
  */
 import { defaultLang, detectBrowserLanguage, languages } from '../i18n/utils';
+import '../styles/global.css';
 
-// Use the non-async browser language detection
-const detectedLang = detectBrowserLanguage();
-
-// Redirect to the detected or default language
-return Astro.redirect(`/${detectedLang}`);
+try {
+  // Use the non-async browser language detection
+  const detectedLang = detectBrowserLanguage();
+  
+  // Ensure the detected language is actually supported, otherwise use English
+  const redirectLang = detectedLang && (detectedLang in languages) ? detectedLang : 'en';
+  
+  // Redirect to the detected or default language
+  return Astro.redirect(`/${redirectLang}/`);
+} catch (error) {
+  // If anything goes wrong, redirect to English as a safe fallback
+  console.error('Error in language detection, redirecting to English:', error);
+  return Astro.redirect('/en/');
+}
 ---
 
 <!DOCTYPE html>
@@ -20,31 +30,24 @@ return Astro.redirect(`/${detectedLang}`);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
-    <style>
-      body {
-        background-color: #2c2c2c;
-        color: #fff;
-        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        opacity: 0;
-        overflow: hidden;
-        height: 100vh;
-        width: 100vw;
-      }
-    </style>
     <script is:inline define:vars={{ defaultLang, languages }}>
       // Function to detect the browser language
       function detectBrowserLanguage() {
-        const browserLang = navigator.language?.split('-')[0];
-        
-        // Check if browser language is directly supported
-        if (browserLang && browserLang in languages) {
-          return browserLang;
+        try {
+          const browserLang = navigator.language?.split('-')[0];
+          
+          // Check if browser language is directly supported
+          if (browserLang && languages && browserLang in languages) {
+            return browserLang;
+          }
+          
+          // Otherwise return English as the safe default
+          return 'en';
+        } catch (e) {
+          // If anything goes wrong, use English
+          console.error('Error in client-side language detection:', e);
+          return 'en';
         }
-        
-        // Otherwise return the default language
-        return defaultLang;
       }
       
       // Execute redirect immediately without painting the page
@@ -52,6 +55,6 @@ return Astro.redirect(`/${detectedLang}`);
       window.location.replace(`/${lang}/`);
     </script>
   </head>
-  <body>
+  <body class="redirect-page">
   </body>
 </html>

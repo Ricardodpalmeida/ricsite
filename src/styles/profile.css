@@ -1,5 +1,6 @@
 /* src/styles/profile.css */
 /* Profile Component Styles */
+@import '../styles/page-header.css';
 
 /* Main container */
 .profile-container {
@@ -10,25 +11,31 @@
   position: relative;
 }
 
-/* Profile Image */
-.profile-image {
-  margin-bottom: 2rem;
+/* About page container */
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 0;
+  min-height: calc(100vh - 150px);
+  animation: fadeIn 0.5s ease-out;
+  user-select: none;
+}
+
+.error-message {
   text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: 4px;
+  margin: 2rem 0;
 }
-
-.rounded-profile-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--color-cosmic-latte);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.rounded-profile-image:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  
+.notice-message {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(255, 200, 0, 0.1);
+  border-radius: 4px;
+  margin: 1rem 0 2rem;
+  font-style: italic;
 }
 
 /* Section styling */
@@ -78,6 +85,23 @@
   width: 100%;
 }
 
+/* About page section headings */
+.profile-section h2 {
+  font-size: var(--font-size-xl);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-gray-700);
+  padding-bottom: 0.5rem;
+  font-family: var(--font-family-title);
+}
+
+.section-intro {
+  margin-bottom: 2rem;
+  color: var(--color-gray-200);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  font-style: italic;
+}
+
 /* Header section specific styles */
 .profile-header {
   margin-bottom: 1.5rem;
@@ -120,6 +144,165 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 0.3rem;
+}
+
+/* Skills section */
+.skills-container,
+.certifications-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+}
+  
+.skill-card {
+  padding: 1.5rem;
+  background: var(--color-gray-900);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 6px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+  
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-cosmic-latte-10);
+}
+  
+.skill-title {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.75rem;
+  color: var(--color-cosmic-latte);
+  font-family: var(--font-family-title);
+}
+  
+.skill-description {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+/* Timeline */
+.timeline-container {
+  position: relative;
+  margin-left: 1rem;
+}
+  
+.timeline-item {
+  position: relative;
+  padding-left: 2rem;
+  padding-bottom: 2.5rem;
+}
+  
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+  
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-cosmic-latte);
+  border-radius: 50%;
+}
+  
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0.8rem;
+  width: 2px;
+  height: calc(100% - 0.5rem);
+  background-color: var(--color-gray-700);
+}
+  
+.timeline-item:last-child::after {
+  display: none;
+}
+  
+.timeline-content h3 {
+  font-size: var(--font-size-lg);
+  margin-bottom: 0.25rem;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-title);
+}
+  
+.timeline-content h4 {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.5rem;
+  color: var(--color-cosmic-latte);
+  font-weight: var(--font-weight-medium);
+}
+  
+.timeline-period, .timeline-location {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-400);
+  margin-bottom: 0.5rem;
+}
+  
+.timeline-description {
+  margin-top: 0.75rem;
+  line-height: var(--line-height-loose);
+}
+
+.timeline-meta {
+  font-size: var(--font-size-sm);
+  margin-bottom: 0.25rem;
+}
+
+/* Certification Grid */
+.certification-card {
+  background-color: var(--color-gray-900);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 6px;
+  padding: 1.5rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+  
+.certification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-cosmic-latte-10);
+}
+  
+.certification-card h3 {
+  font-size: var(--font-size-base);
+  margin-bottom: 0.5rem;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family-title);
+}
+  
+.certification-issuer {
+  color: var(--color-cosmic-latte);
+  font-size: var(--font-size-sm);
+  margin-bottom: 0.75rem;
+}
+  
+.certification-date, .certification-status {
+  font-size: var(--font-size-xs);
+  margin-bottom: 0.5rem;
+  color: var(--color-gray-400);
+}
+  
+.certification-description {
+  font-size: var(--font-size-sm);
+  margin: 0.75rem 0;
+  line-height: var(--line-height-normal);
+}
+  
+.certification-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: var(--font-size-xs);
+  color: var(--color-cosmic-latte);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+  
+.certification-link:hover {
+  color: var(--color-white);
+  text-decoration: underline;
 }
 
 /* Common Interactive Elements - Base Styles */
@@ -199,350 +382,38 @@ button,
 .verify-text::after {
   content: '';
   position: absolute;
-  width: 0;
-  height: 1px;
-  bottom: -2px;
-  left: 0;
-  background-color: var(--color-cosmic-latte);
-  transition: width 0.3s ease;
-}
-
-.verify-link:hover .verify-text::after {
   width: 100%;
-}
-
-.link-icon {
-  font-size: 1.1rem;
-}
-
-/* About section */
-.about-section {
-  position: relative;
-  margin-top: 2rem;
-}
-
-.profile-about-container {
-  margin-top: 4rem;
-  margin-bottom: 0;
-  text-align: center;
-}
-
-.profile-about {
-  line-height: var(--line-height-loose);
-  margin-bottom: 0;
-}
-
-/* Disable hover effects for about paragraphs */
-.profile-about.about-paragraph,
-.profile-about.no-hover {
-  transition: none;
-  transform: none;
-  box-shadow: none;
-}
-
-.profile-about.about-paragraph:hover,
-.profile-about.no-hover:hover {
-  transform: none;
-  box-shadow: none;
-  background: none;
-  border: none;
-}
-
-/* Timeline styling for experience and education */
-.timeline {
-  position: relative;
-  padding-left: 2rem;
-}
-
-.timeline:before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0.35rem;
-  height: 100%;
-  width: 1px;
-  background-color: var(--color-gray-200);
-}
-
-.timeline-item {
-  position: relative;
-  margin-bottom: 2.5rem;
-  padding-bottom: 1rem;
-}
-
-.timeline-content {
-  padding-bottom: 1rem;
+  height: 1px;
+  bottom: -1px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
   transition: transform var(--transition-base);
 }
 
-.timeline-item:hover .timeline-content {
-  transform: translateX(5px);
+.verify-link:hover .verify-text::after {
+  transform: scaleX(1);
 }
 
-.timeline-item:last-child {
-  margin-bottom: 0;
-}
-
-.timeline-marker {
-  position: absolute;
-  top: 0.5rem;
-  left: -2rem;
-  width: 0.7rem;
-  height: 0.7rem;
-  border-radius: 50%;
-  border: 2px solid var(--color-cosmic-latte);
-  background-color: var(--color-dark-gray);
-  z-index: 1;
-  transition: transform var(--transition-base), background-color var(--transition-base);
-}
-
-.timeline-item:hover .timeline-marker {
-  transform: scale(1.3);
-  background-color: var(--color-cosmic-latte-10);
-}
-
-.item-title {
-  font-size: 1.3rem;
-  font-weight: var(--font-weight-medium);
-  margin-bottom: 0.3rem;
-}
-
-.item-subtitle {
-  font-size: 1.1rem;
-  font-weight: var(--font-weight-regular);
-  margin-bottom: 0.5rem;
-}
-
-.item-metadata {
-  display: flex;
-  align-items: center;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  opacity: 0.85;
-}
-
-.item-separator {
-  margin: 0 0.5rem;
-}
-
-.item-description {
-  margin-bottom: 0.75rem;
-  line-height: var(--line-height-base);
-}
-
-.item-detail {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.item-skills {
-  font-size: 0.9rem;
-  font-style: italic;
-  opacity: 0.9;
-}
-
-.skills-label {
-  font-weight: var(--font-weight-medium);
-}
-
-/* Skills list styling */
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1rem 0;
-}
-
-.skill-item {
-  background-color: rgba(255, 248, 231, 0.05);
-  color: var(--color-cosmic-latte);
-  padding: 0.5rem 1rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  transition: all var(--transition-base);
-  border: 1px solid rgba(255, 248, 231, 0.2);
-  position: relative;
-  overflow: visible;
-  z-index: 1;
-  cursor: default;
-}
-
-.skill-item::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: var(--color-cosmic-latte-10);
-  border-radius: 50px;
-  opacity: 0;
-  transition: opacity var(--transition-base);
-}
-
-.skill-item:hover::before {
-  opacity: 1;
-}
-
-.skill-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  border-color: rgba(255, 248, 231, 0.3);
-}
-
-/* Skill tooltips */
-.skill-item[data-description]::after {
-  content: attr(data-description);
-  position: absolute;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%) scale(0.85);
-  width: max-content;
-  max-width: 250px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: var(--color-white);
-  border: 1px solid var(--color-cosmic-latte-10);
-  border-radius: 6px;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-regular);
-  line-height: 1.4;
-  text-align: center;
-  pointer-events: none;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s;
-  z-index: 100;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.skill-item[data-description]:hover::after {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) scale(1);
-}
-
-/* Universal approach to keep tooltips on screen */
-.skill-item {
-  position: relative;
-}
-
-.skill-item[data-description]::after {
-  /* Calculate position based on element and not fixed positions */
-  left: 50%;
-  /* Ensure minimum width for readability but allow it to grow with content */
-  min-width: min(200px, 90vw);
-  max-width: min(250px, 90vw);
-  /* Let browser determine best width based on content */
-  width: max-content;
-}
-
-/* Media queries for responsive adjustments */
+/* Media Queries */
 @media (max-width: 768px) {
   .profile-container {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1rem;
   }
   
-  .profile-header {
-    margin-bottom: 3rem;
+  .about-container {
+    padding: 4rem 1.5rem;
   }
-  
-  .profile-name {
-    font-size: var(--font-size-2xl);
-  }
-  
-  .profile-title {
-    font-size: var(--font-size-xl);
-  }
-  
-  .section-title {
-    margin-bottom: 1.25rem;
-  }
-  
-  .profile-about {
-    font-size: 1rem;
-  }
-  
-  .timeline {
-    padding-left: 1.5rem;
-  }
-  
-  .timeline-marker {
-    left: -1.5rem;
-  }
-  
-  .item-title {
-    font-size: 1.2rem;
-  }
-  
-  .item-subtitle {
-    font-size: 1rem;
-  }
-  
-  .skills-list {
-    gap: 0.5rem;
-  }
-  
-  .skill-item {
-    padding: 0.4rem 0.8rem;
-  }
-
-  /* Simplified mobile tooltip */
-  .skill-item[data-description]::after {
-    font-size: 0.85rem;
-    padding: 8px 10px;
+    
+  .certifications-container, 
+  .skills-container {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 }
 
-@media (max-width: 480px) {
-  .profile-container {
-    padding: 1.5rem 1.25rem;
-  }
-  
-  .profile-header {
-    margin-bottom: 2.5rem;
-  }
-  
-  .profile-name {
-    font-size: 1.75rem;
-  }
-  
-  .profile-title {
-    font-size: 1.25rem;
-  }
-  
-  .section-title {
-    font-size: 1.3rem;
-  }
-  
-  .item-title {
-    font-size: 1.1rem;
-  }
-  
-  .timeline {
-    padding-left: 1.25rem;
-  }
-  
-  .timeline-marker {
-    left: -1.25rem;
-    width: 0.6rem;
-    height: 0.6rem;
-  }
-  
-  .skill-item {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.7rem;
-  }
-  
-  /* Smaller tooltip on very small screens */
-  .skill-item[data-description]::after {
-    font-size: 0.75rem;
-    min-width: min(160px, 85vw);
-    max-width: min(200px, 85vw);
-    padding: 6px 8px;
-  }
-}
+/* Continue with rest of original profile.css file... */
 
 .language-item {
   display: flex;
@@ -556,35 +427,7 @@ button,
   font-weight: 500;
 }
 
-.language-separator {
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 600;
-  font-size: 1.1rem;
-  margin-top: -2px;
-}
-
 .language-proficiency {
   color: rgba(255, 255, 255, 0.7);
   font-size: 1.1rem;
-}
-
-.profile-social-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all var(--transition-base);
-  border-radius: 50%;
-  padding: 0.3rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  width: 24px;
-  height: 24px;
-}
-
-.profile-social-link:hover {
-  transform: translateY(-2px);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.profile-social-link:hover .social-icon {
-  transform: scale(1.1);
 } 

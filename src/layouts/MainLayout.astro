@@ -5,7 +5,7 @@
  * This layout sets up the basic structure for all pages on the site,
  * including global styles and meta tags.
  */
-import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLang, getProfileStrings } from '../i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLang, getProfileStrings, languageNames } from '../i18n/utils';
 // Import global styles
 import '../styles/global.css';
 
@@ -28,12 +28,14 @@ const t = useTranslations(lang);
 console.log('MainLayout - Current URL:', Astro.url.pathname);
 console.log('MainLayout - Detected language:', lang);
 console.log('MainLayout - Available languages:', Object.keys(languages));
+console.log('MainLayout - Available language names:', languageNames);
 
 // Load profile-based translations
 const profileData = await getProfileStrings(lang);
 
 // Ensure lang is a valid language code
 const validLang = lang in languages ? lang : defaultLang;
+console.log('MainLayout - Using language:', validLang, validLang !== lang ? '(fallback from ' + lang + ')' : '');
 
 // Default meta values from profile data
 const defaultTitle = profileData['site.title'] || t('site.title');
@@ -41,11 +43,9 @@ const defaultDescription = profileData['site.description'] || t('site.descriptio
 const defaultImage = "/images/profile-cover.jpg";
 const siteUrl = "https://me.ricbits.cc";
 
-// Use reCAPTCHA v3 site key
-const recaptchaSiteKey = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
-
 // Prepare alternate language URLs for language switcher
 const otherLangs = Object.keys(languages).filter(l => l !== validLang);
+console.log('MainLayout - Other languages for switcher:', otherLangs);
 
 // JSON-LD structured data with dynamic data
 const jsonLdData = {
@@ -103,10 +103,6 @@ const jsonLdData = {
     <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     
-    <!-- reCAPTCHA preconnect resource hints -->
-    <link rel="preconnect" href="https://www.google.com">
-    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-    
     <!-- Google Fonts: Switch to serif for small text and sans serif for headers -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -142,22 +138,18 @@ const jsonLdData = {
     <!-- Add script to handle Sentry errors gracefully -->
     <script src="/scripts/sentry-handler.js" is:inline></script>
 
-    <!-- reCAPTCHA v3 script -->
-    {recaptchaSiteKey && 
-      <script is:inline async src={`https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`}></script>
-    }
-
     <!-- Structured Data for Professional Profile -->
     <script is:inline type="application/ld+json">
       {JSON.stringify(jsonLdData)}
     </script>
   </head>
   <body>
-    <script is:inline>
+    <!-- Deprecated positioning script - no longer needed -->
+    <!-- <script is:inline>
       // Force enable pointer events on all elements
       document.documentElement.style.pointerEvents = 'auto';
       document.body.style.pointerEvents = 'auto';
-    </script>
+    </script> -->
     <header>
       <div class="header-wrapper">
         {!hideLangSelector && (
@@ -167,11 +159,25 @@ const jsonLdData = {
             
             {Object.entries(languages).map(([code, name], index) => {
               // Calculate the URL for this language
-              const langUrl = code === validLang 
-                ? '#' 
-                : (alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code));
-                
-              console.log(`Language button for ${code} - URL: ${langUrl}, Current: ${validLang}`);
+              let langUrl;
+              
+              if (code === validLang) {
+                langUrl = '#';
+                console.log(`Language button for ${code} (current) - URL: ${langUrl}`);
+              } else {
+                // Special case for English to ensure it works correctly
+                if (code === 'en') {
+                  // For English, explicitly use /en/ path
+                  langUrl = Astro.url.pathname.startsWith('/en/') 
+                    ? Astro.url.pathname 
+                    : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
+                  console.log(`English language URL calculated: ${langUrl}`);
+                } else {
+                  // Normal case for other languages
+                  langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
+                }
+                console.log(`Language button for ${code} - URL: ${langUrl}, Current: ${validLang}, Display: ${name}`);
+              }
                 
               return (
                 <>
@@ -179,10 +185,14 @@ const jsonLdData = {
                   <a 
                     href={langUrl}
                     class={`language-btn ${code === validLang ? 'active' : ''}`}
-                    aria-label={t('lang.switchTo').replace('{0}', code.toUpperCase())}
+                    aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
                     data-lang-link={code}
+                    data-testid={`lang-link-${code}`}
                   >
-                    {code.toUpperCase()}
+                    {/* Display native script if it's not a Latin-script language */}
+                    {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
+                      ? languageNames[code]?.charAt(0) || code.toUpperCase() 
+                      : code.toUpperCase()}
                   </a>
                 </>
               );
@@ -213,364 +223,3 @@ const jsonLdData = {
     <script src="/scripts/language-switcher.js" defer></script>
   </body>
 </html>
-
-<style is:global>
-  /**
-   * Global Styles
-   * 
-   * Sets up basic styling and colors for the entire site.
-   * Uses CSS variables for easy theme modifications.
-   */
-  :root {
-    /* Color palette */
-    --color-dark-gray: #2c2c2c;
-    --color-white: #ffffff;
-    --color-cosmic-latte: #fff8e7;
-    --color-cosmic-latte-10: rgba(255, 248, 231, 0.1);
-    --color-cosmic-latte-20: rgba(255, 248, 231, 0.2);
-    --color-gray-100: rgba(255, 255, 255, 0.1);
-    --color-gray-200: rgba(255, 255, 255, 0.2);
-    --color-gray-300: rgba(255, 255, 255, 0.3);
-    --color-gray-600: rgba(255, 255, 255, 0.6);
-    
-    /* Typography - Swapped base and title/alt fonts */
-    --font-family-base: 'Roboto', sans-serif; /* Changed to Roboto for body */
-    --font-family-title: 'Roboto Slab', serif; /* Changed to Roboto Slab for titles */
-    --font-family-alt: 'Roboto Slab', serif; /* Changed to Roboto Slab for alt */
-    
-    /* Font weights */
-    --font-weight-light: 300;
-    --font-weight-regular: 400;
-    --font-weight-medium: 500;
-    --font-weight-bold: 700;
-    
-    /* Font sizes */
-    --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-    --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
-    --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
-    --font-size-xl: clamp(1.5rem, 1.25rem + 1.25vw, 1.75rem);
-    --font-size-2xl: clamp(2rem, 1.75rem + 1.25vw, 2.25rem);
-    --font-size-3xl: clamp(2.5rem, 2rem + 2.5vw, 3rem);
-    
-    /* Line heights */
-    --line-height-tight: 1.2;
-    --line-height-base: 1.5;
-    --line-height-loose: 1.8;
-    
-    /* Spacing */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 2rem;
-    --spacing-xl: 3rem;
-    
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-base: 0.3s ease;
-    --transition-slow: 0.5s ease;
-  }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    font-family: var(--font-family-base);
-    font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-base);
-    background-color: var(--color-dark-gray);
-    color: var(--color-white);
-    transition: background-color var(--transition-slow);
-    -webkit-user-select: none; /* Safari */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-family-title);
-    margin-bottom: var(--spacing-md);
-    line-height: var(--line-height-tight);
-    letter-spacing: -0.01em;
-  }
-  
-  h1 {
-    font-size: var(--font-size-3xl);
-    font-weight: var(--font-weight-bold);
-  }
-  
-  h2 {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-medium);
-  }
-  
-  h3 {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-medium);
-  }
-  
-  p {
-    margin-bottom: var(--spacing-md);
-  }
-  
-  a {
-    color: var(--color-white);
-    text-decoration: none;
-    transition: all var(--transition-base);
-    position: relative;
-  }
-  
-  a:hover, a:focus {
-    color: var(--color-cosmic-latte);
-  }
-  
-  a:focus {
-    outline: 2px solid var(--color-cosmic-latte-20);
-    outline-offset: 2px;
-  }
-  
-  a:focus:not(:focus-visible) {
-    outline: none;
-  }
-  
-  a:focus-visible {
-    outline: 2px solid var(--color-cosmic-latte-20);
-    outline-offset: 2px;
-  }
-  
-  .highlight {
-    color: var(--color-cosmic-latte);
-  }
-  
-  .container {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 2rem;
-  }
-  
-  /* Header structure and wrapper */
-  .header-wrapper {
-    position: relative;
-    width: 100%;
-    border-bottom: 1px solid var(--color-gray-100);
-  }
-  
-  /* Main navigation */
-  .main-nav {
-    padding: var(--spacing-md) 0;
-    transition: border-color var(--transition-base);
-    width: 100%;
-  }
-  
-  .nav-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .main-nav ul {
-    display: flex;
-    list-style: none;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .main-nav a {
-    font-family: var(--font-family-title); /* Ensure nav links use sans-serif */
-    font-weight: var(--font-weight-medium);
-    font-size: 0.9rem;
-    letter-spacing: 0.02em;
-    text-transform: capitalize;
-    padding: var(--spacing-xs) 0;
-    position: relative;
-  }
-  
-  .main-nav a.active {
-    color: var(--color-cosmic-latte);
-  }
-  
-  .main-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-cosmic-latte);
-    transition: width var(--transition-base);
-  }
-  
-  .main-nav a:hover::after,
-  .main-nav a:focus::after,
-  .main-nav a.active::after {
-    width: 100%;
-  }
-  
-  /* Language Selector in Header */
-  .language-selector {
-    display: flex;
-    gap: 0.2rem;
-    position: absolute;
-    top: 0.8rem;
-    right: 1rem;
-    z-index: 10;
-    align-items: center;
-  }
-  
-  .language-btn {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: none;
-    color: var(--color-white);
-    padding: 0.25rem 0.2rem;
-    cursor: pointer;
-    font-size: 0.75rem;
-    font-weight: var(--font-weight-light);
-    transition: all var(--transition-base);
-    text-align: center;
-    text-decoration: none;
-  }
-  
-  .language-btn:hover {
-    color: var(--color-cosmic-latte);
-  }
-  
-  .language-btn.active {
-    color: var(--color-cosmic-latte);
-    font-weight: var(--font-weight-bold);
-  }
-
-  .language-separator {
-    color: var(--color-gray-300);
-    font-size: 0.75rem;
-  }
-  
-  /* Footer */
-  footer {
-    margin-top: var(--spacing-xl);
-    padding: var(--spacing-lg) 0;
-    border-top: 1px solid var(--color-gray-100);
-    text-align: center;
-    transition: border-color var(--transition-base);
-  }
-  
-  .footer-text {
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
-    margin-bottom: var(--spacing-md);
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .container {
-      padding: 0 1.5rem;
-    }
-    
-    .main-nav {
-      padding: var(--spacing-sm) 0;
-    }
-    
-    .main-nav ul {
-      gap: var(--spacing-md);
-      justify-content: center;
-    }
-    
-    .language-selector {
-      top: 0.6rem;
-      right: 0.8rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    :root {
-      --spacing-lg: 1.5rem;
-      --spacing-xl: 2rem;
-    }
-    
-    .container {
-      padding: 0 1rem;
-    }
-    
-    .main-nav {
-      padding: var(--spacing-sm) 0;
-      overflow-x: auto;
-      text-align: center;
-    }
-    
-    .main-nav .container {
-      max-width: none;
-      padding: 0 var(--spacing-sm);
-      justify-content: center;
-    }
-    
-    .main-nav ul {
-      flex-wrap: nowrap;
-      justify-content: center;
-      gap: var(--spacing-md);
-      padding-bottom: 0;
-      width: auto;
-      display: inline-flex;
-    }
-    
-    .language-selector {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
-      z-index: 100;
-    }
-  }
-
-  /* Add a focus indicator for interactive elements without natural borders */
-  [tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible {
-    position: relative;
-  }
-
-  [tabindex]:not(button):not(input):not(textarea):not(select):not(a):focus-visible::after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    left: -4px;
-    right: -4px;
-    bottom: -4px;
-    border-radius: 4px;
-    border: 2px solid var(--color-cosmic-latte);
-    pointer-events: none;
-  }
-
-  /* High contrast mode focus indicators */
-  @media (forced-colors: active) {
-    .profile-link:focus-visible, /* Keep profile selectors for now if they exist */
-    .language-btn:focus-visible,
-    .skill-item:focus-visible,
-    .credential-link:focus-visible,
-    button:focus-visible,
-    a:focus-visible,
-    input:focus-visible,
-    textarea:focus-visible,
-    select:focus-visible,
-    [role="button"]:focus-visible,
-    [tabindex]:focus-visible {
-      outline: 3px solid CanvasText;
-      outline-offset: 3px;
-    }
-  }
-
-  /* =============================================
-     END MOVED FOCUS STYLES
-     ============================================= */
-</style>
