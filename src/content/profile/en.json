@@ -11,7 +11,54 @@
     "When I'm not designing cloud architectures or working with LLMs, you'll probably find me reading, taking bookbinding courses, listening to music or rewatching Star Wars (yes, even the prequels). I believe the most interesting solutions emerge from connecting different worlds."
   ],
   "about": [
-    "Building AI-powered solutions that work"
+    "I build AI solutions that address real business needs. At PwC Portugal, I lead teams developing intelligent cloud products combining the best of low-code platforms with traditional development.",
+    "When I'm not designing cloud architectures or working with LLMs, you'll probably find me reading, taking bookbinding courses, listening to music or rewatching Star Wars (yes, even the prequels). I believe the most interesting solutions emerge from connecting different worlds."
+  ],
+  "skills": [
+    {
+      "name": "AI Solution Architecture",
+      "description": "Designing end-to-end artificial intelligence solutions to meet business requirements."
+    },
+    {
+      "name": "Cloud Solution Architecture",
+      "description": "Designing scalable, secure, and resilient cloud-based infrastructure and applications."
+    },
+    {
+      "name": "Power Platform Architecture",
+      "description": "Architecting business solutions using Microsoft Power Platform components (Power Apps, Power Automate, Power BI, etc.)."
+    },
+    {
+      "name": "Product Owner",
+      "description": "Defining product vision, managing the product backlog, and maximizing the value delivered by the development team."
+    },
+    {
+      "name": "Project Management",
+      "description": "Planning, executing, monitoring, and closing projects to achieve specific goals within defined constraints."
+    },
+    {
+      "name": "Innovation Management",
+      "description": "Experience and academic background (ISEG) in managing innovation processes, fostering new ideas, and implementing strategic initiatives within organizations."
+    },
+    {
+      "name": "Communication",
+      "description": "Proven ability to communicate complex topics effectively, including technical concepts and general business communication."
+    },
+    {
+      "name": "Business Development",
+      "description": "Experience in identifying new business opportunities, building client relationships, and contributing to growth strategies, particularly related to cloud and consulting solutions."
+    },
+    {
+      "name": "Data Science",
+      "description": "Foundational knowledge and academic experience (NOVA IMS) in data science principles and techniques, including data analysis, modeling, and interpretation. Complements AI and Data roles."
+    },
+    {
+      "name": "Data Visualization",
+      "description": "The ability to represent complex data sets graphically to identify trends, patterns, and insights effectively using tools like Power BI to communicate findings clearly and support data-driven decision-making."
+    },
+    {
+      "name": "Agentic AI",
+      "description": "I design and develop AI systems that can operate autonomously, making decisions and taking actions with minimal human intervention. These systems focus on goal-oriented behavior and can adapt to changing environments, effectively serving as digital assistants that proactively solve problems."
+    }
   ],
   "technologies": [
     {
@@ -94,48 +141,8 @@
   "sectionDescriptions": {
     "experience": "Over the past few years, I've been building my career in data and AI, focusing on practical, business-oriented solutions that generate real value.",
     "education": "My academic background combines business management with specialized training in data science and innovation management.",
-    "skills": "I've developed skills across a wide range of technologies and methodologies that combine technical knowledge with business understanding.",
     "certifications": "I maintain active certifications that demonstrate my commitment to continuous learning and professional development.",
     "sideProjects": ""
-  },
-  "skillDescriptions": {
-    "Low-code Development": "I create powerful business apps with minimal coding, empowering non-developers to build what they need. Think of it as Lego for software - connecting pre-built blocks to solve real problems without diving into complex code.",
-    "Cloud Computing": "I build systems that live and breathe in the cloud, scaling from handling a handful of users to millions without breaking a sweat. It's like having an infinitely expandable digital workshop that's always on.",
-    "Microsoft Azure": "My digital playground where I've built everything from AI-powered chatbots to automated data pipelines. Azure is my trusted toolkit for creating solutions that integrate seamlessly with existing systems.",
-    "Microsoft Power Platform": "My Swiss Army knife for business problems - I've used it to create apps that saved teams thousands of hours of manual work and automated processes that were once spreadsheet nightmares.",
-    "Power BI": "I transform mountains of raw data into visual stories that reveal the hidden patterns. I've built dashboards that helped leaders make million-dollar decisions with confidence instead of guesswork.",
-    "Power Automate": "I've automated countless tedious tasks with this tool - from simple approval workflows to complex multi-system processes that previously required armies of people copy-pasting between systems.",
-    "Data Science": "Foundational knowledge and academic experience (NOVA IMS) in data science principles and techniques, including data analysis, modeling, and interpretation. Complements AI and Data roles.",
-    "Azure AI Services": "I bring intelligent capabilities to applications without reinventing the wheel. I've used these services to create apps that can see, hear, speak, and understand human needs.",
-    "Cloud Architecture": "I design digital ecosystems that connect various services into cohesive, resilient systems. It's like being an urban planner for cloud cities, ensuring everything works together harmoniously.",
-    "Dynamics 365": "I've customized and extended these business apps to streamline operations across sales, service, and marketing teams, creating unified experiences that eliminate departmental silos.",
-    "Databricks": "My preferred environment for tackling massive datasets. I've used it to process terabytes of data and train machine learning models that would crash lesser systems.",
-    "RAG": "I enhance AI responses by connecting them to specific knowledge bases. I've built systems that can answer questions by pulling relevant information from thousands of documents, policies, and records.",
-    "LLM Integration": "I weave large language models into applications to make them more intuitive and helpful. I've created solutions that understand natural language requests and generate human-quality content.",
-    "Python": "My go-to programming language for data analysis and automation. I've written scripts that processed millions of records and built web apps that serve thousands of users.",
-    "C#/.NET": "My trusted toolset for building rock-solid applications. I've developed everything from internal tools to customer-facing platforms that handle critical business operations.",
-    "Microsoft PowerPoint": "I craft presentations that actually engage audiences and convey complex ideas simply. My slides tell stories that stick, not just bullet points that bore.",
-    "Microsoft Excel": "Beyond basic spreadsheets, I build analytical tools and models that provide real business intelligence. I've created forecasting models that predict outcomes with surprising accuracy.",
-    "Microsoft Word": "I create documents that communicate effectively and look professional. Templates I've designed are used across organizations to maintain consistency and save time.",
-    "Business Strategy": "I connect technological possibilities with business opportunities. I've helped teams plan digital transformations that align with long-term goals instead of chasing shiny new toys.",
-    "Project Management": "Planning, executing, monitoring, and closing projects to achieve specific goals within defined constraints.",
-    "Communication": "Proven ability to communicate complex topics effectively, including technical concepts and general business communication.",
-    "Leadership": "I build environments where team members feel empowered to innovate and grow. My teams consistently deliver exceptional results because people know their contributions matter.",
-    "Product Management": "I shepherd products through their lifecycle, balancing user needs with business realities. I've turned vague ideas into defined products that solved real user problems.",
-    "Business Development": "Experience in identifying new business opportunities, building client relationships, and contributing to growth strategies, particularly related to cloud and consulting solutions.",
-    "Data Analytics": "Foundational knowledge and academic experience (NOVA IMS) in data science principles and techniques, including data analysis, modeling, and interpretation. Complements AI and Data roles.",
-    "History": "I explore the past to understand our present and future. Historical patterns provide incredible context for current events and technology trends.",
-    "SQL": "I speak the language of databases fluently, writing queries that extracted precisely the information needed. I've optimized queries that went from taking hours to seconds.",
-    "Marketing": "I create compelling stories that connect products with people who need them. I've developed messaging that resonates on an emotional level beyond feature lists.",
-    "Economics": "I analyze how resources flow and decisions are made. I've applied economic principles to pricing strategies and market analyses that drove business success.",
-    "Politics": "I navigate the human systems that govern how decisions are made in organizations. Understanding political dynamics has helped me implement changes that might otherwise have stalled.",
-    "AI Solution Architecture": "Designing end-to-end artificial intelligence solutions to meet business requirements.",
-    "Cloud Solution Architecture": "Designing scalable, secure, and resilient cloud-based infrastructure and applications.",
-    "Power Platform Architecture": "Architecting business solutions using Microsoft Power Platform components (Power Apps, Power Automate, Power BI, etc.).",
-    "Product Owner": "Defining product vision, managing the product backlog, and maximizing the value delivered by the development team.",
-    "Innovation Management": "Experience and academic background (ISEG) in managing innovation processes, fostering new ideas, and implementing strategic initiatives within organizations.",
-    "Data Visualization": "The ability to represent complex data sets graphically to identify trends, patterns, and insights effectively using tools like Power BI to communicate findings clearly and support data-driven decision-making.",
-    "Agentic AI": "I design and develop AI systems that can operate autonomously, making decisions and taking actions with minimal human intervention. These systems focus on goal-oriented behavior and can adapt to changing environments, effectively serving as digital assistants that proactively solve problems."
   },
   "experience": [
     {

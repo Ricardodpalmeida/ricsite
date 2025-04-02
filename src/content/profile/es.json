@@ -11,24 +11,25 @@
     "Cuando no estoy diseñando arquitecturas en la nube o trabajando con LLMs, probablemente estaré leyendo, tomando cursos de encuadernación, escuchando música o revisando Star Wars (sí, incluso las precuelas). Creo que las soluciones más interesantes surgen de la conexión entre mundos diferentes."
   ],
   "about": [
-    "Construyendo soluciones con IA que funcionan"
+    "Construyo soluciones de IA que responden a necesidades empresariales reales. En PwC Portugal, lidero equipos para desarrollar productos inteligentes en la nube, combinando lo mejor de las plataformas low-code con el desarrollo tradicional.",
+    "Cuando no estoy diseñando arquitecturas en la nube o trabajando con LLMs, probablemente me encontrarás leyendo, tomando cursos de encuadernación, escuchando música o volviendo a ver Star Wars (sí, incluso las precuelas). Creo que las soluciones más interesantes surgen de la conexión entre mundos diferentes."
   ],
   "technologies": [
     {
       "name": "Microsoft Azure",
-      "description": "Uso de servicios en la nube de Azure para construir, implementar y gestionar aplicaciones e infraestructura."
+      "description": "Utilización de servicios cloud Azure para construcción, implementación y gestión de aplicaciones e infraestructura."
     },
     {
       "name": "AI Foundry (Azure AI)",
-      "description": "Uso de la plataforma unificada de Azure para construir, evaluar e implementar modelos de IA."
+      "description": "Uso de la plataforma unificada de Azure para construcción, evaluación e implementación de modelos de IA."
     },
     {
       "name": "Amazon Web Services (AWS)",
-      "description": "Conocimiento fundamental de los conceptos de la plataforma en la nube AWS."
+      "description": "Conocimiento fundamental de los conceptos de la plataforma cloud AWS."
     },
     {
       "name": "Databricks",
-      "description": "Uso de la plataforma Databricks para ingeniería de datos, ciencia de datos y machine learning."
+      "description": "Utilización de la plataforma Databricks para ingeniería de datos, ciencia de datos y machine learning."
     },
     {
       "name": "Microsoft Power Platform",
@@ -40,35 +41,35 @@
     },
     {
       "name": "OpenAI API",
-      "description": "Experiencia en el uso de la API de OpenAI para la integración de capacidades avanzadas de IA."
+      "description": "Experiencia en utilizar la API de OpenAI para integración de capacidades avanzadas de IA."
     },
     {
-      "name": "Integración de LLM",
+      "name": "LLM Integration",
       "description": "Integración de Grandes Modelos de Lenguaje en productos o procesos de negocio para mejorar funcionalidades como chatbots, asistentes o herramientas de análisis."
     },
     {
-      "name": "RAG (Generación Aumentada por Recuperación)",
-      "description": "Optimización de las salidas de grandes modelos de lenguaje referenciando bases de conocimiento externas autorizadas antes de generar respuestas."
+      "name": "RAG (Retrieval-Augmented Generation)",
+      "description": "Optimización de las salidas de grandes modelos de lenguaje referenciando bases de conocimiento externas autoritativas antes de generar respuestas."
     },
     {
       "name": "Fine-tuning",
-      "description": "Ajuste de modelos de IA preentrenados utilizando conjuntos de datos específicos para mejorar el rendimiento en tareas particulares."
+      "description": "Ajuste de modelos de IA pre-entrenados utilizando conjuntos de datos específicos para mejorar el rendimiento en tareas particulares."
     },
     {
-      "name": "IA Agéntica",
+      "name": "Agentic AI",
       "description": "Desarrollo de sistemas de IA capaces de operar independientemente, tomar decisiones y realizar tareas sin intervención humana directa."
     },
     {
-      "name": "Contenedores",
+      "name": "Containers",
       "description": "Empaquetado de software con todos los elementos necesarios para funcionar consistentemente en diferentes entornos."
     },
     {
-      "name": "APIs RESTful",
-      "description": "Diseño y trabajo con interfaces de programación de aplicaciones conformes a los principios arquitectónicos REST para la integración de servicios web."
+      "name": "RESTful APIs",
+      "description": "Diseño y trabajo con interfaces de programación de aplicaciones conformes a principios arquitectónicos REST para integración de servicios web."
     },
     {
       "name": "SQL",
-      "description": "Escritura y optimización de consultas para la gestión de bases de datos, extracción y manipulación de datos."
+      "description": "Escritura y optimización de consultas para gestión de bases de datos, extracción y manipulación de datos."
     },
     {
       "name": "Python",
@@ -88,54 +89,13 @@
     },
     {
       "name": "Git",
-      "description": "Uso de control de versiones para monitorizar cambios de código, colaborar con equipos y gestionar repositorios de código fuente de forma eficiente."
+      "description": "Uso de control de versiones para seguimiento de cambios de código, colaboración con equipos y gestión de repositorios de código fuente de manera eficiente."
     }
   ],
   "sectionDescriptions": {
-    "experience": "A lo largo de los últimos años, he construido mi carrera en datos e IA, centrándome en soluciones prácticas y orientadas al negocio que generan valor real.",
+    "experience": "Durante los últimos años, he estado construyendo mi carrera en datos e IA, centrándome en soluciones prácticas y orientadas al negocio que generan valor real.",
     "education": "Mi formación académica combina gestión empresarial con formación especializada en ciencia de datos y gestión de la innovación.",
-    "skills": "He desarrollado competencias en una amplia gama de tecnologías y metodologías que combinan conocimiento técnico con comprensión del negocio.",
-    "certifications": "Mantengo certificaciones activas que demuestran mi compromiso con el aprendizaje continuo y el desarrollo profesional.",
-    "sideProjects": "Además de mi trabajo profesional, me dedico a varios proyectos creativos que me mantienen equilibrado e inspirado."
-  },
-  "skillDescriptions": {
-    "Low-code Development": "Creo aplicaciones empresariales potentes con el mínimo código, capacitando a no programadores para construir lo que necesitan. Es como Lego para software: conectando bloques preconstruidos para resolver problemas reales sin sumergirse en código complejo.",
-    "Cloud Computing": "Construyo sistemas que viven y respiran en la nube, escalando desde el manejo de unos pocos usuarios hasta millones sin problemas. Es como tener un taller digital infinitamente expandible que siempre está activo.",
-    "Microsoft Azure": "Mi parque de atracciones digital donde he construido todo, desde chatbots con IA hasta pipelines de datos automatizados. Azure es mi conjunto de herramientas fiable para crear soluciones que se integran perfectamente con sistemas existentes.",
-    "Microsoft Power Platform": "Mi navaja suiza para problemas empresariales: la he utilizado para crear aplicaciones que ahorraron miles de horas de trabajo manual y automatizar procesos que antes eran pesadillas de hojas de cálculo.",
-    "Power BI": "Transformo montañas de datos brutos en historias visuales que revelan patrones ocultos. Construí dashboards que ayudaron a líderes a tomar decisiones de millones con confianza en lugar de suposiciones.",
-    "Power Automate": "He automatizado innumerables tareas tediosas con esta herramienta, desde simples flujos de aprobación hasta procesos complejos multisistema que anteriormente requerían ejércitos de personas copiando y pegando entre sistemas.",
-    "Data Science": "Conocimientos fundamentales y experiencia académica (NOVA IMS) en principios y técnicas de ciencia de datos, incluyendo análisis de datos, modelado e interpretación. Complementa funciones de IA y Datos.",
-    "Azure AI Services": "Introduzco capacidades inteligentes en aplicaciones sin reinventar la rueda. He utilizado estos servicios para crear aplicaciones que pueden ver, oír, hablar y comprender necesidades humanas.",
-    "Cloud Architecture": "Diseño ecosistemas digitales que conectan varios servicios en sistemas cohesivos y resilientes. Es como ser un urbanista para ciudades en la nube, garantizando que todo funcione armoniosamente.",
-    "Dynamics 365": "He personalizado y extendido estas aplicaciones empresariales para optimizar operaciones entre equipos de ventas, servicio y marketing, creando experiencias unificadas que eliminan silos departamentales.",
-    "Databricks": "Mi entorno preferido para manejar enormes conjuntos de datos. Lo he utilizado para procesar terabytes de datos y entrenar modelos de machine learning que colapsarían sistemas inferiores.",
-    "RAG": "Mejoro respuestas de IA conectándolas a bases de conocimiento específicas. He construido sistemas que pueden responder preguntas extrayendo información relevante de miles de documentos, políticas y registros.",
-    "LLM Integration": "Integro grandes modelos de lenguaje en aplicaciones para hacerlas más intuitivas y útiles. He creado soluciones que comprenden peticiones en lenguaje natural y generan contenido de calidad humana.",
-    "Python": "Mi lenguaje de programación preferido para análisis de datos y automatización. He escrito scripts que procesaron millones de registros y construido aplicaciones web que sirven a miles de usuarios.",
-    "C#/.NET": "Mi conjunto de herramientas fiable para construir aplicaciones sólidas. He desarrollado desde herramientas internas hasta plataformas orientadas a clientes que manejan operaciones comerciales críticas.",
-    "Microsoft PowerPoint": "Creo presentaciones que realmente involucran al público y transmiten ideas complexas de forma simple. Mis diapositivas cuentan historias que perduran, no solo puntos que aburren.",
-    "Microsoft Excel": "Más allá de hojas de cálculo básicas, construyo herramientas analíticas y modelos que proporcionan verdadera inteligencia empresarial. He creado modelos de previsión que predicen resultados con sorprendente precisión.",
-    "Microsoft Word": "Creo documentos que comunican eficazmente y parecen profesionales. Plantillas que diseñé se utilizan en organizaciones para mantener la consistencia y ahorrar tiempo.",
-    "Business Strategy": "Conecto posibilidades tecnológicas con oportunidades de negocio. He ayudado a equipos a planificar transformaciones digitales alineadas con objetivos a largo plazo en lugar de perseguir novedades tecnológicas.",
-    "Project Management": "Planificación, ejecución, monitorización y cierre de proyectos para alcanzar objetivos específicos dentro de restricciones definidas.",
-    "Communication": "Capacidad demostrada para comunicar temas complejos eficazmente, incluyendo conceptos técnicos y comunicación empresarial general.",
-    "Leadership": "Construyo entornos donde los miembros del equipo se sienten capacitados para innovar y crecer. Mis equipos entregan consistentemente resultados excepcionales porque las personas saben que sus contribuciones importan.",
-    "Product Management": "Guío productos a través de su ciclo de vida, equilibrando necesidades de los usuarios con realidades empresariales. He transformado ideas vagas en productos definidos que resolvieron problemas reales de los usuarios.",
-    "Business Development": "Experiencia en identificar nuevas oportunidades de negocio, construir relaciones con clientes y contribuir a estrategias de crecimiento, particularmente relacionadas con soluciones de cloud y consultoría.",
-    "Data Analytics": "Conocimientos fundamentales y experiencia académica (NOVA IMS) en principios y técnicas de ciencia de datos, incluyendo análisis, modelado e interpretación de datos. Complementa funciones de IA y Datos.",
-    "History": "Exploro el pasado para comprender nuestro presente y futuro. Los patrones históricos proporcionan un contexto increíble para eventos actuales y tendencias tecnológicas.",
-    "SQL": "Hablo el lenguaje de las bases de datos con fluidez, escribiendo consultas que extraen precisamente la información necesaria. He optimizado consultas que pasaron de horas a segundos.",
-    "Marketing": "Creo historias convincentes que conectan productos con personas que los necesitan. He desarrollado mensajes que resuenan a un nivel emocional más allá de listas de funcionalidades.",
-    "Economics": "Analizo cómo fluyen los recursos y se toman las decisiones. He aplicado principios económicos a estrategias de precios y análisis de mercado que impulsaron el éxito empresarial.",
-    "Politics": "Navego por los sistemas humanos que gobiernan cómo se toman las decisiones en las organizaciones. Comprender las dinámicas políticas me ha ayudado a implementar cambios que de otra manera podrían haberse estancado.",
-    "AI Solution Architecture": "Diseño de soluciones de inteligencia artificial de extremo a extremo para satisfacer requisitos empresariales.",
-    "Cloud Solution Architecture": "Diseño de infraestructura y aplicaciones basadas en la nube escalables, seguras y resilientes.",
-    "Power Platform Architecture": "Arquitectura de soluciones empresariales utilizando componentes de Microsoft Power Platform (Power Apps, Power Automate, Power BI, etc.).",
-    "Product Owner": "Definición de la visión del producto, gestión del backlog del producto y maximización del valor entregado por el equipo de desarrollo.",
-    "Innovation Management": "Experiencia y formación académica (ISEG) en la gestión de procesos de innovación, fomentando nuevas ideas e implementando iniciativas estratégicas dentro de las organizaciones.",
-    "Data Visualization": "La capacidad de representar gráficamente conjuntos de datos complejos para identificar tendencias, patrones e insights eficazmente, utilizando herramientas como Power BI para comunicar hallazgos claramente y apoyar la toma de decisiones basadas en datos.",
-    "Agentic AI": "Diseño y desarrollo sistemas de IA que pueden operar autónomamente, tomando decisiones y realizando acciones con mínima intervención humana. Estos sistemas se centran en comportamiento orientado a objetivos y pueden adaptarse a entornos cambiantes, sirviendo eficazmente como asistentes digitales que resuelven problemas proactivamente."
+    "certifications": "Mantengo certificaciones activas que demuestran mi compromiso con el aprendizaje continuo y el desarrollo profesional."
   },
   "experience": [
     {

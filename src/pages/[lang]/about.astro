@@ -10,6 +10,7 @@ import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings }
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
 import CardComponent from '../../components/CardComponent.astro';
+import SkillsAndTechnologies from '../../components/SkillsAndTechnologies.astro';
 import '../../styles/profile.css';
 
 // Get the lang from the URL path parameter
@@ -55,8 +56,9 @@ try {
   if (!profileInfo || 
       !profileInfo.experience || 
       !profileInfo.education || 
-      !profileInfo.skillDescriptions ||
-      !profileInfo.certifications) {
+      !profileInfo.certifications ||
+      !profileInfo.skills ||
+      !profileInfo.technologies) {
     console.log(`Missing required content in ${validLang} profile, trying English fallback`);
     
     if (validLang !== 'en') {
@@ -81,11 +83,6 @@ try {
             englishFallback = true;
           }
           
-          if (!profileInfo.skillDescriptions || Object.keys(profileInfo.skillDescriptions).length === 0) {
-            profileInfo.skillDescriptions = enProfile.skillDescriptions;
-            englishFallback = true;
-          }
-          
           if (!profileInfo.certifications || profileInfo.certifications.length === 0) {
             profileInfo.certifications = enProfile.certifications;
             englishFallback = true;
@@ -93,6 +90,16 @@ try {
           
           if (!profileInfo.sectionDescriptions) {
             profileInfo.sectionDescriptions = enProfile.sectionDescriptions;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.skills || profileInfo.skills.length === 0) {
+            profileInfo.skills = enProfile.skills;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.technologies || profileInfo.technologies.length === 0) {
+            profileInfo.technologies = enProfile.technologies;
             englishFallback = true;
           }
         }
@@ -141,6 +148,11 @@ export async function getStaticPaths() {
           </div>
         )}
 
+        <SkillsAndTechnologies 
+          skills={profileInfo.skills || []}
+          technologies={profileInfo.technologies || []}
+        />
+
         <section class="profile-section" id="experience">
           <h2>{uiStrings['profile.experience'] || 'Experience'}</h2>
           <div class="timeline-container">
@@ -172,18 +184,6 @@ export async function getStaticPaths() {
                   {edu.description && <p class="timeline-description">{edu.description}</p>}
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section class="profile-section" id="skills">
-          <h2>{uiStrings['profile.skills'] || 'Skills'}</h2>
-          <div class="skills-container">
-            {profileInfo.skillDescriptions && Object.keys(profileInfo.skillDescriptions).map((skill: string) => (
-              <CardComponent
-                title={skill}
-                description={profileInfo.skillDescriptions[skill]}
-              />
             ))}
           </div>
         </section>

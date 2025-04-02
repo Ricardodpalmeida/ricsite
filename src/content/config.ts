@@ -33,6 +33,10 @@ const profileCollection = defineCollection({
     }).optional(),
     hero: z.array(z.string()).optional(),
     about: z.array(z.string()).optional(),
+    skills: z.array(z.object({
+      name: z.string().optional(),
+      description: z.string().optional(),
+    })).optional(),
     technologies: z.array(z.object({
       name: z.string().optional(),
       description: z.string().optional(),

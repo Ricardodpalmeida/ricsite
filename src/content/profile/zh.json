@@ -11,36 +11,83 @@
       "当我不在设计云架构或使用 LLM 时，我可能在阅读、上装订课程、听音乐或重温《星球大战》（是的，甚至是前传）。我相信最有趣的解决方案来自于不同世界的连接。"
     ],
     "about": [
-      "构建有效的 AI 解决方案"
+      "我构建能解决实际业务需求的人工智能解决方案。在葡萄牙普华永道（PwC Portugal），我带领团队开发智能云产品，将低代码平台与传统开发的优势相结合。",
+      "当我不在设计云架构或使用大型语言模型（LLMs）工作时，你可能会发现我在阅读、参加书籍装订课程、听音乐或重看星球大战（是的，甚至包括前传）。我相信最有趣的解决方案来自于不同世界的连接。"
+    ],
+    "skills": [
+      {
+        "name": "AI Solution Architecture",
+        "description": "设计满足业务需求的端到端人工智能解决方案。"
+      },
+      {
+        "name": "Cloud Solution Architecture",
+        "description": "设计可扩展、安全和弹性的基于云的基础设施和应用程序。"
+      },
+      {
+        "name": "Power Platform Architecture",
+        "description": "使用Microsoft Power Platform组件（Power Apps、Power Automate、Power BI等）架构业务解决方案。"
+      },
+      {
+        "name": "Product Owner",
+        "description": "定义产品愿景，管理产品待办事项，并最大化开发团队交付的价值。"
+      },
+      {
+        "name": "Project Management",
+        "description": "在定义的约束条件内规划、执行、监控和结束项目以实现特定目标。"
+      },
+      {
+        "name": "Innovation Management",
+        "description": "在管理创新过程、促进新想法和在组织内部实施战略计划方面的经验和学术背景（ISEG）。"
+      },
+      {
+        "name": "Communication",
+        "description": "有效沟通复杂主题的经验能力，包括技术概念和一般业务沟通。"
+      },
+      {
+        "name": "Business Development",
+        "description": "在识别新业务机会、建立客户关系和为增长战略做出贡献方面的经验，特别是与云解决方案和咨询相关的领域。"
+      },
+      {
+        "name": "Data Science",
+        "description": "数据科学原理和技术的基础知识和学术经验（NOVA IMS），包括数据分析、建模和解释。补充人工智能和数据角色。"
+      },
+      {
+        "name": "Data Visualization",
+        "description": "能够以图形方式表示复杂数据集，有效识别趋势、模式和见解，使用如Power BI等工具清晰地传达发现并支持数据驱动的决策。"
+      },
+      {
+        "name": "Agentic AI",
+        "description": "我设计和开发能够自主运行的人工智能系统，在最少人工干预的情况下做出决策和采取行动。这些系统专注于目标导向行为，可以适应不断变化的环境，有效地作为主动解决问题的数字助手。"
+      }
     ],
     "technologies": [
       {
         "name": "Microsoft Azure",
-        "description": "利用 Azure 云服务构建、部署和管理应用程序与基础设施。"
+        "description": "利用Azure云服务构建、部署和管理应用程序和基础设施。"
       },
       {
         "name": "AI Foundry (Azure AI)",
-        "description": "使用 Azure 统一平台构建、评估和部署 AI 模型。"
+        "description": "使用Azure的统一平台构建、评估和部署AI模型。"
       },
       {
         "name": "Amazon Web Services (AWS)",
-        "description": "AWS 云平台概念的基础知识。"
+        "description": "AWS云平台概念的基础知识。"
       },
       {
         "name": "Databricks",
-        "description": "利用 Databricks 平台进行数据工程、数据科学和机器学习。"
+        "description": "利用Databricks平台进行数据工程、数据科学和机器学习。"
       },
       {
         "name": "Microsoft Power Platform",
-        "description": "使用 Power Apps、Power Automate、Power BI 和 Dataverse 架构和开发解决方案。"
+        "description": "使用Power Apps、Power Automate、Power BI和Dataverse架构和开发解决方案。"
       },
       {
         "name": "Power BI",
-        "description": "开发交互式报告、仪表板和数据可视化，以获取业务洞察。"
+        "description": "开发交互式报告、仪表板和数据可视化，用于业务洞察。"
       },
       {
         "name": "OpenAI API",
-        "description": "利用 OpenAI API 集成先进 AI 功能的经验。"
+        "description": "利用OpenAI的API集成高级AI功能的经验。"
       },
       {
       "name": "LLM Integration",
@@ -48,23 +95,23 @@
       },
       {
       "name": "RAG (Retrieval-Augmented Generation)",
-        "description": "通过在生成响应前引用外部权威知识库来优化大型语言模型的输出。"
+        "description": "通过在生成响应前引用外部权威知识库来优化大型语言模型输出。"
       },
       {
         "name": "Fine-tuning",
-        "description": "使用特定数据集调整预训练的 AI 模型，以提高特定任务的性能。"
+        "description": "使用特定数据集调整预训练AI模型，以提高特定任务的性能。"
       },
       {
       "name": "Agentic AI",
-        "description": "开发能够独立运行、做出决策并在无需直接人工干预的情况下执行任务的 AI 系统。"
+        "description": "开发能够独立运行、做出决策和执行任务而无需直接人工干预的AI系统。"
       },
       {
       "name": "Containers",
-        "description": "将软件及其所有必要元素打包，以便在不同环境中一致地运行。"
+        "description": "打包具有所有必要元素的软件，以在不同环境中一致运行。"
       },
       {
         "name": "RESTful APIs",
-        "description": "设计和使用符合 REST 架构原则的应用程序编程接口，用于 Web 服务集成。"
+        "description": "设计和使用符合REST架构原则的应用程序编程接口，用于Web服务集成。"
       },
       {
         "name": "SQL",
@@ -72,70 +119,29 @@
       },
       {
         "name": "Python",
-        "description": "使用 Python 编程语言进行数据分析、自动化、脚本编写和 AI/ML 开发支持。"
+        "description": "使用Python编程语言进行数据分析、自动化、脚本编写和AI/ML开发支持。"
       },
       {
         "name": "Microsoft Dynamics 365",
-        "description": "了解微软的 CRM 和 ERP 业务应用程序套件。"
+        "description": "了解Microsoft的CRM和ERP业务应用程序套件。"
       },
       {
         "name": "SharePoint",
-        "description": "使用 Microsoft SharePoint 进行协作和内容管理的经验。"
+        "description": "使用Microsoft SharePoint进行协作和内容管理的经验。"
       },
       {
         "name": "C#",
-        "description": "使用 C# 编程语言的经验。"
+        "description": "使用C#编程语言的经验。"
       },
       {
         "name": "Git",
-        "description": "使用版本控制跟踪代码更改、与团队协作并高效管理源代码库。"
+        "description": "使用版本控制跟踪代码更改、与团队协作和高效管理源代码存储库。"
       }
     ],
     "sectionDescriptions": {
-      "experience": "在过去的几年里，我一直在数据和人工智能领域发展我的职业生涯，专注于提供真正价值的、面向业务的实用解决方案。",
-      "education": "我的学术背景结合了工商管理以及数据科学和创新管理的专业培训。",
-      "skills": "我在广泛的技术和方法论方面积累了专业知识，将技术知识与商业头脑融为一体。",
-      "certifications": "我持有有效的认证，这表明我致力于持续学习和专业发展。",
-      "sideProjects": "除了我的专业工作，我还追求一些创造性的爱好，让我保持平衡和灵感。"
-    },
-    "skillDescriptions": {
-      "Low-code Development": "我用最少的编码创建强大的业务应用程序，使非开发人员能够构建他们需要的东西。可以把它想象成软件的乐高积木——连接预构建的模块来解决实际问题，而无需深入研究复杂的代码。",
-      "Cloud Computing": "我在云中构建能够生存和呼吸的系统，可以从处理少数用户扩展到数百万用户而不会崩溃。这就像拥有一个无限扩展且始终在线的数字工作室。",
-      "Microsoft Azure": "我的数字游乐场，我在其中构建了从 AI 驱动的聊天机器人到自动化数据管道的一切。Azure 是我值得信赖的工具包，用于创建与现有系统无缝集成的解决方案。",
-      "Microsoft Power Platform": "我解决业务问题的瑞士军刀——我用它创建的应用程序为团队节省了数千小时的手动工作，并自动化了曾经是电子表格噩梦的流程。",
-      "Power BI": "我将堆积如山的原始数据转化为揭示隐藏模式的可视化故事。我构建的仪表板帮助领导者充满信心地做出价值数百万美元的决策，而不是凭猜测。",
-      "Power Automate": "我用这个工具自动化了无数繁琐的任务——从简单的审批工作流到复杂的多系统流程，这些流程以前需要大量人员在系统之间复制粘贴。",
-      "Data Science": "在数据科学原理和技术方面拥有基础知识和学术经验（NOVA IMS），包括数据分析、建模和解释。补充了 AI 和数据角色。",
-      "Azure AI Services": "我为应用程序带来了智能功能，而无需重新发明轮子。我使用这些服务创建了能够看、听、说和理解人类需求的应用程序。",
-      "Cloud Architecture": "我设计将各种服务连接成有凝聚力、有弹性的系统的数字生态系统。这就像是云城市的城市规划师，确保一切和谐地协同工作。",
-      "Dynamics 365": "我定制和扩展了这些业务应用程序，以简化销售、服务和营销团队的运营，创建消除部门孤岛的统一体验。",
-      "Databricks": "我处理海量数据集的首选环境。我用它处理了 TB 级的数据，并训练了那些会让较差系统崩溃的机器学习模型。",
-      "RAG": "我通过将 AI 响应连接到特定的知识库来增强它们。我构建的系统可以通过从数千份文档、政策和记录中提取相关信息来回答问题。",
-      "LLM Integration": "我将大型语言模型融入应用程序，使其更加直观和有用。我创建的解决方案能够理解自然语言请求并生成人类质量的内容。",
-      "Python": "我进行数据分析和自动化的首选编程语言。我编写的脚本处理了数百万条记录，并构建了为数千用户提供服务的 Web 应用程序。",
-      "C#/.NET": "我构建坚如磐石的应用程序的可靠工具集。我开发了从内部工具到处理关键业务运营的面向客户的平台等各种应用。",
-      "Microsoft PowerPoint": "我制作能够真正吸引观众并简单传达复杂想法的演示文稿。我的幻灯片讲述的是令人印象深刻的故事，而不仅仅是枯燥的项目符号。",
-      "Microsoft Excel": "除了基本的电子表格，我还构建提供真正商业智能的分析工具和模型。我创建的预测模型能够以惊人的准确性预测结果。",
-      "Microsoft Word": "我创建能够有效沟通且看起来专业的文档。我设计的模板在整个组织中使用，以保持一致性并节省时间。",
-      "Business Strategy": "我将技术可能性与商业机会联系起来。我帮助团队规划与长期目标一致的数字化转型，而不是追逐时髦的新玩具。",
-      "Project Management": "规划、执行、监控和结束项目，以在定义的约束内实现特定目标。",
-      "Communication": "证明了有效沟通复杂主题的能力，包括技术概念和一般业务沟通。",
-      "Leadership": "我创建了一个让团队成员感到有能力去创新和成长的环境。我的团队持续交付卓越成果，因为人们知道他们的贡献很重要。",
-      "Product Management": "我引导产品完成其生命周期，平衡用户需求与商业现实。我将模糊的想法转化为解决实际用户问题的明确产品。",
-      "Business Development": "在识别新的商业机会、建立客户关系以及为增长战略做出贡献方面具有经验，特别是在云和咨询解决方案方面。",
-      "Data Analytics": "在数据科学原理和技术方面拥有基础知识和学术经验（NOVA IMS），包括数据分析、建模和解释。补充了 AI 和数据角色。",
-      "History": "我探索过去以理解我们的现在和未来。历史模式为当前事件和技术趋势提供了令人难以置信的背景。",
-      "SQL": "我能流利地使用数据库语言，编写精确提取所需信息的查询。我优化过的查询从耗时数小时缩短到只需几秒钟。",
-      "Marketing": "我创作引人入胜的故事，将产品与需要它们的人联系起来。我开发的信息在情感层面上产生共鸣，超越了功能列表。",
-      "Economics": "我分析资源如何流动以及决策如何制定。我将经济学原理应用于推动业务成功的定价策略和市场分析。",
-      "Politics": "我驾驭管理人组织中决策制定方式的人类系统。理解政治动态帮助我实施了否则可能会停滞的变革。",
-      "AI Solution Architecture": "设计端到端的人工智能解决方案以满足业务需求。",
-      "Cloud Solution Architecture": "设计可扩展、安全且有弹性的基于云的基础设施和应用程序。",
-      "Power Platform Architecture": "使用 Microsoft Power Platform 组件（Power Apps、Power Automate、Power BI 等）构建业务解决方案的架构。",
-      "Product Owner": "定义产品愿景，管理产品待办事项列表，并最大化开发团队交付的价值。",
-      "Innovation Management": "在管理创新流程、培养新想法以及在组织内实施战略举措方面具有经验和学术背景（ISEG）。",
-      "Data Visualization": "能够以图形方式表示复杂数据集，以有效地识别趋势、模式和见解，使用 Power BI 等工具清晰地传达发现并支持数据驱动的决策。",
-      "Agentic AI": "我设计和开发能够自主运行、做出决策并在最少人为干预下采取行动的 AI 系统。这些系统专注于目标导向行为，并能适应变化的环境，有效地充当主动解决问题的数字助手。"
+      "experience": "过去几年，我一直在数据和人工智能领域建立我的职业生涯，专注于产生实际价值的实用、业务导向的解决方案。",
+      "education": "我的学术背景结合了商业管理与数据科学和创新管理的专业培训。",
+      "certifications": "我保持活跃的证书，展示了我对持续学习和专业发展的承诺。"
     },
     "experience": [
       {
