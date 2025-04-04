@@ -31,13 +31,6 @@ const isCertification = metadata && (metadata.status || metadata.issued || metad
     <div class="card-header">
       <div class="title-container">
         <h3 class="card-title">{title}</h3>
-        {url && (
-          <a href={url} target="_blank" rel="noopener noreferrer" class="card-link" aria-label="Open in new tab">
-            <span class="icon-container">
-              <img src="/icons/newtab.svg" alt="Open in new tab" class="icon-newtab" />
-            </span>
-          </a>
-        )}
       </div>
       {subtitle && <p class="card-subtitle">{subtitle}</p>}
     </div>
@@ -54,5 +47,18 @@ const isCertification = metadata && (metadata.status || metadata.issued || metad
     )}
     
     <p class="card-description">{description}</p>
+    
+    <div class="card-actions">
+      {url ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" class="verify-button">
+          Verify
+          <span class="icon-container">
+            <img src="/icons/newtab.svg" alt="Open in new tab" class="icon-newtab" />
+          </span>
+        </a>
+      ) : (
+        <div class="spacer"></div>
+      )}
+    </div>
   </div>
 </div>

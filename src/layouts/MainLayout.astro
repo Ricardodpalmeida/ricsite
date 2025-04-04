@@ -153,50 +153,48 @@ const jsonLdData = {
     <header>
       <div class="header-wrapper">
         {!hideLangSelector && (
-          <div class="language-selector">
-            {/* Debug output */}
-            <span style="display: none;">Current: {validLang}, All: {JSON.stringify(Object.keys(languages))}</span>
-            
-            {Object.entries(languages).map(([code, name], index) => {
-              // Calculate the URL for this language
-              let langUrl;
-              
-              if (code === validLang) {
-                langUrl = '#';
-                console.log(`Language button for ${code} (current) - URL: ${langUrl}`);
-              } else {
-                // Special case for English to ensure it works correctly
-                if (code === 'en') {
-                  // For English, explicitly use /en/ path
-                  langUrl = Astro.url.pathname.startsWith('/en/') 
-                    ? Astro.url.pathname 
-                    : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
-                  console.log(`English language URL calculated: ${langUrl}`);
-                } else {
-                  // Normal case for other languages
-                  langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
-                }
-                console.log(`Language button for ${code} - URL: ${langUrl}, Current: ${validLang}, Display: ${name}`);
-              }
-                
-              return (
-                <>
-                  {index !== 0 && <span class="language-separator">/</span>}
-                  <a 
-                    href={langUrl}
-                    class={`language-btn ${code === validLang ? 'active' : ''}`}
-                    aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
-                    data-lang-link={code}
-                    data-testid={`lang-link-${code}`}
-                  >
-                    {/* Display native script if it's not a Latin-script language */}
-                    {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
-                      ? languageNames[code]?.charAt(0) || code.toUpperCase() 
-                      : code.toUpperCase()}
-                  </a>
-                </>
-              );
-            })}
+          <div class="language-dropdown-container">
+            <div class="language-dropdown">
+              <button class="dropdown-button">
+                {validLang.toUpperCase()}
+                <span class="dropdown-arrow">▼</span>
+              </button>
+              <div class="dropdown-content">
+                {Object.entries(languages).map(([code, name]) => {
+                  // Calculate the URL for this language
+                  let langUrl;
+                  
+                  if (code === validLang) {
+                    langUrl = '#';
+                  } else {
+                    // Special case for English to ensure it works correctly
+                    if (code === 'en') {
+                      // For English, explicitly use /en/ path
+                      langUrl = Astro.url.pathname.startsWith('/en/') 
+                        ? Astro.url.pathname 
+                        : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
+                    } else {
+                      // Normal case for other languages
+                      langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
+                    }
+                  }
+                    
+                  return (
+                    <a 
+                      href={langUrl}
+                      class={`dropdown-item ${code === validLang ? 'active' : ''}`}
+                      aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
+                      data-lang-link={code}
+                      data-testid={`lang-link-${code}`}
+                    >
+                      {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
+                        ? languageNames[code]?.charAt(0) || code.toUpperCase() 
+                        : code.toUpperCase()}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         )}
         

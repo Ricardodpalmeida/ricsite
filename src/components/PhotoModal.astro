@@ -15,6 +15,7 @@ const t = useTranslations(lang);
   <button class="modal-nav next" aria-label={t('modal.nextPhoto')}>&#62;</button>
   <div class="modal-content">
     <img src="" alt="" oncontextmenu="return false;" />
+    <p class="modal-caption"></p>
   </div>
 </div>
 
@@ -24,65 +25,103 @@ const t = useTranslations(lang);
     interface Window {
       openPhotoModal: (index: number) => void;
       closePhotoModal: () => void;
+      navigatePhotoModal: (direction: 'prev' | 'next') => void;
     }
   }
 
   // Photo Gallery Modal Functionality
   document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('photoModal');
-    const modalImg = modal?.querySelector('img');
-    const modalCloseBtn = modal?.querySelector('.modal-close');
-    const modalPrevBtn = modal?.querySelector('.modal-nav.prev');
-    const modalNextBtn = modal?.querySelector('.modal-nav.next');
-    const photoItems = document.querySelectorAll('.photo-item');
-    let currentPhotoIndex = 0;
+    const modal = document.getElementById('photoModal') as HTMLElement;
+    const modalImg = modal?.querySelector('img') as HTMLImageElement;
+    const modalCaption = modal?.querySelector('.modal-caption') as HTMLElement;
+    const modalCloseBtn = modal?.querySelector('.modal-close') as HTMLButtonElement;
+    const modalPrevBtn = modal?.querySelector('.modal-nav.prev') as HTMLButtonElement;
+    const modalNextBtn = modal?.querySelector('.modal-nav.next') as HTMLButtonElement;
+    
+    if (!modal || !modalImg || !modalCloseBtn || !modalPrevBtn || !modalNextBtn) {
+      console.error('Photo modal elements not found');
+      return;
+    }
+    
+    let currentIndex = 0;
+    let photoItems: NodeListOf<Element>;
   
     window.openPhotoModal = function(index) {
-      if (!modal || !modalImg) return;
-      currentPhotoIndex = index;
-      const photoSrc = photoItems[index]?.querySelector('img')?.src;
-      if (photoSrc) {
-        modalImg.src = photoSrc;
-        modalImg.alt = `Photo ${index + 1}`;
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+      // Get the photo items - do this at open time to ensure we have the latest list
+      photoItems = document.querySelectorAll('.photo-carousel-item');
+      if (index >= photoItems.length) return;
+      
+      currentIndex = index;
+      const photoItem = photoItems[index];
+      const photoImg = photoItem.querySelector('img');
+      
+      if (!photoImg) return;
+      
+      // Set modal image source and alt
+      modalImg.src = photoImg.src;
+      modalImg.alt = photoImg.alt || `Photo ${index + 1}`;
+      
+      // Get caption if available
+      const caption = photoItem.getAttribute('data-caption') || 
+                      photoImg.getAttribute('data-caption') || 
+                      photoItem.querySelector('.photo-caption')?.textContent || '';
+      
+      modalCaption.textContent = caption;
+      modalCaption.style.display = caption ? 'block' : 'none';
+      
+      // Show modal
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden'; // Prevent scrolling
+      
+      // Update navigation buttons
+      updateNavButtons();
+    }
+    
+    window.navigatePhotoModal = function(direction) {
+      if (!photoItems || !photoItems.length) return;
+      
+      if (direction === 'prev') {
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : photoItems.length - 1;
+      } else {
+        currentIndex = currentIndex < photoItems.length - 1 ? currentIndex + 1 : 0;
       }
+      
+      window.openPhotoModal(currentIndex);
     }
   
     window.closePhotoModal = function() {
-      if (!modal) return;
       modal.classList.remove('active');
-      document.body.style.overflow = '';
-    }
-  
-    function navigatePhoto(direction: 'prev' | 'next') {
-      const newIndex = direction === 'prev' 
-        ? Math.max(0, currentPhotoIndex - 1)
-        : Math.min(photoItems.length - 1, currentPhotoIndex + 1);
+      document.body.style.overflow = ''; // Re-enable scrolling
       
-      if (newIndex !== currentPhotoIndex) {
-        window.openPhotoModal(newIndex);
-      }
+      // Clear image source to stop any video/audio
+      setTimeout(() => {
+        modalImg.src = '';
+        modalCaption.textContent = '';
+      }, 300);
+    }
+    
+    function updateNavButtons() {
+      // For circular navigation, we don't disable buttons anymore
+      modalPrevBtn.disabled = false;
+      modalNextBtn.disabled = false;
     }
   
     // Event Listeners
-    photoItems.forEach((item, index) => {
-      item.addEventListener('click', () => window.openPhotoModal(index));
-    });
+    modalCloseBtn.addEventListener('click', window.closePhotoModal);
+    modalPrevBtn.addEventListener('click', () => window.navigatePhotoModal('prev'));
+    modalNextBtn.addEventListener('click', () => window.navigatePhotoModal('next'));
   
-    modalCloseBtn?.addEventListener('click', window.closePhotoModal);
-    modalPrevBtn?.addEventListener('click', () => navigatePhoto('prev'));
-    modalNextBtn?.addEventListener('click', () => navigatePhoto('next'));
-  
-    // Close modal on escape key
+    // Close modal on escape key, navigate with arrow keys
     document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('active')) return;
+      
       if (e.key === 'Escape') window.closePhotoModal();
-      if (e.key === 'ArrowLeft') navigatePhoto('prev');
-      if (e.key === 'ArrowRight') navigatePhoto('next');
+      if (e.key === 'ArrowLeft') window.navigatePhotoModal('prev');
+      if (e.key === 'ArrowRight') window.navigatePhotoModal('next');
     });
   
     // Close modal when clicking outside the image
-    modal?.addEventListener('click', (e) => {
+    modal.addEventListener('click', (e) => {
       if (e.target === modal) window.closePhotoModal();
     });
   });

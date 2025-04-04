@@ -1,0 +1,211 @@
+---
+// Photo Gallery component
+import '../styles/photo-gallery.css';
+
+// Since we have syntax issues with imports, use a simpler approach
+// to avoid dealing with TypeScript errors
+---
+
+<div class="photo-gallery-container">
+  <h2 class="section-title">Photo Gallery</h2>
+  <p class="section-subtitle">A collection of my photography work</p>
+  
+  <div class="photos-carousel">
+    <button class="carousel-arrow prev" aria-label="Previous photo">&#60;</button>
+    <div class="photos-container">
+      <div class="photos-track">
+        {Array.from({ length: 8 }).map((_, index) => (
+          <div class="photo-carousel-item" data-index={index}>
+            <img 
+              src={`/images/HomePhotoGallery/photo${index + 1}.jpg`}
+              alt={`Photo ${index + 1}`} 
+              loading={index < 4 ? "eager" : "lazy"}
+              class="photo-image"
+              onload="detectImageOrientation(this)"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+    <button class="carousel-arrow next" aria-label="Next photo">&#62;</button>
+  </div>
+</div>
+
+<script>
+  // Detect orientation of images for optimal display
+  function detectImageOrientation(img) {
+    if (!img) return;
+    
+    if (img.naturalWidth && img.naturalHeight) {
+      const ratio = img.naturalWidth / img.naturalHeight;
+      let orientation = 'square';
+      
+      if (ratio > 1.2) {
+        orientation = 'horizontal';
+      } else if (ratio < 0.8) {
+        orientation = 'vertical';
+      }
+      
+      // Set data-orientation on the image
+      img.setAttribute('data-orientation', orientation);
+      
+      // Set classes on parent elements
+      const carouselItem = img.closest('.photo-carousel-item');
+      if (carouselItem) {
+        carouselItem.classList.add(orientation);
+        carouselItem.setAttribute('data-orientation', orientation);
+      }
+    }
+  }
+
+  // Carousel functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const carouselTrack = document.querySelector('.photos-track');
+    const prevButton = document.querySelector('.photos-carousel .prev');
+    const nextButton = document.querySelector('.photos-carousel .next');
+    const carouselItems = document.querySelectorAll('.photo-carousel-item');
+    
+    if (!carouselTrack || !prevButton || !nextButton || carouselItems.length === 0) return;
+    
+    let currentIndex = 0;
+    const totalItems = carouselItems.length;
+    
+    // Function to check if a specific image is vertical
+    function isVertical(idx) {
+      const item = carouselItems[idx];
+      return item && item.classList.contains('vertical');
+    }
+    
+    function updateCarousel() {
+      // Check orientation of current item
+      const currentItem = carouselItems[currentIndex];
+      if (!currentItem) return;
+      
+      const isVerticalImage = currentItem.classList.contains('vertical');
+      
+      // For vertical images, we need to ensure we're showing a pair when possible
+      if (isVerticalImage && window.innerWidth > 768) {
+        // If we're on an odd index and this is a vertical image,
+        // ensure we start from an even index for proper pairing
+        if (currentIndex % 2 !== 0) {
+          currentIndex = Math.max(0, currentIndex - 1);
+        }
+        
+        // Calculate the transform percentage - for vertical images each takes 50% width
+        const percentage = currentIndex * 50;
+        if (carouselTrack instanceof HTMLElement) {
+          carouselTrack.style.transform = `translateX(-${percentage}%)`;
+        }
+      } else {
+        // For horizontal/square images, each takes 100% width
+        const percentage = currentIndex * 100;
+        if (carouselTrack instanceof HTMLElement) {
+          carouselTrack.style.transform = `translateX(-${percentage}%)`;
+        }
+      }
+    }
+    
+    // Initialize after all images have loaded
+    setTimeout(() => {
+      // First check if we need to force vertical orientation based on loaded images
+      carouselItems.forEach((item) => {
+        const img = item.querySelector('img');
+        if (img && img.complete) {
+          detectImageOrientation(img);
+        }
+      });
+      
+      updateCarousel();
+    }, 200);
+    
+    // Event listeners with circular navigation
+    prevButton.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        const isCurrentVertical = isVertical(currentIndex);
+        
+        // If current image is vertical and we're on desktop, move by 2
+        if (isCurrentVertical && window.innerWidth > 768 && currentIndex >= 2) {
+          currentIndex -= 2;
+        } else {
+          currentIndex--;
+        }
+      } else {
+        // Wrap to the end
+        currentIndex = totalItems - 1;
+      }
+      updateCarousel();
+    });
+    
+    nextButton.addEventListener('click', () => {
+      const isCurrentVertical = isVertical(currentIndex);
+      
+      if (currentIndex < totalItems - 1) {
+        // If current image is vertical and we're on desktop, move by 2
+        if (isCurrentVertical && window.innerWidth > 768 && currentIndex + 2 < totalItems) {
+          currentIndex += 2;
+        } else {
+          currentIndex++;
+        }
+      } else {
+        // Wrap to the beginning
+        currentIndex = 0;
+      }
+      updateCarousel();
+    });
+    
+    // Mobile touch swipe functionality
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    const handleSwipe = () => {
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
+      
+      if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+          // Swipe right - go to previous
+          if (currentIndex > 0) {
+            currentIndex--;
+          } else {
+            // Wrap to the end
+            currentIndex = totalItems - 1;
+          }
+        } else {
+          // Swipe left - go to next
+          if (currentIndex < totalItems - 1) {
+            currentIndex++;
+          } else {
+            // Wrap to the beginning
+            currentIndex = 0;
+          }
+        }
+        updateCarousel();
+      }
+    };
+    
+    carouselTrack.addEventListener('touchstart', (e) => {
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        touchStartX = e.changedTouches[0].screenX;
+      }
+    });
+    
+    carouselTrack.addEventListener('touchend', (e) => {
+      if (e.changedTouches && e.changedTouches.length > 0) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }
+    });
+    
+    // Update carousel on window resize
+    window.addEventListener('resize', updateCarousel);
+    
+    // Update when images load to ensure all orientations are detected
+    document.querySelectorAll('.photo-image').forEach(img => {
+      if (img.complete) {
+        detectImageOrientation(img);
+      } else {
+        img.addEventListener('load', () => detectImageOrientation(img));
+      }
+    });
+  });
+</script> 

@@ -97,32 +97,57 @@
   line-height: 1.6;
   color: var(--color-white);
   margin-top: 0;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
+  flex: 1 0 auto;
+}
+
+/* Card actions styling */
+.card-actions {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  min-height: 40px;
+}
+
+/* Verify button styling */
+.verify-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-cosmic-latte, #f0e6d2);
+  color: var(--color-gray-900, #0d0d0d);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.verify-button:hover {
+  background-color: var(--color-white, #ffffff);
+  transform: translateY(-2px);
+}
+
+.spacer {
+  height: 38px;
 }
 
 .icon-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-  background-color: rgba(255, 248, 231, 0.05);
-}
-
-.icon-container:hover {
-  background-color: rgba(255, 248, 231, 0.2);
 }
 
 .icon-newtab {
-  width: 18px;
-  height: 18px;
-  opacity: 0.8;
+  width: 14px;
+  height: 14px;
+  opacity: 0.9;
   transition: opacity 0.2s ease;
 }
 
-.card-link:hover .icon-newtab {
+.verify-button:hover .icon-newtab {
   opacity: 1;
 }
 

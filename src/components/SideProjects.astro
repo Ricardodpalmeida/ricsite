@@ -45,18 +45,17 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.podcast || '')}></p>
     <div class="podcast-embed">
       <iframe 
-        style="border-radius:12px; border: 0;" 
-        src={sideProjects.embeds?.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"} 
-        width={sideProjects.embeds?.podcast?.width || "100%"} 
-        height={sideProjects.embeds?.podcast?.height || "352"} 
-        allowfullscreen
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        style="border-radius:12px"
+        src={sideProjects.embeds?.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"}
+        width="100%"
+        height="352"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
-        fetchpriority="low"
         class="media-iframe"
         onload="this.parentNode.classList.add('loaded')"
         onerror="this.parentNode.classList.add('error')"
-        title="Mesa do Canto Podcast"
       ></iframe>
       <div class="iframe-loading">Loading...</div>
       <div class="iframe-error">Sorry, content couldn't be loaded. Please try again later.</div>
@@ -64,7 +63,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   </div>
   
   <!-- DJ Sets Section -->
-  <div class="project-container">
+  <div class="project-container" id="dj-sets">
     <h3 class="subsection-title">{sideProjects.titles?.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.dj || '')}></p>
     <div class="sets-carousel">
@@ -76,24 +75,24 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-container" data-index={index}>
                 {index === 0 ? (
                   <iframe 
-                    width="100%" 
-                    height="120" 
-                    src={set.src} 
-                    style="border: 0;" 
-                    title={set.title || `Set ${index + 1}`}
+                    width="100%"
+                    height="120"
+                    src={set.src}
+                    frameborder="0"
                     loading="lazy"
+                    title={set.title || `Set ${index + 1}`}
                     class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
                     onerror="this.parentNode.classList.add('error')"
                   ></iframe>
                 ) : (
                   <iframe 
-                    width="100%" 
-                    height="120" 
-                    data-src={set.src} 
-                    style="border: 0;" 
-                    title={set.title || `Set ${index + 1}`}
+                    width="100%"
+                    height="120"
+                    data-src={set.src}
+                    frameborder="0"
                     loading="lazy"
+                    title={set.title || `Set ${index + 1}`}
                     class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
                     onerror="this.parentNode.classList.add('error')"
@@ -111,11 +110,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   </div>
 
   <!-- Playlists Section -->
-  <div class="project-container">
+  <div class="project-container" id="playlists">
     <h3 class="subsection-title">{sideProjects.titles?.playlists || (lang === 'pt' ? 'As Minhas Playlists' : 'My Playlists')}</h3>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.playlistsIntro || '')}></p>
     <div class="playlists-carousel">
-      <button class="carousel-arrow playlist-prev" aria-label={t('carousel.previousPlaylist')}>&#60;</button>
+      <button class="carousel-arrow prev" aria-label={t('carousel.previousPlaylist')}>&#60;</button>
       <div class="playlists-container">
         <div class="playlists-track">
           {sideProjects.embeds?.playlists?.map((playlist: { src: string, title?: string, description?: string }, index: number) => (
@@ -123,13 +122,14 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-container" data-index={index}>
                 {index === 0 ? (
                   <iframe 
-                    style="border-radius:12px; border: 0;" 
-                    src={playlist.src} 
-                    width="100%" 
-                    height="352" 
-                    allowfullscreen
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                    loading="lazy" 
+                    style="border-radius:12px"
+                    src={playlist.src}
+                    width="100%"
+                    height="352"
+                    frameBorder="0"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
                     title={playlist.title || `Playlist ${index + 1}`}
                     class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
@@ -137,13 +137,14 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                   ></iframe>
                 ) : (
                   <iframe 
-                    style="border-radius:12px; border: 0;" 
-                    data-src={playlist.src} 
-                    width="100%" 
-                    height="352" 
-                    allowfullscreen
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                    loading="lazy" 
+                    style="border-radius:12px"
+                    data-src={playlist.src}
+                    width="100%"
+                    height="352"
+                    frameBorder="0"
+                    allowfullscreen=""
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                    loading="lazy"
                     title={playlist.title || `Playlist ${index + 1}`}
                     class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
@@ -162,27 +163,34 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           ))}
         </div>
       </div>
-      <button class="carousel-arrow playlist-next" aria-label={t('carousel.nextPlaylist')}>&#62;</button>
+      <button class="carousel-arrow next" aria-label={t('carousel.nextPlaylist')}>&#62;</button>
     </div>
   </div>
 
   <!-- Photography Section -->
-  <div class="project-container">
+  <div class="project-container" id="photography">
     <h3 class="subsection-title">{sideProjects.titles?.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h3>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.photography || '')}></p>
-    <div class="photo-gallery">
-      {galleryImages.map((image, index) => (
-        <div class="photo-item" data-index={index}>
-          <img 
-            src={image} 
-            alt={`Photo ${index + 1}`} 
-            loading={index < 3 ? "eager" : "lazy"}
-            width="300"
-            height="400"
-            oncontextmenu="return false;"
-          />
+    
+    <div class="photos-carousel">
+      <button class="carousel-arrow prev" aria-label={t('carousel.previous') || 'Previous photo'}>&#60;</button>
+      <div class="carousel-container">
+        <div class="carousel-track photos-track">
+          {galleryImages.map((image, index) => (
+            <div class="photo-carousel-item" data-index={index}>
+              <img 
+                src={image} 
+                alt={`${t('photo.alt') || 'Photo'} ${index + 1}`}
+                loading={index < 3 ? "eager" : "lazy"}
+                class="gallery-image"
+                data-orientation="detect" 
+                onload="detectImageOrientation(this)"
+              />
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      <button class="carousel-arrow next" aria-label={t('carousel.next') || 'Next photo'}>&#62;</button>
     </div>
   </div>
 </div>
@@ -191,178 +199,377 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
 <PhotoModal />
 
 <script>
+  // Type declarations for global functions
+  declare global {
+    interface Window {
+      openPhotoModal: (index: number) => void;
+    }
+  }
+
   /**
-   * Loads the iframe content for a given index
-   * @param {number} index - The index of the item to load
-   * @param {string} carouselType - Either 'sets' or 'playlists'
+   * Detect the orientation of an image
+   */
+  function detectImageOrientation(img: HTMLImageElement) {
+    if (!img) return;
+    
+    if (img.naturalWidth && img.naturalHeight) {
+      const ratio = img.naturalWidth / img.naturalHeight;
+      let orientation = 'square';
+      
+      if (ratio > 1.2) {
+        orientation = 'horizontal';
+      } else if (ratio < 0.8) {
+        orientation = 'vertical';
+      }
+      
+      img.setAttribute('data-orientation', orientation);
+      
+      const parentElement = img.parentElement;
+      if (parentElement) {
+        parentElement.setAttribute('data-orientation', orientation);
+        parentElement.classList.add(orientation);
+      }
+    }
+  }
+
+  /**
+   * Load iframe content
    */
   function loadIframeContent(index: number, carouselType: string) {
-    // Find the container based on carousel type
-    const containerSelector = carouselType === 'sets' ? '.carousel-track' : '.playlists-track';
+    const containerSelector = carouselType === 'sets' ? '#dj-sets .carousel-track' : '#playlists .playlists-track';
     const container = document.querySelector(containerSelector);
     
     if (!container) return;
     
-    // Find the iframe container with the matching index
     const iframeContainer = container.querySelector(`.iframe-container[data-index="${index}"]`);
     
     if (!iframeContainer) return;
     
-    // Find the iframe within this container
     const iframe = iframeContainer.querySelector('iframe');
     
-    if (!iframe || !iframe.dataset.src) return;
+    if (!iframe || !(iframe instanceof HTMLIFrameElement) || !iframe.dataset.src) return;
     
-    // Set the src from data-src to load the content
     iframe.src = iframe.dataset.src;
-    
-    // Remove the data-src attribute so we don't load it again
     iframe.removeAttribute('data-src');
   }
 
-  // When using PhotoModal component, set up click handlers to use window.openPhotoModal
   document.addEventListener('DOMContentLoaded', () => {
-    // Set up photo item clicks to open the modal
-    const photoItems = document.querySelectorAll('.photo-item');
-    photoItems.forEach((item, index) => {
+    // Photo Modal Setup
+    const modal = document.getElementById('photoModal');
+    const photoCarouselItems = document.querySelectorAll('.photo-carousel-item');
+    
+    if (!window.openPhotoModal && modal) {
+      window.openPhotoModal = function(index: number) {
+        const photoItems = document.querySelectorAll('.photo-carousel-item');
+        if (!modal || index >= photoItems.length) return;
+        
+        const photoImg = photoItems[index].querySelector('img');
+        if (!photoImg || !(photoImg instanceof HTMLImageElement)) return;
+        
+        const modalImg = modal.querySelector('.modal-content img');
+        if (!modalImg || !(modalImg instanceof HTMLImageElement)) return;
+        
+        modalImg.src = photoImg.src;
+        modalImg.alt = photoImg.alt || `Photo ${index + 1}`;
+        
+        modal.classList.add('active');
+        
+        if (document.body) {
+          document.body.style.overflow = 'hidden';
+        }
+        
+        modal.dataset.currentIndex = index.toString();
+      };
+    }
+    
+    photoCarouselItems.forEach((item, index) => {
       item.addEventListener('click', () => {
         if (typeof window.openPhotoModal === 'function') {
           window.openPhotoModal(index);
         }
       });
     });
-  });
-
-  // Add touch swipe functionality for mobile
-  document.addEventListener('DOMContentLoaded', () => {
-    const carouselTracks = document.querySelectorAll('.carousel-track, .playlists-track');
     
-    carouselTracks.forEach(track => {
-      let startX: number, startScrollLeft: number, isDragging = false;
-      // Remove unused variable
-      // let startY: number;
-
-      const startDrag = (e: MouseEvent | TouchEvent) => {
-        isDragging = true;
-        startX = 'touches' in e ? e.touches[0].pageX : e.pageX;
-        // startY = 'touches' in e ? e.touches[0].pageY : e.pageY; // Not used
-        startScrollLeft = (track.parentElement as HTMLElement).scrollLeft;
-      }
-
-      const drag = (e: MouseEvent | TouchEvent) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = 'touches' in e ? e.touches[0].pageX : e.pageX;
-        // Remove unused variable
-        // const y = 'touches' in e ? e.touches[0].pageY : e.pageY;
+    // Photo Carousel functionality
+    const photosTrack = document.querySelector('#photography .photos-track');
+    const photoItems = document.querySelectorAll('#photography .photo-carousel-item');
+    const photoPrevBtn = document.querySelector('#photography .carousel-arrow.prev');
+    const photoNextBtn = document.querySelector('#photography .carousel-arrow.next');
+    
+    if (photosTrack && photoItems.length > 0 && photoPrevBtn && photoNextBtn) {
+      let currentPhotoIndex = 0;
+      
+      function updatePhotoCarousel() {
+        if (!(photosTrack instanceof HTMLElement)) return;
         
-        // Calculate horizontal scroll based on drag distance
-        const deltaX = x - startX;
-        (track.parentElement as HTMLElement).scrollLeft = startScrollLeft - deltaX;
+        // Calculate percentage based on vertical image logic
+        const currentItem = photoItems[currentPhotoIndex];
+        const orientation = currentItem.getAttribute('data-orientation') || '';
+        const isVertical = orientation === 'vertical';
+        
+        // For vertical images, show 2 at once on desktop
+        if (isVertical && window.innerWidth > 768) {
+          // Start from an even index to ensure proper pairing
+          currentPhotoIndex = Math.floor(currentPhotoIndex / 2) * 2;
+          photosTrack.style.transform = `translateX(-${currentPhotoIndex * 50}%)`;
+        } else {
+          photosTrack.style.transform = `translateX(-${currentPhotoIndex * 100}%)`;
+        }
       }
-
-      const endDrag = () => {
-        isDragging = false;
-      }
-
-      // Mouse events
-      track.addEventListener('mousedown', startDrag);
-      track.addEventListener('mousemove', drag);
-      track.addEventListener('mouseup', endDrag);
-      track.addEventListener('mouseleave', endDrag);
       
-      // Touch events
-      track.addEventListener('touchstart', startDrag as EventListener);
-      track.addEventListener('touchmove', drag as EventListener);
-      track.addEventListener('touchend', endDrag);
-    });
-  });
-
-  // Carousel functionality
-  const carouselTrack = document.querySelector('.carousel-track') as HTMLElement;
-  const carouselItems = document.querySelectorAll('.carousel-item');
-  const carouselPrevBtn = document.querySelector('.carousel-arrow.prev') as HTMLButtonElement;
-  const carouselNextBtn = document.querySelector('.carousel-arrow.next') as HTMLButtonElement;
-  
-  let currentIndex = 0;
-
-  function updateCarousel() {
-    if (carouselTrack) {
-      const percentage = currentIndex * -100;
-      carouselTrack.style.transform = `translateX(${percentage}%)`;
+      photoPrevBtn.addEventListener('click', () => {
+        if (currentPhotoIndex > 0) {
+          currentPhotoIndex--;
+        } else {
+          // Go to last item if at first item
+          currentPhotoIndex = photoItems.length - 1;
+        }
+        updatePhotoCarousel();
+      });
       
-      // Update button states
-      if (carouselPrevBtn) carouselPrevBtn.disabled = currentIndex === 0;
-      if (carouselNextBtn) carouselNextBtn.disabled = currentIndex === carouselItems.length - 1;
+      photoNextBtn.addEventListener('click', () => {
+        if (currentPhotoIndex < photoItems.length - 1) {
+          currentPhotoIndex++;
+        } else {
+          // Go to first item if at last item
+          currentPhotoIndex = 0;
+        }
+        updatePhotoCarousel();
+      });
       
-      // Load the current iframe content
-      loadIframeContent(currentIndex, 'sets');
+      // Initialize
+      updatePhotoCarousel();
       
-      // Preload the next iframe content (for smoother transitions)
-      if (currentIndex < carouselItems.length - 1) {
-        loadIframeContent(currentIndex + 1, 'sets');
-      }
+      // Mobile touch swipe
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      const handleSwipe = () => {
+        const swipeThreshold = 50; 
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+          if (swipeDistance > 0) {
+            // Swipe right - go to previous
+            if (currentPhotoIndex > 0) {
+              currentPhotoIndex--;
+            } else {
+              // Circular navigation
+              currentPhotoIndex = photoItems.length - 1;
+            }
+          } else {
+            // Swipe left - go to next
+            if (currentPhotoIndex < photoItems.length - 1) {
+              currentPhotoIndex++;
+            } else {
+              // Circular navigation
+              currentPhotoIndex = 0;
+            }
+          }
+          updatePhotoCarousel();
+        }
+      };
+      
+      photosTrack.addEventListener('touchstart', (e) => {
+        if (e instanceof TouchEvent && e.changedTouches) {
+          touchStartX = e.changedTouches[0].screenX;
+        }
+      }, { passive: true });
+      
+      photosTrack.addEventListener('touchend', (e) => {
+        if (e instanceof TouchEvent && e.changedTouches) {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }
+      }, { passive: true });
     }
-  }
-
-  carouselPrevBtn?.addEventListener('click', () => {
-    if (currentIndex > 0) {
-      currentIndex--;
+    
+    // Sets Carousel functionality
+    const carouselTrack = document.querySelector('#dj-sets .carousel-track');
+    const carouselItems = document.querySelectorAll('#dj-sets .carousel-item');
+    const carouselPrevBtn = document.querySelector('#dj-sets .carousel-arrow.prev');
+    const carouselNextBtn = document.querySelector('#dj-sets .carousel-arrow.next');
+   
+    if (carouselTrack && carouselItems.length > 0) {
+      let currentIndex = 0;
+     
+      function updateCarousel() {
+        if (!(carouselTrack instanceof HTMLElement)) return;
+        
+        carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+        
+        // Load the current iframe content
+        loadIframeContent(currentIndex, 'sets');
+        
+        // Preload the next iframe content (for smoother transitions)
+        if (currentIndex < carouselItems.length - 1) {
+          loadIframeContent(currentIndex + 1, 'sets');
+        }
+      }
+     
+      if (carouselPrevBtn) {
+        carouselPrevBtn.addEventListener('click', () => {
+          if (currentIndex > 0) {
+            currentIndex--;
+          } else {
+            // Go to last item if at first item
+            currentIndex = carouselItems.length - 1;
+          }
+          updateCarousel();
+        });
+      }
+     
+      if (carouselNextBtn) {
+        carouselNextBtn.addEventListener('click', () => {
+          if (currentIndex < carouselItems.length - 1) {
+            currentIndex++;
+          } else {
+            // Go to first item if at last item
+            currentIndex = 0;
+          }
+          updateCarousel();
+        });
+      }
+     
+      // Initialize carousel
       updateCarousel();
+      
+      // Add touch swipe for sets carousel
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      const handleSwipe = () => {
+        const swipeThreshold = 50;
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+          if (swipeDistance > 0) {
+            // Swipe right - go to previous
+            if (currentIndex > 0) {
+              currentIndex--;
+            } else {
+              // Circular navigation
+              currentIndex = carouselItems.length - 1;
+            }
+          } else {
+            // Swipe left - go to next
+            if (currentIndex < carouselItems.length - 1) {
+              currentIndex++;
+            } else {
+              // Circular navigation
+              currentIndex = 0;
+            }
+          }
+          updateCarousel();
+        }
+      };
+      
+      carouselTrack.addEventListener('touchstart', (e) => {
+        if (e instanceof TouchEvent && e.changedTouches) {
+          touchStartX = e.changedTouches[0].screenX;
+        }
+      }, { passive: true });
+      
+      carouselTrack.addEventListener('touchend', (e) => {
+        if (e instanceof TouchEvent && e.changedTouches) {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }
+      }, { passive: true });
     }
-  });
-
-  carouselNextBtn?.addEventListener('click', () => {
-    if (currentIndex < carouselItems.length - 1) {
-      currentIndex++;
-      updateCarousel();
-    }
-  });
-
-  // Initialize carousel
-  updateCarousel();
-
-  // Playlists Carousel functionality
-  const playlistsTrack = document.querySelector('.playlists-track') as HTMLElement;
-  const playlistItems = document.querySelectorAll('.playlist-item');
-  const playlistPrevBtn = document.querySelector('.carousel-arrow.playlist-prev') as HTMLButtonElement;
-  const playlistNextBtn = document.querySelector('.carousel-arrow.playlist-next') as HTMLButtonElement;
-  
-  let currentPlaylistIndex = 0;
-
-  function updatePlaylistCarousel() {
-    if (playlistsTrack) {
-      const percentage = currentPlaylistIndex * -100;
-      playlistsTrack.style.transform = `translateX(${percentage}%)`;
-      
-      // Update button states
-      if (playlistPrevBtn) playlistPrevBtn.disabled = currentPlaylistIndex === 0;
-      if (playlistNextBtn) playlistNextBtn.disabled = currentPlaylistIndex === playlistItems.length - 1;
-      
-      // Load the current iframe content
-      loadIframeContent(currentPlaylistIndex, 'playlists');
-      
-      // Preload the next iframe content (for smoother transitions)
-      if (currentPlaylistIndex < playlistItems.length - 1) {
-        loadIframeContent(currentPlaylistIndex + 1, 'playlists');
+   
+    // Playlists Carousel functionality
+    const playlistsTrack = document.querySelector('#playlists .playlists-track');
+    const playlistItems = document.querySelectorAll('#playlists .playlist-item');
+    const playlistPrevBtn = document.querySelector('#playlists .carousel-arrow.prev');
+    const playlistNextBtn = document.querySelector('#playlists .carousel-arrow.next');
+   
+    if (playlistsTrack && playlistItems.length > 0) {
+      let currentPlaylistIndex = 0;
+     
+      function updatePlaylistCarousel() {
+        if (!(playlistsTrack instanceof HTMLElement)) return;
+        
+        playlistsTrack.style.transform = `translateX(-${currentPlaylistIndex * 100}%)`;
+        
+        // Load the current iframe content
+        loadIframeContent(currentPlaylistIndex, 'playlists');
+        
+        // Preload the next iframe content (for smoother transitions)
+        if (currentPlaylistIndex < playlistItems.length - 1) {
+          loadIframeContent(currentPlaylistIndex + 1, 'playlists');
+        }
       }
-    }
-  }
-
-  playlistPrevBtn?.addEventListener('click', () => {
-    if (currentPlaylistIndex > 0) {
-      currentPlaylistIndex--;
+     
+      if (playlistPrevBtn) {
+        playlistPrevBtn.addEventListener('click', () => {
+          if (currentPlaylistIndex > 0) {
+            currentPlaylistIndex--;
+          } else {
+            // Go to last item if at first item
+            currentPlaylistIndex = playlistItems.length - 1;
+          }
+          updatePlaylistCarousel();
+        });
+      }
+     
+      if (playlistNextBtn) {
+        playlistNextBtn.addEventListener('click', () => {
+          if (currentPlaylistIndex < playlistItems.length - 1) {
+            currentPlaylistIndex++;
+          } else {
+            // Go to first item if at last item
+            currentPlaylistIndex = 0;
+          }
+          updatePlaylistCarousel();
+        });
+      }
+     
+      // Initialize playlist carousel
       updatePlaylistCarousel();
+      
+      // Add touch swipe for playlists carousel
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      const handleSwipe = () => {
+        const swipeThreshold = 50;
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) > swipeThreshold) {
+          if (swipeDistance > 0) {
+            // Swipe right - go to previous
+            if (currentPlaylistIndex > 0) {
+              currentPlaylistIndex--;
+            } else {
+              // Circular navigation
+              currentPlaylistIndex = playlistItems.length - 1;
+            }
+          } else {
+            // Swipe left - go to next
+            if (currentPlaylistIndex < playlistItems.length - 1) {
+              currentPlaylistIndex++;
+            } else {
+              // Circular navigation
+              currentPlaylistIndex = 0;
+            }
+          }
+          updatePlaylistCarousel();
+        }
+      };
+      
+      playlistsTrack.addEventListener('touchstart', (e) => {
+        if (e instanceof TouchEvent && e.changedTouches) {
+          touchStartX = e.changedTouches[0].screenX;
+        }
+      }, { passive: true });
+      
+      playlistsTrack.addEventListener('touchend', (e) => {
+        if (e instanceof TouchEvent && e.changedTouches) {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipe();
+        }
+      }, { passive: true });
     }
   });
-
-  playlistNextBtn?.addEventListener('click', () => {
-    if (currentPlaylistIndex < playlistItems.length - 1) {
-      currentPlaylistIndex++;
-      updatePlaylistCarousel();
-    }
-  });
-
-  // Initialize playlist carousel
-  updatePlaylistCarousel();
 </script> 

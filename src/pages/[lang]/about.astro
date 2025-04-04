@@ -9,9 +9,10 @@ import MainLayout from '../../layouts/MainLayout.astro';
 import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
-import CardComponent from '../../components/CardComponent.astro';
 import SkillsAndTechnologies from '../../components/SkillsAndTechnologies.astro';
+import SkillPill from '../../components/SkillPill.astro';
 import '../../styles/profile.css';
+import '../../styles/carousel.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -190,23 +191,88 @@ export async function getStaticPaths() {
 
         <section class="profile-section" id="certifications">
           <h2>{uiStrings['profile.certifications'] || 'Certifications'}</h2>
-          <div class="certifications-container">
-            {profileInfo.certifications && profileInfo.certifications.map((cert: any) => (
-              <CardComponent
-                title={cert.title || cert.name}
-                subtitle={cert.issuer}
-                description={cert.description || ''}
-                url={cert.credentialURL || cert.url}
-                metadata={{
-                  issued: cert.issueDate || cert.issued,
-                  expires: cert.expiryDate || cert.expires,
-                  credential: cert.credential,
-                  status: cert.status
-                }}
-              />
-            ))}
+          <div class="certifications-carousel">
+            <button class="carousel-arrow prev" aria-label="Previous">&#10094;</button>
+            <div class="certifications-container">
+              <div class="certifications-track">
+                {profileInfo.certifications && profileInfo.certifications.map((cert: any) => (
+                  <div class="certification-carousel-item">
+                    <a 
+                      href={cert.credentialURL || cert.url || '#'} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      class="certification-pill"
+                      data-tooltip={cert.description || ''}
+                    >
+                      <img src="/icons/newtab.svg" alt="External link" class="external-link" />
+                      <div class="cert-meta">
+                        <span class="cert-date">{cert.issueDate || cert.issued}</span>
+                      </div>
+                      <span class="cert-name">{cert.title || cert.name}</span>
+                      <span class="cert-issuer">
+                        <span class="cert-issuer-label">Issued by:</span>
+                        {cert.issuer}
+                      </span>
+                      {cert.description && <p class="cert-description">{cert.description}</p>}
+                      {cert.status && <span class="cert-status">{cert.status}</span>}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button class="carousel-arrow next" aria-label="Next">&#10095;</button>
           </div>
         </section>
+
+        <script is:inline>
+          // Pure vanilla JS approach to avoid TypeScript issues
+          document.addEventListener('DOMContentLoaded', function() {
+            // Get carousel elements 
+            var track = document.querySelector('#certifications .certifications-track');
+            var prevBtn = document.querySelector('#certifications .carousel-arrow.prev');
+            var nextBtn = document.querySelector('#certifications .carousel-arrow.next');
+            var items = document.querySelectorAll('#certifications .certification-carousel-item');
+            
+            if (!track || !items.length || !prevBtn || !nextBtn) {
+              console.log('Carousel elements not found');
+              return;
+            }
+            
+            // Configuration
+            var totalItems = items.length;
+            var currentPage = 0;
+            
+            // Set widths to 100%
+            for (var i = 0; i < items.length; i++) {
+              items[i].style.flex = '0 0 100%';
+              items[i].style.width = '100%';
+            }
+            
+            // Navigation function
+            function goToPage(page) {
+              if (page < 0) page = totalItems - 1;
+              if (page >= totalItems) page = 0;
+              currentPage = page;
+              
+              var offset = -(currentPage * 100);
+              track.style.transform = 'translateX(' + offset + '%)';
+            }
+            
+            // Add click events
+            prevBtn.addEventListener('click', function() {
+              goToPage(currentPage - 1);
+            });
+            
+            nextBtn.addEventListener('click', function() {
+              goToPage(currentPage + 1);
+            });
+            
+            // Initialize
+            goToPage(0);
+            
+            console.log('Carousel initialized');
+          });
+        </script>
       </>
     )}
   </main>

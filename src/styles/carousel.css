@@ -7,174 +7,197 @@
   gap: 1rem;
 }
 
-/* Sets Carousel */
-.sets-carousel, .playlists-carousel {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  max-width: 100%;
-}
-
-.carousel-container, .playlists-container {
-  flex: 1;
-  overflow: hidden;
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  box-shadow: none;
-}
-
-.carousel-track, .playlists-track {
-  display: flex;
-  transition: transform 0.3s ease;
-}
-
-.carousel-item, .playlist-item {
-  flex: 0 0 100%;
-  padding: 0 0.5rem;
-}
-
-/* Carousel navigation */
-.carousel-arrow, .playlist-arrow {
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s;
-  width: 40px;
-  height: 40px;
-}
-
-.carousel-arrow:hover, .playlist-arrow:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.carousel-arrow:disabled, .playlist-arrow:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Iframe containers */
-.podcast-embed, .iframe-container {
+/* Carousel container */
+.carousel-container,
+.sets-carousel,
+.playlists-carousel,
+.certifications-carousel {
   position: relative;
-  background: transparent;
-  border-radius: 12px;
-  min-height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: none;
-  box-shadow: none;
-}
-
-.podcast-embed .media-iframe, .iframe-container .media-iframe {
-  opacity: 0;
-  transition: opacity 0.5s ease;
   width: 100%;
-  height: 100%;
+  overflow: hidden;
+  padding: 0; /* No padding to allow arrows to overlay the content */
 }
 
-.podcast-embed.loaded .media-iframe, .iframe-container.loaded .media-iframe {
-  opacity: 1;
+/* Carousel track */
+.carousel-track,
+.sets-track,
+.playlists-track,
+.certifications-track {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
 }
 
-.iframe-loading, .iframe-error {
+/* Carousel item */
+.carousel-item,
+.sets-item,
+.playlist-item,
+.certification-carousel-item {
+  flex: 0 0 100%;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+/* Certifications container styles */
+.certifications-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* ============ CAROUSEL NAVIGATION ARROWS ============ */
+/* Global carousel arrow styling - matching photo gallery style */
+.carousel-arrow {
   position: absolute;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+  opacity: 0; /* Hidden by default */
+}
+
+/* Show arrows on hover */
+.carousel-container:hover .carousel-arrow,
+.sets-carousel:hover .carousel-arrow,
+.playlists-carousel:hover .carousel-arrow,
+.certifications-carousel:hover .carousel-arrow,
+.photos-carousel:hover .carousel-arrow {
+  opacity: 0.7;
+}
+
+.carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 1 !important;
+}
+
+.carousel-arrow.prev {
+  left: 0;
+}
+
+.carousel-arrow.next {
+  right: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .carousel-arrow {
+    width: 22px;
+    height: 50px;
+    font-size: 1rem;
+    /* On mobile, always slightly visible for discoverability */
+    opacity: 0.4;
+  }
+  
+  .certification-carousel-item {
+    padding: 0.5rem;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 480px) {
+  .carousel-arrow {
+    width: 20px;
+    height: 44px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Certification carousel item styling */
+.certification-carousel-item {
+  padding: 0.5rem;
+}
+
+.certification-carousel-item .certification-pill {
+  height: 100%;
+  margin: 0;
+  width: 100%;
+}
+
+/* Iframe container styles */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  padding-top: 0; /* Remove padding */
+  background-color: var(--color-gray-900);
   border-radius: 8px;
-  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
+.iframe-container:not(.loaded) .media-iframe,
+.iframe-container.error .media-iframe {
+  opacity: 0;
+}
+
+.iframe-loading,
 .iframe-error {
-  display: none;
-  color: #ff6b6b;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gray-900);
+  color: var(--color-white);
+  font-size: 0.9rem;
 }
 
-.podcast-embed.loaded .iframe-loading, .iframe-container.loaded .iframe-loading {
+.iframe-container.loaded .iframe-loading,
+.iframe-container .iframe-error {
   display: none;
 }
 
-.podcast-embed.error .iframe-loading, .iframe-container.error .iframe-loading {
+.iframe-container.error .iframe-loading {
   display: none;
 }
 
-.podcast-embed.error .iframe-error, .iframe-container.error .iframe-error {
+.iframe-container.error .iframe-error {
+  display: flex;
+}
+
+.media-iframe {
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  border: none;
   display: block;
 }
 
-/* Playlist info */
+/* Playlist specific styles */
 .playlist-info {
-  margin-top: 0.75rem;
-  padding: 0 0.5rem;
+  padding: 1rem;
+  background-color: var(--color-gray-900);
+  border-radius: 0 0 8px 8px;
+  margin-top: -8px;
+  text-align: center;
 }
 
 .playlist-description {
-  font-size: var(--font-size-sm);
-  color: var(--color-gray-400);
-  margin-bottom: 0.5rem;
-  line-height: 1.4;
+  font-size: 0.9rem;
+  margin: 0 auto;
+  color: var(--color-white);
   max-width: 90%;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-/* Responsive design for carousels */
-@media (max-width: 768px) {
-  .sets-carousel,
-  .playlists-carousel {
-    padding: 0 1rem;
-  }
-
-  .carousel-container,
-  .playlists-container {
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-    padding-bottom: 1rem;
-    border-radius: 8px;
-  }
-
-  .carousel-track,
-  .playlists-track {
-    display: flex;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .carousel-item,
-  .playlist-item {
-    scroll-snap-align: start;
-    flex: 0 0 100%;
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-arrow,
-  .carousel-arrow.playlist-prev,
-  .carousel-arrow.playlist-next {
-    display: none;
-  }
-
-  .sets-carousel,
-  .playlists-carousel {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+/* Podcast embed specific */
+.podcast-embed {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0;
+  border-radius: 12px;
+  overflow: hidden;
 } 
