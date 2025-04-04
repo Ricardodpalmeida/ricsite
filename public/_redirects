@@ -1,3 +1,6 @@
+# Redirect root to custom splash page
+/  /splash.html  200
+
 # Protect content files
 /content/*      /404    404
 /src/content/*  /404    404
