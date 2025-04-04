@@ -18,6 +18,8 @@ const redirectUrl = `/${redirectLang}/`;
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Ricardo Almeida - Data & AI Manager | Intelligent Products, Automation, and Gen AI">
   <title>Ricardo Almeida</title>
+  <!-- Add an immediate redirect as a fallback -->
+  <meta http-equiv="refresh" content="1;url=/en/">
   <style>
     :root {
       color-scheme: dark;
@@ -71,12 +73,22 @@ const redirectUrl = `/${redirectLang}/`;
     <div class="spinner"></div>
   </div>
 
-  <script define:vars={{ redirectUrl }}>
+  <script>
     // Make sure the background is rendered first
     document.addEventListener('DOMContentLoaded', () => {
+      // Get browser language 
+      const browserLang = navigator.language?.split('-')[0];
+      const supportedLangs = ['en', 'es', 'pt', 'zh'];
+      
+      // Determine redirect language
+      let redirectLang = 'en';
+      if (browserLang && supportedLangs.includes(browserLang)) {
+        redirectLang = browserLang;
+      }
+      
       // Set a timeout to ensure the page is visible before redirecting
       setTimeout(() => {
-        window.location.href = redirectUrl;
+        window.location.href = '/' + redirectLang + '/';
       }, 300);
     });
   </script>
