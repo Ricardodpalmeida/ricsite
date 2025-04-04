@@ -29,7 +29,27 @@ try {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
+    <title>Ricardo Almeida</title>
+    <style>
+      html, body {
+        background-color: #2c2c2c;
+        color: #fff;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+      .redirect-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        opacity: 0.2;
+      }
+      .redirect-text {
+        font-size: 0.8rem;
+      }
+    </style>
     <script is:inline define:vars={{ defaultLang, languages }}>
       // Function to detect the browser language
       function detectBrowserLanguage() {
@@ -56,5 +76,8 @@ try {
     </script>
   </head>
   <body class="redirect-page">
+    <div class="redirect-container">
+      <span class="redirect-text">Redirecting...</span>
+    </div>
   </body>
 </html>
