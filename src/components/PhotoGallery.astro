@@ -31,7 +31,7 @@ import '../styles/photo-gallery.css';
   </div>
 </div>
 
-<script>
+<script is:inline>
   // Detect orientation of images for optimal display
   function detectImageOrientation(img) {
     if (!img) return;
@@ -110,7 +110,7 @@ import '../styles/photo-gallery.css';
       // First check if we need to force vertical orientation based on loaded images
       carouselItems.forEach((item) => {
         const img = item.querySelector('img');
-        if (img && img.complete) {
+        if (img && (img instanceof HTMLImageElement) && img.complete) {
           detectImageOrientation(img);
         }
       });
@@ -183,28 +183,32 @@ import '../styles/photo-gallery.css';
       }
     };
     
-    carouselTrack.addEventListener('touchstart', (e) => {
-      if (e.changedTouches && e.changedTouches.length > 0) {
-        touchStartX = e.changedTouches[0].screenX;
+    carouselTrack.addEventListener('touchstart', function(e) {
+      const touchEvent = e;
+      if (touchEvent.changedTouches && touchEvent.changedTouches.length > 0) {
+        touchStartX = touchEvent.changedTouches[0].screenX;
       }
-    });
+    }, { passive: true });
     
-    carouselTrack.addEventListener('touchend', (e) => {
-      if (e.changedTouches && e.changedTouches.length > 0) {
-        touchEndX = e.changedTouches[0].screenX;
+    carouselTrack.addEventListener('touchend', function(e) {
+      const touchEvent = e;
+      if (touchEvent.changedTouches && touchEvent.changedTouches.length > 0) {
+        touchEndX = touchEvent.changedTouches[0].screenX;
         handleSwipe();
       }
-    });
+    }, { passive: true });
     
     // Update carousel on window resize
     window.addEventListener('resize', updateCarousel);
     
     // Update when images load to ensure all orientations are detected
     document.querySelectorAll('.photo-image').forEach(img => {
-      if (img.complete) {
+      if ((img instanceof HTMLImageElement) && img.complete) {
         detectImageOrientation(img);
       } else {
-        img.addEventListener('load', () => detectImageOrientation(img));
+        img.addEventListener('load', function() {
+          detectImageOrientation(this);
+        });
       }
     });
   });
