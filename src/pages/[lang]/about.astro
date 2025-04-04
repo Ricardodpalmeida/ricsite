@@ -152,6 +152,7 @@ export async function getStaticPaths() {
         <SkillsAndTechnologies 
           skills={profileInfo.skills || []}
           technologies={profileInfo.technologies || []}
+          currentLanguage={validLang}
         />
 
         <section class="profile-section" id="experience">

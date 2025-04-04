@@ -203,6 +203,7 @@
       "degree": "Post-Graduate, Enterprise Data Science and Analytics",
       "duration": "Feb 2022 - Jan 2023",
       "grade": "17 (1-20)",
+      "gradeEquivalent": "",
       "description": "Advanced program focused on enterprise applications of data science, covering machine learning, big data technologies, data visualization, and business analytics with emphasis on practical applications and case studies."
     },
     {
@@ -210,13 +211,17 @@
       "degree": "Master's degree, Economics and Management of Science, Technology and Innovation",
       "duration": "2017 - 2020",
       "grade": "17 (1-20)",
+      "gradeEquivalent": "",
       "thesis": "The Role of Strategic Partnerships in the Internationalization of Digital Platforms (grade: 18)",
+      "thesisEquivalent": "",
       "description": "Interdisciplinary program combining economics, management, and technology studies. Focused on innovation management, technology policy, and the economics of technological change with emphasis on digital transformation strategies."
     },
     {
       "school": "ISEG - Lisbon School of Economics & Management",
       "degree": "Bachelor's degree, Management",
       "duration": "",
+      "gradeEquivalent": "",
+      "thesisEquivalent": "",
       "description": "Comprehensive program covering key areas of business management including accounting, finance, marketing, operations, human resources, and strategic planning with a solid foundation in economics and quantitative methods."
     }
   ],
@@ -403,15 +408,11 @@
   "language": "en",
   "ui": {
     "lang.switchTo": "Switch to {0}",
-    
     "nav.home": "Home",
     "nav.about": "About",
     "nav.blog": "Blog",
-    
-    "footer.copyright": "© 2024 Ricardo Almeida. All rights reserved.",
-    
+    "footer.copyright": "© {year} Ricardo Almeida. All rights reserved.",
     "error.profileData": "Profile data could not be loaded.",
-    
     "blog.title": "Blog",
     "blog.updated": "Updated",
     "blog.noPostsMessage": "No posts available in this language.",
@@ -422,24 +423,25 @@
     "blog.shareOnX": "Share on X",
     "blog.shareOnLinkedIn": "Share on LinkedIn",
     "blog.shareOnFacebook": "Share on Facebook",
-    
     "carousel.previous": "Previous set",
     "carousel.next": "Next set",
     "carousel.previousPlaylist": "Previous playlist",
     "carousel.nextPlaylist": "Next playlist",
-    
     "modal.close": "Close modal",
     "modal.previousPhoto": "Previous photo",
     "modal.nextPhoto": "Next photo",
-    
     "about.title": "About",
     "profile.experience": "Experience",
-    "profile.education": "Education", 
+    "profile.education": "Education",
     "profile.skills": "Skills",
+    "profile.technologies": "Technologies",
+    "profile.and": "and",
     "profile.certifications": "Certifications",
     "profile.grade": "Grade",
     "profile.thesis": "Thesis",
     "profile.issued": "Issued",
-    "profile.verifyCertificate": "Verify Certificate"
+    "profile.verifyCertificate": "Verify Certificate",
+    "blog.notAvailableInLanguage": "{0} version of this post is not available",
+    "blog.redirectedToDefault": "You have been redirected to the English version"
   }
 } 

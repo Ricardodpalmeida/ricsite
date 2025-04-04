@@ -1,4 +1,4 @@
-import { ui, defaultLang, languages, loadLanguages, languageNames } from './ui';
+import { ui, defaultLang, languages, loadLanguages, languageNames, defaultUIStrings } from './ui';
 import { getCollection } from 'astro:content';
 
 export { defaultLang, languages, loadLanguages, languageNames }; // Export these variables for use in other modules
@@ -117,13 +117,23 @@ export function getLocalizedUrl(url: URL, locale: string) {
 // Get translations in the current language
 export function useTranslations(lang: string) {
   return function t(key: string) {
+    let text;
+    
     // First check if we have translations for this language
     if (ui[lang] && ui[lang][key]) {
-      return ui[lang][key];
+      text = ui[lang][key];
+    } else {
+      // Fall back to default language
+      text = ui.default[key] || key;
     }
     
-    // Fall back to default language
-    return ui.default[key] || key;
+    // Handle special replacements like the current year
+    if (key === 'footer.copyright') {
+      const currentYear = new Date().getFullYear();
+      text = text.replace('{year}', currentYear.toString());
+    }
+    
+    return text;
   };
 }
 
@@ -209,4 +219,70 @@ export async function getUIStrings(lang: string): Promise<Record<string, string>
   };
   
   return combinedStrings;
+}
+
+// Function to load UI translations from profile files
+export async function loadUITranslations(): Promise<Record<string, Record<string, string>>> {
+  try {
+    console.log('UI Module - Starting loadUITranslations()');
+    const profileCollection = await getCollection('profile');
+    console.log('UI Module - Retrieved profile collection with', profileCollection.length, 'entries for UI translations');
+    
+    // Use ui.default from the imported ui object instead of defaultUIStrings
+    const translations: Record<string, Record<string, string>> = {
+      default: { ...ui.default }
+    };
+    
+    // Current year for dynamic replacement
+    const currentYear = new Date().getFullYear();
+    
+    // Load translations from each profile
+    for (const profile of profileCollection) {
+      const lang = profile.data.language;
+      const uiStrings = profile.data.ui || {};
+      
+      if (lang) {
+        console.log(`UI Module - Processing language '${lang}' for UI translations`);
+        console.log(`UI Module - UI strings found for '${lang}':`, Object.keys(uiStrings).length);
+      }
+      
+      if (lang && Object.keys(uiStrings).length > 0) {
+        // Create language translations if they don't exist
+        if (!translations[lang]) {
+          translations[lang] = {};
+        }
+        
+        // Add all UI strings directly to the language translations
+        Object.keys(uiStrings).forEach(key => {
+          let value = uiStrings[key];
+          
+          // Replace year in footer.copyright with current year
+          if (key === 'footer.copyright' && typeof value === 'string') {
+            // Replace {year} placeholder with current year
+            value = value.replace('{year}', currentYear.toString());
+          }
+          
+          translations[lang][key] = value;
+        });
+        
+        console.log(`UI Module - Added translations for language '${lang}'`);
+      } else if (lang) {
+        console.warn(`UI Module - No UI translations found for language '${lang}'`);
+      }
+    }
+    
+    // Also update the default translations
+    if (translations.default && translations.default['footer.copyright']) {
+      const currentYear = new Date().getFullYear();
+      translations.default['footer.copyright'] = translations.default['footer.copyright']
+        .replace('{year}', currentYear.toString());
+    }
+    
+    console.log('UI Module - Loaded translations for languages:', Object.keys(translations));
+    return translations;
+  } catch (error) {
+    console.error('Error loading UI translations:', error);
+    // Use ui.default here as well
+    return { default: { ...ui.default } };
+  }
 } 

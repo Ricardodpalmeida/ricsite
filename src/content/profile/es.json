@@ -14,6 +14,52 @@
     "Construyo soluciones de IA que responden a necesidades empresariales reales. En PwC Portugal, lidero equipos para desarrollar productos inteligentes en la nube, combinando lo mejor de las plataformas low-code con el desarrollo tradicional.",
     "Cuando no estoy diseñando arquitecturas en la nube o trabajando con LLMs, probablemente me encontrarás leyendo, tomando cursos de encuadernación, escuchando música o volviendo a ver Star Wars (sí, incluso las precuelas). Creo que las soluciones más interesantes surgen de la conexión entre mundos diferentes."
   ],
+  "skills": [
+    {
+      "name": "Arquitectura de Soluciones IA",
+      "description": "Diseño de soluciones de inteligencia artificial end-to-end para satisfacer requisitos empresariales."
+    },
+    {
+      "name": "Arquitectura de Soluciones Cloud",
+      "description": "Diseño de infraestructura y aplicaciones basadas en la nube escalables, seguras y resilientes."
+    },
+    {
+      "name": "Arquitectura Power Platform",
+      "description": "Arquitectura de soluciones empresariales utilizando componentes de Microsoft Power Platform (Power Apps, Power Automate, Power BI, etc.)."
+    },
+    {
+      "name": "Product Owner",
+      "description": "Definición de la visión del producto, gestión del backlog del producto y maximización del valor entregado por el equipo de desarrollo."
+    },
+    {
+      "name": "Gestión de Proyectos",
+      "description": "Planificación, ejecución, monitorización y cierre de proyectos para alcanzar objetivos específicos dentro de restricciones definidas."
+    },
+    {
+      "name": "Gestión de la Innovación",
+      "description": "Experiencia y formación académica (ISEG) en la gestión de procesos de innovación, fomentando nuevas ideas e implementando iniciativas estratégicas dentro de las organizaciones."
+    },
+    {
+      "name": "Comunicación",
+      "description": "Capacidad demostrada para comunicar temas complejos de manera efectiva, incluyendo conceptos técnicos y comunicación empresarial general."
+    },
+    {
+      "name": "Desarrollo de Negocio",
+      "description": "Experiencia en la identificación de nuevas oportunidades de negocio, construcción de relaciones con clientes y contribución a estrategias de crecimiento, particularmente relacionadas con soluciones cloud y consultoría."
+    },
+    {
+      "name": "Ciencia de Datos",
+      "description": "Conocimientos fundamentales y experiencia académica (NOVA IMS) en principios y técnicas de ciencia de datos, incluyendo análisis, modelado e interpretación de datos. Complementa roles de IA y Datos."
+    },
+    {
+      "name": "Visualización de Datos",
+      "description": "Capacidad para representar gráficamente conjuntos de datos complejos para identificar tendencias, patrones y conocimientos de manera efectiva usando herramientas como Power BI para comunicar hallazgos claramente y apoyar la toma de decisiones basada en datos."
+    },
+    {
+      "name": "IA Agéntica",
+      "description": "Diseño y desarrollo de sistemas de IA que pueden operar autónomamente, tomando decisiones y realizando acciones con mínima intervención humana. Estos sistemas se centran en comportamiento orientado a objetivos y pueden adaptarse a entornos cambiantes, sirviendo eficazmente como asistentes digitales que resuelven problemas proactivamente."
+    }
+  ],
   "technologies": [
     {
       "name": "Microsoft Azure",
@@ -91,7 +137,8 @@
   "sectionDescriptions": {
     "experience": "Durante los últimos años, he estado construyendo mi carrera en datos e IA, centrándome en soluciones prácticas y orientadas al negocio que generan valor real.",
     "education": "Mi formación académica combina gestión empresarial con formación especializada en ciencia de datos y gestión de la innovación.",
-    "certifications": "Mantengo certificaciones activas que demuestran mi compromiso con el aprendizaje continuo y el desarrollo profesional."
+    "certifications": "Mantengo certificaciones activas que demuestran mi compromiso con el aprendizaje continuo y el desarrollo profesional.",
+    "sideProjects": ""
   },
   "experience": [
     {
@@ -156,6 +203,7 @@
       "degree": "Postgrado, Enterprise Data Science and Analytics",
       "duration": "Feb 2022 - Ene 2023",
       "grade": "17 (1-20)",
+      "gradeEquivalent": "",
       "description": "Programa avanzado centrado en aplicaciones empresariales de ciencia de datos, que abarca machine learning, tecnologías de big data, visualización de datos y análisis de negocios con énfasis en aplicaciones prácticas y estudios de caso."
     },
     {
@@ -163,13 +211,17 @@
       "degree": "Máster, Economía y Gestión de Ciencia, Tecnología e Innovación",
       "duration": "2017 - 2020",
       "grade": "17 (1-20)",
+      "gradeEquivalent": "",
       "thesis": "El Papel de las Alianzas Estratégicas en la Internacionalización de Plataformas Digitales (nota: 18)",
+      "thesisEquivalent": "",
       "description": "Programa interdisciplinario que combina economía, gestión y estudios de tecnología. Centrado en gestión de la innovación, política tecnológica y economía del cambio tecnológico con énfasis en estrategias de transformación digital."
     },
     {
       "school": "ISEG - Lisbon School of Economics & Management",
       "degree": "Grado, Gestión",
       "duration": "",
+      "gradeEquivalent": "",
+      "thesisEquivalent": "",
       "description": "Programa integral que cubre áreas clave de la gestión empresarial, incluyendo contabilidad, finanzas, marketing, operaciones, recursos humanos y planificación estratégica con una base sólida en economía y métodos cuantitativos."
     }
   ],
@@ -356,15 +408,11 @@
   "language": "es",
   "ui": {
     "lang.switchTo": "Cambiar a {0}",
-    
     "nav.home": "Inicio",
     "nav.about": "Acerca de",
     "nav.blog": "Blog",
-    
-    "footer.copyright": "© 2024 Ricardo Almeida. Todos los derechos reservados.",
-    
+    "footer.copyright": "© {year} Ricardo Almeida. Todos los derechos reservados.",
     "error.profileData": "No se pudieron cargar los datos del perfil.",
-    
     "blog.title": "Blog",
     "blog.updated": "Actualizado",
     "blog.noPostsMessage": "No hay entradas disponibles en este idioma.",
@@ -375,26 +423,24 @@
     "blog.shareOnX": "Compartir en X",
     "blog.shareOnLinkedIn": "Compartir en LinkedIn",
     "blog.shareOnFacebook": "Compartir en Facebook",
-    
     "carousel.previous": "Set anterior",
     "carousel.next": "Siguiente set",
     "carousel.previousPlaylist": "Lista anterior",
     "carousel.nextPlaylist": "Siguiente lista",
-    
     "modal.close": "Cerrar modal",
     "modal.previousPhoto": "Foto anterior",
     "modal.nextPhoto": "Siguiente foto",
-    
     "about.title": "Sobre mí",
     "profile.experience": "Experiencia",
     "profile.education": "Educación",
-    "profile.skills": "Competencias",
+    "profile.skills": "Habilidades",
+    "profile.technologies": "Tecnologías",
+    "profile.and": "y",
     "profile.certifications": "Certificaciones",
-    "profile.grade": "Nota",
+    "profile.grade": "Calificación",
     "profile.thesis": "Tesis",
     "profile.issued": "Emitido",
     "profile.verifyCertificate": "Verificar Certificado",
-    
     "blog.notAvailableInLanguage": "Versión {0} de este artículo no está disponible",
     "blog.redirectedToDefault": "Has sido redirigido a la versión en inglés"
   }

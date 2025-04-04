@@ -137,7 +137,8 @@
     "sectionDescriptions": {
       "experience": "过去几年，我一直在数据和人工智能领域建立我的职业生涯，专注于产生实际价值的实用、业务导向的解决方案。",
       "education": "我的学术背景结合了商业管理与数据科学和创新管理的专业培训。",
-      "certifications": "我保持活跃的证书，展示了我对持续学习和专业发展的承诺。"
+      "certifications": "我保持活跃的证书，展示了我对持续学习和专业发展的承诺。",
+      "sideProjects": ""
     },
     "experience": [
       {
@@ -201,24 +202,26 @@
         "school": "NOVA IMS 信息管理学院",
         "degree": "研究生文凭，企业数据科学与分析",
         "duration": "2022年2月 - 2023年1月",
-      "grade": "17 (1-20)",
-        "gradeCN": "优秀 (90/100)",
+        "grade": "17 (1-20)",
+        "gradeEquivalent": "优秀 (85/100)",
         "description": "专注于数据科学企业应用的高级课程，涵盖机器学习、大数据技术、数据可视化和商业分析，强调实际应用和案例研究。"
       },
       {
         "school": "ISEG - 里斯本经济与管理学院",
         "degree": "硕士学位，科技与创新经济与管理",
         "duration": "2017年 - 2020年",
-      "grade": "17 (1-20)",
-        "gradeCN": "优秀 (90/100)",
-      "thesis": "The Role of Strategic Partnerships in the Internationalization of Digital Platforms (grade: 18)",
-        "thesisCN": "数字平台国际化中战略伙伴关系的作用 (成绩：92/100)",
+        "grade": "17 (1-20)",
+        "gradeEquivalent": "优秀 (85/100)",
+        "thesis": "The Role of Strategic Partnerships in the Internationalization of Digital Platforms (grade: 18)",
+        "thesisEquivalent": "数字平台国际化中战略伙伴关系的作用 (成绩：90/100)",
         "description": "结合经济学、管理学和技术研究的跨学科课程。专注于创新管理、技术政策和技术变革经济学，重点关注数字化转型战略。"
       },
       {
         "school": "ISEG - 里斯本经济与管理学院",
         "degree": "学士学位，管理学",
         "duration": "",
+        "gradeEquivalent": "",
+        "thesisEquivalent": "",
         "description": "涵盖商业管理关键领域的综合课程，包括会计、金融、市场营销、运营、人力资源和战略规划，并具备扎实的经济学和定量方法基础。"
       }
     ],
@@ -405,10 +408,10 @@
   "language": "zh",
   "ui": {
     "lang.switchTo": "切换到 {0}",
-    "nav.home": "主页",
-    "nav.about": "关于",
+    "nav.home": "首页",
+    "nav.about": "关于我",
     "nav.blog": "博客",
-    "footer.copyright": "© 2024 Ricardo Almeida。保留所有权利。",
+    "footer.copyright": "© {year} Ricardo Almeida。保留所有权利。",
     "error.profileData": "无法加载个人资料数据。",
     "blog.title": "博客",
     "blog.updated": "更新于",
@@ -430,13 +433,15 @@
     "modal.previousPhoto": "上一张照片",
     "modal.nextPhoto": "下一张照片",
     "about.title": "关于",
-    "profile.experience": "经验",
-    "profile.education": "教育",
+    "profile.experience": "工作经验",
+    "profile.education": "教育背景",
     "profile.skills": "技能",
+    "profile.technologies": "技术",
+    "profile.and": "和",
     "profile.certifications": "认证",
     "profile.grade": "成绩",
     "profile.thesis": "论文",
     "profile.issued": "颁发",
     "profile.verifyCertificate": "验证证书"
   }
-  }
+}

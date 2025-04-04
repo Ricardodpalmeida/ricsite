@@ -6,6 +6,7 @@
  */
 import SkillPill from './SkillPill.astro';
 import '../styles/skills-technologies.css';
+import { useTranslations } from '../i18n/utils';
 
 interface Skill {
   name: string;
@@ -15,17 +16,19 @@ interface Skill {
 interface Props {
   skills: Skill[];
   technologies: Skill[];
+  currentLanguage?: string;
 }
 
-const { skills, technologies } = Astro.props;
+const { skills, technologies, currentLanguage = 'en' } = Astro.props;
+const t = useTranslations(currentLanguage);
 ---
 
 <section id="skills-and-technologies" class="skills-tech-section">
-  <h2 class="section-title">Skills & Technologies</h2>
+  <h2 class="section-title">{t('profile.skills')} {t('profile.and')} {t('profile.technologies')}</h2>
   
   <div class="skills-tech-container">
     <div class="group">
-      <h3 class="group-title">Skills</h3>
+      <h3 class="group-title">{t('profile.skills')}</h3>
       <div class="pills-container">
         {skills.map((skill) => (
           <SkillPill name={skill.name} description={skill.description} />
@@ -34,7 +37,7 @@ const { skills, technologies } = Astro.props;
     </div>
     
     <div class="group">
-      <h3 class="group-title">Technologies</h3>
+      <h3 class="group-title">{t('profile.technologies')}</h3>
       <div class="pills-container">
         {technologies.map((tech) => (
           <SkillPill name={tech.name} description={tech.description} />

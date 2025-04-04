@@ -1,21 +1,22 @@
 # Ricardo's Personal Website
 
-A minimal, responsive personal website built with Astro and React. The site features a clean, dark-themed design with easy-to-update profile data.
+A minimal, responsive personal website built with Astro and React. The site features a clean, dark-themed design with easy-to-update profile data and multilingual support.
 
 ## 🚀 Features
 
 - Clean, minimalist design with dark background (#2c2c2c) and white text
 - Cosmic Latte (#fff8e7) highlights
 - Fully responsive layout for all device sizes
-- Easily updateable profile data through a central JSON file
+- Easily updateable profile data through language-specific JSON files
 - Fast load times using Astro static site generation
 - React components for dynamic elements
-- Internationalization (i18n) support for English and Portuguese
-- Optimized routing system
+- Comprehensive internationalization (i18n) support for English, Portuguese, Spanish, and Chinese
+- Optimized dynamic routing system with language path prefixes
 - Custom 404 error page
 - Enhanced static asset management
 - SEO optimizations with metadata and sitemaps
 - Performance improvements for faster loading
+- Dynamic content replacement for elements like the copyright year
 
 ## 📋 Project Structure
 
@@ -27,21 +28,33 @@ A minimal, responsive personal website built with Astro and React. The site feat
 │   ├── robots.txt
 ├── src/
 │   ├── components/
-│   │   └── Profile.jsx
+│   │   └── Various components (.astro, .jsx, etc.)
 │   ├── content/
+│   │   ├── config.ts
 │   │   └── profile/
-│   │       └── data.json
+│   │       ├── en.json
+│   │       ├── es.json
+│   │       ├── pt.json
+│   │       └── zh.json
+│   ├── i18n/
+│   │   ├── ui.ts
+│   │   └── utils.ts
 │   ├── layouts/
 │   │   └── MainLayout.astro
 │   ├── middleware.js
 │   ├── pages/
-│   │   ├── en/
-│   │   ├── pt/
-│   │   ├── blog/
-│   │   ├── 404.astro
-│   │   └── index.astro
+│   │   ├── [lang]/
+│   │   │   ├── index.astro
+│   │   │   ├── about.astro
+│   │   │   ├── blog/
+│   │   │   │   ├── index.astro
+│   │   │   │   └── [...slug].astro
+│   │   │   └── rss.xml.js
+│   │   └── 404.astro
 │   └── styles/
-│       └── profile.css
+│       ├── global.css
+│       ├── profile.css
+│       └── other CSS files
 └── package.json
 ```
 
@@ -74,14 +87,21 @@ A minimal, responsive personal website built with Astro and React. The site feat
 
 ## 🔄 Updating Content
 
-The site content can be easily updated by modifying the `src/content/profile/data.json` file. This file contains all your personal information including:
+The site content can be easily updated by modifying the language-specific JSON files in `src/content/profile/`. Each language has its own file:
 
+- `en.json` - English content
+- `pt.json` - Portuguese content
+- `es.json` - Spanish content
+- `zh.json` - Chinese content
+
+These files contain all your personal information including:
 - Basic personal info
 - About text
 - Work experience
 - Education
 - Skills
 - Languages
+- UI translations
 
 ## 🛠️ Git Workflow
 
@@ -105,25 +125,28 @@ The site is configured to deploy automatically to GitHub Pages using GitHub Acti
 
 ### Styling
 
-- Global styles are in `src/layouts/MainLayout.astro`
-- Component-specific styles are in `src/styles/profile.css`
+- Global styles are in `src/styles/global.css`
+- Component-specific styles are in other CSS files in the styles directory
 - Color scheme is defined by CSS variables in the main layout
 
 ### Adding New Pages
 
-To add new pages (like a blog):
+To add new pages:
 
-1. Create a new file in `src/pages/`
+1. Create a new file in `src/pages/[lang]/`
 2. Use the MainLayout component
 3. Add your content and components
+4. Use the i18n utilities to handle translations
 
 ### Internationalization
 
 The site supports multiple languages through Astro's i18n routing:
 
-- English content is in `src/pages/en/`
-- Portuguese content is in `src/pages/pt/`
-- Default language is set in `astro.config.mjs`
+- Content is stored in language-specific JSON files in `src/content/profile/`
+- Dynamic routes use the `[lang]` parameter to determine the current language
+- Translations for UI elements are managed through the i18n system
+- Default language (English) is set in `astro.config.mjs`
+- Language detection and fallback mechanisms ensure a good user experience
 
 ## 📜 License
 

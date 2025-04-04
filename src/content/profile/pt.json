@@ -11,7 +11,8 @@
     "Quando não estou a projetar arquiteturas cloud ou a trabalhar com LLMs, estarei provavelmente a ler, tirar cursos de encadernação, ouvir música ou a rever Star Wars (sim, até mesmo as prequelas). Acredito que as soluções mais interessantes surgem da conexão entre mundos diferentes."
   ],
   "about": [
-    "Construo soluções de IA que respondem a necessidades empresariais reais. Na PwC Portugal, lidero equipas a desenhar arquiteturas cloud ou a trabalhar com LLMs, provavelmente vais encontrar-me a ler, a fazer cursos de encadernação, a ouvir música ou a rever Star Wars (sim, mesmo os prequels). Acredito que as soluções mais interessantes surgem da conexão entre mundos diferentes."
+    "Construo soluções de IA que atendem necessidades reais de negócios. Na PwC Portugal, lidero equipas que desenvolvem produtos inteligentes na nuvem combinando o melhor das plataformas low-code com desenvolvimento tradicional.",
+    "Quando não estou a projetar arquiteturas cloud ou a trabalhar com LLMs, estarei provavelmente a ler, tirar cursos de encadernação, ouvir música ou a rever Star Wars (sim, até mesmo as prequelas). Acredito que as soluções mais interessantes surgem da conexão entre mundos diferentes."
   ],
   "skills": [
     {
@@ -136,7 +137,8 @@
   "sectionDescriptions": {
     "experience": "Ao longo dos últimos anos, tenho construído a minha carreira em dados e IA, focando-me em soluções práticas e orientadas para negócios que geram valor real.",
     "education": "A minha formação académica combina gestão empresarial com formação especializada em ciência de dados e gestão da inovação.",
-    "certifications": "Mantenho certificações ativas que demonstram o meu compromisso com a aprendizagem contínua e o desenvolvimento profissional."
+    "certifications": "Mantenho certificações ativas que demonstram o meu compromisso com a aprendizagem contínua e o desenvolvimento profissional.",
+    "sideProjects": ""
   },
   "experience": [
     {
@@ -201,6 +203,7 @@
       "degree": "Pós-Graduação, Enterprise Data Science and Analytics",
       "duration": "Fev 2022 - Jan 2023",
       "grade": "17 (1-20)",
+      "gradeEquivalent": "",
       "description": "Programa avançado focado em aplicações empresariais de ciência de dados, que abrange machine learning, tecnologias de big data, visualização de dados e análise de negócios com ênfase em aplicações práticas e estudos de caso."
     },
     {
@@ -208,13 +211,17 @@
       "degree": "Mestrado, Economia e Gestão de Ciência, Tecnologia e Inovação",
       "duration": "2017 - 2020",
       "grade": "17 (1-20)",
+      "gradeEquivalent": "",
       "thesis": "O Papel das Parcerias Estratégicas na Internacionalização de Plataformas Digitais (nota: 18)",
+      "thesisEquivalent": "",
       "description": "Programa interdisciplinar que combina economia, gestão e estudos de tecnologia. Focado em gestão da inovação, política tecnológica e economia da mudança tecnológica com ênfase em estratégias de transformação digital."
     },
     {
       "school": "ISEG - Lisbon School of Economics & Management",
       "degree": "Licenciatura, Gestão",
       "duration": "",
+      "gradeEquivalent": "",
+      "thesisEquivalent": "",
       "description": "Programa abrangente que cobre áreas-chave da gestão empresarial, incluindo contabilidade, finanças, marketing, operações, recursos humanos e planeamento estratégico com uma base sólida em economia e métodos quantitativos."
     }
   ],
@@ -401,15 +408,11 @@
   "language": "pt",
   "ui": {
     "lang.switchTo": "Mudar para {0}",
-    
     "nav.home": "Início",
     "nav.about": "Sobre",
     "nav.blog": "Blog",
-    
-    "footer.copyright": "© 2024 Ricardo Almeida. Todos os direitos reservados.",
-    
+    "footer.copyright": "© {year} Ricardo Almeida. Todos os direitos reservados.",
     "error.profileData": "Não foi possível carregar os dados do perfil.",
-    
     "blog.title": "Blog",
     "blog.updated": "Atualizado",
     "blog.noPostsMessage": "Não há posts disponíveis neste idioma.",
@@ -420,26 +423,24 @@
     "blog.shareOnX": "Partilhar no X",
     "blog.shareOnLinkedIn": "Partilhar no LinkedIn",
     "blog.shareOnFacebook": "Partilhar no Facebook",
-    
     "carousel.previous": "Set anterior",
     "carousel.next": "Próximo set",
     "carousel.previousPlaylist": "Playlist anterior",
     "carousel.nextPlaylist": "Próxima playlist",
-    
     "modal.close": "Fechar modal",
     "modal.previousPhoto": "Foto anterior",
     "modal.nextPhoto": "Próxima foto",
-    
     "about.title": "Sobre",
     "profile.experience": "Experiência",
     "profile.education": "Educação",
     "profile.skills": "Competências",
+    "profile.technologies": "Tecnologias",
+    "profile.and": "e",
     "profile.certifications": "Certificações",
     "profile.grade": "Nota",
     "profile.thesis": "Tese",
     "profile.issued": "Emitido",
     "profile.verifyCertificate": "Verificar Certificado",
-    
     "blog.notAvailableInLanguage": "Versão {0} deste artigo não está disponível",
     "blog.redirectedToDefault": "Foi redirecionado para a versão em inglês"
   }

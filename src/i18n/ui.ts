@@ -152,12 +152,12 @@ export async function loadLanguages() {
 const currentYear = new Date().getFullYear();
 
 // Default fallback UI strings (English)
-const defaultUIStrings: Record<string, string> = {
+export const defaultUIStrings: Record<string, string> = {
   'lang.switchTo': 'Switch to {0}',
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.blog': 'Blog',
-    'footer.copyright': `© ${currentYear} Ricardo Almeida. All rights reserved.`,
+    'footer.copyright': `© {year} Ricardo Almeida. All rights reserved.`,
   'error.profileData': 'Profile data could not be loaded.',
   'blog.title': 'Blog',
   'blog.updated': 'Updated',
@@ -182,6 +182,8 @@ const defaultUIStrings: Record<string, string> = {
     'profile.experience': 'Experience',
     'profile.education': 'Education',
   'profile.skills': 'Skills',
+  'profile.technologies': 'Technologies',
+  'profile.and': 'and',
     'profile.certifications': 'Certifications',
     'profile.grade': 'Grade',
     'profile.thesis': 'Thesis',
