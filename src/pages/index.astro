@@ -7,6 +7,7 @@ import { defaultLang, detectBrowserLanguage, languages } from '../i18n/utils';
 // Detect the language on the server
 const detectedLang = detectBrowserLanguage();
 const redirectLang = detectedLang && languages[detectedLang] ? detectedLang : defaultLang;
+const redirectUrl = `/${redirectLang}/`;
 ---
 
 <!DOCTYPE html>
@@ -16,7 +17,7 @@ const redirectLang = detectedLang && languages[detectedLang] ? detectedLang : de
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Ricardo Almeida - Data & AI Manager | Intelligent Products, Automation, and Gen AI">
   <title>Ricardo Almeida</title>
-  <meta http-equiv="refresh" content="0;url=/{redirectLang}/">
+  <meta http-equiv="refresh" content={`0;url=${redirectUrl}`}>
   <style>
     :root {
       color-scheme: dark;
