@@ -51,8 +51,9 @@ export default defineConfig({
     }
   },
   redirects: {
-    // Redirect root to default language
-    '/': '/en/',
+    // We'll handle root redirection through our custom index.astro page
+    // Remove this line to prevent the white flash redirect
+    // '/': '/en/',
     
     // Block specific paths including variations with double slashes
     '/src/content/profile/data.json': '/404',

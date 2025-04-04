@@ -8,90 +8,42 @@
 import { defaultLang, detectBrowserLanguage, languages } from '../i18n/utils';
 import '../styles/global.css';
 
-try {
-  // Use the non-async browser language detection
-  const detectedLang = detectBrowserLanguage();
-  
-  // Ensure the detected language is actually supported, otherwise use English
-  const redirectLang = detectedLang && (detectedLang in languages) ? detectedLang : 'en';
-  
-  // For SSR, set up the redirect
-  // We'll use client-side JS for the actual redirect to ensure background is applied first
-  const redirectUrl = `/${redirectLang}/`;
-} catch (error) {
-  // If anything goes wrong, use English as a safe fallback
-  console.error('Error in language detection, redirecting to English:', error);
-  const redirectUrl = '/en/';
-}
+// Detect the language on the server for better SEO
+const detectedLang = detectBrowserLanguage();
+const redirectLang = detectedLang && detectedLang in languages ? detectedLang : 'en';
+const redirectUrl = `/${redirectLang}/`;
 ---
 
 <!DOCTYPE html>
-<html style="background-color: #2c2c2c;">
+<html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ricardo Almeida</title>
-    <!-- Apply background color as early as possible -->
+    <meta http-equiv="refresh" content="0;url={redirectUrl}">
     <style>
-      /* Force dark background in multiple places to prevent flash */
-      html {
-        background-color: #2c2c2c !important;
-      }
-      body {
-        background-color: #2c2c2c !important;
-        color: #fff;
-        height: 100%;
+      /* Dark background matching the site theme */
+      html, body {
+        background-color: #2c2c2c;
         margin: 0;
         padding: 0;
+        height: 100%;
+        width: 100%;
+        color: white;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       }
-      .redirect-container {
+      .container {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        opacity: 0.2;
-      }
-      .redirect-text {
-        font-size: 0.8rem;
+        opacity: 0.3;
       }
     </style>
-    <!-- Add a theme color meta tag for mobile browsers -->
-    <meta name="theme-color" content="#2c2c2c">
-    <script is:inline define:vars={{ defaultLang, languages }}>
-      // Set background color immediately via JavaScript as well
-      document.documentElement.style.backgroundColor = "#2c2c2c";
-      document.body.style.backgroundColor = "#2c2c2c";
-      
-      // Function to detect the browser language
-      function detectBrowserLanguage() {
-        try {
-          const browserLang = navigator.language?.split('-')[0];
-          
-          // Check if browser language is directly supported
-          if (browserLang && languages && browserLang in languages) {
-            return browserLang;
-          }
-          
-          // Otherwise return English as the safe default
-          return 'en';
-        } catch (e) {
-          // If anything goes wrong, use English
-          console.error('Error in client-side language detection:', e);
-          return 'en';
-        }
-      }
-      
-      // Delay redirect slightly to ensure background is applied first
-      const lang = detectBrowserLanguage();
-      setTimeout(() => {
-        window.location.replace(`/${lang}/`);
-      }, 10); // Small delay, just enough to ensure the background renders
-    </script>
   </head>
-  <body class="redirect-page" style="background-color: #2c2c2c;">
-    <div class="redirect-container">
-      <span class="redirect-text">Redirecting...</span>
+  <body>
+    <div class="container">
+      <div>Loading Ricardo Almeida's Website...</div>
     </div>
   </body>
 </html>
