@@ -212,13 +212,13 @@ export async function getProfileStrings(lang: string): Promise<any> {
       'site.title': profileData.site?.siteName ? `${profileData.site.siteName} - ${profileData.site.siteDescription}` : `${profileData.personal?.name || 'Ricardo Almeida'} | ${profileData.personal?.title || ''}`,
       'site.description': profileData.site?.siteDescription || profileData.hero?.join(' ') || '',
       'site.author': profileData.personal?.name || 'Ricardo Almeida',
-      'site.keywords': profileData.technologies?.map(tech => tech.name).join(', ') || '',
+      'site.keywords': profileData.technologies?.map((tech: { name: string }) => tech.name).join(', ') || '',
       
       // JSON-LD Data
       'jsonld.jobTitle': profileData.personal?.title || '',
       'jsonld.organization': 'PwC Portugal',
       'jsonld.description': profileData.hero?.join(' ') || '',
-      'jsonld.skills': profileData.technologies?.map(tech => tech.name).join(', ') || '',
+      'jsonld.skills': profileData.technologies?.map((tech: { name: string }) => tech.name).join(', ') || '',
       
       // Add dynamically translated strings
       ...translations

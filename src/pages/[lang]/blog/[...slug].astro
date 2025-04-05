@@ -27,6 +27,14 @@ const t = useTranslations(lang as keyof typeof languages);
 // Load dynamic UI strings
 const uiStrings = await getUIStrings(lang as keyof typeof languages);
 
+// Load profile data to get site information
+const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
+const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
+
+// Format title using site name if available
+const siteName = profileData?.site?.siteName || 'Ricardo Almeida';
+const pageTitle = `${post.data.title} | ${uiStrings['blog.title']} | ${siteName}`;
+
 // Generate language alternatives for this post
 const alternateLanguageUrls = {};
 
@@ -149,7 +157,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout 
-  title={`${post.data.title} | ${uiStrings['blog.title']} | Ricardo Almeida`}
+  title={pageTitle}
   currentLanguage={lang as keyof typeof languages}
   alternateLanguageUrls={alternateLanguageUrls}
 >

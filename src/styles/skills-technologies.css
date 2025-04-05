@@ -2,13 +2,6 @@
   margin: 3rem 0;
 }
 
-.section-title {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: var(--color-cosmic-latte);
-  font-weight: 600;
-}
-
 .skills-tech-container {
   display: flex;
   flex-direction: column;
@@ -30,10 +23,6 @@
 }
 
 @media (max-width: 768px) {
-  .section-title {
-    font-size: 1.75rem;
-  }
-  
   .group-title {
     font-size: 1.25rem;
   }

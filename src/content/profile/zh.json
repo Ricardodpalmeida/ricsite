@@ -144,6 +144,24 @@
       "certifications": "我保持活跃的证书，展示了我对持续学习和专业发展的承诺。",
       "sideProjects": ""
     },
+    "languages": [
+      {
+        "name": "英语",
+        "proficiency": "母语或双语水平"
+      },
+      {
+        "name": "葡萄牙语",
+        "proficiency": "母语或双语水平"
+      },
+      {
+        "name": "西班牙语",
+        "proficiency": "基础水平"
+      },
+      {
+        "name": "法语",
+        "proficiency": "基础水平"
+      }
+    ],
     "experience": [
       {
         "title": "产品与云负责人 - 数据与人工智能团队",
@@ -415,6 +433,7 @@
     "nav.home": "首页",
     "nav.about": "关于我",
     "nav.blog": "博客",
+    "nav.sideProjects": "副项目",
     "footer.copyright": "© {year} Ricardo Almeida。保留所有权利。",
     "error.profileData": "无法加载个人资料数据。",
     "blog.title": "博客",
@@ -446,6 +465,8 @@
     "profile.grade": "成绩",
     "profile.thesis": "论文",
     "profile.issued": "颁发",
-    "profile.verifyCertificate": "验证证书"
+    "profile.verifyCertificate": "验证证书",
+    "profile.languages": "语言",
+    "sideProjects.title": "副项目"
   }
 }

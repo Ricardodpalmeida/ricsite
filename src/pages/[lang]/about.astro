@@ -111,6 +111,11 @@ try {
   console.error(`Error loading profile data:`, error);
 }
 
+// Format title based on site properties or fallback
+const pageTitle = profileInfo?.site?.siteName ? 
+  `${uiStrings['about.title'] || 'About'} | ${profileInfo.site.siteName}` : 
+  `${uiStrings['about.title'] || 'About'} | Ricardo Almeida`;
+
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
   const paths = [{ params: { lang: 'en' } }];
@@ -126,7 +131,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout
-  title={`${uiStrings['about.title'] || 'About'} | Ricardo Almeida`}
+  title={pageTitle}
   currentLanguage={validLang}
 >
   <main class="about-container">
@@ -156,7 +161,7 @@ export async function getStaticPaths() {
         />
 
         <section class="profile-section" id="experience">
-          <h2>{uiStrings['profile.experience'] || 'Experience'}</h2>
+          <h2 class="section-heading">{uiStrings['profile.experience'] || 'Experience'}</h2>
           <div class="timeline-container">
             {profileInfo.experience && profileInfo.experience.map((job: any) => (
               <div class="timeline-item">
@@ -173,7 +178,7 @@ export async function getStaticPaths() {
         </section>
 
         <section class="profile-section" id="education">
-          <h2>{uiStrings['profile.education'] || 'Education'}</h2>
+          <h2 class="section-heading">{uiStrings['profile.education'] || 'Education'}</h2>
           <div class="timeline-container">
             {profileInfo.education && profileInfo.education.map((edu: any) => (
               <div class="timeline-item">
@@ -191,7 +196,7 @@ export async function getStaticPaths() {
         </section>
 
         <section class="profile-section" id="certifications">
-          <h2>{uiStrings['profile.certifications'] || 'Certifications'}</h2>
+          <h2 class="section-heading">{uiStrings['profile.certifications'] || 'Certifications'}</h2>
           <div class="certifications-carousel">
             <button class="carousel-arrow prev" aria-label="Previous">&#10094;</button>
             <div class="certifications-container">
@@ -222,6 +227,18 @@ export async function getStaticPaths() {
               </div>
             </div>
             <button class="carousel-arrow next" aria-label="Next">&#10095;</button>
+          </div>
+        </section>
+
+        <section class="profile-section" id="languages">
+          <h2 class="section-heading">{uiStrings['profile.languages'] || 'Languages'}</h2>
+          <div class="languages-container">
+            {profileInfo.languages && profileInfo.languages.map((language: any) => (
+              <div class="language-item">
+                <h3 class="language-name">{language.name}</h3>
+                <p class="language-proficiency">{language.proficiency}</p>
+              </div>
+            ))}
           </div>
         </section>
 

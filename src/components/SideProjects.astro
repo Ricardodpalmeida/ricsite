@@ -7,16 +7,38 @@ import '../styles/photo-gallery.css';
 import '../styles/carousel.css';
 import '../styles/side-projects.css';
 
-// Get current language and translations
-const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang);
+// Define TypeScript interfaces
+interface Embed {
+  src: string;
+  title?: string;
+  description?: string;
+}
 
-// Get profile data from content collection
-const profileData = await getCollection('profile');
-const profileEntry = profileData.find(entry => entry.data.language === lang);
-const profileInfo = profileEntry?.data || null;
-const sideProjects = profileInfo?.sideProjects || {};
-const sectionDescription = profileInfo?.sectionDescriptions?.sideProjects || '';
+interface SideProjectsData {
+  titles?: {
+    section?: string;
+    podcast?: string;
+    dj?: string;
+    playlists?: string;
+    photography?: string;
+  };
+  descriptions?: {
+    podcast?: string;
+    dj?: string;
+    playlistsIntro?: string;
+    photography?: string;
+  };
+  embeds?: {
+    podcast?: Embed;
+    dj?: Embed[];
+    playlists?: Embed[];
+  };
+}
+
+// Get current language and translations
+const { currentLanguage, profileData } = Astro.props;
+const lang = currentLanguage || getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 // Process markdown in descriptions
 const processMarkdown = (text: string) => {
@@ -29,19 +51,33 @@ const processMarkdown = (text: string) => {
   return marked.parse(text);
 };
 
+// Get profile data if not provided through props
+let profileInfo: any = null;
+let sideProjects: any = {};
+let sectionDescription = '';
+
+if (profileData) {
+  profileInfo = profileData;
+  sideProjects = profileData.sideProjects || {};
+  sectionDescription = profileData.sectionDescriptions?.sideProjects || '';
+} else {
+  // Fallback to fetching data directly if not provided as props
+  const profileCollection = await getCollection('profile');
+  const profileEntry = profileCollection.find(entry => entry.data.language === lang);
+  profileInfo = profileEntry?.data || null;
+  sideProjects = profileInfo?.sideProjects || {};
+  sectionDescription = profileInfo?.sectionDescriptions?.sideProjects || '';
+}
+
 // Get all images using Astro.glob
 const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
 const galleryImages = galleryImageModules.map(module => module.default.src);
 ---
 
 <div class="side-projects-container">
-  <h2 class="section-title">{sideProjects.titles?.section || (lang === 'pt' ? 'Projetos Paralelos' : 'Side Projects')}</h2>
-  
-  {sectionDescription && <p class="section-intro">{sectionDescription}</p>}
-  
   <!-- Podcast Section -->
-  <div class="project-container">
-    <h3 class="subsection-title">{sideProjects.titles?.podcast || 'Podcast'}</h3>
+  <section class="main-section" id="podcast">
+    <h1 class="section-heading">{sideProjects.titles?.podcast || 'Podcast'}</h1>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.podcast || '')}></p>
     <div class="podcast-embed">
       <iframe 
@@ -60,11 +96,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       <div class="iframe-loading">Loading...</div>
       <div class="iframe-error">Sorry, content couldn't be loaded. Please try again later.</div>
     </div>
-  </div>
+  </section>
   
   <!-- DJ Sets Section -->
-  <div class="project-container" id="dj-sets">
-    <h3 class="subsection-title">{sideProjects.titles?.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h3>
+  <section class="main-section" id="dj-sets">
+    <h1 class="section-heading">{sideProjects.titles?.dj || (lang === 'pt' ? 'Sets Recentes' : 'Latest Sets')}</h1>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.dj || '')}></p>
     <div class="sets-carousel">
       <button class="carousel-arrow prev" aria-label={t('carousel.previous')}>&#60;</button>
@@ -107,11 +143,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       </div>
       <button class="carousel-arrow next" aria-label={t('carousel.next')}>&#62;</button>
     </div>
-  </div>
+  </section>
 
   <!-- Playlists Section -->
-  <div class="project-container" id="playlists">
-    <h3 class="subsection-title">{sideProjects.titles?.playlists || (lang === 'pt' ? 'As Minhas Playlists' : 'My Playlists')}</h3>
+  <section class="main-section" id="playlists">
+    <h1 class="section-heading">{sideProjects.titles?.playlists || (lang === 'pt' ? 'As Minhas Playlists' : 'My Playlists')}</h1>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.playlistsIntro || '')}></p>
     <div class="playlists-carousel">
       <button class="carousel-arrow prev" aria-label={t('carousel.previousPlaylist')}>&#60;</button>
@@ -165,11 +201,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       </div>
       <button class="carousel-arrow next" aria-label={t('carousel.nextPlaylist')}>&#62;</button>
     </div>
-  </div>
+  </section>
 
   <!-- Photography Section -->
-  <div class="project-container" id="photography">
-    <h3 class="subsection-title">{sideProjects.titles?.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h3>
+  <section class="main-section" id="photography">
+    <h1 class="section-heading">{sideProjects.titles?.photography || (lang === 'pt' ? 'Fotografia' : 'Photography')}</h1>
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.photography || '')}></p>
     
     <div class="photos-carousel">
@@ -192,7 +228,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
       </div>
       <button class="carousel-arrow next" aria-label={t('carousel.next') || 'Next photo'}>&#62;</button>
     </div>
-  </div>
+  </section>
 </div>
 
 <!-- Include the Photo Modal component -->

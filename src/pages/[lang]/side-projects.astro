@@ -1,15 +1,17 @@
 ---
 /**
- * Dynamic Home Page with i18n Support
+ * Dynamic Side Projects Page with i18n Support
  * 
  * This page dynamically handles multiple languages using the [lang] parameter in the URL.
  * The content is rendered based on the language detected from the URL.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
 import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings, getProfileStrings } from '../../i18n/utils';
-import PageHeader from '../../components/PageHeader.astro';
 import { getCollection } from 'astro:content';
-import '../../styles/home.css';
+import SideProjectsComponent from '../../components/SideProjects.astro';
+import '../../styles/profile.css';
+import '../../styles/carousel.css';
+import '../../styles/side-projects.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -23,10 +25,10 @@ if (!('en' in supportedLanguages)) {
 // Validate the lang parameter - if invalid, redirect to English
 const validLang = lang && (lang in supportedLanguages) ? lang : 'en';
 
-// If the requested language is invalid, redirect to English
+// If the requested language is invalid, redirect to English side projects page
 if (validLang !== lang) {
-  console.log(`Invalid language '${lang}' requested, redirecting to English`);
-  return Astro.redirect('/en/');
+  console.log(`Invalid language '${lang}' requested, redirecting to English side projects page`);
+  return Astro.redirect('/en/side-projects');
 }
 
 // Get translations for the current language
@@ -45,18 +47,16 @@ try {
 let profileData;
 try {
   profileData = await getProfileStrings(validLang);
-  console.log(`Home - Loaded profile data for language: ${validLang}`);
+  console.log(`Side Projects - Loaded profile data for language: ${validLang}`);
 } catch (error) {
-  console.error(`Home - Error loading profile data for language: ${validLang}`, error);
+  console.error(`Side Projects - Error loading profile data for language: ${validLang}`, error);
   profileData = null;
 }
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
-  // Ensure we always generate the English version
   const paths = [{ params: { lang: 'en' } }];
   
-  // Add other languages if available
   Object.keys(languages).forEach(lang => {
     if (lang !== 'en') {
       paths.push({ params: { lang } });
@@ -65,26 +65,30 @@ export async function getStaticPaths() {
   
   return paths;
 }
+
+// Format title based on site properties or fallback
+const pageTitle = profileData?.site?.siteName ? 
+  `${uiStrings['sideProjects.title'] || 'Side Projects'} | ${profileData.site.siteName}` : 
+  `${uiStrings['sideProjects.title'] || 'Side Projects'} | Ricardo Almeida`;
 ---
 
-<MainLayout 
-  title={profileData?.site?.siteName} 
-  description={profileData?.site?.siteDescription}
+<MainLayout
+  title={pageTitle}
   currentLanguage={validLang}
 >
-  <main class="home-container">
-    {!profileData && (
+  <main class="side-projects-main">
+    {!profileData ? (
       <div class="error-message">
-        {t('errors.profileDataMissing')}
+        <h2>{t('error.profileData')}</h2>
+        <p>Please try refreshing the page or switching to English.</p>
       </div>
+    ) : (
+      <>
+        <SideProjectsComponent
+          profileData={profileData}
+          currentLanguage={validLang}
+        />
+      </>
     )}
-    
-    <PageHeader profileData={profileData} currentLanguage={validLang}>
-      <div class="header-description">
-        {profileData?.hero && profileData.hero.map((paragraph: string) => (
-          <p>{paragraph}</p>
-        ))}
-      </div>
-    </PageHeader>
   </main>
-</MainLayout>
+</MainLayout> 

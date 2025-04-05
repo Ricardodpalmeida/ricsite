@@ -144,6 +144,24 @@
     "certifications": "Mantenho certificações ativas que demonstram o meu compromisso com a aprendizagem contínua e o desenvolvimento profissional.",
     "sideProjects": ""
   },
+  "languages": [
+    {
+      "name": "Inglês",
+      "proficiency": "Domínio nativo ou bilingue"
+    },
+    {
+      "name": "Português",
+      "proficiency": "Domínio nativo ou bilingue"
+    },
+    {
+      "name": "Espanhol",
+      "proficiency": "Conhecimento elementar"
+    },
+    {
+      "name": "Francês",
+      "proficiency": "Conhecimento elementar"
+    }
+  ],
   "experience": [
     {
       "title": "Responsável de Produto e Cloud - Equipa de Data & IA",
@@ -415,6 +433,7 @@
     "nav.home": "Início",
     "nav.about": "Sobre",
     "nav.blog": "Blog",
+    "nav.sideProjects": "Projetos Paralelos",
     "footer.copyright": "© {year} Ricardo Almeida. Todos os direitos reservados.",
     "error.profileData": "Não foi possível carregar os dados do perfil.",
     "blog.title": "Blog",
@@ -440,12 +459,14 @@
     "profile.skills": "Competências",
     "profile.technologies": "Tecnologias",
     "profile.and": "e",
+    "profile.languages": "Idiomas",
     "profile.certifications": "Certificações",
     "profile.grade": "Nota",
     "profile.thesis": "Tese",
     "profile.issued": "Emitido",
     "profile.verifyCertificate": "Verificar Certificado",
     "blog.notAvailableInLanguage": "Versão {0} deste artigo não está disponível",
-    "blog.redirectedToDefault": "Foi redirecionado para a versão em inglês"
+    "blog.redirectedToDefault": "Foi redirecionado para a versão em inglês",
+    "sideProjects.title": "Projetos Paralelos"
   }
 } 

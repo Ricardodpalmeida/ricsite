@@ -60,48 +60,6 @@
 .profile-section:nth-child(4) { animation-delay: 0.3s; }
 .profile-section:nth-child(5) { animation-delay: 0.4s; }
 
-/* Section titles */
-.section-title {
-  position: relative;
-  font-family: var(--font-family-alt);
-  font-weight: var(--font-weight-medium);
-  margin-bottom: 1.5rem;
-  display: inline-block;
-  padding-bottom: 0.5rem;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 3rem;
-  height: 2px;
-  background-color: var(--color-cosmic-latte);
-  transition: width var(--transition-base);
-}
-
-.section-title:hover::after {
-  width: 100%;
-}
-
-/* About page section headings */
-.profile-section h2 {
-  font-size: var(--font-size-xl);
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-gray-700);
-  padding-bottom: 0.5rem;
-  font-family: var(--font-family-title);
-}
-
-.section-intro {
-  margin-bottom: 2rem;
-  color: var(--color-gray-200);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-loose);
-  font-style: italic;
-}
-
 /* Header section specific styles */
 .profile-header {
   margin-bottom: 1.5rem;
@@ -619,4 +577,46 @@ button,
     transform: none;
   }
 }
+
+/* Languages section */
+.languages-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.language-item {
+  background: var(--color-gray-900);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.language-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--color-cosmic-latte-10);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.language-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 0.5rem;
+  color: var(--color-cosmic-latte);
+}
+
+.language-proficiency {
+  color: var(--color-gray-400);
+  font-size: var(--font-size-sm);
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .languages-container {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* End of file */ 

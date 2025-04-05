@@ -168,8 +168,9 @@ const jsonLdData = {
           <nav class="main-nav">
             <div class="container nav-container">
               <ul>
-                <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
                 <li><a href={`/${validLang}/blog`} class={Astro.url.pathname.includes(`/${validLang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+                <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
+                <li><a href={`/${validLang}/side-projects`} class={Astro.url.pathname.includes(`/${validLang}/side-projects`) ? 'active' : ''}>{t('nav.sideProjects')}</a></li>
               </ul>
             </div>
           </nav>
