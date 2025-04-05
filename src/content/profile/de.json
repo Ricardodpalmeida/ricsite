@@ -1,0 +1,471 @@
+{
+    "personal": {
+      "name": "Ricardo Almeida",
+      "title": "Manager, Data & AI | Smart Products, Automation and Gen AI",
+      "location": "Lissabon, Portugal",
+      "connections": "500+",
+      "profileUrl": "www.linkedin.com/in/ricardodpa"
+    },
+    "site": {
+      "siteName": "Ricbits",
+      "siteDescription": "KI, Technologie und Produktivität"
+    },
+    "hero": [
+      "Ich entwickle KI-Lösungen, die reale geschäftliche Anforderungen erfüllen. Bei PwC Portugal leite ich Teams, die intelligente Cloud-Produkte entwickeln, die das Beste aus Low-Code-Plattformen mit traditioneller Entwicklung kombinieren.",
+      "Wenn ich keine Cloud-Architekturen entwerfe oder mit LLMs arbeite, findet man mich wahrscheinlich beim Lesen, bei Buchbindekursen, beim Musikhören oder beim erneuten Ansehen von Star Wars (ja, auch die Prequels). Ich glaube, dass die interessantesten Lösungen aus der Verbindung verschiedener Welten entstehen."
+    ],
+    "about": [
+      "Ich entwickle KI-Lösungen, die reale geschäftliche Anforderungen erfüllen. Bei PwC Portugal leite ich Teams, die intelligente Cloud-Produkte entwickeln, die das Beste aus Low-Code-Plattformen mit traditioneller Entwicklung kombinieren.",
+      "Wenn ich keine Cloud-Architekturen entwerfe oder mit LLMs arbeite, findet man mich wahrscheinlich beim Lesen, bei Buchbindekursen, beim Musikhören oder beim erneuten Ansehen von Star Wars (ja, auch die Prequels). Ich glaube, dass die interessantesten Lösungen aus der Verbindung verschiedener Welten entstehen."
+    ],
+    "skills": [
+      {
+        "name": "KI-Lösungsarchitektur",
+        "description": "Entwurf von End-to-End-Lösungen für künstliche Intelligenz, um die Geschäftsanforderungen zu erfüllen."
+      },
+      {
+        "name": "Cloud-Lösungsarchitektur",
+        "description": "Entwurf einer skalierbaren, sicheren und widerstandsfähigen Cloud-basierten Infrastruktur und Anwendungen."
+      },
+      {
+        "name": "Power-Plattform-Architektur",
+        "description": "Entwurf von Geschäftslösungen mit Microsoft Power Platform-Komponenten (Power Apps, Power Automate, Power BI usw.)."
+      },
+      {
+        "name": "Product Owner",
+        "description": "Definition der Produktvision, Verwaltung des Produkt-Backlogs und Maximierung des vom Entwicklungsteam gelieferten Werts."
+      },
+      {
+        "name": "Projektmanagement",
+        "description": "Planung, Durchführung, Überwachung und Abschluss von Projekten, um bestimmte Ziele innerhalb definierter Einschränkungen zu erreichen."
+      },
+      {
+        "name": "Innovationsmanagement",
+        "description": "Erfahrung und akademischer Hintergrund (ISEG) in der Steuerung von Innovationsprozessen, der Förderung neuer Ideen und der Umsetzung strategischer Initiativen innerhalb von Organisationen."
+      },
+      {
+        "name": "Kommunikation",
+        "description": "Nachgewiesene Fähigkeit, komplexe Themen effektiv zu kommunizieren, einschließlich technischer Konzepte und allgemeiner Geschäftskommunikation."
+      },
+      {
+        "name": "Geschäftsentwicklung",
+        "description": "Erfahrung in der Identifizierung neuer Geschäftsmöglichkeiten, dem Aufbau von Kundenbeziehungen und dem Beitrag zu Wachstumsstrategien, insbesondere im Zusammenhang mit Cloud- und Beratungslösungen."
+      },
+      {
+        "name": "Data Science",
+        "description": "Grundlegende Kenntnisse und akademische Erfahrung (NOVA IMS) in den Prinzipien und Techniken der Datenwissenschaft, einschließlich Datenanalyse, Modellierung und Interpretation. Ergänzt KI- und Datenrollen."
+      },
+      {
+        "name": "Datenvisualisierung",
+        "description": "Die Fähigkeit, komplexe Datensätze grafisch darzustellen, um Trends, Muster und Erkenntnisse effektiv zu identifizieren, indem Tools wie Power BI verwendet werden, um Ergebnisse klar zu kommunizieren und die datengestützte Entscheidungsfindung zu unterstützen."
+      },
+      {
+        "name": "Agentic AI",
+        "description": "Ich entwerfe und entwickle KI-Systeme, die autonom arbeiten, Entscheidungen treffen und Maßnahmen mit minimalem menschlichen Eingreifen ergreifen können. Diese Systeme konzentrieren sich auf zielorientiertes Verhalten und können sich an veränderte Umgebungen anpassen, wodurch sie effektiv als digitale Assistenten dienen, die Probleme proaktiv lösen."
+      }
+    ],
+    "technologies": [
+      {
+        "name": "Microsoft Azure",
+        "description": "Verwendung von Azure-Cloud-Diensten für die Entwicklung, Bereitstellung und Verwaltung von Anwendungen und Infrastruktur."
+      },
+      {
+        "name": "AI Foundry (Azure AI)",
+        "description": "Verwendung der einheitlichen Plattform von Azure für die Entwicklung, Bewertung und Bereitstellung von KI-Modellen."
+      },
+      {
+        "name": "Amazon Web Services (AWS)",
+        "description": "Grundlegende Kenntnisse der AWS-Cloud-Plattformkonzepte."
+      },
+      {
+        "name": "Databricks",
+        "description": "Verwendung der Databricks-Plattform für Data Engineering, Data Science und maschinelles Lernen."
+      },
+      {
+        "name": "Microsoft Power Platform",
+        "description": "Entwicklung und Entwicklung von Lösungen mit Power Apps, Power Automate, Power BI und Dataverse."
+      },
+      {
+        "name": "Power BI",
+        "description": "Entwicklung interaktiver Berichte, Dashboards und Datenvisualisierungen für geschäftliche Einblicke."
+      },
+      {
+        "name": "OpenAI API",
+        "description": "Erfahrung mit der Nutzung der OpenAI-API zur Integration fortschrittlicher KI-Funktionen."
+      },
+      {
+        "name": "LLM-Integration",
+        "description": "Integration großer Sprachmodelle in Produkte oder Geschäftsprozesse, um Funktionen wie Chatbots, Assistenten oder Analysetools zu verbessern."
+      },
+      {
+        "name": "RAG (Retrieval-Augmented Generation)",
+        "description": "Optimierung der Ausgaben großer Sprachmodelle durch Bezugnahme auf externe autoritative Wissensdatenbanken vor der Generierung von Antworten."
+      },
+      {
+        "name": "Feinabstimmung",
+        "description": "Anpassung vortrainierter KI-Modelle mithilfe spezifischer Datensätze, um die Leistung für bestimmte Aufgaben zu verbessern."
+      },
+      {
+        "name": "Agentic AI",
+        "description": "Entwicklung von KI-Systemen, die in der Lage sind, unabhängig zu arbeiten, Entscheidungen zu treffen und Aufgaben ohne direkte menschliche Intervention auszuführen."
+      },
+      {
+        "name": "Container",
+        "description": "Verpacken von Software mit allen notwendigen Elementen, um konsistent in verschiedenen Umgebungen zu laufen."
+      },
+      {
+        "name": "RESTful APIs",
+        "description": "Entwurf und Arbeit mit Anwendungsprogrammierschnittstellen, die den architektonischen Prinzipien von REST für die Integration von Webdiensten entsprechen."
+      },
+      {
+        "name": "SQL",
+        "description": "Schreiben und Optimieren von Abfragen für Datenbankverwaltung, Datenextraktion und -manipulation."
+      },
+      {
+        "name": "Python",
+        "description": "Verwendung der Programmiersprache Python für Datenanalyse, Automatisierung, Skripterstellung und Unterstützung der KI/ML-Entwicklung."
+      },
+      {
+        "name": "Microsoft Dynamics 365",
+        "description": "Kenntnisse der CRM- und ERP-Unternehmensanwendungen von Microsoft."
+      },
+      {
+        "name": "SharePoint",
+        "description": "Erfahrung mit Microsoft SharePoint für Zusammenarbeit und Inhaltsverwaltung."
+      },
+      {
+        "name": "Git",
+        "description": "Verwendung der Versionskontrolle zum Verfolgen von Codeänderungen, zur Zusammenarbeit mit Teams und zur effizienten Verwaltung von Quellcode-Repositorys."
+      }
+    ],
+    "languages": [
+      {
+        "name": "Englisch",
+        "proficiency": "Muttersprache oder zweisprachige Kenntnisse"
+      },
+      {
+        "name": "Portugiesisch",
+        "proficiency": "Muttersprache oder zweisprachige Kenntnisse"
+      },
+      {
+        "name": "Spanisch",
+        "proficiency": "Grundkenntnisse"
+      },
+      {
+        "name": "Französisch",
+        "proficiency": "Grundkenntnisse"
+      }
+    ],
+    "sectionDescriptions": {
+      "experience": "In den letzten Jahren habe ich meine Karriere im Bereich Daten und KI aufgebaut und mich auf praktische, geschäftsorientierte Lösungen konzentriert, die einen echten Mehrwert generieren.",
+      "education": "Mein akademischer Hintergrund verbindet Betriebswirtschaftslehre mit einer speziellen Ausbildung in Datenwissenschaft und Innovationsmanagement.",
+      "certifications": "Ich verfüge über aktive Zertifizierungen, die mein Engagement für kontinuierliches Lernen und berufliche Entwicklung unterstreichen.",
+      "sideProjects": ""
+    },
+    "experience": [
+      {
+        "title": "Produkt- und Cloud-Leitung - Daten- und KI-Team",
+        "company": "PwC Portugal",
+        "duration": "Jan 2024 - Heute (1 Jahr, 3 Monate)",
+        "location": "Lissabon, Portugal",
+        "description": "Seit Januar 2024 leite ich die Verwaltung, den Entwurf und die Implementierung von KI-fokussierten, Cloud-basierten Lösungen, einschließlich Retrieval-Augmented Generation (RAG) und der Integration großer Sprachmodelle (LLMs), als Leiter des Daten- und KI-Teams von PwC Portugal. Unser Ziel ist es, erstklassige KI-gestützte Produkte zu liefern, ein Gleichgewicht zwischen Pro-Code- und Low-Code-Methoden zu finden und die Cloud-basierte Bereitstellung für Skalierbarkeit zu nutzen. Ich leite ein Expertenteam, lege Architekturstandards fest und leite die Orchestrierung von KI-Automatisierungs-Workflows. Meine Kenntnisse in Microsoft Azure und Power Platform sind entscheidend für die Weiterentwicklung dieser Lösungen vom Konzept bis zur weltweiten Implementierung."
+      },
+      {
+        "title": "Leiter Cloud- und Geschäftsanwendungen - Beratungslösungen",
+        "company": "PwC Portugal",
+        "duration": "Jul 2023 - Jan 2024 (7 Monate)",
+        "location": "Lissabon, Portugal",
+        "description": "Als Leiter der Beratung für Cloud- und Geschäftsanwendungen entwerfe ich hochmoderne Cloud-Architekturen und habe zu über 90 Möglichkeiten für globale Partner und Kunden beigetragen. Ich leite ein Team von spezialisierten technischen Beratern innerhalb eines Beratungslösungsteams von etwa 80 Fachleuten."
+      },
+      {
+        "title": "Spezialist - Beratungslösungen",
+        "company": "PwC Portugal",
+        "duration": "Jul 2021 - Jul 2023 (2 Jahre, 1 Monat)",
+        "location": "Portugal",
+        "description": "Als Spezialist für Microsoft Power Platform nutze ich die gesamte Palette von Power Platform-Tools, von Canvas-Apps und Power BI-Berichten bis hin zu Power-Portalen/-Seiten und Chatbots (Virtual Agents/Copilot Studio). Ich habe diese Lösungen in Azure (z. B. Funktionen, Logik-Apps, Data Factory und Data Lake Gen2), Microsoft 365 (z. B. Teams, Outlook), Dynamics 365, SQL Server, Dataverse und SharePoint-Dienste integriert. Zusätzlich zu diesem Fachwissen habe ich erfolgreich Full-Stack-Pro-Code-App-Entwicklungsprojekte geleitet und sie vom Konzept bis zur Auslieferung betreut. Bemerkenswerterweise habe ich auch den allerersten Hackathon von PwC Portugal als Teamleiter und technischer Spezialist gewonnen. Diese Initiative hat sich zu einem Produkt entwickelt, das wir jetzt weltweit verkaufen."
+      },
+      {
+        "title": "Podcaster",
+        "company": "Mesa do Canto - Selbstständig",
+        "duration": "Feb 2021 - Feb 2022 (1 Jahr, 1 Monat)",
+        "location": "Lissabon, Portugal",
+        "description": "\"Mesa do Canto\" ist ein Podcast in portugiesischer Sprache, in dem zwei Freunde zusammenkommen, um eine Vielzahl von Themen zu diskutieren, darunter Kultur, Politik, Philosophie, Geschichte, Wirtschaft und Technologie. Jede Episode stellt ein neues Thema vor, begleitet von einem kurzen Überblick über aktuelle Nachrichten und persönliche Empfehlungen für Medien."
+      },
+      {
+        "title": "Analyst",
+        "company": "Avanade",
+        "duration": "Dez 2020 - Jun 2021 (7 Monate)",
+        "location": "Lissabon, Portugal",
+        "description": "In einem Team von sechs Personen entwickelten wir Power Platform-Lösungen für den täglichen Betrieb von über tausend Mitarbeitern eines multinationalen Unternehmens in Portugal. Das Backoffice wurde auf SharePoint entwickelt, mit Datenmigration aus einer bestehenden Datenbank. Wir verwendeten Low-Code-Entwicklung mit Power Fx und Canvas Apps und erstellten Power Automate Flows. Ich übernahm auch Teamleiteraufgaben und verwaltete das Backlog mit Azure DevOps."
+      },
+      {
+        "title": "Analyst",
+        "company": "Avanade",
+        "duration": "Apr 2020 - Dez 2020 (9 Monate)",
+        "description": "Talent Community für Softwareentwicklung | Full-Stack-Entwicklung. Learning on-the-job und Arbeit mit: - MVC-Muster - C# (ASP.NET) - HTML - Analytik - Berichterstattung - Power BI"
+      },
+      {
+        "title": "Berater",
+        "company": "SPMS, EPE - Serviços Partilhados do Ministério da Saúde",
+        "duration": "Okt 2018 - Mär 2020 (1 Jahr, 6 Monate)",
+        "location": "Lissabon",
+        "description": "Bereitstellung von Beratungs- und Verwaltungsunterstützung für die IT-Direktoren des portugiesischen Nationalen Gesundheitssystems; Initiierung eines Sharepoint-Websiteprojekts zur Zentralisierung von Informationen über unternehmensweite Projekte, Teams und Projektmanager; verantwortlich für zahlreiche offizielle interne und externe Mitteilungen an alle Einrichtungen innerhalb des portugiesischen Nationalen Gesundheitssystems; Erstellung von Handbüchern, Prozessdokumentationen und Schulungsmaterialien; Erstellung von Berichten, Power BI-Berichten und Sitzungsprotokollen; Leitung von Teams und Schulung neuer Mitglieder; Verwaltung von Projekten und Produkten; Tätigkeit als Project Management Officer (PMO); Mitarbeit in einem 12-köpfigen Team."
+      },
+      {
+        "title": "Die Jahre der Berufserkundung",
+        "company": "Verschiedene Rollen in den Bereichen Einzelhandel, Marketing und Wissenschaft",
+        "duration": "2010 - 2018 (8 Jahre)",
+        "location": "Lissabon, Portugal",
+        "description": "Überlebte eine Blitzreise durch die portugiesische Dienstleistungswirtschaft - vom Kaltakquise als Telefonverkäufer (REDITUS), dem Falten von Kleidung mit chirurgischer Präzision (ZARA), der Erklärung, warum Wasabi kein Guacamole ist (Yo! Sushi), und dem Verkauf von verdächtig überteuerten Hotdogs. Arbeitete in einem universitären Callcenter und beantwortete die panischen Fragen der Studenten nach dem Campusstandort, erstellte Marketingmaterialien, die bei Le Wagon niemand las, und beteiligte mich an der Organisation von Festivals und Werbekampagnen für Sagres, endete aber mit Powerpoints über die Verpackung von Zitronenbier. Eine charakterbildende Odyssee, die mich Geduld, Belastbarkeit und das Lächeln lehrte, während ein Tourist erklärt, dass es in Portugal ein 'Galão' und nicht ein 'Meia de Leite' genannt wird."
+      }
+    ],
+    "education": [
+      {
+        "school": "NOVA IMS Information Management School",
+        "degree": "Post-Graduate, Enterprise Data Science and Analytics",
+        "duration": "Feb 2022 - Jan 2023",
+        "grade": "17 (1-20)",
+        "gradeEquivalent": "",
+        "description": "Fortgeschrittenes Programm mit Schwerpunkt auf Unternehmensanwendungen der Datenwissenschaft, das maschinelles Lernen, Big-Data-Technologien, Datenvisualisierung und Business Analytics mit Schwerpunkt auf praktischen Anwendungen und Fallstudien abdeckt."
+      },
+      {"school": "ISEG - Lisbon School of Economics & Management",
+        "degree": "Master's degree, Economics and Management of Science, Technology and Innovation",
+        "duration": "2017 - 2020",
+        "grade": "17 (1-20)",
+        "gradeEquivalent": "",
+        "thesis": "The Role of Strategic Partnerships in the Internationalization of Digital Platforms (Note: 18)",
+        "thesisEquivalent": "",
+        "description": "Interdisziplinäres Programm, das Wirtschafts-, Management- und Technologiestudien kombiniert. Konzentriert sich auf Innovationsmanagement, Technologiepolitik und die Ökonomie des technologischen Wandels mit Schwerpunkt auf Strategien der digitalen Transformation."
+      },
+      {
+        "school": "ISEG - Lisbon School of Economics & Management",
+        "degree": "Bachelor's degree, Management",
+        "duration": "",
+        "gradeEquivalent": "",
+        "thesisEquivalent": "",
+        "description": "Umfassendes Programm, das die wichtigsten Bereiche der Unternehmensführung abdeckt, einschließlich Buchhaltung, Finanzen, Marketing, Betrieb, Personalwesen und strategische Planung mit einer soliden Grundlage in Wirtschaftswissenschaften und quantitativen Methoden."
+      }
+    ],
+    "certifications": [
+      {
+        "title": "Microsoft Certified: Azure Administrator Associate",
+        "issuer": "Microsoft",
+        "issueDate": "Dec 2024",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/3adcecc1edebef55?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Validiert Fachkenntnisse bei der Implementierung, Überwachung und Wartung von Microsoft Azure-Lösungen, einschließlich wichtiger Dienste in den Bereichen Compute, Storage, Netzwerk und Sicherheit."
+      },
+      {
+        "title": "Microsoft Certified: Azure Solutions Architect Expert",
+        "issuer": "Microsoft",
+        "issueDate": "Dec 2024",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/661603008f2d5d0a?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Demonstriert fortgeschrittene Expertise bei der Entwicklung und Implementierung von Lösungen, die unter Microsoft Azure ausgeführt werden, einschließlich Aspekten von Compute, Netzwerk, Speicher, Sicherheit und Identität."
+      },
+      {
+        "title": "Microsoft Certified: Azure AI Engineer Associate",
+        "issuer": "Microsoft",
+        "issueDate": "Nov 2024",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/6897ee15a6cd6eac?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Validiert Fähigkeiten in der Verwendung von Cognitive Services, maschinellem Lernen und Wissensmining, um Microsoft AI-Lösungen zu entwickeln und zu implementieren, die die Verarbeitung natürlicher Sprache, Sprache, Computer Vision und konversationelle KI umfassen."
+      },
+      {
+        "title": "Microsoft Certified: Azure AI Fundamentals",
+        "issuer": "Microsoft",
+        "issueDate": "Oct 2024",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/1c33e69181ee39b3?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Behandelt grundlegende KI-Konzepte, Workflows für maschinelles Lernen und Microsoft Azure AI-Dienste für die Verarbeitung natürlicher Sprache, Computer Vision und die verantwortungsvolle Implementierung von KI."
+      },
+      {
+        "title": "Microsoft Certified: Azure Fundamentals",
+        "issuer": "Microsoft",
+        "issueDate": "Feb 2024",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-us/users/ricardopachecoalmeidapt-7401/credentials/4da68ad266e1666c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Validiert grundlegende Kenntnisse der Cloud-Dienste und wie diese Dienste mit Microsoft Azure bereitgestellt werden, und behandelt die grundlegenden Azure-Konzepte, -Dienste, -Sicherheit, -Datenschutz, -Preise und -Supportoptionen."
+      },
+      {
+        "title": "Microsoft Applied Skills: Create and manage automated processes by using Power Automate",
+        "issuer": "Microsoft",
+        "issueDate": "Oct 2023",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ef0ffe14c4c2611c?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Demonstriert Fähigkeiten bei der Erstellung und Verwaltung automatisierter Workflows mit Microsoft Power Automate, einschließlich der Erstellung von Flows mit verschiedenen Auslösern, Bedingungen und Aktionen zur Optimierung von Geschäftsprozessen."
+      },
+      {
+        "title": "Microsoft Certified: Azure Data Fundamentals",
+        "issuer": "Microsoft",
+        "issueDate": "Mar 2023",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/34c19266a744a683?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Behandelt grundlegende Kenntnisse der grundlegenden Datenkonzepte und wie sie mit Microsoft Azure-Datendiensten implementiert werden, einschließlich relationaler und nicht relationaler Daten, Big Data und Analysen."
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Developer Associate",
+        "issuer": "Microsoft",
+        "issueDate": "Mar 2022",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/4befc3c10cf2217?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Validiert Fähigkeiten bei der Erstellung benutzerdefinierter Lösungen mit Power Apps, Power Automate und Power Virtual Agents, einschließlich der Arbeit mit Dataverse, Integrationen und Entwicklungstechniken zur Erweiterung der Plattform."
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Functional Consultant Associate",
+        "issuer": "Microsoft",
+        "issueDate": "Mar 2022",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/2badc025c96d5211?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Demonstriert Fachkenntnisse bei der Implementierung von Lösungen, die Power Apps, Power Automate, Power BI und Power Virtual Agents verwenden, um Anforderungen zu analysieren und Geschäftsanforderungen in sichere, skalierbare Lösungen umzusetzen."
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Solution Architect Expert",
+        "issuer": "Microsoft",
+        "issueDate": "Mar 2022",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Validiert Fachkenntnisse auf Expertenebene bei der Entwicklung umfassender Power Platform-Lösungen, die die Geschäftsanforderungen erfüllen, einschließlich Integrationsstrategien, Datenmodelle, Sicherheit und Skalierbarkeitsplanung."
+      },
+      {
+        "title": "PL-600: Microsoft Power Platform Solution Architect",
+        "issuer": "Microsoft",
+        "issueDate": "Mar 2022",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/ae4364ae90b2d053?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Demonstriert die Fähigkeit, ganzheitliche Lösungen mit der Power Platform zu entwerfen, um die Geschäftsanforderungen zu erfüllen, die Integration mit externen Datensystemen und -diensten sowie die Implementierung komplexer Sicherheitsanforderungen."
+      },
+      {
+        "title": "Microsoft Certified: Dynamics 365 Fundamentals (CRM)",
+        "issuer": "Microsoft",
+        "issueDate": "Jan 2022",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/1851fd2fc1fe3767?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Behandelt grundlegende Kenntnisse der Dynamics 365-Anwendungen für die Kundeninteraktion (Vertrieb, Kundenservice, Außendienst, Marketing) und der zugehörigen Power Platform-Funktionen."
+      },
+      {
+        "title": "Microsoft Certified: Power Platform App Maker Associate",
+        "issuer": "Microsoft",
+        "issueDate": "Dec 2021",
+        "status": "Discontinued",
+        "credentialURL": "https://learn.microsoft.com/en-gb/users/ricardopachecoalmeidapt-7401/credentials/bb440407c3a19c7b?ref=https%3A%2F%2Fwww.linkedin.com%2F",
+        "description": "Validierte die Fähigkeit, Apps mit Microsoft Power Apps zu erstellen, eine Verbindung zu Datenquellen herzustellen, Daten zu modellieren, Benutzeroberflächen zu erstellen, Geschäftslogik zu konfigurieren und sich in andere Komponenten der Power Platform zu integrieren."
+      },
+      {
+        "title": "Microsoft Certified: Power Platform Fundamentals",
+        "issuer": "Microsoft",
+        "issueDate": "Dec 2021",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/379A923772989602?sharingId=601C18CE9781DDA0",
+        "description": "Demonstriert grundlegende Kenntnisse der Power Platform-Funktionen, des Geschäftswerts und der grundlegenden Funktionen von Microsoft Power Apps, Power Automate, Power BI und Power Virtual Agents."
+      },
+      {
+        "title": "Microsoft 365 Certified: Fundamentals",
+        "issuer": "Microsoft",
+        "issueDate": "Dec 2021",
+        "status": "Active",
+        "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0",
+        "description": "Validiert grundlegende Kenntnisse der Cloud-Dienste, der Microsoft 365-Cloud-Dienste, von SaaS, Sicherheit, Compliance, Datenschutz sowie der Preis- und Supportoptionen von Microsoft 365."
+      }
+    ],
+    "sideProjects": {
+      "titles": {
+        "section": "Hobbys",
+        "podcast": "Podcast",
+        "dj": "Neueste Sets",
+        "playlists": "Meine Playlists",
+        "photography": "Fotografie"
+      },
+      "descriptions": {
+        "podcast": "Mesa do Canto ist ein portugiesischsprachiger Podcast, in dem ein Freund und ich uns treffen, um verschiedene Themen zu diskutieren, darunter Kultur, Politik, Philosophie, Geschichte, Wirtschaft und Technologie.",
+        "dj": "Wenn ich auflege, wandere ich gerne durch Jazz, afrikanischen Funk, Deep, Future Disco und Progressive House sowie andere Weltmusik wie Hadra/Funk. Alle meine Sets sind improvisiert und mischen Vinyl und Digital.",
+        "playlistsIntro": "Musik war schon immer ein wichtiger Teil meines Lebens. Diese Playlists zeigen einige meiner Lieblingsgenres, die im Laufe der Zeit zusammengestellt wurden, um unterschiedliche Atmosphären zu schaffen.",
+        "photography": "Fotografie ist ein Hobby, das mir hilft, die Welt um uns herum wertzuschätzen. Ich genieße es besonders, die sich ständig ändernden Stimmungen des Himmels einzufangen, von dramatischen Sonnenuntergängen bis zum Zusammenspiel von Wolken und Licht."
+      },
+      "embeds": {
+        "podcast": {
+          "src": "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0",
+          "width": "100%",
+          "height": "352"
+        },
+        "dj": [
+          {
+            "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Fnadar%2F",
+            "title": "Nadar"
+          },
+          {
+            "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Ffenix%2F",
+            "title": "Fenix"
+          },
+          {
+            "src": "https://player-widget.mixcloud.com/widget/iframe/?hide_cover=1&feed=%2Fricardo-almeida28%2Flejos%2F",
+            "title": "Lejos"
+          }
+        ],
+        "playlists": [
+          {
+            "src": "https://open.spotify.com/embed/playlist/2EOgO6HyRqoFVyoS5DeGHg?utm_source=generator&theme=0",
+            "title": "Dem beats",
+            "description": "Sanfte Jazz-Hop-Instrumentals für Konzentration und Entspannung"
+          },
+          {
+            "src": "https://open.spotify.com/embed/playlist/0yWK4qg5GYnriJbJVVq159?utm_source=generator&theme=0",
+            "title": "The random rock assortment",
+            "description": "Wesentliche Rock-Tracks aus den Genres Stoner, Indie und Alternative"
+          },
+          {
+            "src": "https://open.spotify.com/embed/playlist/3YAOE2K50HfP25uBowFRJJ?utm_source=generator&theme=0",
+            "title": "Hip Hop Stash",
+            "description": "Kuratiertes Sammlung mit Boom Bap, bewusstem und abstraktem Hip Hop"
+          },
+          {
+            "src": "https://open.spotify.com/embed/playlist/1I43vFQgN7QBtCm8YLEJSd?utm_source=generator&theme=0",
+            "title": "Jazz-Café",
+            "description": "Zeitlose Jazzklassiker und zeitgenössische Kompositionen"
+          }
+        ]
+      }
+    },
+    "language": "de",
+    "ui": {
+      "lang.switchTo": "Wechseln zu {0}",
+      "nav.home": "Startseite",
+      "nav.about": "Über",
+      "nav.blog": "Blog",
+      "nav.sideProjects": "Nebenprojekte",
+      "footer.copyright": "© {year} Ricardo Almeida. Alle Rechte vorbehalten.",
+      "error.profileData": "Profildaten konnten nicht geladen werden.",
+      "blog.title": "Blog",
+      "blog.updated": "Aktualisiert",
+      "blog.noPostsMessage": "Keine Beiträge in dieser Sprache verfügbar.",
+      "blog.back": "← Zurück zum Blog",
+      "blog.postedBy": "Veröffentlicht von",
+      "blog.readingTime": "Minuten Lesezeit",
+      "blog.shareText": "Diesen Beitrag teilen",
+      "blog.shareOnX": "Auf X teilen",
+      "blog.shareOnLinkedIn": "Auf LinkedIn teilen",
+      "blog.shareOnFacebook": "Auf Facebook teilen",
+      "carousel.previous": "Vorheriges Set",
+      "carousel.next": "Nächstes Set",
+      "carousel.previousPlaylist": "Vorherige Playlist",
+      "carousel.nextPlaylist": "Nächste Playlist",
+      "modal.close": "Modal schließen",
+      "modal.previousPhoto": "Vorheriges Foto",
+      "modal.nextPhoto": "Nächstes Foto",
+      "about.title": "Über",
+      "profile.experience": "Erfahrung",
+      "profile.education": "Ausbildung",
+      "profile.skills": "Fähigkeiten",
+      "profile.technologies": "Technologien",
+      "profile.and": "und",
+      "profile.languages": "Sprachen",
+      "profile.certifications": "Zertifizierungen",
+      "profile.grade": "Note",
+      "profile.thesis": "Abschlussarbeit",
+      "profile.issued": "Ausgestellt",
+      "profile.verifyCertificate": "Zertifikat überprüfen",
+      "blog.notAvailableInLanguage": "{0}-Version dieses Beitrags ist nicht verfügbar",
+      "blog.redirectedToDefault": "Sie wurden zur englischen Version weitergeleitet",
+      "sideProjects.title": "Nebenprojekte"
+    }
+  }
