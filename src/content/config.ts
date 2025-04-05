@@ -45,6 +45,11 @@ const profileCollection = defineCollection({
       name: z.string().optional(),
       description: z.string().optional(),
     })).optional(),
+    languages: z.array(z.object({
+      name: z.string().optional(),
+      proficiency: z.string().optional(),
+      description: z.string().optional(),
+    })).optional(),
     sectionDescriptions: z.object({
       experience: z.string().optional(),
       education: z.string().optional(),

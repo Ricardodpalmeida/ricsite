@@ -58,7 +58,8 @@ try {
       !profileInfo.education || 
       !profileInfo.certifications ||
       !profileInfo.skills ||
-      !profileInfo.technologies) {
+      !profileInfo.technologies ||
+      !profileInfo.languages) {
     console.log(`Missing required content in ${validLang} profile, trying English fallback`);
     
     if (validLang !== 'en') {
@@ -100,6 +101,11 @@ try {
           
           if (!profileInfo.technologies || profileInfo.technologies.length === 0) {
             profileInfo.technologies = enProfile.technologies;
+            englishFallback = true;
+          }
+          
+          if (!profileInfo.languages || profileInfo.languages.length === 0) {
+            profileInfo.languages = enProfile.languages;
             englishFallback = true;
           }
         }
@@ -231,15 +237,15 @@ export async function getStaticPaths() {
 
         <section class="profile-section" id="languages">
           <h2 class="section-heading">{uiStrings['profile.languages'] || 'Languages'}</h2>
-          <div class="languages-container">
+          <ul class="languages-list">
             {profileInfo.languages && profileInfo.languages.map((language: any) => (
-              <div class="language-item">
-                <h3 class="language-name">{language.name}</h3>
-                <p class="language-proficiency">{language.proficiency}</p>
-                {language.description && <p class="language-description">{language.description}</p>}
-              </div>
+              <li class="language-item">
+                <span class="language-name">{language.name}</span>
+                <span class="language-proficiency">{language.proficiency}</span>
+                {language.description && <span class="language-description">{language.description}</span>}
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         <script is:inline>

@@ -380,40 +380,7 @@ button,
   margin-top: 1.5rem;
 }
 
-.language-item {
-  background-color: var(--color-gray-900);
-  border: 1px solid var(--color-gray-700);
-  border-radius: 6px;
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.language-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  border-color: var(--color-cosmic-latte-10);
-}
-
-.language-name {
-  font-size: 1.25rem;
-  font-weight: var(--font-weight-bold);
-  margin-bottom: 0.5rem;
-  color: var(--color-cosmic-latte);
-  font-family: var(--font-family-title);
-}
-
-.language-proficiency {
-  color: var(--color-gray-300);
-  font-size: 1rem;
-  line-height: 1.4;
-}
-
-.language-description {
-  margin-top: 0.75rem;
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-normal);
-  color: var(--color-gray-400);
-}
+/* Languages styles moved to the bottom of the file */
 
 /* Certifications Carousel - Removed as we're now using shared carousel.css */
 /* We're keeping certification card styles */
@@ -600,6 +567,43 @@ button,
   .certification-pill[data-tooltip]:hover::before {
     left: 20px;
     transform: none;
+  }
+}
+
+/* Languages section styling */
+.languages-list {
+  list-style: none;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border-collapse: collapse;
+}
+
+.language-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.language-name {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-white);
+}
+
+.language-proficiency {
+  color: var(--color-gray-300);
+  text-align: right;
+}
+
+.language-description {
+  display: none;
+}
+
+@media (max-width: 480px) {
+  .language-item {
+    min-width: 100%;
   }
 }
 /* End of file */ 

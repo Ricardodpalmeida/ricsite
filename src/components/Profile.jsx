@@ -459,7 +459,7 @@ function Profile({ profileData, currentLanguage = 'en', hideHeader = false }) {
           <ul className="languages-list">
             {profileData.languages.map((lang, index) => {
               // Safely extract language data
-              const langName = safeGet(lang, 'language', '');
+              const langName = safeGet(lang, 'name', '');
               const proficiency = safeGet(lang, 'proficiency', '');
               
               return (
