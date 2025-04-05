@@ -6,6 +6,10 @@
       "connections": "500+",
       "profileUrl": "www.linkedin.com/in/ricardodpa"
     },
+    "site": {
+      "siteName": "Ricbits",
+      "siteDescription": "人工智能, 技术与生产力"
+    },
     "hero": [
       "我构建满足实际业务需求的 AI 解决方案。在普华永道葡萄牙，我领导团队，结合低代码平台和传统开发的优势，开发云端的智能产品。",
       "当我不在设计云架构或使用 LLM 时，我可能在阅读、上装订课程、听音乐或重温《星球大战》（是的，甚至是前传）。我相信最有趣的解决方案来自于不同世界的连接。"

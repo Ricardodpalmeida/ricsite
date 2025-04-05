@@ -24,18 +24,26 @@ const {
 const lang = currentLanguage || getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// Conditional debug logging
+const isDev = import.meta.env.DEV;
+const debugLog = (...args: any[]) => {
+  if (isDev) {
+    console.log(...args);
+  }
+};
+
 // Debug logging
-console.log('MainLayout - Current URL:', Astro.url.pathname);
-console.log('MainLayout - Detected language:', lang);
-console.log('MainLayout - Available languages:', Object.keys(languages));
-console.log('MainLayout - Available language names:', languageNames);
+debugLog('MainLayout - Current URL:', Astro.url.pathname);
+debugLog('MainLayout - Detected language:', lang);
+debugLog('MainLayout - Available languages:', Object.keys(languages));
+debugLog('MainLayout - Available language names:', languageNames);
 
 // Load profile-based translations
 const profileData = await getProfileStrings(lang);
 
 // Ensure lang is a valid language code
 const validLang = lang in languages ? lang : defaultLang;
-console.log('MainLayout - Using language:', validLang, validLang !== lang ? '(fallback from ' + lang + ')' : '');
+debugLog('MainLayout - Using language:', validLang, validLang !== lang ? '(fallback from ' + lang + ')' : '');
 
 // Default meta values from profile data
 const defaultTitle = profileData['site.title'] || t('site.title');
@@ -45,7 +53,7 @@ const siteUrl = "https://me.ricbits.cc";
 
 // Prepare alternate language URLs for language switcher
 const otherLangs = Object.keys(languages).filter(l => l !== validLang);
-console.log('MainLayout - Other languages for switcher:', otherLangs);
+debugLog('MainLayout - Other languages for switcher:', otherLangs);
 
 // JSON-LD structured data with dynamic data
 const jsonLdData = {
@@ -152,61 +160,66 @@ const jsonLdData = {
     </script> -->
     <header>
       <div class="header-wrapper">
-        {!hideLangSelector && (
-          <div class="language-dropdown-container">
-            <div class="language-dropdown">
-              <button class="dropdown-button">
-                {validLang.toUpperCase()}
-                <span class="dropdown-arrow">▼</span>
-              </button>
-              <div class="dropdown-content">
-                {Object.entries(languages).map(([code, name]) => {
-                  // Calculate the URL for this language
-                  let langUrl;
-                  
-                  if (code === validLang) {
-                    langUrl = '#';
-                  } else {
-                    // Special case for English to ensure it works correctly
-                    if (code === 'en') {
-                      // For English, explicitly use /en/ path
-                      langUrl = Astro.url.pathname.startsWith('/en/') 
-                        ? Astro.url.pathname 
-                        : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
-                    } else {
-                      // Normal case for other languages
-                      langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
-                    }
-                  }
+        <div class="nav-content">
+          <a href={`/${validLang}/`} class="site-title">
+            <img src="/favicon.svg" alt="Ricbits" class="site-logo" />
+          </a>
+
+          <nav class="main-nav">
+            <div class="container nav-container">
+              <ul>
+                <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
+                <li><a href={`/${validLang}/blog`} class={Astro.url.pathname.includes(`/${validLang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          {!hideLangSelector && (
+            <div class="language-dropdown-container">
+              <div class="language-dropdown">
+                <button class="dropdown-button">
+                  {validLang.toUpperCase()}
+                  <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                  {Object.entries(languages).map(([code, name]) => {
+                    // Calculate the URL for this language
+                    let langUrl;
                     
-                  return (
-                    <a 
-                      href={langUrl}
-                      class={`dropdown-item ${code === validLang ? 'active' : ''}`}
-                      aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
-                      data-lang-link={code}
-                      data-testid={`lang-link-${code}`}
-                    >
-                      {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
-                        ? languageNames[code]?.charAt(0) || code.toUpperCase() 
-                        : code.toUpperCase()}
-                    </a>
-                  );
-                })}
+                    if (code === validLang) {
+                      langUrl = '#';
+                    } else {
+                      // Special case for English to ensure it works correctly
+                      if (code === 'en') {
+                        // For English, explicitly use /en/ path
+                        langUrl = Astro.url.pathname.startsWith('/en/') 
+                          ? Astro.url.pathname 
+                          : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
+                      } else {
+                        // Normal case for other languages
+                        langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
+                      }
+                    }
+                      
+                    return (
+                      <a 
+                        href={langUrl}
+                        class={`dropdown-item ${code === validLang ? 'active' : ''}`}
+                        aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
+                        data-lang-link={code}
+                        data-testid={`lang-link-${code}`}
+                      >
+                        {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
+                          ? languageNames[code]?.charAt(0) || code.toUpperCase() 
+                          : code.toUpperCase()}
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-        
-        <nav class="main-nav">
-          <div class="container nav-container">
-            <ul>
-              <li><a href={`/${validLang}/`} class={Astro.url.pathname === `/${validLang}/` || Astro.url.pathname === `/${validLang}` ? 'active' : ''}>{t('nav.home')}</a></li>
-              <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
-              <li><a href="#" class="disabled">{t('nav.blog')}</a></li>
-            </ul>
-          </div>
-        </nav>
+          )}
+        </div>
       </div>
     </header>
     

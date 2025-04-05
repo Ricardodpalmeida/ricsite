@@ -1,13 +1,20 @@
 // Optimize language switching to prevent flashes
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Language switcher script loaded');
+  // Debug logging utility - disable in production
+  const debugLog = (...args) => {
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      console.log(...args);
+    }
+  };
+
+  debugLog('Language switcher script loaded');
   const langLinks = document.querySelectorAll('[data-lang-link]');
   
   // Get current language from HTML tag
   const currentLang = document.documentElement.lang;
-  console.log(`Current language detected from HTML: ${currentLang}`);
+  debugLog(`Current language detected from HTML: ${currentLang}`);
   
-  console.log(`Found ${langLinks.length} language links:`, 
+  debugLog(`Found ${langLinks.length} language links:`, 
     Array.from(langLinks).map(link => `${link.dataset.langLink}: ${link.getAttribute('href')}`));
   
   // Verify all language links are working correctly
@@ -28,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Special checks for languages that might need special handling (like Chinese)
     if (linkLang === 'zh' && href !== '#') {
-      console.log(`Chinese language link detected: ${href}`);
+      debugLog(`Chinese language link detected: ${href}`);
     }
   });
   
@@ -41,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (e) => {
       const linkLang = link.dataset.langLink;
       const href = link.getAttribute('href');
-      console.log(`Language link clicked: ${linkLang}, href: ${href}`);
+      debugLog(`Language link clicked: ${linkLang}, href: ${href}`);
       
       // Only handle if it's not the current language and not a # href
       if (!link.classList.contains('active') && href !== '#') {
@@ -54,19 +61,19 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add special handling for Chinese if needed
         const isChineseLang = linkLang === 'zh';
         if (isChineseLang) {
-          console.log('Switching to Chinese language');
+          debugLog('Switching to Chinese language');
           // Force UTF-8 encoding in the URL
           const encodedHref = href.replace('/zh/', encodeURIComponent('/zh/').replace(/%2F/g, '/'));
-          console.log(`Original href: ${href}, encoded: ${encodedHref}`);
+          debugLog(`Original href: ${href}, encoded: ${encodedHref}`);
         }
         
         // Navigate after a very short delay to allow transition to start
-        console.log(`Navigating to: ${href}`);
+        debugLog(`Navigating to: ${href}`);
         setTimeout(() => {
           window.location.href = href;
         }, 50);
       } else {
-        console.log('Link is active or href is #, not handling click');
+        debugLog('Link is active or href is #, not handling click');
       }
     });
   });

@@ -7,55 +7,63 @@ export { defaultLang, languages, loadLanguages, languageNames }; // Export these
 let initializedLanguageList: Record<string, string> = {};
 let isLanguageListInitialized = false;
 
+// Add a utility function to conditionally log based on environment
+const isDev = import.meta.env.DEV;
+const debugLog = (message: string, ...args: any[]) => {
+  if (isDev) {
+    console.log(message, ...args);
+  }
+};
+
 // Get supported languages - first from dynamic loader, then fallback to whatever's available
 export async function getSupportedLanguages(): Promise<Record<string, string>> {
-  console.log('Utils - getSupportedLanguages called, initialized:', isLanguageListInitialized);
+  debugLog('Utils - getSupportedLanguages called, initialized:', isLanguageListInitialized);
   
   if (isLanguageListInitialized) {
-    console.log('Utils - Returning initialized language list:', Object.keys(initializedLanguageList));
+    debugLog('Utils - Returning initialized language list:', Object.keys(initializedLanguageList));
     return initializedLanguageList;
   }
   
   try {
     // Try to dynamically load languages from profile content
-    console.log('Utils - Attempting to dynamically load languages');
+    debugLog('Utils - Attempting to dynamically load languages');
     const dynamicLanguages = await loadLanguages();
-    console.log('Utils - Dynamic languages loaded:', Object.keys(dynamicLanguages));
+    debugLog('Utils - Dynamic languages loaded:', Object.keys(dynamicLanguages));
     
     if (Object.keys(dynamicLanguages).length > 0) {
       // ALWAYS ensure English is available as the default
       if (!dynamicLanguages['en']) {
-        console.log('Utils - Adding missing default English language');
+        debugLog('Utils - Adding missing default English language');
         dynamicLanguages['en'] = languageNames['en'] || 'English';
       }
       
       initializedLanguageList = dynamicLanguages;
       isLanguageListInitialized = true;
-      console.log('Utils - Using dynamically loaded languages:', Object.keys(initializedLanguageList));
+      debugLog('Utils - Using dynamically loaded languages:', Object.keys(initializedLanguageList));
       return dynamicLanguages;
     }
     
     // Fallback to whatever languages we have UI translations for
-    console.log('Utils - No dynamic languages found, falling back to UI language keys');
+    debugLog('Utils - No dynamic languages found, falling back to UI language keys');
     const uiLanguages: Record<string, string> = {};
     
     // ALWAYS add English first as the default language
     uiLanguages['en'] = languageNames['en'] || 'English';
-    console.log('Utils - Added default English language');
+    debugLog('Utils - Added default English language');
     
     for (const lang in ui) {
       if (lang !== 'default' && lang !== 'en') { // Skip default and English (already added)
         uiLanguages[lang] = languageNames[lang] || lang; // Try to use language names
-        console.log(`Utils - Added UI-based language: ${lang} => ${uiLanguages[lang]}`);
+        debugLog(`Utils - Added UI-based language: ${lang} => ${uiLanguages[lang]}`);
       }
     }
     
     initializedLanguageList = uiLanguages;
     isLanguageListInitialized = true;
-    console.log('Utils - Using UI-based languages:', Object.keys(initializedLanguageList));
+    debugLog('Utils - Using UI-based languages:', Object.keys(initializedLanguageList));
     return uiLanguages;
   } catch (error) {
-    console.error('Utils - Error loading languages:', error);
+    debugLog('Utils - Error loading languages:', error);
     // Always ensure English is first in the fallback
     const fallback: Record<string, string> = { 
       'en': languageNames['en'] || 'English'
@@ -71,7 +79,7 @@ export async function getSupportedLanguages(): Promise<Record<string, string>> {
     
     initializedLanguageList = fallback;
     isLanguageListInitialized = true;
-    console.log('Utils - Using error fallback languages:', Object.keys(initializedLanguageList));
+    debugLog('Utils - Using error fallback languages:', Object.keys(initializedLanguageList));
     return fallback;
   }
 }
@@ -79,15 +87,15 @@ export async function getSupportedLanguages(): Promise<Record<string, string>> {
 // Get the language from a URL
 export function getLangFromUrl(url: URL) {
   const [, lang] = url.pathname.split('/');
-  console.log(`Utils - getLangFromUrl called for ${url.pathname}, extracted lang: "${lang}"`);
+  debugLog(`Utils - getLangFromUrl called for ${url.pathname}, extracted lang: "${lang}"`);
   
   // Just check if it's a string for now - we'll validate actual languages at runtime
   if (typeof lang === 'string' && lang.length > 0) {
-    console.log(`Utils - Returning detected language: ${lang}`);
+    debugLog(`Utils - Returning detected language: ${lang}`);
     return lang;
   }
   
-  console.log(`Utils - No language in URL, returning default: ${defaultLang}`);
+  debugLog(`Utils - No language in URL, returning default: ${defaultLang}`);
   return defaultLang;
 }
 
@@ -155,20 +163,45 @@ export function detectBrowserLanguage(): string {
 
 // Load profile data for a specific language to use as UI strings
 export async function getProfileStrings(lang: string): Promise<any> {
-  console.log(`Utils - getProfileStrings called for language: ${lang}`);
   try {
-    // Get profile data for the given language
-    const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
-    console.log(`Utils - Found ${profileCollection.length} profile entries for language: ${lang}`);
+    debugLog(`Utils - Loading profile strings for ${lang}`);
+    // Get the profile file based on language
+    const profiles = await getCollection('profile');
+    const profile = profiles.find(p => p.data.language === lang);
     
-    const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
+    // Use English as fallback if language profile doesn't exist
+    const fallbackProfile = profiles.find(p => p.data.language === defaultLang);
     
-    if (!profileData) {
-      console.warn(`Utils - No profile data found for language: ${lang}`);
-      return {} as Record<string, string>;
-    }
-
-    console.log(`Utils - Profile data loaded for ${lang}, getting translations`);
+    // Default empty structure for type safety
+    const emptyProfile = {
+      language: defaultLang,
+      personal: { 
+        name: 'Ricardo Almeida',
+        title: '',
+        location: '',
+        connections: '',
+        profileUrl: ''
+      },
+      site: {
+        siteName: 'Ricbits',
+        siteDescription: ''
+      },
+      hero: [],
+      about: [],
+      skills: [],
+      technologies: [],
+      sectionDescriptions: {},
+      experience: [],
+      education: [],
+      certifications: [],
+      sideProjects: [],
+      ui: {}
+    };
+    
+    // Use the profile data if it exists, otherwise fallback to English or empty
+    const profileData = profile?.data || fallbackProfile?.data || emptyProfile;
+    
+    debugLog(`Utils - Profile data loaded for ${lang}, getting translations`);
     // Get translations for generic fields based on language
     const translations = getGenericTranslations(lang);
 
@@ -176,8 +209,8 @@ export async function getProfileStrings(lang: string): Promise<any> {
     return {
       ...profileData,
       // Add UI strings as well for backward compatibility
-      'site.title': `${profileData.personal?.name || 'Ricardo Almeida'} | ${profileData.personal?.title || ''}`,
-      'site.description': profileData.hero?.join(' ') || '',
+      'site.title': profileData.site?.siteName ? `${profileData.site.siteName} - ${profileData.site.siteDescription}` : `${profileData.personal?.name || 'Ricardo Almeida'} | ${profileData.personal?.title || ''}`,
+      'site.description': profileData.site?.siteDescription || profileData.hero?.join(' ') || '',
       'site.author': profileData.personal?.name || 'Ricardo Almeida',
       'site.keywords': profileData.technologies?.map(tech => tech.name).join(', ') || '',
       
@@ -191,7 +224,7 @@ export async function getProfileStrings(lang: string): Promise<any> {
       ...translations
     };
   } catch (error) {
-    console.error(`Utils - Error loading profile strings for ${lang}:`, error);
+    debugLog(`Utils - Error loading profile strings for ${lang}:`, error);
     return {};
   }
 }
@@ -224,9 +257,9 @@ export async function getUIStrings(lang: string): Promise<Record<string, string>
 // Function to load UI translations from profile files
 export async function loadUITranslations(): Promise<Record<string, Record<string, string>>> {
   try {
-    console.log('UI Module - Starting loadUITranslations()');
+    debugLog('UI Module - Starting loadUITranslations()');
     const profileCollection = await getCollection('profile');
-    console.log('UI Module - Retrieved profile collection with', profileCollection.length, 'entries for UI translations');
+    debugLog('UI Module - Retrieved profile collection with', profileCollection.length, 'entries for UI translations');
     
     // Use ui.default from the imported ui object instead of defaultUIStrings
     const translations: Record<string, Record<string, string>> = {
@@ -242,8 +275,8 @@ export async function loadUITranslations(): Promise<Record<string, Record<string
       const uiStrings = profile.data.ui || {};
       
       if (lang) {
-        console.log(`UI Module - Processing language '${lang}' for UI translations`);
-        console.log(`UI Module - UI strings found for '${lang}':`, Object.keys(uiStrings).length);
+        debugLog(`UI Module - Processing language '${lang}' for UI translations`);
+        debugLog(`UI Module - UI strings found for '${lang}':`, Object.keys(uiStrings).length);
       }
       
       if (lang && Object.keys(uiStrings).length > 0) {
@@ -265,9 +298,9 @@ export async function loadUITranslations(): Promise<Record<string, Record<string
           translations[lang][key] = value;
         });
         
-        console.log(`UI Module - Added translations for language '${lang}'`);
+        debugLog(`UI Module - Added translations for language '${lang}'`);
       } else if (lang) {
-        console.warn(`UI Module - No UI translations found for language '${lang}'`);
+        debugLog(`UI Module - No UI translations found for language '${lang}'`);
       }
     }
     
@@ -278,10 +311,10 @@ export async function loadUITranslations(): Promise<Record<string, Record<string
         .replace('{year}', currentYear.toString());
     }
     
-    console.log('UI Module - Loaded translations for languages:', Object.keys(translations));
+    debugLog('UI Module - Loaded translations for languages:', Object.keys(translations));
     return translations;
   } catch (error) {
-    console.error('Error loading UI translations:', error);
+    debugLog('Error loading UI translations:', error);
     // Use ui.default here as well
     return { default: { ...ui.default } };
   }

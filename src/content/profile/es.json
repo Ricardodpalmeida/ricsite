@@ -6,6 +6,10 @@
     "connections": "500+",
     "profileUrl": "www.linkedin.com/in/ricardodpa"
   },
+  "site": {
+    "siteName": "Ricbits",
+    "siteDescription": "IA, Tecnología y Productividad"
+  },
   "hero": [
     "Construyo soluciones de IA que satisfacen necesidades reales de negocio. En PwC Portugal, lidero equipos que desarrollan productos inteligentes en la nube combinando lo mejor de las plataformas low-code con el desarrollo tradicional.",
     "Cuando no estoy diseñando arquitecturas en la nube o trabajando con LLMs, probablemente estaré leyendo, tomando cursos de encuadernación, escuchando música o revisando Star Wars (sí, incluso las precuelas). Creo que las soluciones más interesantes surgen de la conexión entre mundos diferentes."

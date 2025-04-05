@@ -31,6 +31,10 @@ const profileCollection = defineCollection({
       connections: z.string().optional(),
       profileUrl: z.string().optional(),
     }).optional(),
+    site: z.object({
+      siteName: z.string().optional(),
+      siteDescription: z.string().optional(),
+    }).optional(),
     hero: z.array(z.string()).optional(),
     about: z.array(z.string()).optional(),
     skills: z.array(z.object({

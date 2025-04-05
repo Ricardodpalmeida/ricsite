@@ -1,6 +1,14 @@
 import fs from 'fs';
 import path from 'path';
 
+// Debug logging utility - only log in development mode
+const isDev = process.env.NODE_ENV === 'development';
+const debugLog = (...args) => {
+  if (isDev) {
+    console.log(...args);
+  }
+};
+
 // Cache for the supported languages (so we don't read from disk on every request)
 let cachedLanguages = null;
 
@@ -8,13 +16,13 @@ let cachedLanguages = null;
 function getAvailableLanguages() {
   // Return cached languages if already determined
   if (cachedLanguages) {
-    console.log('Middleware - Using cached languages:', cachedLanguages);
+    debugLog('Middleware - Using cached languages:', cachedLanguages);
     return cachedLanguages;
   }
 
   try {
     const profileDir = path.resolve('./src/content/profile');
-    console.log('Middleware - Looking for profile files in:', profileDir);
+    debugLog('Middleware - Looking for profile files in:', profileDir);
     
     // Check if directory exists
     if (!fs.existsSync(profileDir)) {
@@ -25,29 +33,29 @@ function getAvailableLanguages() {
     
     // Read directory and filter for JSON files
     const allFiles = fs.readdirSync(profileDir);
-    console.log('Middleware - All files in profile directory:', allFiles);
+    debugLog('Middleware - All files in profile directory:', allFiles);
     
     const files = allFiles
       .filter(file => file.endsWith('.json'))
       .map(file => file.replace('.json', ''));
     
-    console.log('Middleware - Filtered language codes:', files);
+    debugLog('Middleware - Filtered language codes:', files);
     
     // Ensure we have at least the default language
     if (!files.includes('en')) {
       files.unshift('en'); // Add at the beginning to prioritize
-      console.log('Middleware - Added missing default language (en) at the beginning');
+      debugLog('Middleware - Added missing default language (en) at the beginning');
     } else {
       // If 'en' exists but is not first, move it to the front
       const enIndex = files.indexOf('en');
       if (enIndex > 0) {
         files.splice(enIndex, 1); // Remove 'en'
         files.unshift('en'); // Add at beginning
-        console.log('Middleware - Moved default language (en) to the beginning of the list');
+        debugLog('Middleware - Moved default language (en) to the beginning of the list');
       }
     }
     
-    console.log('Middleware - Detected languages from profile files:', files);
+    debugLog('Middleware - Detected languages from profile files:', files);
     cachedLanguages = files;
     return files;
   } catch (error) {
@@ -62,21 +70,21 @@ export function onRequest({ request, url, locals }, next) {
   const normalizedPath = url.pathname.replace(/\/+/g, '/');
   
   // Debug logging for troubleshooting
-  console.log(`Middleware handling request for: ${normalizedPath}`);
+  debugLog(`Middleware handling request for: ${normalizedPath}`);
 
   // Dynamically get supported languages
   const supportedLanguages = getAvailableLanguages();
-  console.log('Middleware - Supported languages:', supportedLanguages);
+  debugLog('Middleware - Supported languages:', supportedLanguages);
   
   // Extract the first segment of the path to check if it's a language code
   const pathSegments = normalizedPath.split('/').filter(Boolean);
   const firstSegment = pathSegments[0];
   const isLanguagePath = supportedLanguages.includes(firstSegment);
-  console.log(`First segment: "${firstSegment}", Is language path: ${isLanguagePath}`);
+  debugLog(`First segment: "${firstSegment}", Is language path: ${isLanguagePath}`);
   
   // For language paths, always allow them if the language is supported
   if (isLanguagePath) {
-    console.log(`Allowing supported language path: ${normalizedPath}`);
+    debugLog(`Allowing supported language path: ${normalizedPath}`);
     return next();
   }
   

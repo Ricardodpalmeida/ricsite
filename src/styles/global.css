@@ -167,18 +167,58 @@ a:focus-visible {
   border-bottom: 1px solid var(--color-gray-100);
 }
 
+/* New nav content container */
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+/* Site title styling */
+.site-title {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--color-white);
+  transition: opacity var(--transition-base);
+}
+
+.site-title:hover {
+  opacity: 0.9;
+}
+
+.site-logo {
+  height: 24px;
+  width: 24px;
+  margin-right: 10px;
+}
+
+.site-title-text {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-family-title);
+  font-weight: var(--font-weight-medium);
+}
+
+.mobile-title {
+  display: none;
+}
+
 /* Main navigation */
 .main-nav {
   padding: var(--spacing-md) 0;
   transition: border-color var(--transition-base);
-  width: 100%;
 }
 
 .nav-container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  width: 100%;
+  padding: 0;
 }
 
 .main-nav ul {
@@ -186,8 +226,7 @@ a:focus-visible {
   list-style: none;
   gap: var(--spacing-lg);
   flex-wrap: wrap;
-  justify-content: flex-start;
-  width: 100%;
+  justify-content: center;
   padding: 0;
   margin: 0;
 }
@@ -253,11 +292,9 @@ a:focus-visible {
   width: 100%;
 }
 
-/* Language Dropdown in Header */
+/* Language dropdown */
 .language-dropdown-container {
-  position: absolute;
-  top: 0.8rem;
-  right: 2rem;
+  position: relative;
   z-index: 100;
   display: flex;
   align-items: center;
@@ -365,19 +402,17 @@ footer {
   
   .main-nav ul {
     gap: var(--spacing-md);
-    justify-content: center;
   }
   
-  .language-dropdown-container {
-    top: 0.6rem;
-    right: 1.5rem;
+  .nav-content {
+    padding: 0 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   :root {
+    --font-size-base: 0.9rem;
     --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
   }
   
   .container {
@@ -385,29 +420,33 @@ footer {
   }
   
   .main-nav {
-    padding: var(--spacing-sm) 0;
-    overflow-x: auto;
-    text-align: center;
+    padding: var(--spacing-xs) 0;
+  }
+  
+  .nav-content {
+    padding: 0 1rem;
   }
   
   .main-nav .container {
-    max-width: none;
-    padding: 0 var(--spacing-sm);
+    padding: 0;
     justify-content: center;
   }
   
   .main-nav ul {
-    flex-wrap: nowrap;
     justify-content: center;
     gap: var(--spacing-md);
-    padding-bottom: 0;
-    width: auto;
-    display: inline-flex;
+  }
+  
+  .full-title {
+    display: none;
+  }
+  
+  .mobile-title {
+    display: block;
   }
   
   .language-dropdown-container {
-    top: 0.6rem;
-    right: 1rem;
+    margin-left: 0;
   }
 }
 
