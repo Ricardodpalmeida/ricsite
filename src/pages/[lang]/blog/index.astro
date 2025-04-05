@@ -6,7 +6,7 @@
  * Lists blog posts filtered by the current language.
  */
 import MainLayout from '../../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../../i18n/utils';
+import { languages, getUIStrings } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
 import '../../../styles/blog.css';
@@ -16,11 +16,8 @@ const { lang } = Astro.params;
 
 // Validate the lang parameter - if invalid, redirect to the default language
 if (!lang || !(lang in languages)) {
-  return Astro.redirect(`/${defaultLang}/blog`);
+  return Astro.redirect(`/en/blog`);
 }
-
-// Get translations for the current language
-const t = useTranslations(lang as keyof typeof languages);
 
 // Load dynamic UI strings
 const uiStrings = await getUIStrings(lang as keyof typeof languages);

@@ -37,7 +37,6 @@ const safeGet = (obj: any, path: string, defaultValue = '') => {
 };
 
 // Get profile info based on language
-const isMultilingual = false; // We use separate files now
 const name = safeGet(profileData, 'personal.name', 'Ricardo Almeida');
 const title = safeGet(profileData, 'personal.title', 'Manager, Data & AI | Smart Products, Automation and Gen AI');
 const profileUrl = safeGet(profileData, 'personal.profileUrl', 'https://www.linkedin.com/in/ricardodpa');

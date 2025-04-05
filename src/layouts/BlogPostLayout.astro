@@ -48,30 +48,18 @@ const readingTimeText = readingTimeMin + ' ' + t('blog.readingTime');
 
 // === Stricter Date Check ===
 let pubDate: Date | undefined = undefined;
-let formattedDate: string = 'Date not available';
 let pubDateISO: string | undefined = undefined;
 let formattedDisplayDate: string = '';
 
 if (postData?.pubDate && postData.pubDate instanceof Date) {
   pubDate = postData.pubDate;
   try {
-    // Format for display in the body (localized)
-    formattedDate = new Date(pubDate).toLocaleDateString(
-      lang === 'en' ? 'en-US' : lang === 'pt' ? 'pt-PT' : 'es-ES', 
-      { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      }
-    );
-    
     // Format for the "Posted by" section (yyyy-mm-dd)
     formattedDisplayDate = pubDate.toISOString().split('T')[0]; // YYYY-MM-DD format
     
     pubDateISO = pubDate.toISOString();
   } catch (e) {
     console.error(`Error formatting date for post slug ${post?.slug}:`, e);
-    formattedDate = 'Invalid Date'; // Set fallback on error
     pubDateISO = undefined;
     pubDate = undefined; // Mark pubDate as invalid if formatting fails
   }
@@ -105,8 +93,11 @@ if (translationKey) {
   }
 }
 
+// Create absolute URL for sharing
+const absoluteUrl = `${Astro.url.origin}${Astro.url.pathname}`;
+
 // Prepare structured data for the blog post
-const structuredDataBlogPost = {
+export const _blogPostSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": title,
@@ -127,9 +118,6 @@ const structuredDataBlogPost = {
   },
   "inLanguage": lang
 };
-
-// Create absolute URL for sharing
-const absoluteUrl = `${Astro.url.origin}${Astro.url.pathname}`;
 ---
 
 <MainLayout 
@@ -140,7 +128,7 @@ const absoluteUrl = `${Astro.url.origin}${Astro.url.pathname}`;
   alternateLanguageUrls={alternateLanguageUrls}
 >
   <script is:inline type="application/ld+json">
-    {JSON.stringify(structuredDataBlogPost)}
+    {JSON.stringify(_blogPostSchema)}
   </script>
   
   <main class="blog-post-container">

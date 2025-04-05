@@ -373,21 +373,46 @@ button,
 
 /* Continue with rest of original profile.css file... */
 
+.languages-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
 .language-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  background-color: var(--color-gray-900);
+  border: 1px solid var(--color-gray-700);
+  border-radius: 6px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.language-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-cosmic-latte-10);
 }
 
 .language-name {
-  font-size: 1.3rem;
-  font-weight: 500;
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0.5rem;
+  color: var(--color-cosmic-latte);
+  font-family: var(--font-family-title);
 }
 
 .language-proficiency {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.1rem;
+  color: var(--color-gray-300);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.language-description {
+  margin-top: 0.75rem;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-gray-400);
 }
 
 /* Certifications Carousel - Removed as we're now using shared carousel.css */
@@ -577,46 +602,4 @@ button,
     transform: none;
   }
 }
-
-/* Languages section */
-.languages-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.language-item {
-  background: var(--color-gray-900);
-  border: 1px solid var(--color-gray-700);
-  border-radius: 8px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.language-item:hover {
-  transform: translateY(-5px);
-  border-color: var(--color-cosmic-latte-10);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.language-name {
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
-  margin-bottom: 0.5rem;
-  color: var(--color-cosmic-latte);
-}
-
-.language-proficiency {
-  color: var(--color-gray-400);
-  font-size: var(--font-size-sm);
-  margin-bottom: 0;
-}
-
-@media (max-width: 768px) {
-  .languages-container {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* End of file */ 

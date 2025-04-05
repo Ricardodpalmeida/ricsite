@@ -25,7 +25,8 @@ const notificationId = `notification-${Math.random().toString(36).substring(2, 1
   </div>
 </div>
 
-<script define:vars={{ notificationId, autoDismiss, dismissTime }}>
+<script is:inline define:vars={{ notificationId, autoDismiss, dismissTime }}>
+  // @ts-nocheck
   // Handle notification visibility and dismissal
   document.addEventListener('DOMContentLoaded', () => {
     const notification = document.getElementById(notificationId);

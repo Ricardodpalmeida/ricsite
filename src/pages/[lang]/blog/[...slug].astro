@@ -6,14 +6,14 @@
  * using the [lang] and [slug] parameters in the URL.
  */
 import MainLayout from '../../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings, languageNames } from '../../../i18n/utils';
+import { useTranslations, defaultLang, languages, getUIStrings, languageNames } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
 import Notification from '../../../components/Notification.astro';
 import '../../../styles/blog.css';
 
-// Get the lang and slug from the URL path parameters
-const { lang, slug } = Astro.params;
+// Get the lang from the URL path parameters
+const { lang } = Astro.params;
 const { post, redirectedFromLanguage = null } = Astro.props;
 
 // Validate the lang parameter - if invalid, redirect to the default language

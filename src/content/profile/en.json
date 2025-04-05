@@ -138,12 +138,6 @@
       "description": "Using version control for tracking code changes, collaborating with teams, and managing source code repositories efficiently."
     }
   ],
-  "sectionDescriptions": {
-    "experience": "Over the past few years, I've been building my career in data and AI, focusing on practical, business-oriented solutions that generate real value.",
-    "education": "My academic background combines business management with specialized training in data science and innovation management.",
-    "certifications": "I maintain active certifications that demonstrate my commitment to continuous learning and professional development.",
-    "sideProjects": ""
-  },
   "languages": [
     {
       "name": "English",
@@ -162,6 +156,12 @@
       "proficiency": "Elementary proficiency"
     }
   ],
+  "sectionDescriptions": {
+    "experience": "Over the past few years, I've been building my career in data and AI, focusing on practical, business-oriented solutions that generate real value.",
+    "education": "My academic background combines business management with specialized training in data science and innovation management.",
+    "certifications": "I maintain active certifications that demonstrate my commitment to continuous learning and professional development.",
+    "sideProjects": ""
+  },
   "experience": [
     {
       "title": "Product and Cloud Lead - Data & AI team",

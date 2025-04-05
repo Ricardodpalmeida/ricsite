@@ -138,30 +138,30 @@
       "description": "Utilização de controlo de versões para monitorizar alterações de código, colaborar com equipas e gerir repositórios de código-fonte de forma eficiente."
     }
   ],
+  "languages": [
+    {
+      "name": "Inglês",
+      "proficiency": "Proficiência nativa ou bilingue"
+    },
+    {
+      "name": "Português",
+      "proficiency": "Proficiência nativa ou bilingue"
+    },
+    {
+      "name": "Espanhol",
+      "proficiency": "Proficiência elementar"
+    },
+    {
+      "name": "Francês",
+      "proficiency": "Proficiência elementar"
+    }
+  ],
   "sectionDescriptions": {
     "experience": "Ao longo dos últimos anos, tenho construído a minha carreira em dados e IA, focando-me em soluções práticas e orientadas para negócios que geram valor real.",
     "education": "A minha formação académica combina gestão empresarial com formação especializada em ciência de dados e gestão da inovação.",
     "certifications": "Mantenho certificações ativas que demonstram o meu compromisso com a aprendizagem contínua e o desenvolvimento profissional.",
     "sideProjects": ""
   },
-  "languages": [
-    {
-      "name": "Inglês",
-      "proficiency": "Domínio nativo ou bilingue"
-    },
-    {
-      "name": "Português",
-      "proficiency": "Domínio nativo ou bilingue"
-    },
-    {
-      "name": "Espanhol",
-      "proficiency": "Conhecimento elementar"
-    },
-    {
-      "name": "Francês",
-      "proficiency": "Conhecimento elementar"
-    }
-  ],
   "experience": [
     {
       "title": "Responsável de Produto e Cloud - Equipa de Data & IA",

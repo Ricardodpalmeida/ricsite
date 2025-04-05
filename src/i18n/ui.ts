@@ -156,8 +156,6 @@ export async function loadLanguages() {
   }
 }
 
-// Get current year for copyright
-const currentYear = new Date().getFullYear();
 
 // Default fallback UI strings (English)
 export const defaultUIStrings: Record<string, string> = {

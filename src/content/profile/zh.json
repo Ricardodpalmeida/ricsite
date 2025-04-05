@@ -138,30 +138,30 @@
         "description": "使用版本控制跟踪代码更改、与团队协作和高效管理源代码存储库。"
       }
     ],
+    "languages": [
+      {
+        "name": "英语",
+        "proficiency": "母语或双语熟练程度"
+      },
+      {
+        "name": "葡萄牙语",
+        "proficiency": "母语或双语熟练程度"
+      },
+      {
+        "name": "西班牙语",
+        "proficiency": "基础熟练程度"
+      },
+      {
+        "name": "法语",
+        "proficiency": "基础熟练程度"
+      }
+    ],
     "sectionDescriptions": {
       "experience": "过去几年，我一直在数据和人工智能领域建立我的职业生涯，专注于产生实际价值的实用、业务导向的解决方案。",
       "education": "我的学术背景结合了商业管理与数据科学和创新管理的专业培训。",
       "certifications": "我保持活跃的证书，展示了我对持续学习和专业发展的承诺。",
       "sideProjects": ""
     },
-    "languages": [
-      {
-        "name": "英语",
-        "proficiency": "母语或双语水平"
-      },
-      {
-        "name": "葡萄牙语",
-        "proficiency": "母语或双语水平"
-      },
-      {
-        "name": "西班牙语",
-        "proficiency": "基础水平"
-      },
-      {
-        "name": "法语",
-        "proficiency": "基础水平"
-      }
-    ],
     "experience": [
       {
         "title": "产品与云负责人 - 数据与人工智能团队",

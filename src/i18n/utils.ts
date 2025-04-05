@@ -1,4 +1,4 @@
-import { ui, defaultLang, languages, loadLanguages, languageNames, defaultUIStrings } from './ui';
+import { ui, defaultLang, languages, loadLanguages, languageNames } from './ui';
 import { getCollection } from 'astro:content';
 
 export { defaultLang, languages, loadLanguages, languageNames }; // Export these variables for use in other modules
@@ -125,7 +125,7 @@ export function getLocalizedUrl(url: URL, locale: string) {
 // Get translations in the current language
 export function useTranslations(lang: string) {
   return function t(key: string) {
-    let text;
+    let text: string;
     
     // First check if we have translations for this language
     if (ui[lang] && ui[lang][key]) {

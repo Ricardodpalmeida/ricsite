@@ -6,11 +6,10 @@
  * The content is rendered based on the language detected from the URL.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings } from '../../i18n/utils';
+import { useTranslations, languages, getUIStrings } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
 import SkillsAndTechnologies from '../../components/SkillsAndTechnologies.astro';
-import SkillPill from '../../components/SkillPill.astro';
 import '../../styles/profile.css';
 import '../../styles/carousel.css';
 
@@ -36,12 +35,12 @@ if (validLang !== lang) {
 const t = useTranslations(validLang);
 
 // Load dynamic UI strings with error handling
-let uiStrings;
+let uiStrings: Record<string, string> = {};
 try {
   uiStrings = await getUIStrings(validLang);
 } catch (error) {
   console.error(`Error loading UI strings for ${validLang}:`, error);
-  uiStrings = {}; // Fallback to empty object
+  // uiStrings is already initialized as empty object
 }
 
 // Get profile data from content collection with error handling
@@ -237,6 +236,7 @@ export async function getStaticPaths() {
               <div class="language-item">
                 <h3 class="language-name">{language.name}</h3>
                 <p class="language-proficiency">{language.proficiency}</p>
+                {language.description && <p class="language-description">{language.description}</p>}
               </div>
             ))}
           </div>

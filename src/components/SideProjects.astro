@@ -14,6 +14,8 @@ interface Embed {
   description?: string;
 }
 
+// This interface defines the data structure but isn't currently used directly
+// Keeping it for documentation and future type safety improvements
 interface SideProjectsData {
   titles?: {
     section?: string;
@@ -53,20 +55,17 @@ const processMarkdown = (text: string) => {
 
 // Get profile data if not provided through props
 let profileInfo: any = null;
-let sideProjects: any = {};
-let sectionDescription = '';
+let sideProjects: SideProjectsData = {};
 
 if (profileData) {
   profileInfo = profileData;
   sideProjects = profileData.sideProjects || {};
-  sectionDescription = profileData.sectionDescriptions?.sideProjects || '';
 } else {
   // Fallback to fetching data directly if not provided as props
   const profileCollection = await getCollection('profile');
   const profileEntry = profileCollection.find(entry => entry.data.language === lang);
   profileInfo = profileEntry?.data || null;
   sideProjects = profileInfo?.sideProjects || {};
-  sectionDescription = profileInfo?.sectionDescriptions?.sideProjects || '';
 }
 
 // Get all images using Astro.glob
@@ -81,11 +80,10 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.podcast || '')}></p>
     <div class="podcast-embed">
       <iframe 
-        style="border-radius:12px"
+        style="border-radius:12px; border: none;"
         src={sideProjects.embeds?.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"}
         width="100%"
         height="352"
-        frameBorder="0"
         allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
@@ -114,7 +112,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                     width="100%"
                     height="120"
                     src={set.src}
-                    frameborder="0"
+                    style="border: none;"
                     loading="lazy"
                     title={set.title || `Set ${index + 1}`}
                     class="media-iframe"
@@ -126,7 +124,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                     width="100%"
                     height="120"
                     data-src={set.src}
-                    frameborder="0"
+                    style="border: none;"
                     loading="lazy"
                     title={set.title || `Set ${index + 1}`}
                     class="media-iframe"
@@ -158,11 +156,10 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-container" data-index={index}>
                 {index === 0 ? (
                   <iframe 
-                    style="border-radius:12px"
+                    style="border-radius:12px; border: none;"
                     src={playlist.src}
                     width="100%"
                     height="352"
-                    frameBorder="0"
                     allowfullscreen=""
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
@@ -173,11 +170,10 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                   ></iframe>
                 ) : (
                   <iframe 
-                    style="border-radius:12px"
+                    style="border-radius:12px; border: none;"
                     data-src={playlist.src}
                     width="100%"
                     height="352"
-                    frameBorder="0"
                     allowfullscreen=""
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
@@ -239,13 +235,14 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
   declare global {
     interface Window {
       openPhotoModal: (index: number) => void;
+      detectImageOrientation: (img: HTMLImageElement) => void;
     }
   }
 
   /**
    * Detect the orientation of an image
    */
-  function detectImageOrientation(img: HTMLImageElement) {
+  window.detectImageOrientation = function(img: HTMLImageElement) {
     if (!img) return;
     
     if (img.naturalWidth && img.naturalHeight) {
@@ -266,7 +263,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
         parentElement.classList.add(orientation);
       }
     }
-  }
+  };
 
   /**
    * Load iframe content

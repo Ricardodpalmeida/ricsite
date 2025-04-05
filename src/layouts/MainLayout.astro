@@ -38,8 +38,15 @@ debugLog('MainLayout - Detected language:', lang);
 debugLog('MainLayout - Available languages:', Object.keys(languages));
 debugLog('MainLayout - Available language names:', languageNames);
 
-// Load profile-based translations
-const profileData = await getProfileStrings(lang);
+// Load profile-based translations with error handling
+let profileData = {}; // Initialize with an empty object
+try {
+  profileData = await getProfileStrings(lang) || {};
+  debugLog('MainLayout - Profile data loaded successfully');
+} catch (error) {
+  console.error('Error loading profile data:', error);
+  // profileData is already initialized as empty object
+}
 
 // Ensure lang is a valid language code
 const validLang = lang in languages ? lang : defaultLang;
@@ -55,8 +62,9 @@ const siteUrl = "https://me.ricbits.cc";
 const otherLangs = Object.keys(languages).filter(l => l !== validLang);
 debugLog('MainLayout - Other languages for switcher:', otherLangs);
 
-// JSON-LD structured data with dynamic data
-const jsonLdData = {
+// Structured data for the page - placed after profileData is safely initialized
+// @ts-ignore - This is used in the script tag below via JSON.stringify
+const _structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": profileData['site.author'] || "Ricardo Almeida",
@@ -148,7 +156,7 @@ const jsonLdData = {
 
     <!-- Structured Data for Professional Profile -->
     <script is:inline type="application/ld+json">
-      {JSON.stringify(jsonLdData)}
+      {JSON.stringify(_structuredData)}
     </script>
   </head>
   <body>
@@ -168,7 +176,7 @@ const jsonLdData = {
           <nav class="main-nav">
             <div class="container nav-container">
               <ul>
-                <li><a href={`/${validLang}/blog`} class={Astro.url.pathname.includes(`/${validLang}/blog`) ? 'active' : ''}>{t('nav.blog')}</a></li>
+                <li><span class="nav-link disabled">{t('nav.blog')}</span></li>
                 <li><a href={`/${validLang}/about`} class={Astro.url.pathname.includes(`/${validLang}/about`) ? 'active' : ''}>{t('nav.about')}</a></li>
                 <li><a href={`/${validLang}/side-projects`} class={Astro.url.pathname.includes(`/${validLang}/side-projects`) ? 'active' : ''}>{t('nav.sideProjects')}</a></li>
               </ul>
@@ -185,7 +193,7 @@ const jsonLdData = {
                 <div class="dropdown-content">
                   {Object.entries(languages).map(([code, name]) => {
                     // Calculate the URL for this language
-                    let langUrl;
+                    let langUrl: string;
                     
                     if (code === validLang) {
                       langUrl = '#';
@@ -232,6 +240,6 @@ const jsonLdData = {
       </div>
     </footer>
 
-    <script src="/scripts/language-switcher.js" defer></script>
+    <script is:inline src="/scripts/language-switcher.js" defer></script>
   </body>
 </html>

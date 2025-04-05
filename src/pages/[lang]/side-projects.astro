@@ -6,8 +6,7 @@
  * The content is rendered based on the language detected from the URL.
  */
 import MainLayout from '../../layouts/MainLayout.astro';
-import { getLangFromUrl, useTranslations, defaultLang, languages, getUIStrings, getProfileStrings } from '../../i18n/utils';
-import { getCollection } from 'astro:content';
+import { useTranslations, languages, getUIStrings, getProfileStrings } from '../../i18n/utils';
 import SideProjectsComponent from '../../components/SideProjects.astro';
 import '../../styles/profile.css';
 import '../../styles/carousel.css';
@@ -35,22 +34,22 @@ if (validLang !== lang) {
 const t = useTranslations(validLang);
 
 // Load dynamic UI strings with error handling
-let uiStrings;
+let uiStrings: Record<string, string> = {};
 try {
   uiStrings = await getUIStrings(validLang);
 } catch (error) {
   console.error(`Error loading UI strings for ${validLang}:`, error);
-  uiStrings = {}; // Fallback to empty object
+  // Fallback to empty object (already initialized)
 }
 
 // Load profile data based on language
-let profileData;
+let profileData: Record<string, any> | null = null;
 try {
   profileData = await getProfileStrings(validLang);
   console.log(`Side Projects - Loaded profile data for language: ${validLang}`);
 } catch (error) {
   console.error(`Side Projects - Error loading profile data for language: ${validLang}`, error);
-  profileData = null;
+  // Null fallback already set
 }
 
 // Export a prerender function for static site generation

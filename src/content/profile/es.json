@@ -144,24 +144,6 @@
     "certifications": "Mantengo certificaciones activas que demuestran mi compromiso con el aprendizaje continuo y el desarrollo profesional.",
     "sideProjects": ""
   },
-  "languages": [
-    {
-      "name": "Inglés",
-      "proficiency": "Dominio nativo o bilingüe"
-    },
-    {
-      "name": "Portugués",
-      "proficiency": "Dominio nativo o bilingüe"
-    },
-    {
-      "name": "Español",
-      "proficiency": "Conocimiento básico"
-    },
-    {
-      "name": "Francés",
-      "proficiency": "Conocimiento básico"
-    }
-  ],
   "experience": [
     {
       "title": "Responsable de Producto y Cloud - Equipo de Datos e IA",
@@ -367,6 +349,24 @@
       "status": "Activa",
       "credentialURL": "https://learn.microsoft.com/api/credentials/share/en-gb/RicardoPachecoAlmeidaPT-7401/C9A8126580CFB61F?sharingId=601C18CE9781DDA0",
       "description": "Valida conocimiento fundamental de servicios en la nube, servicios en la nube Microsoft 365, SaaS, seguridad, cumplimiento, privacidad y opciones de precios y soporte de Microsoft 365."
+    }
+  ],
+  "languages": [
+    {
+      "name": "Inglés",
+      "proficiency": "Competencia nativa o bilingüe"
+    },
+    {
+      "name": "Portugués",
+      "proficiency": "Competencia nativa o bilingüe"
+    },
+    {
+      "name": "Español",
+      "proficiency": "Competencia elemental"
+    },
+    {
+      "name": "Francés",
+      "proficiency": "Competencia elemental"
     }
   ],
   "sideProjects": {
