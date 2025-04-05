@@ -10,8 +10,7 @@
 /* Carousel container */
 .carousel-container,
 .sets-carousel,
-.playlists-carousel,
-.certifications-carousel {
+.playlists-carousel {
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -21,8 +20,7 @@
 /* Carousel track */
 .carousel-track,
 .sets-track,
-.playlists-track,
-.certifications-track {
+.playlists-track {
   display: flex;
   transition: transform 0.5s ease;
   width: 100%;
@@ -31,18 +29,11 @@
 /* Carousel item */
 .carousel-item,
 .sets-item,
-.playlist-item,
-.certification-carousel-item {
+.playlist-item {
   flex: 0 0 100%;
   width: 100%;
   box-sizing: border-box;
   padding: 0.5rem;
-}
-
-/* Certifications container styles */
-.certifications-container {
-  overflow: hidden;
-  width: 100%;
 }
 
 /* ============ CAROUSEL NAVIGATION ARROWS ============ */
@@ -71,7 +62,6 @@
 .carousel-container:hover .carousel-arrow,
 .sets-carousel:hover .carousel-arrow,
 .playlists-carousel:hover .carousel-arrow,
-.certifications-carousel:hover .carousel-arrow,
 .photos-carousel:hover .carousel-arrow {
   opacity: 0.7;
 }
@@ -98,10 +88,6 @@
     /* On mobile, always slightly visible for discoverability */
     opacity: 0.4;
   }
-  
-  .certification-carousel-item {
-    padding: 0.5rem;
-  }
 }
 
 /* Mobile styles */
@@ -111,17 +97,6 @@
     height: 44px;
     font-size: 0.8rem;
   }
-}
-
-/* Certification carousel item styling */
-.certification-carousel-item {
-  padding: 0.5rem;
-}
-
-.certification-carousel-item .certification-pill {
-  height: 100%;
-  margin: 0;
-  width: 100%;
 }
 
 /* Iframe container styles */

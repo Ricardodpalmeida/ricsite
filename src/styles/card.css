@@ -12,10 +12,6 @@
   position: relative;
 }
 
-.certification-card {
-  border-left: 3px solid var(--color-cosmic-latte);
-}
-
 .card-content {
   padding: 1.75rem;
   display: flex;
@@ -26,10 +22,6 @@
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-}
-
-.certification-card:hover {
-  border-color: var(--color-cosmic-latte);
 }
 
 .card-header {
