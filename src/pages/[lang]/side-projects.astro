@@ -8,9 +8,9 @@
 import MainLayout from '../../layouts/MainLayout.astro';
 import { useTranslations, languages, getUIStrings, getProfileStrings } from '../../i18n/utils';
 import SideProjectsComponent from '../../components/SideProjects.astro';
-import '../../styles/profile.css';
-import '../../styles/carousel.css';
-import '../../styles/side-projects.css';
+import '../../styles/pages/profile.css';
+import '../../styles/components/carousel.css';
+import '../../styles/pages/side-projects.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -75,7 +75,7 @@ const pageTitle = profileData?.site?.siteName ?
   title={pageTitle}
   currentLanguage={validLang}
 >
-  <main class="side-projects-main">
+  <main class="container side-projects-main">
     {!profileData ? (
       <div class="error-message">
         <h2>{t('error.profileData')}</h2>

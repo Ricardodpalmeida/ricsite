@@ -9,7 +9,7 @@ import MainLayout from '../../layouts/MainLayout.astro';
 // Keeping imports minimal - only using what we need
 import { useTranslations, languages, getProfileStrings } from '../../i18n/utils';
 import PageHeader from '../../components/PageHeader.astro';
-import '../../styles/home.css';
+import '../../styles/pages/home.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -63,7 +63,7 @@ export async function getStaticPaths() {
   description={profileData?.site?.siteDescription}
   currentLanguage={validLang}
 >
-  <main class="home-container">
+  <main class="container home-container">
     {!profileData && (
       <div class="error-message">
         {t('errors.profileDataMissing')}

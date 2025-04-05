@@ -1,4 +1,5 @@
-/* Carousel Styles for sets and playlists */
+/* carousel.css */
+@import '../design-system.css';
 
 /* Base carousel styles */
 .carousel-base {
@@ -7,20 +8,24 @@
   gap: 1rem;
 }
 
-/* Carousel container */
+/* Carousel container - works for all carousel types */
 .carousel-container,
 .sets-carousel,
-.playlists-carousel {
+.playlists-carousel,
+.photos-carousel,
+.certifications-carousel {
   position: relative;
   width: 100%;
   overflow: hidden;
   padding: 0; /* No padding to allow arrows to overlay the content */
 }
 
-/* Carousel track */
+/* Carousel track - unified for all carousel types */
 .carousel-track,
 .sets-track,
-.playlists-track {
+.playlists-track,
+.photos-track,
+.certifications-track {
   display: flex;
   transition: transform 0.5s ease;
   width: 100%;
@@ -37,7 +42,7 @@
 }
 
 /* ============ CAROUSEL NAVIGATION ARROWS ============ */
-/* Global carousel arrow styling - matching photo gallery style */
+/* Global carousel arrow styling - unified for all carousel types */
 .carousel-arrow {
   position: absolute;
   top: 50%;
@@ -62,7 +67,8 @@
 .carousel-container:hover .carousel-arrow,
 .sets-carousel:hover .carousel-arrow,
 .playlists-carousel:hover .carousel-arrow,
-.photos-carousel:hover .carousel-arrow {
+.photos-carousel:hover .carousel-arrow,
+.certifications-carousel:hover .carousel-arrow {
   opacity: 0.7;
 }
 
@@ -103,7 +109,6 @@
 .iframe-container {
   position: relative;
   width: 100%;
-  padding-top: 0; /* Remove padding */
   background-color: var(--color-gray-900);
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

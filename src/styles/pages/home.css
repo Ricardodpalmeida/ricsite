@@ -1,0 +1,24 @@
+/* Home Page Styles */
+@import '../design-system.css';
+@import '../utilities.css';
+
+/* Make home-container inherit from container utility class */
+.home-container {
+  /* Remove width, max-width, margin and padding - those come from .container */
+  min-height: calc(100vh - 150px);
+  animation: fadeIn 0.5s ease-out;
+  user-select: none;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 3rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-container {
+    padding: 2rem 1rem;
+  }
+} 

@@ -4,8 +4,11 @@
  * 
  * Shows a temporary notification that automatically disappears after a specified duration.
  * Used for displaying language availability messages and other temporary notifications.
+ * 
+ * CSS Dependencies:
+ * - styles/components/notification.css
  */
-import '../styles/notification.css';
+import '../styles/components/notification.css';
 
 const { message, type = "info", autoDismiss = true, dismissTime = 5000 } = Astro.props;
 

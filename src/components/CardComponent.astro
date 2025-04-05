@@ -4,8 +4,12 @@
  * 
  * A reusable card component for displaying content with a title and description
  * Can be used for skills, certifications, or any content that follows a title/description pattern
+ * 
+ * CSS Dependencies:
+ * - styles/components/card.css
  */
-import '../styles/card.css';
+import { useTranslations } from '../i18n/utils';
+import '../styles/components/card.css';
 
 interface Props {
   title: string;

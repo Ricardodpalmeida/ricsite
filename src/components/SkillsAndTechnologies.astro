@@ -1,11 +1,14 @@
 ---
 /**
- * SkillsAndTechnologies Component
+ * Skills and Technologies Component
  * 
- * A section displaying skills and technologies in a pill style layout with tooltips
+ * Displays skills and technologies organized in categories with tooltips for descriptions.
+ * 
+ * CSS Dependencies:
+ * - styles/pages/skills-technologies.css
  */
 import SkillPill from './SkillPill.astro';
-import '../styles/skills-technologies.css';
+import '../styles/pages/skills-technologies.css';
 import { useTranslations } from '../i18n/utils';
 
 interface Skill {

@@ -1,7 +1,14 @@
 ---
-// Photo Modal Component
+/**
+ * Photo Modal Component
+ * 
+ * Provides a modal display for viewing photos in a larger format with navigation.
+ * 
+ * CSS Dependencies:
+ * - styles/components/photo-gallery.css
+ */
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import '../styles/photo-gallery.css';
+import '../styles/components/photo-gallery.css';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);

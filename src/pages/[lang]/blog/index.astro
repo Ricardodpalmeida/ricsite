@@ -9,7 +9,7 @@ import MainLayout from '../../../layouts/MainLayout.astro';
 import { languages, getUIStrings } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
-import '../../../styles/blog.css';
+import '../../../styles/pages/blog.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -44,14 +44,13 @@ export async function getStaticPaths() {
 }
 ---
 
-<MainLayout 
-  title={pageTitle}
+<MainLayout
+  title={`${uiStrings['blog.title']} | Ricardo Almeida`}
+  description={uiStrings['blog.description']}
   currentLanguage={lang as keyof typeof languages}
 >
-  <main class="blog-container">
-    <div class="blog-header">
-      <h1>{uiStrings['blog.title']}</h1>
-    </div>
+  <main class="container blog-container">
+    <h1>{uiStrings['blog.title']}</h1>
 
     <section class="posts-grid">
       {

@@ -3,9 +3,9 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
 import { marked } from 'marked';
 import PhotoModal from './PhotoModal.astro';
-import '../styles/photo-gallery.css';
-import '../styles/carousel.css';
-import '../styles/side-projects.css';
+import '../styles/components/photo-gallery.css';
+import '../styles/components/carousel.css';
+import '../styles/pages/side-projects.css';
 
 // Define TypeScript interfaces
 interface Embed {
@@ -80,14 +80,13 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     <p class="section-description" set:html={processMarkdown(sideProjects.descriptions?.podcast || '')}></p>
     <div class="podcast-embed">
       <iframe 
-        style="border-radius:12px; border: none;"
+        class="iframe-rounded media-iframe"
         src={sideProjects.embeds?.podcast?.src || "https://open.spotify.com/embed/show/4lj3PvhecSWd5wUJAF3Lk6?utm_source=generator&theme=0"}
         width="100%"
         height="352"
         allowfullscreen=""
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
-        class="media-iframe"
         onload="this.parentNode.classList.add('loaded')"
         onerror="this.parentNode.classList.add('error')"
       ></iframe>
@@ -112,10 +111,9 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                     width="100%"
                     height="120"
                     src={set.src}
-                    style="border: none;"
+                    class="iframe-borderless media-iframe"
                     loading="lazy"
                     title={set.title || `Set ${index + 1}`}
-                    class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
                     onerror="this.parentNode.classList.add('error')"
                   ></iframe>
@@ -124,10 +122,9 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                     width="100%"
                     height="120"
                     data-src={set.src}
-                    style="border: none;"
+                    class="iframe-borderless media-iframe"
                     loading="lazy"
                     title={set.title || `Set ${index + 1}`}
-                    class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
                     onerror="this.parentNode.classList.add('error')"
                   ></iframe>
@@ -156,7 +153,7 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               <div class="iframe-container" data-index={index}>
                 {index === 0 ? (
                   <iframe 
-                    style="border-radius:12px; border: none;"
+                    class="iframe-rounded media-iframe"
                     src={playlist.src}
                     width="100%"
                     height="352"
@@ -164,13 +161,12 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
                     title={playlist.title || `Playlist ${index + 1}`}
-                    class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
                     onerror="this.parentNode.classList.add('error')"
                   ></iframe>
                 ) : (
                   <iframe 
-                    style="border-radius:12px; border: none;"
+                    class="iframe-rounded media-iframe"
                     data-src={playlist.src}
                     width="100%"
                     height="352"
@@ -178,7 +174,6 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"
                     title={playlist.title || `Playlist ${index + 1}`}
-                    class="media-iframe"
                     onload="this.parentNode.classList.add('loaded')"
                     onerror="this.parentNode.classList.add('error')"
                   ></iframe>

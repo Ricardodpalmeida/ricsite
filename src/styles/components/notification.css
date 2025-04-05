@@ -1,4 +1,6 @@
-/* Notification Component Styles */
+/* notification.css */
+@import '../design-system.css';
+@import '../utilities.css';
 
 .notification {
   position: fixed;
@@ -25,19 +27,19 @@
 }
 
 .notification-info {
-  border-left-color: #3498db;
+  border-left-color: var(--color-cosmic-latte);
 }
 
 .notification-warning {
-  border-left-color: #f39c12;
+  border-left-color: var(--color-cosmic-latte);
 }
 
 .notification-error {
-  border-left-color: #e74c3c;
+  border-left-color: var(--color-cosmic-latte);
 }
 
 .notification-success {
-  border-left-color: #2ecc71;
+  border-left-color: var(--color-cosmic-latte);
 }
 
 .notification-content {
@@ -51,13 +53,13 @@
 .notification-message {
   flex: 1;
   font-size: 0.9rem;
-  color: #ffffff;
+  color: var(--color-white);
 }
 
 .notification-close {
   background: transparent;
   border: none;
-  color: #aaa;
+  color: var(--color-gray-400);
   font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
@@ -72,7 +74,7 @@
 }
 
 .notification-close:hover {
-  color: #fff;
+  color: var(--color-white);
 }
 
 @media (max-width: 768px) {
@@ -80,4 +82,4 @@
     min-width: unset;
     width: 90%;
   }
-}
+} 

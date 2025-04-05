@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/profile.css';
+import '../styles/pages/profile.css';
 
 /**
  * Profile Component

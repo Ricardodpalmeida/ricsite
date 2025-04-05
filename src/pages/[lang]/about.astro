@@ -10,8 +10,8 @@ import { useTranslations, languages, getUIStrings } from '../../i18n/utils';
 import { getCollection } from 'astro:content';
 import PageHeader from '../../components/PageHeader.astro';
 import SkillsAndTechnologies from '../../components/SkillsAndTechnologies.astro';
-import '../../styles/profile.css';
-import '../../styles/certifications.css';
+import '../../styles/pages/profile.css';
+import '../../styles/pages/certifications.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -136,10 +136,11 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout
-  title={pageTitle}
+  title={`${t('about.title')} | Ricardo Almeida`}
+  description={t('about.description')}
   currentLanguage={validLang}
 >
-  <main class="about-container">
+  <main class="container about-container">
     {!profileInfo ? (
       <div class="error-message">
         <h2>{t('error.profileData')}</h2>

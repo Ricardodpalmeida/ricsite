@@ -1,4 +1,5 @@
 /* Card Component Styles */
+@import '../design-system.css';
 
 .card {
   background: var(--color-gray-900);
@@ -107,8 +108,8 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  background-color: var(--color-cosmic-latte, #f0e6d2);
-  color: var(--color-gray-900, #0d0d0d);
+  background-color: var(--color-cosmic-latte);
+  color: var(--color-gray-900);
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-size: 0.95rem;
@@ -118,7 +119,7 @@
 }
 
 .verify-button:hover {
-  background-color: var(--color-white, #ffffff);
+  background-color: var(--color-white);
   transform: translateY(-2px);
 }
 

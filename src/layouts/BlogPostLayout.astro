@@ -8,7 +8,7 @@ import MainLayout from './MainLayout.astro';
 import { getLangFromUrl, useTranslations, languages } from '../i18n/utils';
 import type { CollectionEntry } from 'astro:content'; // Import type for safety
 import { getCollection } from 'astro:content';
-import '../styles/blog.css';
+import '../styles/pages/blog.css';
 
 // Get current language and translations
 const lang = getLangFromUrl(Astro.url);
@@ -131,7 +131,9 @@ export const _blogPostSchema = {
     {JSON.stringify(_blogPostSchema)}
   </script>
   
-  <main class="blog-post-container">
+  <script src="../../components/TableOfContentsComponent.js"></script>
+
+  <main class="container blog-post-container">
     <article class="blog-post">
       <div class="post-meta">
         <div class="post-author-date">
@@ -158,7 +160,7 @@ export const _blogPostSchema = {
             width="100%"
             height="auto"
             loading="eager"
-            style="display: block; max-width: 100%;"
+            class="img-full"
           />
         </div>
       )}

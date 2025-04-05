@@ -1,4 +1,8 @@
-/* Photo Gallery Styles */
+/* photo-gallery.css */
+@import '../design-system.css';
+@import './carousel.css';
+
+/* Photo Gallery Container */
 .photo-gallery-container {
   width: 100%;
   max-width: 1200px;
@@ -17,25 +21,7 @@
   color: var(--text-secondary);
 }
 
-/* Photo Carousel */
-.photos-carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 0; /* No padding to ensure arrows overlay content */
-}
-
-.photos-container {
-  width: 100%;
-  overflow: hidden;
-}
-
-.photos-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-
-/* Photo Items - Show at 100% width by default (horizontal & square) */
+/* Photo Items - Keep only photo-specific styling */
 .photo-carousel-item {
   flex: 0 0 100%;
   width: 100%;
@@ -104,53 +90,8 @@
   width: 100%;
 }
 
-/* Carousel navigation arrows - match carousel.css */
-.photos-carousel .carousel-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  width: 24px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.2rem;
-  transition: all 0.2s;
-  opacity: 0; /* Hidden by default */
-}
-
-.photos-carousel:hover .carousel-arrow {
-  opacity: 0.7;
-}
-
-.photos-carousel .carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  opacity: 1;
-}
-
-.photos-carousel .carousel-arrow.prev {
-  left: 0;
-}
-
-.photos-carousel .carousel-arrow.next {
-  right: 0;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .photos-carousel .carousel-arrow {
-    width: 22px;
-    height: 50px;
-    font-size: 1rem;
-    opacity: 0.4; /* Slightly visible on mobile */
-  }
-  
   .photo-carousel-item {
     height: 50vh;
   }
@@ -198,111 +139,108 @@
 
 .modal-content img {
   max-width: 100%;
-  max-height: 80vh;
+  max-height: 85vh;
   object-fit: contain;
-  border-radius: 0;
-  user-select: none;
-  -webkit-user-select: none;
 }
 
 .modal-caption {
-  color: white;
   margin-top: 1rem;
+  color: var(--color-white);
   text-align: center;
-  font-size: var(--font-size-md);
   max-width: 90%;
+  font-size: var(--font-size-sm);
 }
 
 .modal-close {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2rem;
-  height: 2rem;
-  background: rgba(0, 0, 0, 0.5);
+  top: -40px;
+  right: 0;
   color: white;
+  background: none;
   border: none;
-  border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   cursor: pointer;
+  transition: color 0.2s ease;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
-  transition: background 0.3s ease;
 }
 
 .modal-close:hover {
-  background: rgba(0, 0, 0, 0.8);
+  color: var(--color-cosmic-latte);
 }
 
-/* Modal navigation consistent with other carousels */
 .modal-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
-  border: none;
-  border-radius: 4px;
-  width: 24px;
-  height: 60px;
+  width: 50px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 1.2rem;
-  z-index: 50;
-  transition: all 0.2s;
+  font-size: 1.5rem;
   opacity: 0;
+  transition: all 0.2s ease;
+  border: none;
+  border-radius: 4px;
 }
 
 .photo-modal.active:hover .modal-nav {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .modal-nav:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  opacity: 1;
+  opacity: 1 !important;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modal-nav.prev {
-  left: 0;
+  left: 20px;
 }
 
 .modal-nav.next {
-  right: 0;
+  right: 20px;
 }
 
-/* Responsive Adjustments */
 @media (max-width: 768px) {
   .photo-carousel-item {
-    min-height: 250px;
+    height: 40vh;
   }
   
   .modal-content img {
-    max-height: 75vh;
+    max-height: 80vh;
   }
   
   .modal-nav {
-    width: 22px;
-    height: 50px;
-    font-size: 1rem;
+    width: 40px;
+    height: 60px;
+    font-size: 1.2rem;
     opacity: 0.4;
   }
   
   .modal-close {
-    width: 28px;
-    height: 28px;
-    font-size: 1rem;
+    top: -35px;
+    right: 0;
+    font-size: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .photos-carousel .carousel-arrow,
   .modal-nav {
-    width: 20px;
-    height: 44px;
-    font-size: 0.8rem;
+    width: 36px;
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  .photo-carousel-item {
+    height: 35vh;
   }
 } 
