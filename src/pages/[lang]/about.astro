@@ -204,7 +204,7 @@ export async function getStaticPaths() {
         <section class="profile-section" id="certifications">
           <h2 class="section-heading">{uiStrings['profile.certifications'] || 'Certifications'}</h2>
           <div class="certifications-carousel">
-            <button class="carousel-arrow prev" aria-label="Previous">&#10094;</button>
+            <button class="carousel-arrow prev" aria-label="Previous">&#60;</button>
             <div class="certifications-container">
               <div class="certifications-track">
                 {profileInfo.certifications && profileInfo.certifications.map((cert: any) => (
@@ -225,14 +225,14 @@ export async function getStaticPaths() {
                         <span class="cert-issuer-label">Issued by:</span>
                         {cert.issuer}
                       </span>
+                      {cert.status && <span class="cert-status"><span class="cert-issuer-label">Status:</span> {cert.status}</span>}
                       {cert.description && <p class="cert-description">{cert.description}</p>}
-                      {cert.status && <span class="cert-status">{cert.status}</span>}
                     </a>
                   </div>
                 ))}
               </div>
             </div>
-            <button class="carousel-arrow next" aria-label="Next">&#10095;</button>
+            <button class="carousel-arrow next" aria-label="Next">&#62;</button>
           </div>
         </section>
 
@@ -266,21 +266,67 @@ export async function getStaticPaths() {
             // Configuration
             var totalItems = items.length;
             var currentPage = 0;
+            var isMobile = window.innerWidth <= 768;
+            var itemsPerPage = isMobile ? 1 : 2;
+            var totalPages = Math.ceil(totalItems / itemsPerPage);
             
-            // Set widths to 100%
-            for (var i = 0; i < items.length; i++) {
-              items[i].style.flex = '0 0 100%';
-              items[i].style.width = '100%';
+            // Responsive item styling
+            function setItemStyles() {
+              isMobile = window.innerWidth <= 768;
+              itemsPerPage = isMobile ? 1 : 2;
+              totalPages = Math.ceil(totalItems / itemsPerPage);
+              
+              var itemWidth = 100 / itemsPerPage;
+              
+              for (var i = 0; i < items.length; i++) {
+                items[i].style.flex = '0 0 ' + itemWidth + '%';
+                items[i].style.width = itemWidth + '%';
+              }
+              
+              // If we're not on a valid page after resize, adjust
+              if (currentPage >= totalPages) {
+                currentPage = totalPages - 1;
+              }
+              
+              // Update display
+              goToPage(currentPage, false);
             }
             
-            // Navigation function
-            function goToPage(page) {
-              if (page < 0) page = totalItems - 1;
-              if (page >= totalItems) page = 0;
+            // Navigation function with improved positioning
+            function goToPage(page, animate = true) {
+              if (page < 0) page = totalPages - 1;
+              if (page >= totalPages) page = 0;
               currentPage = page;
               
-              var offset = -(currentPage * 100);
-              track.style.transform = 'translateX(' + offset + '%)';
+              // Calculate the offset based on itemsPerPage
+              var offset = -(currentPage * (100 / itemsPerPage) * itemsPerPage);
+              
+              // Apply transform with or without animation
+              if (!animate) {
+                track.style.transition = 'none';
+                setTimeout(function() {
+                  track.style.transform = 'translateX(' + offset + '%)';
+                  setTimeout(function() {
+                    track.style.transition = 'transform var(--transition-base)';
+                  }, 50);
+                }, 0);
+              } else {
+                track.style.transform = 'translateX(' + offset + '%)';
+              }
+              
+              // Update button visibility 
+              updateButtonVisibility();
+            }
+            
+            // Update button visibility based on position
+            function updateButtonVisibility() {
+              // Always show both arrows if there are multiple pages
+              prevBtn.style.opacity = totalPages > 1 ? "0.7" : "0.3";
+              nextBtn.style.opacity = totalPages > 1 ? "0.7" : "0.3";
+              
+              // Disable buttons if only one page
+              prevBtn.disabled = totalPages <= 1;
+              nextBtn.disabled = totalPages <= 1;
             }
             
             // Add click events
@@ -292,10 +338,11 @@ export async function getStaticPaths() {
               goToPage(currentPage + 1);
             });
             
-            // Initialize
-            goToPage(0);
+            // Add resize listener
+            window.addEventListener('resize', setItemStyles);
             
-            console.log('Carousel initialized');
+            // Initialize
+            setItemStyles();
           });
         </script>
       </>
