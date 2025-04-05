@@ -1,0 +1,65 @@
+/* Design System
+ * Contains all design tokens and variables
+ * This is the single source of truth for the design system
+ */
+:root {
+  /* Color palette */
+  --color-dark-gray: #262626;
+  --color-white: #ecd9d4;
+  --color-cosmic-latte: #fff8e7;
+  --color-cosmic-latte-10: rgba(255, 248, 231, 0.1);
+  --color-cosmic-latte-20: rgba(255, 248, 231, 0.2);
+  --color-gray-100: rgba(255, 255, 255, 0.1);
+  --color-gray-200: rgba(255, 255, 255, 0.2);
+  --color-gray-300: rgba(255, 255, 255, 0.3);
+  --color-gray-400: rgba(255, 255, 255, 0.4);
+  --color-gray-600: rgba(255, 255, 255, 0.6);
+  --color-gray-700: rgba(255, 255, 255, 0.1);
+  --color-gray-800: rgba(20, 20, 20, 0.4);
+  --color-gray-900: rgba(15, 15, 15, 0.6);
+  
+  /* Typography */
+  --font-family-base: 'Roboto', sans-serif;
+  --font-family-title: 'Roboto Slab', serif;
+  --font-family-alt: 'Roboto Slab', serif;
+  --font-family-mono: 'Monaco', 'Consolas', monospace;
+  
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  
+  /* Font sizes */
+  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
+  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
+  --font-size-xl: clamp(1.5rem, 1.25rem + 1.25vw, 1.75rem);
+  --font-size-2xl: clamp(2rem, 1.75rem + 1.25vw, 2.25rem);
+  --font-size-3xl: clamp(2.5rem, 2rem + 2.5vw, 3rem);
+  
+  /* Line heights */
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-loose: 1.8;
+  --line-height-base: var(--line-height-normal);
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Border radius */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-full: 9999px;
+} 

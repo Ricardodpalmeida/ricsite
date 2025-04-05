@@ -1,0 +1,81 @@
+/* Utilities
+ * Contains reusable utility classes, animations, and common patterns
+ * Import this file in components that need these utilities
+ */
+@import './design-system.css';
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+/* ===== LAYOUT UTILITIES ===== */
+/* Container system */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+.container--narrow {
+  max-width: 700px;
+}
+.container--wide {
+  max-width: 1200px;
+}
+.container--no-padding {
+  padding: 0;
+}
+/* ===== SPACING UTILITIES ===== */
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-4 { margin-top: var(--spacing-md); }
+.mt-8 { margin-top: var(--spacing-lg); }
+.mt-12 { margin-top: var(--spacing-xl); }
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-4 { margin-bottom: var(--spacing-md); }
+.mb-8 { margin-bottom: var(--spacing-lg); }
+.mb-12 { margin-bottom: var(--spacing-xl); }
+/* ===== STATUS MESSAGES ===== */
+.error-message {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border-radius: var(--border-radius-md);
+  margin: 2rem 0;
+  color: var(--color-white);
+}
+.notice-message {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(255, 200, 0, 0.1);
+  border-radius: var(--border-radius-md);
+  margin: 1rem 0 2rem;
+  font-style: italic;
+  color: var(--color-white);
+}
+.success-message {
+  text-align: center;
+  padding: 1rem;
+  background-color: rgba(0, 255, 0, 0.1);
+  border-radius: var(--border-radius-md);
+  margin: 1rem 0 2rem;
+  color: var(--color-white);
+}
+/* ===== TEXT UTILITIES ===== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.highlight { color: var(--color-cosmic-latte); }
+/* ===== DIVIDERS ===== */
+.section-divider {
+  height: 1px;
+  background: rgba(255, 248, 231, 0.1);
+  margin: 1.5rem 0;
+  border: none;
+} 

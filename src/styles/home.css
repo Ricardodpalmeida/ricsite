@@ -1,5 +1,6 @@
 /* Home Page Styles */
-@import '../styles/page-header.css';
+@import './design-system.css';
+@import './utilities.css';
 
 .home-container {
   max-width: 800px;

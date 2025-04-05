@@ -1,4 +1,5 @@
 /* Page Header Component Styles */
+@import './design-system.css';
 
 /* Hero Section */
 .hero-section {
@@ -42,22 +43,6 @@
   position: relative;
 }
 
-.hero-title::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -3px;
-  width: 0;
-  height: 2px;
-  background-color: var(--color-cosmic-latte);
-  transition: width 0.3s ease, left 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.hero-title:hover::after {
-  width: 120px;
-}
-
 .hero-subtitle {
   text-align: center;
   font-size: var(--font-size-lg);
@@ -66,22 +51,6 @@
   font-weight: var(--font-weight-medium);
   font-family: var(--font-family-title);
   position: relative;
-}
-
-.hero-subtitle::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -5px;
-  width: 0;
-  height: 1px;
-  background-color: var(--color-cosmic-latte);
-  transition: width 0.3s ease, left 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.hero-subtitle:hover::after {
-  width: 80px;
 }
 
 .hero-social-links {

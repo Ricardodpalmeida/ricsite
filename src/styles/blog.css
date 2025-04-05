@@ -5,24 +5,12 @@
  * - Blog index page
  * - Individual blog posts
  */
-
-/* Common Blog Container Styles */
-.blog-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 4rem 0;
-  min-height: calc(100vh - 150px);
-  animation: fadeIn 0.5s ease-out;
-}
+@import './design-system.css';
+@import './utilities.css';
 
 /* ======================================
    Blog Index Page Styles
    ====================================== */
-
-.blog-header {
-  margin-bottom: 2rem;
-  display: none;
-}
 
 .posts-grid {
   display: grid;
@@ -141,7 +129,6 @@
   margin: 0 auto;
   padding: 4rem 0;
   min-height: calc(100vh - 150px);
-  animation: fadeIn 0.5s ease-out;
 }
 
 .blog-post {

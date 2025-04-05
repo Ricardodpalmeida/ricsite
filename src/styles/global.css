@@ -1,64 +1,10 @@
 /**
  * Global Styles
  * 
- * Sets up basic styling and colors for the entire site.
- * Uses CSS variables for easy theme modifications.
+ * Base styles for the entire site.
+ * Contains imports for design system and resets.
  */
-:root {
-  /* Color palette */
-  --color-dark-gray: #262626;
-  --color-white: #ecd9d4;
-  --color-cosmic-latte: #fff8e7;
-  --color-cosmic-latte-10: rgba(255, 248, 231, 0.1);
-  --color-cosmic-latte-20: rgba(255, 248, 231, 0.2);
-  --color-gray-100: rgba(255, 255, 255, 0.1);
-  --color-gray-200: rgba(255, 255, 255, 0.2);
-  --color-gray-300: rgba(255, 255, 255, 0.3);
-  --color-gray-400: rgba(255, 255, 255, 0.4);
-  --color-gray-600: rgba(255, 255, 255, 0.6);
-  --color-gray-700: rgba(255, 255, 255, 0.1);
-  --color-gray-800: rgba(20, 20, 20, 0.4);
-  --color-gray-900: rgba(15, 15, 15, 0.6);
-  
-  /* Typography */
-  --font-family-base: 'Roboto', sans-serif;
-  --font-family-title: 'Roboto Slab', serif;
-  --font-family-alt: 'Roboto Slab', serif;
-  --font-family-mono: 'Monaco', 'Consolas', monospace;
-  
-  /* Font weights */
-  --font-weight-light: 300;
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 700;
-  
-  /* Font sizes */
-  --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --font-size-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);
-  --font-size-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --font-size-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);
-  --font-size-xl: clamp(1.5rem, 1.25rem + 1.25vw, 1.75rem);
-  --font-size-2xl: clamp(2rem, 1.75rem + 1.25vw, 2.25rem);
-  --font-size-3xl: clamp(2.5rem, 2rem + 2.5vw, 3rem);
-  
-  /* Line heights */
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --line-height-loose: 1.8;
-  --line-height-base: var(--line-height-normal);
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 3rem;
-  
-  /* Transitions */
-  --transition-fast: 0.2s ease;
-  --transition-base: 0.3s ease;
-  --transition-slow: 0.5s ease;
-}
+@import './design-system.css';
 
 /* Global reset */
 *, *::before, *::after {
@@ -79,7 +25,7 @@ body {
   background-color: var(--color-dark-gray);
   color: var(--color-white);
   transition: background-color var(--transition-slow);
-  user-select: text; /* Changed from 'none' to 'text' to allow text selection and proper link behavior */
+  user-select: text;
   pointer-events: auto !important;
 }
 
@@ -96,6 +42,7 @@ body.redirect-page {
   width: 100vw;
 }
 
+/* Base element styling */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-title);
   margin-bottom: var(--spacing-md);
@@ -167,7 +114,7 @@ a:focus-visible {
   border-bottom: 1px solid var(--color-gray-100);
 }
 
-/* New nav content container */
+/* Navigation */
 .nav-content {
   display: flex;
   align-items: center;
@@ -211,14 +158,6 @@ a:focus-visible {
 /* Main navigation */
 .main-nav {
   padding: var(--spacing-md) 0;
-  transition: border-color var(--transition-base);
-}
-
-.nav-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
 }
 
 .main-nav ul {
@@ -397,18 +336,10 @@ footer {
   to { opacity: 1; }
 }
 
-/* Responsive adjustments */
+/* Media queries for responsive layout */
 @media (max-width: 768px) {
   .container {
     padding: 0 1.5rem;
-  }
-  
-  .main-nav {
-    padding: var(--spacing-sm) 0;
-  }
-  
-  .main-nav ul {
-    gap: var(--spacing-md);
   }
   
   .nav-content {
@@ -417,43 +348,12 @@ footer {
 }
 
 @media (max-width: 480px) {
-  :root {
-    --font-size-base: 0.9rem;
-    --spacing-lg: 1.5rem;
-  }
-  
   .container {
     padding: 0 1rem;
   }
   
-  .main-nav {
-    padding: var(--spacing-xs) 0;
-  }
-  
   .nav-content {
     padding: 0 1rem;
-  }
-  
-  .main-nav .container {
-    padding: 0;
-    justify-content: center;
-  }
-  
-  .main-nav ul {
-    justify-content: center;
-    gap: var(--spacing-md);
-  }
-  
-  .full-title {
-    display: none;
-  }
-  
-  .mobile-title {
-    display: block;
-  }
-  
-  .language-dropdown-container {
-    margin-left: 0;
   }
 }
 
