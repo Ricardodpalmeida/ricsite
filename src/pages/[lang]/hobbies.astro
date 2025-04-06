@@ -1,6 +1,6 @@
 ---
 /**
- * Dynamic Side Projects Page with i18n Support
+ * Dynamic Hobbies Page with i18n Support
  * 
  * This page dynamically handles multiple languages using the [lang] parameter in the URL.
  * The content is rendered based on the language detected from the URL.
@@ -10,7 +10,7 @@ import { useTranslations, languages, getUIStrings, getProfileStrings } from '../
 import SideProjectsComponent from '../../components/SideProjects.astro';
 import '../../styles/pages/profile.css';
 import '../../styles/components/carousel.css';
-import '../../styles/pages/side-projects.css';
+import '../../styles/pages/hobbies.css';
 
 // Get the lang from the URL path parameter
 const { lang } = Astro.params;
@@ -24,10 +24,10 @@ if (!('en' in supportedLanguages)) {
 // Validate the lang parameter - if invalid, redirect to English
 const validLang = lang && (lang in supportedLanguages) ? lang : 'en';
 
-// If the requested language is invalid, redirect to English side projects page
+// If the requested language is invalid, redirect to English hobbies page
 if (validLang !== lang) {
-  console.log(`Invalid language '${lang}' requested, redirecting to English side projects page`);
-  return Astro.redirect('/en/side-projects');
+  console.log(`Invalid language '${lang}' requested, redirecting to English hobbies page`);
+  return Astro.redirect('/en/hobbies');
 }
 
 // Get translations for the current language
@@ -46,29 +46,28 @@ try {
 let profileData: Record<string, any> | null = null;
 try {
   profileData = await getProfileStrings(validLang);
-  console.log(`Side Projects - Loaded profile data for language: ${validLang}`);
+  console.log(`Hobbies - Loaded profile data for language: ${validLang}`);
 } catch (error) {
-  console.error(`Side Projects - Error loading profile data for language: ${validLang}`, error);
+  console.error(`Hobbies - Error loading profile data for language: ${validLang}`, error);
   // Null fallback already set
 }
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
-  const paths = [{ params: { lang: 'en' } }];
+  // Import the language list directly to ensure it's loaded
+  const { getSupportedLanguages } = await import('../../i18n/utils');
+  const dynamicLanguages = await getSupportedLanguages();
   
-  Object.keys(languages).forEach(lang => {
-    if (lang !== 'en') {
-      paths.push({ params: { lang } });
-    }
-  });
-  
-  return paths;
+  // Generate paths for each language
+  return Object.keys(dynamicLanguages).map(lang => ({
+    params: { lang }
+  }));
 }
 
 // Format title based on site properties or fallback
 const pageTitle = profileData?.site?.siteName ? 
-  `${uiStrings['sideProjects.title'] || 'Side Projects'} | ${profileData.site.siteName}` : 
-  `${uiStrings['sideProjects.title'] || 'Side Projects'} | Ricardo Almeida`;
+  `${uiStrings['sideProjects.title'] || 'Hobbies'} | ${profileData.site.siteName}` : 
+  `${uiStrings['sideProjects.title'] || 'Hobbies'} | Ricardo Almeida`;
 ---
 
 <MainLayout

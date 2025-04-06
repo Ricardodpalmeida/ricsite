@@ -1,0 +1,61 @@
+/**
+ * Blog Styles
+ * 
+ * This file contains styles for blog-related pages:
+ * - Blog index page
+ * - Individual blog posts
+ */
+@import '../design-system.css';
+@import '../utilities.css';
+
+/* ======================================
+   Blog Index Page Styles
+   ====================================== */
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(15, 15, 15, 0.3);
+  border: 1px solid var(--color-gray-800);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--color-gray-400);
+}
+
+/* Rest of the blog.css content */
+
+/* Blog containers - both with container-like styling */
+.blog-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  min-height: calc(100vh - 150px);
+  animation: fadeIn 0.5s ease-out;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+/* Blog Post Layout - similar to container but tailored for blog posts */
+.blog-post-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  min-height: calc(100vh - 150px);
+  animation: fadeIn 0.5s ease-out;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+} 

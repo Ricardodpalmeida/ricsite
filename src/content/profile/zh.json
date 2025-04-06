@@ -433,7 +433,7 @@
     "nav.home": "首页",
     "nav.about": "关于我",
     "nav.blog": "博客",
-    "nav.sideProjects": "副项目",
+    "nav.sideProjects": "爱好",
     "footer.copyright": "© {year} Ricardo Almeida。保留所有权利。",
     "error.profileData": "无法加载个人资料数据。",
     "blog.title": "博客",
@@ -467,6 +467,6 @@
     "profile.issued": "颁发",
     "profile.verifyCertificate": "验证证书",
     "profile.languages": "语言",
-    "sideProjects.title": "副项目"
+    "sideProjects.title": "爱好"
   }
 }

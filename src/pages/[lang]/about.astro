@@ -123,15 +123,14 @@ const pageTitle = profileInfo?.site?.siteName ?
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
-  const paths = [{ params: { lang: 'en' } }];
+  // Import the language list directly to ensure it's loaded
+  const { getSupportedLanguages } = await import('../../i18n/utils');
+  const dynamicLanguages = await getSupportedLanguages();
   
-  Object.keys(languages).forEach(lang => {
-    if (lang !== 'en') {
-      paths.push({ params: { lang } });
-    }
-  });
-  
-  return paths;
+  // Generate paths for each language
+  return Object.keys(dynamicLanguages).map(lang => ({
+    params: { lang }
+  }));
 }
 ---
 

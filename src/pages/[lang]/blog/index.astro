@@ -49,9 +49,7 @@ export async function getStaticPaths() {
   description={uiStrings['blog.description']}
   currentLanguage={lang as keyof typeof languages}
 >
-  <main class="container blog-container">
-    <h1>{uiStrings['blog.title']}</h1>
-
+  <main class="blog-container">
     <section class="posts-grid">
       {
         posts.length > 0 ? (

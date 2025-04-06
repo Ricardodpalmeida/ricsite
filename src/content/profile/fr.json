@@ -433,7 +433,7 @@
       "nav.home": "Accueil",
       "nav.about": "À propos",
       "nav.blog": "Blog",
-      "nav.sideProjects": "Projets parallèles",
+      "nav.sideProjects": "Loisirs",
       "footer.copyright": "© {year} Ricardo Almeida. Tous droits réservés.",
       "error.profileData": "Les données de profil n'ont pas pu être chargées.",
       "blog.title": "Blog",
@@ -467,6 +467,6 @@
       "profile.verifyCertificate": "Vérifier le certificat",
       "blog.notAvailableInLanguage": "La version {0} de cet article n'est pas disponible",
       "blog.redirectedToDefault": "Vous avez été redirigé vers la version anglaise",
-      "sideProjects.title": "Projets parallèles"
+      "sideProjects.title": "Loisirs"
     }
   }  

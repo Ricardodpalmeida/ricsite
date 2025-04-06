@@ -41,7 +41,7 @@ export async function GET({ params }) {
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>${siteURL}/${validLang}/side-projects/</loc>
+    <loc>${siteURL}/${validLang}/hobbies/</loc>
     <priority>0.8</priority>
   </url>
   <url>
