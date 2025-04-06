@@ -124,20 +124,27 @@ a:focus-visible {
 .site-title {
   display: flex;
   align-items: center;
+  justify-content: center;
   text-decoration: none;
   color: var(--color-white);
   transition: opacity var(--transition-base);
   flex: 0 0 auto; /* Prevent flex shrinking */
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-gray-800);
+  padding: 8px;
 }
 
 .site-title:hover {
   opacity: 0.9;
+  background-color: var(--color-gray-700);
 }
 
 .site-logo {
   height: 24px;
   width: 24px;
-  margin-right: 10px;
+  margin-right: 0;
 }
 
 .site-title-text {
@@ -287,7 +294,7 @@ a:focus-visible {
   display: none;
   position: absolute;
   right: 0;
-  background-color: var(--color-gray-900);
+  background-color: rgba(18, 18, 18, 0.9);
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
   z-index: 1000;
@@ -368,17 +375,32 @@ footer {
     top: 64px;
     left: 0;
     width: 100%;
-    background-color: var(--color-gray-900);
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(4px);
     border-bottom: 1px solid var(--color-gray-100);
-    padding: 0.5rem 0;
+    padding: 1rem 0;
     justify-content: center;
     transform: translateY(-100%);
-    transition: transform 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
     z-index: 90;
+    display: block;
   }
   
-  .nav-content:focus-within .main-nav {
+  .main-nav.active {
     transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .main-nav li {
+    margin: 0.5rem 0;
   }
 
   .site-title {
@@ -651,11 +673,12 @@ time {
   }
   
   .main-nav {
-    position: fixed;
+    position: absolute;
     top: 64px;
     left: 0;
     width: 100%;
-    background-color: var(--color-gray-900);
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(4px);
     border-bottom: 1px solid var(--color-gray-100);
     padding: 1rem 0;
     justify-content: center;
