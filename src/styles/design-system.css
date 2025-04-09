@@ -19,9 +19,9 @@
   --color-gray-900: rgba(15, 15, 15, 0.6);
   
   /* Typography */
-  --font-family-base: 'Roboto', sans-serif;
-  --font-family-title: 'Roboto Slab', serif;
-  --font-family-alt: 'Roboto Slab', serif;
+  --font-family-base: 'Poppins', sans-serif;
+  --font-family-title: 'Exo', sans-serif;
+  --font-family-alt: 'Exo', sans-serif;
   --font-family-mono: 'Monaco', 'Consolas', monospace;
   
   /* Font weights */
@@ -62,4 +62,20 @@
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
   --border-radius-full: 9999px;
+  
+  /* Media dimensions */
+  --iframe-height-standard: 352px;
+  --iframe-height-playlist: calc(var(--iframe-height-standard) * 1.5); /* 50% taller */
+  --iframe-height-dj-set: 120px;
+  
+  /* Responsive media dimensions */
+  @media (max-width: 768px) {
+    --iframe-height-standard: 300px;
+    --iframe-height-playlist: 450px;
+  }
+  
+  @media (max-width: 480px) {
+    --iframe-height-standard: 250px;  
+    --iframe-height-playlist: 400px;
+  }
 } 
