@@ -21,9 +21,9 @@
 .certification-pill {
   display: flex;
   flex-direction: column;
-  background-color: var(--color-dark-gray);
-  border: 1px solid var(--color-cosmic-latte);
-  color: var(--color-white);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-accent-20);
+  color: var(--color-text-primary);
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-md);
   margin: 0;
@@ -37,12 +37,14 @@
   word-break: break-word;
 }
 
-/* Hover effects 
+/* Hover effects */
 .certification-pill:hover {
-  background-color: var(--color-dark-gray);
+  /* Define hover background based on theme in design-system.css or use subtle grays */
+  background-color: var(--color-bg-hover); /* Use theme-aware hover background */
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}*/
+  color: var(--color-text-primary); /* Ensure text color remains readable */
+}
 
 /* External link icon */
 .certification-pill .external-link {

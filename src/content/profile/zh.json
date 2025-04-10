@@ -467,6 +467,8 @@
     "profile.issued": "颁发",
     "profile.verifyCertificate": "验证证书",
     "profile.languages": "语言",
-    "sideProjects.title": "爱好"
+    "sideProjects.title": "爱好",
+    "themeToggle.switchToLight": "切换到浅色模式",
+    "themeToggle.switchToDark": "切换到深色模式"
   }
 }

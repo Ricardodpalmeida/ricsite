@@ -1,0 +1,35 @@
+/**
+ * Language Dropdown Component
+ *
+ * CSS Dependencies:
+ * - styles/design-system.css
+ */
+
+/* Basic styling handled in global.css */
+
+/* Dark mode dropdown button color */
+.dark-mode .dropdown-button {
+  color: var(--color-white) !important;
+}
+
+/* Specifically overriding for dark mode active language */
+.dark-mode .dropdown-item[data-lang-active="true"] {
+  color: var(--color-cosmic-latte) !important;
+  background-color: rgba(255, 248, 231, 0.1) !important;
+}
+
+/* Light mode active language */
+html:not(.dark-mode) .dropdown-item[data-lang-active="true"] {
+  color: var(--color-black-hole-brown);
+  background-color: rgba(75, 15, 25, 0.1);
+}
+
+/* Dark mode hover states */
+.dark-mode .dropdown-item:hover {
+  color: var(--color-white);
+}
+
+/* Light mode hover states */
+html:not(.dark-mode) .dropdown-item:hover {
+  color: var(--color-dark-gray);
+} 

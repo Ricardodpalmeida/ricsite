@@ -46,7 +46,7 @@
 .hero-subtitle {
   text-align: center;
   font-size: var(--font-size-lg);
-  color: var(--color-cosmic-latte);
+  color: var(--color-text-accent);
   margin-bottom: 1.5rem;
   font-weight: var(--font-weight-medium);
   font-family: var(--font-family-title);
@@ -68,7 +68,7 @@
   transition: all var(--transition-base);
   border-radius: 50%;
   padding: 0.3rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--color-gray-200);
   width: 24px;
   height: 24px;
 }
@@ -80,6 +80,20 @@
 
 .hero-social-link:hover .social-icon {
   transform: scale(1.1);
+}
+
+.social-icon {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--transition-base);
+}
+
+html:not(.dark-mode) .social-icon {
+  filter: brightness(0); /* Black in light mode */
+}
+
+.dark-mode .social-icon {
+  filter: none; /* Keep white in dark mode */
 }
 
 .header-description {

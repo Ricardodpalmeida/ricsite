@@ -52,7 +52,7 @@
   display: flex;
   justify-content: space-between;
   padding: 0.85rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid var(--color-gray-100);
 }
 
 .language-name {
@@ -60,7 +60,7 @@
 }
 
 .language-proficiency {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-primary);
   text-align: right;
 }
 

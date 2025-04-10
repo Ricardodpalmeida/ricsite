@@ -467,6 +467,8 @@
     "profile.verifyCertificate": "Verificar Certificado",
     "blog.notAvailableInLanguage": "La versión en {0} de esta entrada no está disponible",
     "blog.redirectedToDefault": "Has sido redirigido a la versión en inglés",
-    "sideProjects.title": "Hobbies"
+    "sideProjects.title": "Hobbies",
+    "themeToggle.switchToLight": "Cambiar a modo claro",
+    "themeToggle.switchToDark": "Cambiar a modo oscuro"
   }
 }

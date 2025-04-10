@@ -8,6 +8,10 @@
 import { getLangFromUrl, useTranslations, getLocalizedUrl, languages, defaultLang, getProfileStrings, languageNames } from '../i18n/utils';
 // Import global styles
 import '../styles/global.css';
+// Import ThemeToggle component
+import ThemeToggle from '../components/ThemeToggle.astro';
+// Import language dropdown styles
+import '../styles/components/language-dropdown.css';
 
 const { 
   title, 
@@ -158,6 +162,50 @@ const _structuredData = {
     <script is:inline type="application/ld+json">
       {JSON.stringify(_structuredData)}
     </script>
+
+    <!-- Theme switcher setup script - must be in the head to avoid FOUC -->
+    <script is:inline>
+      // Apply saved theme on initial page load before DOM is ready to avoid flicker
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      // Default to light mode (no class) unless explicitly saved as dark or system prefers dark
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark-mode');
+      } else {
+        document.documentElement.classList.remove('dark-mode');
+      }
+      
+      // Function to dynamically update favicon color based on theme
+      function updateFaviconColor() {
+        const isDarkMode = document.documentElement.classList.contains('dark-mode');
+        const favicon = document.querySelector('link[rel="icon"]');
+        if (favicon) {
+          // Force favicon refresh by adding timestamp query parameter
+          const currentSrc = favicon.href.split('?')[0];
+          favicon.href = `${currentSrc}?theme=${isDarkMode ? 'dark' : 'light'}&t=${Date.now()}`;
+        }
+      }
+      
+      // Update favicon on initial load
+      document.addEventListener('DOMContentLoaded', updateFaviconColor);
+      
+      // Create MutationObserver to watch for theme changes
+      if (typeof MutationObserver !== 'undefined') {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class') {
+              updateFaviconColor();
+            }
+          });
+        });
+        
+        // Start observing once DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+          observer.observe(document.documentElement, { attributes: true });
+        });
+      }
+    </script>
   </head>
   <body>
     <!-- Deprecated positioning script - no longer needed -->
@@ -173,10 +221,6 @@ const _structuredData = {
             <img src="/favicon.svg" alt="Ricbits" class="site-logo" />
           </a>
 
-          <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label={t('nav.toggleMenu')} aria-expanded="false">
-            <span class="menu-icon"></span>
-          </button>
-
           <nav class="main-nav" id="main-nav">
             <div class="nav-container">
               <ul>
@@ -187,51 +231,69 @@ const _structuredData = {
             </div>
           </nav>
 
-          {!hideLangSelector && (
-            <div class="language-dropdown-container">
-              <div class="language-dropdown">
-                <button class="dropdown-button">
-                  {validLang.toUpperCase()}
-                  <span class="dropdown-arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                  {Object.entries(languages).map(([code, name]) => {
-                    // Calculate the URL for this language
-                    let langUrl: string;
-                    
-                    if (code === validLang) {
-                      langUrl = '#';
-                    } else {
-                      // Special case for English to ensure it works correctly
-                      if (code === 'en') {
-                        // For English, explicitly use /en/ path
-                        langUrl = Astro.url.pathname.startsWith('/en/') 
-                          ? Astro.url.pathname 
-                          : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
-                      } else {
-                        // Normal case for other languages
-                        langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
-                      }
-                    }
+          <!-- Mobile menu toggle - Now a direct child for mobile layout -->
+          <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-label={t('nav.toggleMenu')} aria-expanded="false">
+            <span class="menu-icon"></span>
+          </button>
+
+          <!-- Group remaining right-side controls -->
+          <div class="header-right-controls">
+            <ThemeToggle 
+              uiStrings={{
+                themeToggle: {
+                  switchToLight: t('ui.themeToggle.switchToLight'),
+                  switchToDark: t('ui.themeToggle.switchToDark')
+                }
+              }}
+            />
+            
+            {!hideLangSelector && (
+              <div class="language-dropdown-container">
+                <div class="language-dropdown">
+                  <button class="dropdown-button">
+                    {validLang.toUpperCase()}
+                    <span class="dropdown-arrow">▼</span>
+                  </button>
+                  <div class="dropdown-content">
+                    {Object.entries(languages).map(([code, name]) => {
+                      // Calculate the URL for this language
+                      let langUrl: string;
                       
-                    return (
-                      <a 
-                        href={langUrl}
-                        class={`dropdown-item ${code === validLang ? 'active' : ''}`}
-                        aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
-                        data-lang-link={code}
-                        data-testid={`lang-link-${code}`}
-                      >
-                        {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
-                          ? languageNames[code]?.charAt(0) || code.toUpperCase() 
-                          : code.toUpperCase()}
-                      </a>
-                    );
-                  })}
+                      if (code === validLang) {
+                        langUrl = '#';
+                      } else {
+                        // Special case for English to ensure it works correctly
+                        if (code === 'en') {
+                          // For English, explicitly use /en/ path
+                          langUrl = Astro.url.pathname.startsWith('/en/') 
+                            ? Astro.url.pathname 
+                            : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
+                        } else {
+                          // Normal case for other languages
+                          langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
+                        }
+                      }
+                        
+                      return (
+                        <a 
+                          href={langUrl}
+                          class={`dropdown-item ${code === validLang ? 'active' : ''}`}
+                          aria-label={t('lang.switchTo').replace('{0}', name || code.toUpperCase())}
+                          data-lang-link={code}
+                          data-lang-active={code === validLang ? "true" : "false"}
+                          data-testid={`lang-link-${code}`}
+                        >
+                          {(['zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ru', 'uk', 'el', 'th', 'he'].includes(code)) 
+                            ? languageNames[code]?.charAt(0) || code.toUpperCase() 
+                            : code.toUpperCase()}
+                        </a>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </header>

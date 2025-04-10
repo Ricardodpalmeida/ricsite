@@ -18,6 +18,18 @@
   --color-gray-800: rgba(20, 20, 20, 0.4);
   --color-gray-900: rgba(15, 15, 15, 0.6);
   
+  /* Black Hole Accretion Brown replacement for cosmic latte */
+  --color-black-hole-brown: #4B0F19;
+  --color-black-hole-brown-10: rgba(75, 15, 25, 0.1);
+  --color-black-hole-brown-20: rgba(75, 15, 25, 0.2);
+  
+  /* Light/Dark mode theme variables - default is dark mode */
+  --color-bg-primary: var(--color-dark-gray);
+  --color-text-primary: var(--color-white);
+  --color-text-accent: var(--color-cosmic-latte);
+  --color-accent-10: var(--color-cosmic-latte-10);
+  --color-accent-20: var(--color-cosmic-latte-20);
+  
   /* Typography */
   --font-family-base: 'Poppins', sans-serif;
   --font-family-title: 'Exo', sans-serif;
@@ -78,4 +90,49 @@
     --iframe-height-standard: 250px;  
     --iframe-height-playlist: 400px;
   }
+}
+
+/* Light mode - base state, no class needed */
+html:not(.dark-mode) {
+  /* Swap colors for light mode */
+  --color-bg-primary: var(--color-white);
+  --color-text-primary: var(--color-dark-gray);
+  --color-text-accent: var(--color-black-hole-brown);
+  --color-accent-10: var(--color-black-hole-brown-10);
+  --color-accent-20: var(--color-black-hole-brown-20);
+  --color-bg-hover: rgba(0, 0, 0, 0.05); /* Added light mode hover background */
+  
+  /* Adjust gray colors for light mode */
+  --color-gray-100: rgba(0, 0, 0, 0.05);
+  --color-gray-200: rgba(0, 0, 0, 0.07);
+  --color-gray-300: rgba(0, 0, 0, 0.1);
+  --color-gray-400: rgba(0, 0, 0, 0.3);
+  --color-gray-600: rgba(0, 0, 0, 0.5);
+  --color-gray-700: rgba(0, 0, 0, 0.05);
+  --color-gray-800: rgba(0, 0, 0, 0.07);
+  --color-gray-900: rgba(238, 238, 238, 0.9);
+}
+
+/* Dark mode - when the dark-mode class is added to the html element */
+.dark-mode {
+  /* Dark mode uses the default root values */
+  /* Dark mode uses cosmic latte as accent color */
+  --color-text-accent: var(--color-cosmic-latte);
+  --color-accent-10: var(--color-cosmic-latte-10);
+  --color-accent-20: var(--color-cosmic-latte-20);
+  
+  /* Additional dark mode adjustments */
+  --color-bg-primary: #121212; /* Darker background for dark mode */
+  --color-text-primary: #f5f5f5; /* Slightly different white for better contrast */
+  --color-bg-hover: rgba(255, 255, 255, 0.05); /* Added dark mode hover background */
+  
+  /* Adjust gray colors for dark mode */
+  --color-gray-100: rgba(255, 255, 255, 0.05);
+  --color-gray-200: rgba(255, 255, 255, 0.07);
+  --color-gray-300: rgba(255, 255, 255, 0.1);
+  --color-gray-400: rgba(255, 255, 255, 0.12);
+  --color-gray-600: rgba(255, 255, 255, 0.2);
+  --color-gray-700: rgba(255, 255, 255, 0.05);
+  --color-gray-800: rgba(255, 255, 255, 0.07);
+  --color-gray-900: rgba(20, 20, 20, 0.8);
 } 
