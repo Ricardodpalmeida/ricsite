@@ -377,10 +377,23 @@ html:not(.dark-mode) .dropdown-item:hover {
   background-color: var(--color-accent-10);
 }
 
-/* In dark mode, use cosmic latte for the active language - MOVED TO components/language-dropdown.css */
+/* Show dropdown on hover for desktop */
+@media (min-width: 481px) {
+  .language-dropdown:hover .dropdown-content {
+    display: block;
+  }
+}
 
-.language-dropdown:hover .dropdown-content {
-  display: block;
+/* For mobile, show dropdown when class is added by JavaScript */
+@media (max-width: 480px) {
+  .language-dropdown.dropdown-open .dropdown-content {
+    display: block;
+  }
+  
+  /* Force dropdown to hide even on hover when explicitly closed */
+  .language-dropdown.dropdown-closed .dropdown-content {
+    display: none !important;
+  }
 }
 
 /* Remove old language selector styles */
@@ -441,11 +454,12 @@ footer {
     top: 64px;
     left: 0;
     width: 100%;
-    background-color: rgba(18, 18, 18, 0.95);
+    background-color: var(--color-bg-primary);
     backdrop-filter: blur(4px);
     border-bottom: 1px solid var(--color-gray-100);
     padding: 1rem 0;
     z-index: 90;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
   .main-nav.active {

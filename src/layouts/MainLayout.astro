@@ -307,6 +307,7 @@ const _structuredData = {
       document.addEventListener('DOMContentLoaded', function() {
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mainNav = document.getElementById('main-nav');
+        const languageDropdown = document.querySelector('.language-dropdown');
         
         if (mobileMenuToggle && mainNav) {
           mobileMenuToggle.addEventListener('click', function() {
@@ -314,7 +315,59 @@ const _structuredData = {
             this.setAttribute('aria-expanded', !expanded);
             mainNav.classList.toggle('active');
             this.classList.toggle('active');
+            
+            // Close language dropdown when opening menu (mobile only)
+            if (window.innerWidth <= 480 && languageDropdown) {
+              // We need to force-close the dropdown that's shown on hover
+              // Add a class we can target with CSS
+              languageDropdown.classList.remove('dropdown-open');
+              languageDropdown.classList.add('dropdown-closed');
+              
+              // Remove the force-closed class after transition
+              setTimeout(() => {
+                languageDropdown.classList.remove('dropdown-closed');
+              }, 300);
+            }
           });
+        }
+        
+        // Add click listener to language dropdown button (mobile only)
+        if (languageDropdown) {
+          const dropdownButton = languageDropdown.querySelector('.dropdown-button');
+          
+          if (dropdownButton) {
+            dropdownButton.addEventListener('click', function(e) {
+              // Only on mobile
+              if (window.innerWidth <= 480) {
+                // Toggle dropdown open/closed state with class
+                languageDropdown.classList.toggle('dropdown-open');
+                
+                // Close the mobile menu if it's open
+                if (mainNav && mainNav.classList.contains('active') && mobileMenuToggle) {
+                  mainNav.classList.remove('active');
+                  mobileMenuToggle.classList.remove('active');
+                  mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                }
+                
+                // Prevent the click from bubbling up to body
+                e.stopPropagation();
+              }
+            });
+            
+            // Close dropdown when clicking anywhere else on the page
+            document.body.addEventListener('click', function() {
+              if (window.innerWidth <= 480 && languageDropdown.classList.contains('dropdown-open')) {
+                languageDropdown.classList.remove('dropdown-open');
+              }
+            });
+            
+            // Prevent clicks inside dropdown from closing it
+            languageDropdown.addEventListener('click', function(e) {
+              if (window.innerWidth <= 480) {
+                e.stopPropagation();
+              }
+            });
+          }
         }
       });
     </script>
