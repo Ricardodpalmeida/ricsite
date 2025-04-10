@@ -7,34 +7,23 @@
  * CSS Dependencies:
  * - styles/dark-mode-toggle.css
  */
-import type { HTMLAttributes } from 'astro/types';
 import '../styles/dark-mode-toggle.css';
 
-// Define Props interface
-interface Props extends HTMLAttributes<'button'> {
-  uiStrings: {
-    themeToggle: {
-      switchToLight: string;
-      switchToDark: string;
-    };
-  };
-}
-
-// Use the Props interface with Astro.props
-const { class: className = '', uiStrings } = Astro.props;
-
-// Removed intermediate variables - will use props directly in template
+// Accept simple string props instead of complex objects
+const { 
+  class: className = '',
+  lightModeText = "Switch to light mode", 
+  darkModeText = "Switch to dark mode" 
+} = Astro.props;
 ---
 
 <button 
   id="theme-toggle" 
   class:list={['theme-toggle', className]} 
-  // Explicitly cast prop values to string
-  aria-label={String(uiStrings.themeToggle.switchToDark)} 
-  title={String(uiStrings.themeToggle.switchToDark)} /* Use title for hover tooltip */
-  // Set data attributes directly from props, also casting
-  data-switch-to-light={String(uiStrings.themeToggle.switchToLight)}
-  data-switch-to-dark={String(uiStrings.themeToggle.switchToDark)}
+  aria-label={darkModeText}
+  title={darkModeText}
+  data-switch-to-light={lightModeText}
+  data-switch-to-dark={darkModeText}
 >
   <div class="toggle-track">
     <div class="toggle-icon">
@@ -71,13 +60,12 @@ const { class: className = '', uiStrings } = Astro.props;
     </div>
     <div class="toggle-thumb"></div>
   </div>
-  <!-- Removed hardcoded span tooltips -->
 </button>
 
 <script>
-  // Script remains the same as it reads from data attributes
   const toggleButton = document.getElementById('theme-toggle');
 
+  // Retrieve strings from data attributes
   const uiStrings = {
     switchToLight: toggleButton.getAttribute('data-switch-to-light'),
     switchToDark: toggleButton.getAttribute('data-switch-to-dark')

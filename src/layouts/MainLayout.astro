@@ -239,12 +239,8 @@ const _structuredData = {
           <!-- Group remaining right-side controls -->
           <div class="header-right-controls">
             <ThemeToggle 
-              uiStrings={{
-                themeToggle: {
-                  switchToLight: t('ui.themeToggle.switchToLight'),
-                  switchToDark: t('ui.themeToggle.switchToDark')
-                }
-              }}
+              lightModeText={t('ui.themeToggle.switchToLight')}
+              darkModeText={t('ui.themeToggle.switchToDark')}
             />
             
             {!hideLangSelector && (
