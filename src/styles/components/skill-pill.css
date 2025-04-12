@@ -59,28 +59,37 @@
 
 /* Media query for mobile devices */
 @media (max-width: 768px) {
+  .skill-pill {
+    position: relative;
+  }
+  
   .skill-pill[data-tooltip]:hover::after {
-    max-width: 200px;
-    left: 0;
-    transform: none;
-    font-size: 0.8rem;
+    max-width: 180px;
+    font-size: 0.75rem;
+    padding: 0.6rem 0.8rem;
+    line-height: 1.3;
+    /* Always center tooltip with respect to its pill */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    /* Ensure tooltip doesn't go off-screen */
+    width: max-content;
+    max-width: min(180px, 80vw);
   }
   
   .skill-pill[data-tooltip]:hover::before {
-    left: 20px;
-    transform: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
-  /* Adjust position for pills near the right edge */
-  .skill-pill:nth-child(3n):hover::after,
-  .skill-pill:nth-child(3n-1):hover::after {
-    left: auto;
-    right: 0;
-  }
-  
-  .skill-pill:nth-child(3n):hover::before,
-  .skill-pill:nth-child(3n-1):hover::before {
-    left: auto;
-    right: 20px;
+  /* Remove the edge case handling from previous approach */
+}
+
+@media (max-width: 480px) {
+  .skill-pill[data-tooltip]:hover::after {
+    max-width: min(160px, 70vw);
+    font-size: 0.7rem;
+    padding: 0.5rem 0.7rem;
   }
 } 
