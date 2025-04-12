@@ -69,8 +69,17 @@ if (profileData) {
 }
 
 // Get all images using Astro.glob
-const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
-const galleryImages = galleryImageModules.map(module => module.default.src);
+const galleryImageFiles = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
+
+// Convert file paths to web URLs and sort them alphabetically for consistent order
+const galleryImages = galleryImageFiles
+  .map(module => {
+    // Extract the filename from the path
+    const path = module.default.src;
+    const imagePath = '/images/HomePhotoGallery/' + path.split('/').pop();
+    return imagePath;
+  })
+  .sort((a, b) => a.localeCompare(b));
 ---
 
 <div class="side-projects-container">
@@ -321,40 +330,45 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
     
     if (photosTrack && photoItems.length > 0 && photoPrevBtn && photoNextBtn) {
       let currentPhotoIndex = 0;
+      const totalPhotos = photoItems.length;
       
       function updatePhotoCarousel() {
         if (!(photosTrack instanceof HTMLElement)) return;
         
-        // Calculate percentage based on vertical image logic
-        const currentItem = photoItems[currentPhotoIndex];
-        const orientation = currentItem.getAttribute('data-orientation') || '';
-        const isVertical = orientation === 'vertical';
-        
-        // For vertical images, show 2 at once on desktop
-        if (isVertical && window.innerWidth > 768) {
-          // Start from an even index to ensure proper pairing
-          currentPhotoIndex = Math.floor(currentPhotoIndex / 2) * 2;
-          photosTrack.style.transform = `translateX(-${currentPhotoIndex * 50}%)`;
-        } else {
-          photosTrack.style.transform = `translateX(-${currentPhotoIndex * 100}%)`;
-        }
+        // Get all visibilities to ensure proper UI state
+        photoItems.forEach((item, i) => {
+          const photoItem = item as HTMLElement;
+          
+          // Determine if this is the active item or not
+          const isActive = i === currentPhotoIndex;
+          
+          // Set active class
+          if (isActive) {
+            photoItem.classList.add('active');
+          } else {
+            photoItem.classList.remove('active');
+          }
+        });
+
+        // Simple sequential sliding - always move by 100% for consistent navigation
+        photosTrack.style.transform = `translateX(-${currentPhotoIndex * 100}%)`;
       }
       
       photoPrevBtn.addEventListener('click', () => {
         if (currentPhotoIndex > 0) {
           currentPhotoIndex--;
         } else {
-          // Go to last item if at first item
-          currentPhotoIndex = photoItems.length - 1;
+          // Go to last item if at first item for circular navigation
+          currentPhotoIndex = totalPhotos - 1;
         }
         updatePhotoCarousel();
       });
       
       photoNextBtn.addEventListener('click', () => {
-        if (currentPhotoIndex < photoItems.length - 1) {
+        if (currentPhotoIndex < totalPhotos - 1) {
           currentPhotoIndex++;
         } else {
-          // Go to first item if at last item
+          // Go to first item if at last item for circular navigation
           currentPhotoIndex = 0;
         }
         updatePhotoCarousel();
@@ -378,11 +392,11 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
               currentPhotoIndex--;
             } else {
               // Circular navigation
-              currentPhotoIndex = photoItems.length - 1;
+              currentPhotoIndex = totalPhotos - 1;
             }
           } else {
             // Swipe left - go to next
-            if (currentPhotoIndex < photoItems.length - 1) {
+            if (currentPhotoIndex < totalPhotos - 1) {
               currentPhotoIndex++;
             } else {
               // Circular navigation
@@ -405,6 +419,9 @@ const galleryImages = galleryImageModules.map(module => module.default.src);
           handleSwipe();
         }
       }, { passive: true });
+      
+      // Add window resize handler to reapply layout
+      window.addEventListener('resize', updatePhotoCarousel);
     }
     
     // Sets Carousel functionality

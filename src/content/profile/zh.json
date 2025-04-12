@@ -166,55 +166,56 @@
       {
         "title": "产品与云负责人 - 数据与人工智能团队",
         "company": "普华永道葡萄牙",
-        "duration": "2024年1月 - 至今 (1年3个月)",
+        "duration": "2024年1月 - 至今",
         "location": "葡萄牙里斯本",
         "description": "自2024年1月起，作为普华永道葡萄牙数据与人工智能团队的负责人，我一直负责管理、设计和实施以人工智能为重点的、基于云的解决方案，包括检索增强生成（RAG）和大型语言模型（LLM）的集成。我们的目标是提供顶级的 AI 驱动产品，在专业代码和低代码方法之间取得平衡，并利用基于云的部署实现可扩展性。我领导一个专家团队，制定架构标准并主导 AI 自动化工作流程的编排。我对 Microsoft Azure 和 Power Platform 的熟练掌握对于将这些解决方案从概念推进到全球实施至关重要。"
       },
       {
         "title": "云与业务应用负责人 - 咨询解决方案团队",
         "company": "普华永道葡萄牙",
-        "duration": "2023年7月 - 2024年1月 (7个月)",
+        "duration": "2023年7月 - 2024年1月",
         "location": "葡萄牙里斯本",
         "description": "作为云与业务应用咨询负责人，我设计尖端的云架构，为全球合作伙伴和客户贡献了超过90个机会。我在一个约80名专业人士组成的咨询解决方案团队中管理一个专业技术顾问团队。"
       },
       {
         "title": "专家 - 咨询解决方案团队",
         "company": "普华永道葡萄牙",
-        "duration": "2021年7月 - 2023年7月 (2年1个月)",
-        "location": "葡萄牙",
+        "duration": "2021年7月 - 2023年7月",
+        "location": "葡萄牙里斯本",
         "description": "作为 Microsoft Power Platform 专家，我利用了全套 Power Platform 工具，从 Canvas Apps 和 Power BI 报告到 Power Portals/Pages 和聊天机器人（Virtual Agents/Copilot Studio）。我将这些解决方案与 Azure（例如 Functions、Logic Apps、Data Factory 和 Data Lake Gen2）、Microsoft 365（例如 Teams、Outlook）、Dynamics 365、SQL Server、Dataverse 和 SharePoint 服务集成。除了这项专业知识外，我还成功领导了全栈专业代码应用程序开发项目，从概念到交付进行监督。值得注意的是，我还作为团队负责人和技术专家赢得了普华永道葡萄牙有史以来的第一次黑客马拉松。这项倡议已发展成为我们现在开始在全球销售的产品。"
       },
       {
         "title": "播客主持人",
         "company": "Mesa do Canto - 自雇",
-        "duration": "2021年2月 - 2022年2月 (1年1个月)",
+        "duration": "2021年2月 - 2022年2月",
         "location": "葡萄牙里斯本",
         "description": "“Mesa do Canto” 是一个葡萄牙语播客，两位朋友聚在一起讨论各种主题，包括文化、政治、哲学、历史、经济和技术。每集介绍一个新主题，并附有近期新闻的简要概述和个人媒体推荐。"
       },
       {
         "title": "分析师",
         "company": "Avanade",
-        "duration": "2020年12月 - 2021年6月 (7个月)",
+        "duration": "2020年12月 - 2021年6月",
         "location": "葡萄牙里斯本",
         "description": "在一个六人团队中，我们为葡萄牙一家跨国公司超过一千名员工的日常运营开发了 Power Platform 解决方案。后台在 SharePoint 上开发，并从现有数据库迁移数据。我们利用 Power Fx 和 Canvas Apps 进行低代码开发，并创建了 Power Automate Flows。我还承担了团队领导职责，并使用 Azure DevOps 管理了待办事项列表。"
       },
       {
         "title": "分析师",
         "company": "Avanade",
-        "duration": "2020年4月 - 2020年12月 (9个月)",
+        "duration": "2020年4月 - 2020年12月",
+        "location": "葡萄牙里斯本",
         "description": "软件工程人才社区 | 全栈开发。在职学习并使用：- MVC 模式 - C# (ASP.NET) - HTML - 分析 - 报告 - Power BI"
       },
       {
         "title": "顾问",
         "company": "SPMS, EPE - 葡萄牙卫生部共享服务中心",
-        "duration": "2018年10月 - 2020年3月 (1年6个月)",
-        "location": "里斯本",
+        "duration": "2018年10月 - 2020年3月 ",
+        "location": "葡萄牙里斯本",
         "description": "为葡萄牙国家卫生系统的 IT 主管提供咨询和行政支持；启动了一个 Sharepoint 网站项目，以集中管理公司范围内的项目、团队和项目经理信息；负责向葡萄牙国家卫生系统内所有实体发布大量官方内部和外部通讯；编写手册、流程文档和培训材料；编制报告、Power BI 报告和会议纪要；领导团队并培训新成员；管理项目和产品；担任项目管理办公室（PMO）成员；在一个12人的团队中协作。"
       },
       {
         "title": "职业探索岁月",
         "company": "各种零售、市场营销和学术职位",
-        "duration": "2010年 - 2018年 (8年)",
+        "duration": "2010年 - 2018年",
         "location": "葡萄牙里斯本",
         "description": "在葡萄牙服务经济中经历了一段旋风般的旅程——从担任电话推销员（REDITUS）进行陌生拜访，以手术般的精确度折叠衣服（ZARA），解释为什么芥末不是鳄梨酱（Yo! Sushi），到销售价格可疑过高的热狗。曾在大学呼叫中心工作，回答学生们关于校园位置的焦急问题，在 Le Wagon 制作无人阅读的营销材料，并参与组织 Sagres 的节日和宣传活动，但最终却在制作关于柠檬啤酒包装的PPT。这是一段塑造性格的漫长旅程，教会了我耐心、韧性，以及如何在游客解释在葡萄牙这叫 'galão' 而不是 'meia de leite' 时保持微笑。"
       }

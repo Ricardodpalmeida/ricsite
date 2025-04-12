@@ -166,55 +166,56 @@
     {
       "title": "Product and Cloud Lead - Data & AI team",
       "company": "PwC Portugal",
-      "duration": "Jan 2024 - Present (1 yr 3 mos)",
+      "duration": "Jan 2024 - Present",
       "location": "Lisbon, Portugal",
       "description": "Since January 2024, I have been at the helm of managing, designing, and implementing AI-focused, cloud-based solutions, including Retrieval-Augmented Generation (RAG) and integration of Large Language Models (LLMs), as a leader within PwC Portugal's Data & AI team. Our aim is to deliver top-tier AI-powered products, striking a balance between pro-code and low-code methodologies, and leveraging cloud-based deployment for scalability. I lead a team of experts, setting architectural standards and leading the orchestration of AI automation workflows. My proficiency in Microsoft Azure and Power Platform is crucial for advancing these solutions from concept to worldwide implementation."
     },
     {
       "title": "Cloud and Business Apps Lead - Consulting Solutions team",
       "company": "PwC Portugal",
-      "duration": "Jul 2023 - Jan 2024 (7 mos)",
+      "duration": "Jul 2023 - Jan 2024",
       "location": "Lisbon, Portugal",
       "description": "As the Cloud and Business Apps Consulting Lead, I design cutting-edge cloud architectures, having contributed to over 90 opportunities for global partners and clients. I manage a team of specialized technical consultants within a Consulting Solutions team of about 80 professionals."
     },
     {
       "title": "Specialist - Consulting Solutions team",
       "company": "PwC Portugal",
-      "duration": "Jul 2021 - Jul 2023 (2 yrs 1 mo)",
-      "location": "Portugal",
+      "duration": "Jul 2021 - Jul 2023",
+      "location": "Lisbon, Portugal",
       "description": "As a Microsoft Power Platform specialist, I utilize the full suite of Power Platform tools, from Canvas Apps and Power BI reports to Power Portals/Pages and Chatbots (Virtual Agents/Copilot Studio). I integrated these solutions with Azure (e.g., Functions, Logic Apps, Data Factory & Data Lake Gen2), Microsoft 365 (e.g Teams, Outlook), Dynamics 365, SQL Server, Dataverse, and SharePoint services. In addition to this expertise, I've successfully led full-stack pro-code app development projects, overseeing them from concept to delivery. Notably, I also earned PwC Portugal's first ever Hackathon as the team leader and technical specialist. This initiative has evolved into a product that we are now beginning to sell worldwide."
     },
     {
       "title": "Podcaster",
       "company": "Mesa do Canto - Self-employed",
-      "duration": "Feb 2021 - Feb 2022 (1 yr 1 mo)",
+      "duration": "Feb 2021 - Feb 2022",
       "location": "Lisbon, Portugal",
       "description": "\"Mesa do Canto\" is a podcast in Portuguese where two friends convene to discuss a variety of subjects, including culture, politics, philosophy, history, economics, and technology. Each episode introduces a new topic, accompanied by a succinct overview of recent news and personal recommendations for media."
     },
     {
       "title": "Analyst",
       "company": "Avanade",
-      "duration": "Dec 2020 - Jun 2021 (7 mos)",
+      "duration": "Dec 2020 - Jun 2021",
       "location": "Lisbon, Portugal",
       "description": "In a team of six, we developed Power Platform solutions for the daily operations of over a thousand employees at a multinational corporation in Portugal. The backoffice was developed on SharePoint, with data migration from an existing database. We utilized low-code development with Power Fx and Canvas Apps, and created Power Automate Flows. I also took on team lead responsibilities and managed the backlog using Azure DevOps."
     },
     {
       "title": "Analyst",
       "company": "Avanade",
-      "duration": "Apr 2020 - Dec 2020 (9 mos)",
+      "duration": "Apr 2020 - Dec 2020",
+      "location": "Lisbon, Portugal",
       "description": "Software Engineering Talent Community | Full-stack development. Learning on-the-job and working with: - MVC Pattern - C# (ASP.NET) - HTML - Analytics - Reporting - Power BI"
     },
     {
       "title": "Consultant",
       "company": "SPMS, EPE - Serviços Partilhados do Ministério da Saúde",
-      "duration": "Oct 2018 - Mar 2020 (1 yr 6 mos)",
-      "location": "Lisbon",
+      "duration": "Oct 2018 - Mar 2020",
+      "location": "Lisbon, Portugal",
       "description": "Provided advisory and administrative support to the IT Directors of the Portuguese National Health System; initiated a Sharepoint website project to centralize information on company-wide projects, teams, and project managers; accountable for numerous official internal and external communications to all entities within the Portuguese National Health System; prepared manuals, process documentation, and training materials; compiled reports, Power BI reports, and meeting minutes; led teams and trained new members; managed projects and products; served as a Project Management Officer (PMO); collaborated in a 12-person team."
     },
     {
       "title": "The Career Exploration Years",
       "company": "Various Retail, Marketing & Academic Roles",
-      "duration": "2010 - 2018 (8 yrs)",
+      "duration": "2010 - 2018",
       "location": "Lisbon, Portugal",
       "description": "Survived a whirlwind tour through Portugal's service economy - from cold-calling as a telemarketer (REDITUS), folding clothes with surgical precision (ZARA), explaining why wasabi isn't guacamole (Yo! Sushi), and selling suspiciously overpriced hot dogs. Worked in a university call center answering frantic students' questions about campus locations, created marketing materials nobody read at Le Wagon, and participated in organizing festivals and publicity campaigns for Sagres, but ended up doing powerpoints about lemon beer packaging. A character-building odyssey that taught me patience, resilience, and how to smile while a tourist explains that in Portugal it's called a 'galão' not a 'meia de leite'."
     }

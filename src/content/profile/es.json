@@ -148,55 +148,56 @@
     {
       "title": "Responsable de Producto y Cloud - Equipo de Datos e IA",
       "company": "PwC Portugal",
-      "duration": "Ene 2024 - Presente (1 año 3 meses)",
+      "duration": "Ene 2024 - Presente",
       "location": "Lisboa, Portugal",
       "description": "Desde enero de 2024, he estado al frente de la gestión, diseño e implementación de soluciones basadas en la nube centradas en IA, incluyendo Generación Aumentada por Recuperación (RAG) e integración de Grandes Modelos de Lenguaje (LLMs), como líder dentro del equipo de Datos e IA de PwC Portugal. Nuestro objetivo es proporcionar productos de IA de alto nivel, equilibrando metodologías pro-code y low-code, y aprovechando la implementación basada en la nube para la escalabilidad. Lidero un equipo de especialistas, estableciendo estándares arquitectónicos y dirigiendo la orquestación de flujos de trabajo de automatización de IA. Mi competencia en Microsoft Azure y Power Platform es crucial para hacer avanzar estas soluciones desde el concepto hasta la implementación mundial."
     },
     {
       "title": "Responsable de Cloud y Apps de Negocio - Equipo de Soluciones de Consultoría",
       "company": "PwC Portugal",
-      "duration": "Jul 2023 - Ene 2024 (7 meses)",
+      "duration": "Jul 2023 - Ene 2024",
       "location": "Lisboa, Portugal",
       "description": "Como Responsable de Consultoría en Cloud y Apps de Negocio, diseño arquitecturas cloud de vanguardia, habiendo contribuido a más de 90 oportunidades para socios y clientes globales. Gestiono un equipo de consultores técnicos especializados dentro de un equipo de Soluciones de Consultoría de unos 80 profesionales."
     },
     {
       "title": "Especialista - Equipo de Soluciones de Consultoría",
       "company": "PwC Portugal",
-      "duration": "Jul 2021 - Jul 2023 (2 años 1 mes)",
-      "location": "Portugal",
+      "duration": "Jul 2021 - Jul 2023",
+      "location": "Lisboa, Portugal",
       "description": "Como especialista en Microsoft Power Platform, utilizo el conjunto completo de herramientas de Power Platform, desde Canvas Apps e informes de Power BI hasta Power Portals/Pages y Chatbots (Virtual Agents/Copilot Studio). He integrado estas soluciones con Azure (p. ej., Functions, Logic Apps, Data Factory y Data Lake Gen2), Microsoft 365 (p. ej., Teams, Outlook), Dynamics 365, SQL Server, Dataverse y servicios de SharePoint. Además de esta experiencia, he liderado con éxito proyectos de desarrollo de aplicaciones pro-code full-stack, supervisándolos desde el concepto hasta la entrega. Notablemente, también gané el primer Hackathon de PwC Portugal como líder de equipo y especialista técnico. Esta iniciativa ha evolucionado hasta convertirse en un producto que ahora estamos comenzando a vender mundialmente."
     },
     {
       "title": "Podcaster",
       "company": "Mesa do Canto - Trabajo Independiente",
-      "duration": "Feb 2021 - Feb 2022 (1 año 1 mes)",
+      "duration": "Feb 2021 - Feb 2022",
       "location": "Lisboa, Portugal",
       "description": "\"Mesa do Canto\" es un podcast en portugués donde dos amigos se reúnen para discutir una variedad de temas, incluyendo cultura, política, filosofía, historia, economía y tecnología. Cada episodio introduce un nuevo tema, acompañado de una visión sucinta de las noticias recientes y recomendaciones personales de medios."
     },
     {
       "title": "Analista",
       "company": "Avanade",
-      "duration": "Dic 2020 - Jun 2021 (7 meses)",
+      "duration": "Dic 2020 - Jun 2021",
       "location": "Lisboa, Portugal",
       "description": "En un equipo de seis personas, desarrollamos soluciones de Power Platform para las operaciones diarias de más de mil empleados en una corporación multinacional en Portugal. El backoffice se desarrolló en SharePoint, con migración de datos desde una base de datos existente. Utilizamos desarrollo low-code con Power Fx y Canvas Apps, y creamos flujos de Power Automate. También asumí responsabilidades de liderazgo de equipo y gestioné el backlog usando Azure DevOps."
     },
     {
       "title": "Analista",
       "company": "Avanade",
-      "duration": "Abr 2020 - Dic 2020 (9 meses)",
+      "duration": "Abr 2020 - Dic 2020",
+      "location": "Lisboa, Portugal",
       "description": "Comunidad de Talentos de Ingeniería de Software | Desarrollo full-stack. Aprendizaje en contexto de trabajo y uso de: Patrón MVC, C# (ASP.NET), HTML, Analítica, Informes, Power BI."
     },
     {
       "title": "Consultor",
       "company": "SPMS, EPE - Serviços Partilhados do Ministério da Saúde",
-      "duration": "Oct 2018 - Mar 2020 (1 año 6 meses)",
-      "location": "Lisboa",
+      "duration": "Oct 2018 - Mar 2020",
+      "location": "Lisboa, Portugal",
       "description": "Proporcioné apoyo consultivo y administrativo a los Directores de TI del Sistema Nacional de Salud Portugués; inicié un proyecto de sitio web en SharePoint para centralizar información sobre proyectos, equipos y gestores de proyecto de la empresa; fui responsable de numerosas comunicaciones oficiales internas y externas a todas las entidades del Sistema Nacional de Salud Portugués; preparé manuales, documentación de procesos y materiales de formación; compilé informes, informes de Power BI y actas de reunión; lideré equipos y formé a nuevos miembros; gestioné proyectos y productos; actué como Oficial de Gestión de Proyectos (PMO); colaboré en un equipo de 12 personas."
     },
     {
       "title": "Los Años de Exploración de Carrera",
       "company": "Varios Roles en Retail, Marketing y Academia",
-      "duration": "2010 - 2018 (8 años)",
+      "duration": "2010 - 2018",
       "location": "Lisboa, Portugal",
       "description": "Sobreviví a un recorrido vertiginoso por la economía de servicios de Portugal: desde hacer llamadas en frío como telemarketer (REDITUS), doblar ropa con precisión quirúrgica (ZARA), explicar por qué el wasabi no es guacamole (Yo! Sushi), hasta vender perritos calientes sospechosamente caros. Trabajé en encuestas de satisfacción y en el call center del ISEG, donde me llamaban preguntando dónde estaba el IADE; creé materiales de marketing que nadie leyó en Le Wagon; participé en la organización de festivales y campañas publicitarias para Sagres, pero terminé haciendo PowerPoints sobre el packaging de cerveza con limón. Una odisea de construcción de carácter que me enseñó paciencia, resiliencia y cómo sonreír mientras un cliente (turista) me explica agresivamente que en Portugal se dice 'galão' en vez de 'meia de leite'."
     }
