@@ -24,9 +24,9 @@
   --color-black-hole-brown-20: rgba(75, 15, 25, 0.2);
   
   /* Layout variables */
-  --container-max-width: 1400px;
+  --container-max-width: 1200px;
   --container-narrow-max-width: 800px;
-  --container-wide-max-width: 1400px;
+  --container-wide-max-width: 1200px;
   
   /* Light/Dark mode theme variables - default is dark mode */
   --color-bg-primary: var(--color-dark-gray);

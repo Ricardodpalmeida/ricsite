@@ -131,6 +131,7 @@
   visibility: hidden;
   pointer-events: none;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  user-select: none;
 }
 
 .photo-modal.active {
@@ -152,6 +153,12 @@
   max-width: 100%;
   max-height: 85vh;
   object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
 .modal-caption {

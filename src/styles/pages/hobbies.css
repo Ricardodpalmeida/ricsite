@@ -5,17 +5,55 @@
 @import '../design-system.css';
 @import '../utilities.css';
 
-/* Keep only hobbies-specific styles */
+/* Prevent text selection across the hobbies page */
 .side-projects-container {
   display: flex;
   flex-direction: column;
   gap: 4rem;
   padding-top: 1rem;
   padding-bottom: 3rem;
+  user-select: none;
 }
 
 .side-projects-main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+}
+
+/* Hobbies section spacing adjustments */
+.main-section .section-heading {
+  margin-bottom: 0.75rem; /* Reduce space between heading and description */
+}
+
+/* Remove previously added spacing that wasn't working */
+.side-projects-container .section-description {
+  margin-bottom: 2rem; /* Reset to default value */
+}
+
+/* Add spacing between descriptions and content for all sections */
+#photography .photos-carousel,
+#playlists .playlists-carousel,
+#dj-sets .sets-carousel,
+#podcast .podcast-embed {
+  margin-top: 3rem; /* Consistent spacing for all sections */
+}
+
+/* Protect images from downloading */
+.gallery-image, 
+.photo-carousel-item img,
+.photo-image {
+  pointer-events: none;
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Add placeholder for right-click protection message */
+.photos-carousel,
+.carousel-container {
+  position: relative;
+  overflow: hidden;
 } 
