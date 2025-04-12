@@ -165,7 +165,7 @@ const _structuredData = {
 
     <!-- Theme switcher setup script - must be in the head to avoid FOUC -->
     <script is:inline>
-      // Apply saved theme on initial page load before DOM is ready to avoid flicker
+      // Apply saved theme on initial page load before DOM is ready to avoid FOUC
       const savedTheme = localStorage.getItem('theme');
       const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       
@@ -258,15 +258,28 @@ const _structuredData = {
                       if (code === validLang) {
                         langUrl = '#';
                       } else {
-                        // Special case for English to ensure it works correctly
-                        if (code === 'en') {
-                          // For English, explicitly use /en/ path
-                          langUrl = Astro.url.pathname.startsWith('/en/') 
-                            ? Astro.url.pathname 
-                            : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
+                        // Check if this is a blog post and has alternate URLs
+                        const isBlogPost = Astro.url.pathname.includes('/blog/') && !/\/blog\/?$/.test(Astro.url.pathname);
+                        
+                        if (isBlogPost) {
+                          // If we have an alternate URL for this language, use it
+                          if (alternateLanguageUrls[code]) {
+                            langUrl = alternateLanguageUrls[code];
+                          } else {
+                            // Otherwise redirect to the blog index of the target language
+                            langUrl = `/${code}/blog/`;
+                          }
                         } else {
-                          // Normal case for other languages
-                          langUrl = alternateLanguageUrls[code] || alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
+                          // Special case for English to ensure it works correctly
+                          if (code === 'en') {
+                            // For English, explicitly use /en/ path
+                            langUrl = Astro.url.pathname.startsWith('/en/') 
+                              ? Astro.url.pathname 
+                              : '/en/' + Astro.url.pathname.replace(/^\/[^\/]+\//, '');
+                          } else {
+                            // Normal case for other languages
+                            langUrl = alternateLanguageUrl || getLocalizedUrl(Astro.url, code);
+                          }
                         }
                       }
                         

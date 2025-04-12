@@ -3,8 +3,11 @@ title: "数字时代数据隐私综合指南"
 pubDate: 2023-07-28
 description: "保护您的个人在线信息和理解现代数据隐私问题的基本策略"
 author: "Ricardo Almeida"
+authorlink: "zh/about"
 language: "zh"
 heroImage: "/images/blog/data-privacy.jpg"
+heroParagraphs: ["Coming soon","WIP","Coming soon"]
+heroSummary: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
 tags: ["隐私", "安全", "数字生活方式"]
 translationKey: "5dc72e8f-3847-49e0-b4a8-1e7c6fb53321"
 ---

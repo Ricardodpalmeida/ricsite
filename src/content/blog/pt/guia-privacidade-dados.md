@@ -3,8 +3,11 @@ title: "Um Guia Completo sobre Privacidade de Dados na Era Digital"
 pubDate: 2023-07-28
 description: "Estratégias essenciais para proteger as suas informações pessoais online e compreender as preocupações modernas com a privacidade de dados"
 author: "Ricardo Almeida"
+authorlink: "/pt/about"
 language: "pt"
 heroImage: "/images/blog/data-privacy.jpg"
+heroParagraphs: ["Coming soon","WIP","Coming soon"]
+heroSummary: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
 tags: ["privacidade", "segurança", "estilo de vida digital"]
 translationKey: "5dc72e8f-3847-49e0-b4a8-1e7c6fb53321"
 ---

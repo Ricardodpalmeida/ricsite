@@ -3,8 +3,11 @@ title: "Ética na IA: Navegando o Futuro da Inteligência Artificial"
 pubDate: 2023-09-10
 description: "Explorando as considerações éticas e os desafios à medida que a IA se torna cada vez mais integrada na nossa sociedade"
 author: "Ricardo Almeida"
+authorlink: "/pt/about"
 language: "pt"
 heroImage: "/images/blog/ai-ethics.jpg"
+heroParagraphs: ["Coming soon","WIP","Coming soon"]
+heroSummary: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
 tags: ["inteligência artificial", "ética", "tecnologia", "futuro"]
 translationKey: "7b9e4d31-ff62-48f5-a901-4c2e8f67a89c"
 ---

@@ -7,6 +7,16 @@
 
 /* Basic styling handled in global.css */
 
+/* Language dropdown container z-index */
+.language-dropdown-container {
+  z-index: 2001 !important; /* Force higher z-index than the header */
+}
+
+/* Dropdown content z-index */
+.dropdown-content {
+  z-index: 2002 !important; /* Force higher z-index than the container */
+}
+
 /* Dark mode dropdown button color */
 .dark-mode .dropdown-button {
   color: var(--color-white) !important;

@@ -3,8 +3,11 @@ title: "Un Guide Complet sur la Confidentialité des Données à l'Ère Numériq
 pubDate: 2023-07-28
 description: "Stratégies essentielles pour protéger vos informations personnelles en ligne et comprendre les préoccupations modernes en matière de confidentialité des données"
 author: "Ricardo Almeida"
+authorlink: "/fr/about"
 language: "fr"
 heroImage: "/images/blog/data-privacy.jpg"
+heroParagraphs: ["Coming soon","WIP","Coming soon"]
+heroSummary: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
 tags: ["confidentialité", "sécurité", "mode de vie numérique"]
 translationKey: "5dc72e8f-3847-49e0-b4a8-1e7c6fb53321"
 ---

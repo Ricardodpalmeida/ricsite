@@ -3,8 +3,11 @@ title: "Tendências de Desenvolvimento Web em 2023"
 pubDate: 2023-05-15
 description: "Explorando as últimas tendências que estão a moldar o panorama do desenvolvimento web em 2023"
 author: "Ricardo Almeida"
+authorlink: "/pt/about"
 language: "pt"
 heroImage: "/images/blog/web-dev-trends.jpg"
+heroParagraphs: ["Coming soon","WIP","Coming soon"]
+heroSummary: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
 tags: ["desenvolvimento web", "tecnologia", "tendências"]
 translationKey: "89a7b342-1c56-47e0-9dab-f632b4d12e8f"
 ---

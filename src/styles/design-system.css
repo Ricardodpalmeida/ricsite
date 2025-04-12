@@ -23,6 +23,11 @@
   --color-black-hole-brown-10: rgba(75, 15, 25, 0.1);
   --color-black-hole-brown-20: rgba(75, 15, 25, 0.2);
   
+  /* Layout variables */
+  --container-max-width: 1400px;
+  --container-narrow-max-width: 800px;
+  --container-wide-max-width: 1400px;
+  
   /* Light/Dark mode theme variables - default is dark mode */
   --color-bg-primary: var(--color-dark-gray);
   --color-text-primary: var(--color-white);

@@ -108,6 +108,11 @@ a:focus-visible {
   border-bottom: 1px solid var(--color-gray-100);
 }
 
+header {
+  position: relative;
+  z-index: 2000; /* Very high z-index to ensure it's above all content */
+}
+
 /* Navigation */
 .nav-content {
   display: flex;
@@ -135,6 +140,11 @@ a:focus-visible {
   background-color: var(--color-gray-800);
   padding: 8px;
   flex-shrink: 0; /* Explicitly prevent shrinking */
+  position: absolute; /* Take out of flow */
+  left: 2rem; /* Align to padding of .nav-content */
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  z-index: 100;
 }
 
 .site-title:hover {
@@ -267,7 +277,7 @@ a:focus-visible {
 /* Language dropdown */
 .language-dropdown-container {
   position: relative;
-  z-index: 100;
+  z-index: 1000;
   display: flex;
   align-items: center;
   flex: 0 0 auto; /* Prevent flex shrinking */
@@ -322,7 +332,7 @@ html:not(.dark-mode) .dropdown-button {
   background-color: rgba(18, 18, 18, 0.9);
   min-width: 100px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 1001;
   border-radius: 4px;
   border: 1px solid var(--color-gray-700);
   overflow: hidden;

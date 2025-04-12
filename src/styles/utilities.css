@@ -15,16 +15,16 @@
 /* Container system */
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
   padding: 0 2rem;
   margin-top: 2rem;
 }
 .container--narrow {
-  max-width: 800px;
+  max-width: var(--container-narrow-max-width);
 }
 .container--wide {
-  max-width: 1400px;
+  max-width: var(--container-wide-max-width);
 }
 .container--no-padding {
   padding: 0;

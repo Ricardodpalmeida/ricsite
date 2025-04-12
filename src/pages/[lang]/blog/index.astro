@@ -59,21 +59,32 @@ export async function getStaticPaths() {
                 {post.data.heroImage && (
                   <div class="post-image-container">
                     <img src={post.data.heroImage} alt="" class="post-image" />
+                    <div class="post-overlay">
+                      <h2 class="post-title">{post.data.title}</h2>
+                      <div class="post-meta">
+                        <FormattedDate date={post.data.pubDate} lang={lang} />
+                        {post.data.author && (
+                          <span class="author-container">
+                            <span class="separator"> • </span>
+                            {post.data.authorLink ? (
+                              <a href={post.data.authorLink} class="author-link" target="_blank" rel="noopener noreferrer">
+                                {post.data.author}
+                              </a>
+                            ) : (
+                              <span>{post.data.author}</span>
+                            )}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 )}
                 <div class="post-content">
-                  <h2 class="post-title">
-                    {post.data.title}
-                  </h2>
-                  <div class="post-meta">
-                    <FormattedDate date={post.data.pubDate} lang={lang} />
-                    {post.data.updatedDate && (
-                      <span class="post-updated">
-                        · {uiStrings['blog.updated']}: <FormattedDate date={post.data.updatedDate} lang={lang} />
-                      </span>
-                    )}
-                  </div>
-                  {post.data.description && (
+                  {post.data.heroSummary ? (
+                    <p class="post-description">{post.data.heroSummary}</p>
+                  ) : post.data.heroParagraphs && post.data.heroParagraphs.length > 0 ? (
+                    <p class="post-description">{post.data.heroParagraphs[post.data.heroParagraphs.length - 1]}</p>
+                  ) : post.data.description && (
                     <p class="post-description">{post.data.description}</p>
                   )}
                   {post.data.tags && post.data.tags.length > 0 && (

@@ -9,7 +9,11 @@ const blogCollection = defineCollection({
     pubDate: z.date(),
     updatedDate: z.date().optional(),
     heroImage: z.string().optional(),
+    heroParagraphs: z.array(z.string()).optional(),
+    heroSummary: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    author: z.string().optional(),
+    authorLink: z.string().url().optional(),
     authors: z.array(z.string()).optional(),
     language: z.string(), // Any language code is acceptable
     // UUID used to link translations of the same content

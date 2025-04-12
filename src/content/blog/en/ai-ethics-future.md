@@ -3,8 +3,11 @@ title: "AI Ethics: Navigating the Future of Artificial Intelligence"
 pubDate: 2023-09-10
 description: "Exploring the ethical considerations and challenges as AI becomes increasingly integrated into our society"
 author: "Ricardo Almeida"
+authorlink: "/en/about"
 language: "en"
 heroImage: "/images/blog/ai-ethics.jpg"
+heroParagraphs: ["Coming soon","WIP","Coming soon"]
+heroSummary: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
 tags: ["artificial intelligence", "ethics", "technology", "future"]
 translationKey: "7b9e4d31-ff62-48f5-a901-4c2e8f67a89c"
 ---
