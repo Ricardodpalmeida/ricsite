@@ -69,18 +69,12 @@ if (profileData) {
 }
 
 // Get all images using Astro.glob
-const galleryImageFiles = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
+const galleryImageModules = await Astro.glob('/public/images/HomePhotoGallery/*.{jpg,jpeg,png}');
 
-// Convert file paths to web URLs and sort them alphabetically for consistent order
-const galleryImages = galleryImageFiles
-  .map(module => {
-    // Get the filename only
-    const fullPath = module.default.src;
-    const filename = fullPath.split('/').pop();
-    // Use a simple path that will work in both dev and production
-    return `/images/HomePhotoGallery/${filename}`;
-  })
-  .sort((a, b) => a.localeCompare(b));
+// Use the default imported paths directly and sort them alphabetically
+const galleryImages = galleryImageModules
+  .map(module => module.default)
+  .sort((a, b) => a.src.localeCompare(b.src));
 ---
 
 <div class="side-projects-container">
@@ -211,7 +205,7 @@ const galleryImages = galleryImageFiles
           {galleryImages.map((image, index) => (
             <div class="photo-carousel-item" data-index={index}>
               <img 
-                src={image} 
+                src={image.src} 
                 alt={`Photo ${index + 1}`}
                 loading={index < 3 ? "eager" : "lazy"}
                 class="gallery-image"
