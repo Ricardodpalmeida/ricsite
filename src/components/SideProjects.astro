@@ -76,7 +76,9 @@ const galleryImages = galleryImageFiles
   .map(module => {
     // Extract the filename from the path
     const path = module.default.src;
-    const imagePath = '/images/HomePhotoGallery/' + path.split('/').pop();
+    const filename = path.split('/').pop();
+    // Use import.meta.env.BASE_URL to ensure proper pathing in all environments
+    const imagePath = `${import.meta.env.BASE_URL || ''}images/HomePhotoGallery/${filename}`;
     return imagePath;
   })
   .sort((a, b) => a.localeCompare(b));
