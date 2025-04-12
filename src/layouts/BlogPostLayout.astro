@@ -152,7 +152,7 @@ export const _blogPostSchema = {
         <div class="reading-time">{readingTimeText}</div>
       </div>
       
-      {heroImage && (
+      {heroImage ? (
         <div class="post-hero-image">
           <img 
             src={absoluteHeroImage} 
@@ -162,6 +162,10 @@ export const _blogPostSchema = {
             loading="eager"
             class="img-full"
           />
+        </div>
+      ) : (
+        <div class="post-hero-image">
+          <div class="hero-image-placeholder" aria-hidden="true"></div>
         </div>
       )}
       

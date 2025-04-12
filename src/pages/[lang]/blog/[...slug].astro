@@ -182,6 +182,7 @@ export async function getStaticPaths() {
               alt="" 
               class="hero-image"
               transition:name={`blog-image-${post.slug}`}
+              onerror="this.style.display='none'"
             />
           </div>
         )}

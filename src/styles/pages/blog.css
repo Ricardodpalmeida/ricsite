@@ -12,10 +12,39 @@
    Blog Index Page Styles
    ====================================== */
 
+/* Section heading styling */
+.section-heading {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-family-title);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-accent);
+  border-bottom: none;
+  padding-bottom: var(--spacing-sm);
+  position: relative;
+  display: inline-block;
+}
+
+.section-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3rem;
+  height: 3px;
+  background-color: var(--color-text-accent);
+  transition: width var(--transition-base);
+}
+
+.section-heading:hover::after {
+  width: 100%;
+}
+
 .posts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
+  margin-top: var(--spacing-lg);
 }
 
 .post-card-link {
@@ -47,6 +76,18 @@
   height: 200px;
   overflow: hidden;
   position: relative;
+  background-color: var(--color-gray-900);
+}
+
+.post-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  font-size: 0; /* Hide any potential content */
+  background-color: var(--color-gray-900);
 }
 
 .post-image {
@@ -248,6 +289,18 @@
   position: relative;
   margin-bottom: 2rem;
   border-radius: var(--border-radius-md);
+  background-color: var(--color-gray-900);
+}
+
+.hero-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gray-600);
+  font-size: 0; /* Hide any potential content */
+  background-color: var(--color-gray-900);
 }
 
 .hero-image {
@@ -292,6 +345,7 @@
   .posts-grid {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
+    margin-top: var(--spacing-md);
   }
   
   .blog-container,
@@ -343,12 +397,17 @@
   .hero-image-container {
     height: 250px;
   }
+  
+  .section-heading {
+    font-size: var(--font-size-lg);
+  }
 }
 
 @media (max-width: 480px) {
   .posts-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+    margin-top: var(--spacing-md);
   }
   
   .blog-container,
@@ -399,6 +458,10 @@
   
   .hero-image-container {
     height: 200px;
+  }
+  
+  .section-heading {
+    font-size: var(--font-size-base);
   }
 }
 

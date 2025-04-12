@@ -9,6 +9,7 @@ import MainLayout from '../../layouts/MainLayout.astro';
 // Keeping imports minimal - only using what we need
 import { useTranslations, languages, getProfileStrings } from '../../i18n/utils';
 import PageHeader from '../../components/PageHeader.astro';
+import LatestPosts from '../../components/LatestPosts.astro';
 import '../../styles/pages/home.css';
 
 // Get the lang from the URL path parameter
@@ -74,5 +75,10 @@ export async function getStaticPaths() {
         ))}
       </div>
     </PageHeader>
+    
+    <div class="home-content">
+      <!-- Latest Posts Section -->
+      <LatestPosts lang={validLang} />
+    </div>
   </main>
 </MainLayout>

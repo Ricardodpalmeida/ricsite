@@ -1,0 +1,108 @@
+---
+/**
+ * Latest Posts Component
+ * 
+ * A reusable component that displays the latest blog posts in two different layouts:
+ * - Desktop: Main post (2/3 width) + 3 smaller posts vertically stacked (1/3 width)
+ * - Mobile: Main post (full width) + 3 smaller posts vertically stacked (full width)
+ * 
+ * Dependencies:
+ * - styles/components/latest-posts.css
+ */
+import { getCollection } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
+import '../styles/components/latest-posts.css';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: string;
+  title?: string;
+  maxPosts?: number;
+}
+
+const { lang, title, maxPosts = 4 } = Astro.props;
+const t = useTranslations(lang);
+
+// Get blog posts filtered by language and not draft, sorted by date (newest first)
+const posts = await getCollection('blog', (post) => {
+  return post.data.language === lang && post.data.draft !== true;
+}).then(posts => posts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)).then(posts => posts.slice(0, maxPosts));
+
+// Split posts into main post and side posts
+const mainPost = posts.length > 0 ? posts[0] : null;
+const sidePosts = posts.length > 1 ? posts.slice(1, 4) : [];
+
+// Default section title based on language
+const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Latest Posts');
+---
+
+<section class="latest-posts-section">
+  <h2 class="section-heading">{sectionTitle}</h2>
+  
+  {posts.length > 0 ? (
+    <div class="latest-posts-container">
+      {mainPost && (
+        <div class="main-post">
+          <a href={`/${lang}/blog/${mainPost.slug.replace(`${lang}/`, '')}/`} class="post-link">
+            <div class="post-card main-post-card">
+              {mainPost.data.heroImage ? (
+                <div class="post-image-container">
+                  <img 
+                    src={mainPost.data.heroImage} 
+                    alt="" 
+                    class="post-image" 
+                    onerror="this.style.display='none'" 
+                  />
+                </div>
+              ) : (
+                <div class="post-image-container">
+                  <div class="post-image-placeholder" aria-hidden="true"></div>
+                </div>
+              )}
+              <div class="post-content">
+                <h3 class="post-title">{mainPost.data.title}</h3>
+                <div class="post-meta">
+                  <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
+                  {mainPost.data.author && (
+                    <span class="post-author">
+                      <span class="separator"> • </span>
+                      {mainPost.data.author}
+                    </span>
+                  )}
+                </div>
+                {mainPost.data.heroSummary && (
+                  <p class="post-description">{mainPost.data.heroSummary}</p>
+                )}
+              </div>
+            </div>
+          </a>
+        </div>
+      )}
+      
+      {sidePosts.length > 0 && (
+        <div class="side-posts">
+          {sidePosts.map((post) => (
+            <a href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}/`} class="post-link">
+              <div class="post-card side-post-card">
+                <h4 class="post-title">{post.data.title}</h4>
+                <div class="post-meta">
+                  <FormattedDate date={post.data.pubDate} format="short" lang={lang} />
+                  {post.data.author && (
+                    <span class="post-author">
+                      <span class="separator"> • </span>
+                      {post.data.author}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  ) : (
+    <p class="no-posts">{t('blog.noPostsMessage') || 'No posts available.'}</p>
+  )}
+</section> 
