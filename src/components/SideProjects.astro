@@ -74,12 +74,10 @@ const galleryImageFiles = await Astro.glob('/public/images/HomePhotoGallery/*.{j
 // Convert file paths to web URLs and sort them alphabetically for consistent order
 const galleryImages = galleryImageFiles
   .map(module => {
-    // Extract the filename from the path
-    const path = module.default.src;
-    const filename = path.split('/').pop();
-    // Use import.meta.env.BASE_URL to ensure proper pathing in all environments
-    const imagePath = `${import.meta.env.BASE_URL || ''}images/HomePhotoGallery/${filename}`;
-    return imagePath;
+    // Get the filename directly from the path
+    const fullPath = module.default.src;
+    const filename = fullPath.split('/').pop();
+    return `/images/HomePhotoGallery/${filename}`;
   })
   .sort((a, b) => a.localeCompare(b));
 ---
@@ -216,8 +214,6 @@ const galleryImages = galleryImageFiles
                 alt={`${t('photo.alt') || 'Photo'} ${index + 1}`}
                 loading={index < 3 ? "eager" : "lazy"}
                 class="gallery-image"
-                data-orientation="detect" 
-                onload="detectImageOrientation(this)"
               />
             </div>
           ))}
@@ -236,35 +232,8 @@ const galleryImages = galleryImageFiles
   declare global {
     interface Window {
       openPhotoModal: (index: number) => void;
-      detectImageOrientation: (img: HTMLImageElement) => void;
     }
   }
-
-  /**
-   * Detect the orientation of an image
-   */
-  window.detectImageOrientation = function(img: HTMLImageElement) {
-    if (!img) return;
-    
-    if (img.naturalWidth && img.naturalHeight) {
-      const ratio = img.naturalWidth / img.naturalHeight;
-      let orientation = 'square';
-      
-      if (ratio > 1.2) {
-        orientation = 'horizontal';
-      } else if (ratio < 0.8) {
-        orientation = 'vertical';
-      }
-      
-      img.setAttribute('data-orientation', orientation);
-      
-      const parentElement = img.parentElement;
-      if (parentElement) {
-        parentElement.setAttribute('data-orientation', orientation);
-        parentElement.classList.add(orientation);
-      }
-    }
-  };
 
   /**
    * Load iframe content

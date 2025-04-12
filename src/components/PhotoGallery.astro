@@ -26,7 +26,6 @@ import '../styles/components/photo-gallery.css';
               alt={`Photo ${index + 1}`} 
               loading={index < 4 ? "eager" : "lazy"}
               class="photo-image"
-              onload="detectImageOrientation(this)"
             />
           </div>
         ))}
@@ -37,32 +36,6 @@ import '../styles/components/photo-gallery.css';
 </div>
 
 <script is:inline>
-  // Detect orientation of images for optimal display
-  function detectImageOrientation(img) {
-    if (!img) return;
-    
-    if (img.naturalWidth && img.naturalHeight) {
-      const ratio = img.naturalWidth / img.naturalHeight;
-      let orientation = 'square';
-      
-      if (ratio > 1.2) {
-        orientation = 'horizontal';
-      } else if (ratio < 0.8) {
-        orientation = 'vertical';
-      }
-      
-      // Set data-orientation on the image
-      img.setAttribute('data-orientation', orientation);
-      
-      // Set classes on parent elements
-      const carouselItem = img.closest('.photo-carousel-item');
-      if (carouselItem) {
-        carouselItem.classList.add(orientation);
-        carouselItem.setAttribute('data-orientation', orientation);
-      }
-    }
-  }
-
   // Carousel functionality
   document.addEventListener('DOMContentLoaded', function() {
     const carouselTrack = document.querySelector('.photos-track');
@@ -75,65 +48,26 @@ import '../styles/components/photo-gallery.css';
     let currentIndex = 0;
     const totalItems = carouselItems.length;
     
-    // Function to check if a specific image is vertical
-    function isVertical(idx) {
-      const item = carouselItems[idx];
-      return item && item.classList.contains('vertical');
-    }
-    
     function updateCarousel() {
-      // Check orientation of current item
-      const currentItem = carouselItems[currentIndex];
-      if (!currentItem) return;
-      
-      const isVerticalImage = currentItem.classList.contains('vertical');
-      
-      // For vertical images, we need to ensure we're showing a pair when possible
-      if (isVerticalImage && window.innerWidth > 768) {
-        // If we're on an odd index and this is a vertical image,
-        // ensure we start from an even index for proper pairing
-        if (currentIndex % 2 !== 0) {
-          currentIndex = Math.max(0, currentIndex - 1);
-        }
-        
-        // Calculate the transform percentage - for vertical images each takes 50% width
-        const percentage = currentIndex * 50;
-        if (carouselTrack instanceof HTMLElement) {
-          carouselTrack.style.transform = `translateX(-${percentage}%)`;
-        }
-      } else {
-        // For horizontal/square images, each takes 100% width
-        const percentage = currentIndex * 100;
-        if (carouselTrack instanceof HTMLElement) {
-          carouselTrack.style.transform = `translateX(-${percentage}%)`;
-        }
+      // Simple sequential sliding - always move by 100% for consistent navigation
+      if (carouselTrack instanceof HTMLElement) {
+        carouselTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
       }
-    }
-    
-    // Initialize after all images have loaded
-    setTimeout(() => {
-      // First check if we need to force vertical orientation based on loaded images
-      carouselItems.forEach((item) => {
-        const img = item.querySelector('img');
-        if (img && (img instanceof HTMLImageElement) && img.complete) {
-          detectImageOrientation(img);
+      
+      // Mark current item as active
+      carouselItems.forEach((item, i) => {
+        if (i === currentIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
         }
       });
-      
-      updateCarousel();
-    }, 200);
+    }
     
     // Event listeners with circular navigation
     prevButton.addEventListener('click', () => {
       if (currentIndex > 0) {
-        const isCurrentVertical = isVertical(currentIndex);
-        
-        // If current image is vertical and we're on desktop, move by 2
-        if (isCurrentVertical && window.innerWidth > 768 && currentIndex >= 2) {
-          currentIndex -= 2;
-        } else {
-          currentIndex--;
-        }
+        currentIndex--;
       } else {
         // Wrap to the end
         currentIndex = totalItems - 1;
@@ -142,15 +76,8 @@ import '../styles/components/photo-gallery.css';
     });
     
     nextButton.addEventListener('click', () => {
-      const isCurrentVertical = isVertical(currentIndex);
-      
       if (currentIndex < totalItems - 1) {
-        // If current image is vertical and we're on desktop, move by 2
-        if (isCurrentVertical && window.innerWidth > 768 && currentIndex + 2 < totalItems) {
-          currentIndex += 2;
-        } else {
-          currentIndex++;
-        }
+        currentIndex++;
       } else {
         // Wrap to the beginning
         currentIndex = 0;
@@ -206,15 +133,7 @@ import '../styles/components/photo-gallery.css';
     // Update carousel on window resize
     window.addEventListener('resize', updateCarousel);
     
-    // Update when images load to ensure all orientations are detected
-    document.querySelectorAll('.photo-image').forEach(img => {
-      if ((img instanceof HTMLImageElement) && img.complete) {
-        detectImageOrientation(img);
-      } else {
-        img.addEventListener('load', function() {
-          detectImageOrientation(this);
-        });
-      }
-    });
+    // Initialize carousel
+    updateCarousel();
   });
 </script> 
