@@ -1,6 +1,7 @@
 ---
 title: "AI Ethics: Navigating the Future of Artificial Intelligence"
 pubDate: 2023-09-10
+readTime: "1 min read time"
 description: "Exploring the ethical considerations and challenges as AI becomes increasingly integrated into our society"
 author: "Ricardo Almeida"
 authorlink: "/en/about"

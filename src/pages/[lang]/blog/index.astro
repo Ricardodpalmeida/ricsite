@@ -30,9 +30,6 @@ const posts = await getCollection('blog', (post) => {
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 ));
 
-// Load profile data to get site information
-// Note: ProfileData was unused but has been removed
-
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
   return Object.keys(languages).map(lang => ({ params: { lang } }));
@@ -64,62 +61,85 @@ export async function getStaticPaths() {
                       class="post-image" 
                       onerror="this.style.display='none'" 
                     />
-                    <div class="post-overlay">
-                      <h2 class="post-title">{post.data.title}</h2>
-                      <div class="post-meta">
-                        <FormattedDate date={post.data.pubDate} lang={lang} />
-                        {post.data.author && (
-                          <span class="author-container">
-                            <span class="separator"> • </span>
-                            {post.data.authorLink ? (
-                              <a href={post.data.authorLink} class="author-link" target="_blank" rel="noopener noreferrer">
-                                {post.data.author}
-                              </a>
-                            ) : (
-                              <span>{post.data.author}</span>
-                            )}
-                          </span>
-                        )}
+                    <div class="post-image-overlay card-overlay">
+                      <!-- Title with glass effect -->
+                      <div class="overlay-title-container">
+                        <h2 class="overlay-title">{post.data.title}</h2>
+                      </div>
+                      
+                      <!-- Meta info with glass effect -->
+                      <div class="overlay-meta-container">
+                        <div class="overlay-meta">
+                          <FormattedDate date={post.data.pubDate} format="short" lang={lang} />
+                          {post.data.author && (
+                            <>
+                              <span class="overlay-separator">•</span> 
+                              <span class="overlay-author">
+                                {post.data.authorLink ? (
+                                  <a href={post.data.authorLink} target="_blank" rel="noopener noreferrer">
+                                    {post.data.author}
+                                  </a>
+                                ) : (
+                                  post.data.author
+                                )}
+                              </span>
+                            </>
+                          )}
+                          <span class="overlay-separator">•</span>
+                          <span class="overlay-reading-time">{(post.data as any).readTime || "1 min read"}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div class="post-image-container">
                     <div class="post-image-placeholder" aria-hidden="true"></div>
-                    <div class="post-overlay">
-                      <h2 class="post-title">{post.data.title}</h2>
-                      <div class="post-meta">
-                        <FormattedDate date={post.data.pubDate} lang={lang} />
-                        {post.data.author && (
-                          <span class="author-container">
-                            <span class="separator"> • </span>
-                            {post.data.authorLink ? (
-                              <a href={post.data.authorLink} class="author-link" target="_blank" rel="noopener noreferrer">
-                                {post.data.author}
-                              </a>
-                            ) : (
-                              <span>{post.data.author}</span>
-                            )}
-                          </span>
-                        )}
+                    <div class="post-image-overlay card-overlay">
+                      <!-- Title with glass effect -->
+                      <div class="overlay-title-container">
+                        <h2 class="overlay-title">{post.data.title}</h2>
+                      </div>
+                      
+                      <!-- Meta info with glass effect -->
+                      <div class="overlay-meta-container">
+                        <div class="overlay-meta">
+                          <FormattedDate date={post.data.pubDate} format="short" lang={lang} />
+                          {post.data.author && (
+                            <>
+                              <span class="overlay-separator">•</span> 
+                              <span class="overlay-author">
+                                {post.data.authorLink ? (
+                                  <a href={post.data.authorLink} target="_blank" rel="noopener noreferrer">
+                                    {post.data.author}
+                                  </a>
+                                ) : (
+                                  post.data.author
+                                )}
+                              </span>
+                            </>
+                          )}
+                          <span class="overlay-separator">•</span>
+                          <span class="overlay-reading-time">{(post.data as any).readTime || "1 min read"}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 )}
                 <div class="post-content">
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="post-tags">
+                      {post.data.tags.slice(0, 3).map((tag: string) => (
+                        <span class="post-tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                  
                   {post.data.heroSummary ? (
                     <p class="post-description">{post.data.heroSummary}</p>
                   ) : post.data.heroParagraphs && post.data.heroParagraphs.length > 0 ? (
                     <p class="post-description">{post.data.heroParagraphs[post.data.heroParagraphs.length - 1]}</p>
                   ) : post.data.description && (
                     <p class="post-description">{post.data.description}</p>
-                  )}
-                  {post.data.tags && post.data.tags.length > 0 && (
-                    <div class="post-tags">
-                      {post.data.tags.map((tag: string) => (
-                        <span class="post-tag">{tag}</span>
-                      ))}
-                    </div>
                   )}
                 </div>
               </div>

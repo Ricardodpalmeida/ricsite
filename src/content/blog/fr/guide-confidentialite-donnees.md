@@ -1,6 +1,7 @@
 ---
 title: "Un Guide Complet sur la Confidentialité des Données à l'Ère Numérique"
 pubDate: 2023-07-28
+readTime: "1 min read time"
 description: "Stratégies essentielles pour protéger vos informations personnelles en ligne et comprendre les préoccupations modernes en matière de confidentialité des données"
 author: "Ricardo Almeida"
 authorlink: "/fr/about"

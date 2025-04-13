@@ -1,6 +1,7 @@
 ---
 title: "Ética na IA: Navegando o Futuro da Inteligência Artificial"
 pubDate: 2023-09-10
+readTime: "1 min read time"
 description: "Explorando as considerações éticas e os desafios à medida que a IA se torna cada vez mais integrada na nossa sociedade"
 author: "Ricardo Almeida"
 authorlink: "/pt/about"

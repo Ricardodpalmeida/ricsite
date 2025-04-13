@@ -9,12 +9,11 @@ import MainLayout from '../../../layouts/MainLayout.astro';
 import { useTranslations, defaultLang, languages, getUIStrings, languageNames } from '../../../i18n/utils';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../../components/FormattedDate.astro';
-import Notification from '../../../components/Notification.astro';
 import '../../../styles/pages/blog.css';
 
 // Get the lang from the URL path parameters
 const { lang } = Astro.params;
-const { post, redirectedFromLanguage = null } = Astro.props;
+const { post } = Astro.props;
 
 // Used to make TypeScript recognize that defaultLang is used
 const _redirectPath = `/${defaultLang}/blog`;
@@ -44,8 +43,7 @@ const alternateLanguageUrls = {};
 // If post has a translationKey, find alternate language versions
 if (post.data.translationKey) {
   try {
-    // This is critical for language switching to work
-    // We need to find all posts with the same translationKey
+    // Find all posts with the same translationKey
     const allPosts = await getCollection('blog');
     
     const alternateVersions = allPosts.filter(p => 
@@ -53,7 +51,7 @@ if (post.data.translationKey) {
       p.data.language !== post.data.language
     );
     
-    // Create alternate URLs using the post slug (not translationKey)
+    // Create alternate URLs using the post slug
     for (const altPost of alternateVersions) {
       if (altPost.data.language in languages) {
         alternateLanguageUrls[altPost.data.language] = `/${altPost.data.language}/blog/${altPost.slug.replace(`${altPost.data.language}/`, '')}/`;
@@ -64,100 +62,31 @@ if (post.data.translationKey) {
   }
 }
 
+// Use readTime from frontmatter if available, otherwise use default
+const readingTimeText = (post.data as any).readTime || "1 min read";
+
 // Render the blog post content
 const { Content } = await post.render();
-
-// Prepare notification message if redirected from another language
-let notificationMessage = null;
-if (redirectedFromLanguage) {
-  // Get the full language name for the redirected language
-  const redirectedLanguageName = languageNames[redirectedFromLanguage] || redirectedFromLanguage;
-  notificationMessage = t('blog.notAvailableInLanguage').replace('{0}', redirectedLanguageName);
-}
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const allTranslationKeys = new Set();
-  
-  // First, collect all unique translationKeys
-  posts.forEach(post => {
-    if (post.data.translationKey) {
-      allTranslationKeys.add(post.data.translationKey);
-    }
-  });
   
   // Create paths for each post
   const directPaths = posts.flatMap((post) => {
-    const paths = [];
-    
     // Clean slug to remove language prefix if it exists
     const cleanSlug = post.slug.replace(`${post.data.language}/`, '');
     
     // Add path for regular slug
-    paths.push({
+    return {
       params: {
         lang: post.data.language,
         slug: cleanSlug,
       },
       props: { post },
-    });
-    
-    // If post has a translationKey, add path for that too
-    if (post.data.translationKey) {
-      paths.push({
-        params: {
-          lang: post.data.language,
-          slug: post.data.translationKey,
-        },
-        props: { post },
-      });
-    }
-    
-    return paths;
+    };
   });
   
-  // No need to create redirect paths anymore - instead they will redirect to the blog index
-  // For each translationKey, create redirect paths for languages without content
-  /*
-  const redirectPaths = [];
-  
-  for (const translationKey of allTranslationKeys) {
-    // For each language
-    for (const language of Object.keys(languages)) {
-      // Check if this language has a post with this translationKey
-      const existingPost = posts.find(p => 
-        p.data.translationKey === translationKey && 
-        p.data.language === language
-      );
-      
-      // If not, create a redirect to the default language version
-      if (!existingPost) {
-        // Find default language version
-        const defaultPost = posts.find(p => 
-          p.data.translationKey === translationKey && 
-          p.data.language === defaultLang
-        );
-        
-        // Only create redirect if default language version exists
-        if (defaultPost) {
-          redirectPaths.push({
-            params: {
-              lang: language,
-              slug: translationKey.toString(),
-            },
-            props: { 
-              post: defaultPost, 
-              redirectedFromLanguage: language
-            },
-          });
-        }
-      }
-    }
-  }
-  */
-  
-  // Combine direct paths and redirect paths
   return directPaths;
 }
 ---
@@ -167,63 +96,132 @@ export async function getStaticPaths() {
   currentLanguage={lang as keyof typeof languages}
   alternateLanguageUrls={alternateLanguageUrls}
 >
-  {redirectedFromLanguage && (
-    <Notification 
-      message={notificationMessage} 
-      type="warning" 
-      dismissTime={6000}
-    />
-  )}
-  
-  <main class="blog-post-container">
-    <article>
-      <div class="blog-post-header">
-        {post.data.heroImage && (
-          <div class="hero-image-container">
-            <img 
-              src={post.data.heroImage} 
-              alt="" 
-              class="hero-image"
-              transition:name={`blog-image-${post.slug}`}
-              onerror="this.style.display='none'"
-            />
+  <article class="blog-post-container">
+    <!-- Hero Image with Overlay -->
+    <div class="hero-image-container">
+      {post.data.heroImage ? (
+        <>
+          <img 
+            src={post.data.heroImage} 
+            alt="" 
+            class="hero-image"
+            loading="eager"
+          />
+          <div class="post-image-overlay">
+            <!-- Title -->
+            <div class="overlay-title-container">
+              <h1 class="overlay-title">{post.data.title}</h1>
+            </div>
+            
+            <!-- Meta info -->
+            <div class="overlay-meta-container">
+              <div class="overlay-meta">
+                <FormattedDate date={post.data.pubDate} format="short" lang={lang} />
+                {post.data.author && (
+                  <>
+                    <span class="overlay-separator">•</span> 
+                    <span class="overlay-author">{post.data.author}</span>
+                  </>
+                )}
+                <span class="overlay-separator">•</span>
+                <span class="overlay-reading-time">{readingTimeText}</span>
+              </div>
+            </div>
+            
+            <!-- Tags -->
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="overlay-tags-container">
+                <div class="image-overlay-tags">
+                  {post.data.tags.slice(0, 3).map((tag: string) => (
+                    <span class="overlay-tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-        <h1 class="blog-post-title">{post.data.title}</h1>
-        <div class="post-author-date">
-          <FormattedDate date={post.data.pubDate} lang={lang} />
-          {post.data.author && (
-            <span class="author-container">
-              <span class="separator"> • </span>
-              {uiStrings['blog.by'] || "by"} 
-              {post.data.authorLink ? (
-                <a href={post.data.authorLink} class="author-name" target="_blank" rel="noopener noreferrer">
-                  {post.data.author}
-                </a>
-              ) : (
-                <span class="author-name">{post.data.author}</span>
-              )}
-            </span>
+        </>
+      ) : (
+        <div class="post-header">
+          <!-- If no hero image, display header normally -->
+          <h1 class="post-title">{post.data.title}</h1>
+          
+          <div class="post-meta">
+            <div class="meta-left">
+              <div class="post-author-date">
+                {post.data.author && (
+                  <span class="post-author">
+                    {uiStrings['blog.by'] || "by"} {post.data.author}
+                  </span>
+                )}
+                <span class="meta-separator">•</span>
+                <FormattedDate date={post.data.pubDate} format="short" lang={lang} />
+              </div>
+            </div>
+            <div class="meta-right">
+              <span class="reading-time">{readingTimeText}</span>
+            </div>
+          </div>
+          
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="post-categories">
+              {post.data.tags.slice(0, 3).map((tag: string) => (
+                <span class="post-category">{tag}</span>
+              ))}
+            </div>
           )}
         </div>
-        {post.data.tags && post.data.tags.length > 0 && (
-          <div class="blog-post-tags">
+      )}
+    </div>
+    
+    <!-- Content -->
+    <div class="post-content">
+      <Content />
+    </div>
+    
+    <!-- Footer with sharing options -->
+    <div class="post-footer">
+      <!-- Tags list -->
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="post-tags">
+          <h3 class="tags-title">{uiStrings['blog.tags'] || 'Tags'}</h3>
+          <div class="tags-list">
             {post.data.tags.map((tag: string) => (
-              <span class="blog-post-tag">{tag}</span>
+              <span class="post-tag">{tag}</span>
             ))}
           </div>
-        )}
+        </div>
+      )}
+      
+      <div class="post-actions">
+        <!-- Back to blog link -->
+        <a href={`/${lang}/blog`} class="back-to-blog">
+          &larr; {uiStrings['blog.back'] || 'Back to Blog'}
+        </a>
+        
+        <!-- Share buttons -->
+        <div class="share-post">
+          <span class="share-label">{uiStrings['blog.shareText'] || 'Share:'}</span>
+          <div class="share-buttons">
+            <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener noreferrer" class="share-button" aria-label={uiStrings['blog.shareOnX'] || 'Share on X'}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+              </svg>
+            </a>
+            <a href={`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(Astro.url.href)}&title=${encodeURIComponent(post.data.title)}`} target="_blank" rel="noopener noreferrer" class="share-button" aria-label={uiStrings['blog.shareOnLinkedIn'] || 'Share on LinkedIn'}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+            <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url.href)}`} target="_blank" rel="noopener noreferrer" class="share-button" aria-label={uiStrings['blog.shareOnFacebook'] || 'Share on Facebook'}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
       </div>
-
-      <div class="blog-post-content">
-        <Content />
-      </div>
-    </article>
-    
-    <div class="blog-post-navigation">
-      <a href={`/${lang}/blog`} class="back-to-blog-link">
-        &larr; {uiStrings['blog.back']}
-      </a>
     </div>
-  </main>
+  </article>
 </MainLayout> 

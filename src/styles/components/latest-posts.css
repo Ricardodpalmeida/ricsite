@@ -348,6 +348,14 @@ time {
     height: 50px;
   }
   
+  .side-post-card {
+    min-height: 120px;
+  }
+  
+  .side-post-overlay {
+    padding: 0.75rem;
+  }
+  
   .post-overlay {
     bottom: 15px;
     left: 15px;
@@ -416,5 +424,416 @@ time {
   .post-overlay .post-meta {
     font-size: 0.7rem;
     padding: 0.2rem 0.5rem;
+  }
+}
+
+/* Side post specific styling */
+.side-post-card {
+  position: relative;
+  min-height: 110px;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--color-gray-900);
+}
+
+.side-post-overlay {
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  width: calc(100% - 1rem);
+  padding: 0;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  z-index: 10;
+}
+
+.side-post-title-container {
+  max-width: calc(100% - 0.5rem);
+  width: auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.side-post-title {
+  font-size: var(--font-size-sm);
+  margin: 0;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-width: 100%;
+}
+
+.side-post-tags {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.side-post-tag {
+  font-size: 0.65rem;
+  background-color: var(--color-accent-10);
+  color: var(--color-text-accent);
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.side-post-meta {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.side-separator {
+  opacity: 0.7;
+}
+
+/* Card overlay for latest posts */
+.post-image-overlay.card-overlay {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  width: auto;
+  max-width: calc(100% - 2rem);
+  padding: 0;
+  background: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  z-index: 20;
+}
+
+.card-overlay .overlay-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0;
+  color: white;
+  font-family: var(--font-family-title);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  line-height: 1.2;
+  max-width: 100%;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.card-overlay .image-overlay-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.card-overlay .overlay-tag {
+  font-size: var(--font-size-xs);
+  background-color: rgba(18, 18, 18, 0.65);
+  backdrop-filter: blur(8px);
+  color: var(--color-text-accent);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-medium);
+  display: inline-block;
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card-overlay .overlay-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.card-overlay .overlay-separator {
+  opacity: 0.7;
+}
+
+.card-overlay .overlay-author, 
+.card-overlay .overlay-reading-time {
+  font-weight: var(--font-weight-medium);
+}
+
+/* Make main post title larger to grab attention */
+.main-post .overlay-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
+
+/* Make main post title even more prominent */
+.main-post .overlay-title {
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Make main post title significantly larger */
+.main-post .overlay-title {
+  font-size: var(--font-size-3xl);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Ensure it's still bold in light mode */
+html:not(.dark-mode) .main-post .overlay-title {
+  font-weight: var(--font-weight-bold);
+}
+
+/* Improve tag readability in light mode */
+html:not(.dark-mode) .card-overlay .overlay-tag {
+  background-color: var(--color-accent-20);
+  color: var(--color-text-accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+html:not(.dark-mode) .side-post-tag {
+  background-color: var(--color-accent-20);
+  color: var(--color-text-accent);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Improve meta text readability in light mode */
+html:not(.dark-mode) .card-overlay .overlay-meta,
+html:not(.dark-mode) .side-post-meta {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Make description font smaller */
+.post-description {
+  margin-top: var(--spacing-sm);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
+  opacity: 0.9;
+}
+
+/* Light mode styles for overlays */
+html:not(.dark-mode) .post-image-overlay.card-overlay,
+html:not(.dark-mode) .side-post-overlay {
+  background: linear-gradient(0deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.4) 85%, rgba(255,255,255,0) 100%);
+  color: var(--color-text-primary);
+}
+
+/* Light mode text adjustments for better readability */
+html:not(.dark-mode) .card-overlay .overlay-title,
+html:not(.dark-mode) .side-post-title {
+  color: var(--color-text-primary);
+  text-shadow: none;
+}
+
+html:not(.dark-mode) .card-overlay .overlay-meta,
+html:not(.dark-mode) .side-post-meta {
+  color: var(--color-text-primary);
+  text-shadow: none;
+}
+
+html:not(.dark-mode) .overlay-separator,
+html:not(.dark-mode) .side-separator {
+  color: var(--color-gray-400);
+}
+
+html:not(.dark-mode) .overlay-author,
+html:not(.dark-mode) .overlay-reading-time {
+  color: var(--color-text-accent);
+}
+
+/* Glass effect containers for latest posts */
+.post-image-overlay.card-overlay {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  width: auto;
+  max-width: calc(100% - 2rem);
+  padding: 0;
+  background: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  z-index: 20;
+}
+
+/* Glass effect individual elements for latest posts */
+.card-overlay .overlay-title-container,
+.card-overlay .overlay-meta-container,
+.side-post-title-container,
+.side-post-meta-container {
+  display: inline-flex;
+  padding: 0.4rem 0.8rem;
+  background-color: rgba(18, 18, 18, 0.65);
+  backdrop-filter: blur(8px);
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+}
+
+.card-overlay .overlay-title-container,
+.side-post-title-container {
+  padding: 0.5rem 0.8rem;
+}
+
+.card-overlay .overlay-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: 0;
+  color: white;
+  font-family: var(--font-family-title);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  line-height: 1.2;
+  max-width: 100%;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.card-overlay .overlay-tag,
+.side-post-tag {
+  font-size: var(--font-size-xs);
+  background-color: rgba(18, 18, 18, 0.65);
+  backdrop-filter: blur(8px);
+  color: var(--color-text-accent);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-medium);
+  display: inline-block;
+  margin-right: 0.4rem;
+  margin-bottom: 0.4rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Light mode adjustments */
+html:not(.dark-mode) .card-overlay .overlay-title-container,
+html:not(.dark-mode) .card-overlay .overlay-meta-container,
+html:not(.dark-mode) .side-post-title-container,
+html:not(.dark-mode) .side-post-meta-container {
+  background-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+html:not(.dark-mode) .card-overlay .overlay-tag,
+html:not(.dark-mode) .side-post-tag {
+  background-color: rgba(255, 255, 255, 0.65);
+  color: var(--color-accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Remove the tags container glass effect and apply to individual tags */
+.card-overlay .overlay-tags-container,
+.side-post-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  background-color: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.card-overlay .image-overlay-tags,
+.side-post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Override the side post styling for better consistency */
+.side-post-overlay {
+  background: none;
+}
+
+.side-post-tags-container {
+  margin-bottom: 0;
+}
+
+.side-post-meta-container {
+  margin-top: 0;
+  width: auto;
+  display: inline-flex;
+}
+
+@media (max-width: 768px) {
+  .post-image-overlay.card-overlay {
+    bottom: 0.5rem;
+    left: 0.5rem;
+    max-width: calc(100% - 1rem);
+    gap: 0.25rem;
+  }
+  
+  .overlay-title-container,
+  .overlay-meta-container {
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .side-post-overlay {
+    bottom: 0.4rem;
+    left: 0.4rem;
+    width: calc(100% - 0.8rem);
+    gap: 0.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .side-post-title {
+    font-size: var(--font-size-xs);
+  }
+  
+  .side-post-tag {
+    font-size: 0.55rem;
+    padding: 0.1rem 0.3rem;
+  }
+}
+
+/* Meta container styling */
+.card-overlay .overlay-meta,
+.side-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.card-overlay .overlay-separator,
+.side-separator {
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* Ensure meta container adapts to content */
+.card-overlay .overlay-meta-container,
+.side-post-meta-container {
+  width: auto;
+}
+
+/* Make side post elements smaller for better fit */
+@media (max-width: 640px) {
+  .side-post-title {
+    font-size: var(--font-size-xs);
+  }
+  
+  .side-post-meta {
+    font-size: 0.6rem;
   }
 } 

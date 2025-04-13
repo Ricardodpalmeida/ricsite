@@ -1,6 +1,7 @@
 ---
 title: "Ein umfassender Leitfaden zum Datenschutz im digitalen Zeitalter"
 pubDate: 2023-07-28
+readTime: "1 min read time"
 description: "Wesentliche Strategien zum Schutz Ihrer persönlichen Daten im Internet und zum Verständnis moderner Datenschutzprobleme"
 author: "Ricardo Almeida"
 authorlink: "/de/about"

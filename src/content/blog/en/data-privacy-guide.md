@@ -1,6 +1,7 @@
 ---
 title: "A Comprehensive Guide to Data Privacy in the Digital Age"
 pubDate: 2023-07-28
+readTime: "1 min read time"
 description: "Essential strategies to protect your personal information online and understand modern data privacy concerns"
 author: "Ricardo Almeida"
 authorlink: "/en/about"

@@ -1,6 +1,7 @@
 ---
 title: "Tendencias de Desarrollo Web en 2023"
 pubDate: 2023-05-15
+readTime: "1 min read time"
 description: "Explorando las últimas tendencias que están moldeando el panorama del desarrollo web en 2023"
 author: "Ricardo Almeida"
 authorlink: "/fr/about"

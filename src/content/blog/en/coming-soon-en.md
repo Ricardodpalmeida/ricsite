@@ -1,6 +1,7 @@
 ---
 title: "Blog Coming Soon"
 pubDate: 2023-12-25
+readTime: "1 min read time"
 description: "Stay tuned for upcoming blog posts"
 author: "Ricardo Almeida"
 authorlink: "/en/about"

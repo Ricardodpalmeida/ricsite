@@ -1,6 +1,7 @@
 ---
 title: "Web-Entwicklungstrends im Jahr 2023"
 pubDate: 2023-05-15
+readTime: "1 min read time"
 description: "Erkundung der neuesten Trends, die die Landschaft der Webentwicklung im Jahr 2023 prägen"
 author: "Ricardo Almeida"
 authorlink: "/de/about"

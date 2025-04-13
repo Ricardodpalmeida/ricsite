@@ -1,6 +1,7 @@
 ---
 title: "2023年网络开发趋势"
 pubDate: 2023-05-15
+readTime: "1 min read time"
 description: "探索2023年塑造网络开发格局的最新趋势"
 author: "Ricardo Almeida"
 authorlink: "zh/about"

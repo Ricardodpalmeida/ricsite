@@ -59,33 +59,73 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
                     class="post-image" 
                     onerror="this.style.display='none'" 
                   />
-                  <div class="post-overlay">
-                    <h3 class="post-title">{mainPost.data.title}</h3>
-                    <div class="post-meta">
-                      <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
-                      {mainPost.data.author && (
-                        <span class="author-container">
-                          <span class="separator"> • </span>
-                          {mainPost.data.author}
-                        </span>
-                      )}
+                  <div class="post-image-overlay card-overlay">
+                    <!-- Title -->
+                    <div class="overlay-title-container">
+                      <h3 class="overlay-title">{mainPost.data.title}</h3>
                     </div>
+                    
+                    <!-- Meta info -->
+                    <div class="overlay-meta-container">
+                      <div class="overlay-meta">
+                        <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
+                        {mainPost.data.author && (
+                          <>
+                            <span class="overlay-separator">•</span> 
+                            <span class="overlay-author">{mainPost.data.author}</span>
+                          </>
+                        )}
+                        <span class="overlay-separator">•</span>
+                        <span class="overlay-reading-time">{(mainPost.data as any).readTime || "1 min read"}</span>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    {mainPost.data.tags && mainPost.data.tags.length > 0 && (
+                      <div class="overlay-tags-container">
+                        <div class="image-overlay-tags">
+                          {mainPost.data.tags.slice(0, 3).map((tag: string) => (
+                            <span class="overlay-tag">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : (
                 <div class="post-image-container">
                   <div class="post-image-placeholder" aria-hidden="true"></div>
-                  <div class="post-overlay">
-                    <h3 class="post-title">{mainPost.data.title}</h3>
-                    <div class="post-meta">
-                      <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
-                      {mainPost.data.author && (
-                        <span class="author-container">
-                          <span class="separator"> • </span>
-                          {mainPost.data.author}
-                        </span>
-                      )}
+                  <div class="post-image-overlay card-overlay">
+                    <!-- Title -->
+                    <div class="overlay-title-container">
+                      <h3 class="overlay-title">{mainPost.data.title}</h3>
                     </div>
+                    
+                    <!-- Meta info -->
+                    <div class="overlay-meta-container">
+                      <div class="overlay-meta">
+                        <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
+                        {mainPost.data.author && (
+                          <>
+                            <span class="overlay-separator">•</span> 
+                            <span class="overlay-author">{mainPost.data.author}</span>
+                          </>
+                        )}
+                        <span class="overlay-separator">•</span>
+                        <span class="overlay-reading-time">{(mainPost.data as any).readTime || "1 min read"}</span>
+                      </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    {mainPost.data.tags && mainPost.data.tags.length > 0 && (
+                      <div class="overlay-tags-container">
+                        <div class="image-overlay-tags">
+                          {mainPost.data.tags.slice(0, 3).map((tag: string) => (
+                            <span class="overlay-tag">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -103,30 +143,38 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
         <div class="side-posts">
           {sidePosts.map((post) => (
             <a href={`/${lang}/blog/${post.slug.replace(`${lang}/`, '')}/`} class="post-link">
-              <div class="post-card side-post-card">
-                <div class="side-post-layout">
-                  {post.data.heroImage && (
-                    <div class="side-post-image">
-                      <img 
-                        src={post.data.heroImage} 
-                        alt="" 
-                        class="side-post-thumbnail" 
-                        onerror="this.style.display='none'" 
-                      />
-                    </div>
-                  )}
-                  <div class="side-post-content">
-                    <h4 class="post-title">{post.data.title}</h4>
-                    <div class="post-meta">
+              <div class="post-card side-post-card" style={post.data.heroImage ? `background-image: url(${post.data.heroImage}); background-size: cover; background-position: center;` : ''}>
+                <div class="side-post-overlay">
+                  <!-- Title -->
+                  <div class="side-post-title-container">
+                    <h4 class="side-post-title">{post.data.title}</h4>
+                  </div>
+                  
+                  <!-- Meta info -->
+                  <div class="side-post-meta-container">
+                    <div class="side-post-meta">
                       <FormattedDate date={post.data.pubDate} format="short" lang={lang} />
                       {post.data.author && (
-                        <span class="post-author">
-                          <span class="separator"> • </span>
-                          {post.data.author}
-                        </span>
+                        <>
+                          <span class="side-separator">•</span>
+                          <span>{post.data.author}</span>
+                        </>
                       )}
+                      <span class="side-separator">•</span>
+                      <span>{(post.data as any).readTime || "1 min read"}</span>
                     </div>
                   </div>
+                  
+                  <!-- Tags -->
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="side-post-tags-container">
+                      <div class="side-post-tags">
+                        {post.data.tags.slice(0, 2).map((tag: string) => (
+                          <span class="side-post-tag">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </a>

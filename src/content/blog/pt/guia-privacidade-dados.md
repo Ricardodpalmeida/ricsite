@@ -1,6 +1,7 @@
 ---
 title: "Um Guia Completo sobre Privacidade de Dados na Era Digital"
 pubDate: 2023-07-28
+readTime: "1 min read time"
 description: "Estratégias essenciais para proteger as suas informações pessoais online e compreender as preocupações modernas com a privacidade de dados"
 author: "Ricardo Almeida"
 authorlink: "/pt/about"
