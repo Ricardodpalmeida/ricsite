@@ -67,7 +67,7 @@ const otherLangs = Object.keys(languages).filter(l => l !== validLang);
 debugLog('MainLayout - Other languages for switcher:', otherLangs);
 
 // Structured data for the page - placed after profileData is safely initialized
-// @ts-ignore - This is used in the script tag below via JSON.stringify
+// @ts-ignore - Used in the JSON.stringify call in the script tag below
 const _structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",

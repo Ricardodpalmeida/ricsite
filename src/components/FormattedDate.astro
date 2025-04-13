@@ -32,7 +32,7 @@ const formatDateWithTranslations = (date: Date, format: 'long' | 'short') => {
   };
 
   // Try to get month names from translations - handle different formats
-  let monthName;
+  let monthName: string;
   
   // First try the flattened key structure (months.long/short)
   const monthsKey = `months.${format}`;

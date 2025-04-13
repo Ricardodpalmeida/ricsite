@@ -15,7 +15,7 @@ const supportedLang = userLang in languages ? userLang : 'en';
 
 <meta http-equiv="refresh" content={`0;url=/${supportedLang}`} />
 
-<script define:vars={{ supportedLang }}>
+<script is:inline define:vars={{ supportedLang }}>
   window.location.href = '/' + supportedLang;
 </script>
 

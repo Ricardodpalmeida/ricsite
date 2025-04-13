@@ -71,15 +71,15 @@ const {
     switchToDark: toggleButton.getAttribute('data-switch-to-dark')
   };
 
-  const getThemePreference = () => {
+  const getThemePreference = (): 'light' | 'dark' => {
     if (typeof localStorage !== 'undefined') {
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) return savedTheme;
+      if (savedTheme === 'light' || savedTheme === 'dark') return savedTheme;
     }
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
 
-  const updateButtonLabels = (theme) => {
+  const updateButtonLabels = (theme: 'light' | 'dark') => {
     const isDark = theme === 'dark';
     const newTitle = isDark ? uiStrings.switchToLight : uiStrings.switchToDark;
     const newAriaLabel = newTitle;
@@ -89,7 +89,7 @@ const {
     }
   };
 
-  const applyTheme = (theme, savePreference = true) => {
+  const applyTheme = (theme: 'light' | 'dark', savePreference = true) => {
     const html = document.documentElement;
     html.classList.toggle('dark-mode', theme === 'dark');
     
@@ -102,7 +102,7 @@ const {
   document.addEventListener('DOMContentLoaded', () => {
     const initialTheme = getThemePreference();
     const saveInitial = typeof localStorage !== 'undefined' && !!localStorage.getItem('theme');
-    applyTheme(initialTheme, saveInitial);
+    applyTheme(initialTheme as 'light' | 'dark', saveInitial);
     
     if (toggleButton) {
       toggleButton.addEventListener('click', () => {

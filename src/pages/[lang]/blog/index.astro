@@ -31,13 +31,7 @@ const posts = await getCollection('blog', (post) => {
 ));
 
 // Load profile data to get site information
-const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);
-const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
-
-// Format title using site name if available
-const pageTitle = profileData?.site?.siteName ? 
-  `${uiStrings['blog.title'] || 'Blog'} | ${profileData.site.siteName}` : 
-  `${uiStrings['blog.title'] || 'Blog'} | Ricbits`;
+// Note: ProfileData was unused but has been removed
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {

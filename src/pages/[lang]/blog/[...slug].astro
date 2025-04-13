@@ -16,9 +16,12 @@ import '../../../styles/pages/blog.css';
 const { lang } = Astro.params;
 const { post, redirectedFromLanguage = null } = Astro.props;
 
+// Used to make TypeScript recognize that defaultLang is used
+const _redirectPath = `/${defaultLang}/blog`;
+
 // Validate the lang parameter - if invalid, redirect to the default language
 if (!lang || !(lang in languages)) {
-  return Astro.redirect(`/${defaultLang}/blog`);
+  return Astro.redirect(_redirectPath);
 }
 
 // Get translations for the current language

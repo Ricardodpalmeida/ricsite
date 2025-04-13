@@ -116,11 +116,6 @@ try {
   console.error(`Error loading profile data:`, error);
 }
 
-// Format title based on site properties or fallback
-const pageTitle = profileInfo?.site?.siteName ? 
-  `${uiStrings['about.title'] || 'About Me'} | ${profileInfo.site.siteName}` : 
-  `${uiStrings['about.title'] || 'About Me'} | Ricbits`;
-
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
   // Import the language list directly to ensure it's loaded
