@@ -55,23 +55,37 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
                     class="post-image" 
                     onerror="this.style.display='none'" 
                   />
+                  <div class="post-overlay">
+                    <h3 class="post-title">{mainPost.data.title}</h3>
+                    <div class="post-meta">
+                      <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
+                      {mainPost.data.author && (
+                        <span class="author-container">
+                          <span class="separator"> • </span>
+                          {mainPost.data.author}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               ) : (
                 <div class="post-image-container">
                   <div class="post-image-placeholder" aria-hidden="true"></div>
+                  <div class="post-overlay">
+                    <h3 class="post-title">{mainPost.data.title}</h3>
+                    <div class="post-meta">
+                      <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
+                      {mainPost.data.author && (
+                        <span class="author-container">
+                          <span class="separator"> • </span>
+                          {mainPost.data.author}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </div>
               )}
               <div class="post-content">
-                <h3 class="post-title">{mainPost.data.title}</h3>
-                <div class="post-meta">
-                  <FormattedDate date={mainPost.data.pubDate} format="short" lang={lang} />
-                  {mainPost.data.author && (
-                    <span class="post-author">
-                      <span class="separator"> • </span>
-                      {mainPost.data.author}
-                    </span>
-                  )}
-                </div>
                 {mainPost.data.heroSummary && (
                   <p class="post-description">{mainPost.data.heroSummary}</p>
                 )}

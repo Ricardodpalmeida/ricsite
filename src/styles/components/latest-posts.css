@@ -122,6 +122,42 @@
   transform: scale(1.05);
 }
 
+/* Post title overlay on image */
+.post-overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 10;
+  max-width: calc(100% - 40px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.post-overlay .post-title {
+  display: inline-block;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 0.5rem;
+  background-color: var(--color-bg-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.post-overlay .post-meta {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xs);
+  margin-bottom: 0;
+  background-color: var(--color-bg-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .post-content {
   padding: var(--spacing-md);
   flex: 1;
@@ -166,6 +202,13 @@
   opacity: 0.85;
 }
 
+.author-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.25rem;
+}
+
 time {
   color: var(--color-text-primary);
   opacity: 0.85;
@@ -174,7 +217,7 @@ time {
 .post-description {
   margin-top: var(--spacing-sm);
   font-size: var(--font-size-sm);
-  color: var(--color-gray-300);
+  color: var(--color-text-primary);
   line-height: var(--line-height-normal);
 }
 
@@ -215,6 +258,22 @@ time {
   .side-post-card {
     padding: var(--spacing-sm) var(--spacing-md);
   }
+  
+  .post-overlay {
+    bottom: 15px;
+    left: 15px;
+    max-width: calc(100% - 30px);
+  }
+  
+  .post-overlay .post-title {
+    font-size: var(--font-size-base);
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .post-overlay .post-meta {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -236,5 +295,21 @@ time {
   
   .latest-posts-section .section-heading {
     font-size: var(--font-size-lg);
+  }
+  
+  .post-overlay {
+    bottom: 10px;
+    left: 10px;
+    max-width: calc(100% - 20px);
+  }
+  
+  .post-overlay .post-title {
+    font-size: var(--font-size-sm);
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .post-overlay .post-meta {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
   }
 } 
