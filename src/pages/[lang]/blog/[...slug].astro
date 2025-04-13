@@ -123,7 +123,7 @@ export async function getStaticPaths() {
                       <span class="overlay-separator">•</span> 
                       <span class="overlay-author">
                         {post.data.authorLink ? (
-                          <a href={post.data.authorLink} class="author-link">
+                          <a href={post.data.authorLink} target="_blank" rel="noopener noreferrer">
                             {post.data.author}
                           </a>
                         ) : (
@@ -159,9 +159,8 @@ export async function getStaticPaths() {
                 <div class="post-author-date">
                   {post.data.author && (
                     <span class="post-author">
-                      {uiStrings['blog.by'] || "by"} 
-                      {post.data.authorLink ? (
-                        <a href={post.data.authorLink} class="author-link">
+                      {uiStrings['blog.by'] || "by"} {post.data.authorLink ? (
+                        <a href={post.data.authorLink} target="_blank" rel="noopener noreferrer">
                           {post.data.author}
                         </a>
                       ) : (

@@ -72,15 +72,7 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
                         {mainPost.data.author && (
                           <>
                             <span class="overlay-separator">•</span> 
-                            <span class="overlay-author">
-                              {mainPost.data.authorLink ? (
-                                <a href={mainPost.data.authorLink} class="author-link" onclick="event.stopPropagation(); event.preventDefault(); window.location.href=this.getAttribute('href');">
-                                  {mainPost.data.author}
-                                </a>
-                              ) : (
-                                mainPost.data.author
-                              )}
-                            </span>
+                            <span class="overlay-author">{mainPost.data.author}</span>
                           </>
                         )}
                         <span class="overlay-separator">•</span>
@@ -116,15 +108,7 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
                         {mainPost.data.author && (
                           <>
                             <span class="overlay-separator">•</span> 
-                            <span class="overlay-author">
-                              {mainPost.data.authorLink ? (
-                                <a href={mainPost.data.authorLink} class="author-link" onclick="event.stopPropagation(); event.preventDefault(); window.location.href=this.getAttribute('href');">
-                                  {mainPost.data.author}
-                                </a>
-                              ) : (
-                                mainPost.data.author
-                              )}
-                            </span>
+                            <span class="overlay-author">{mainPost.data.author}</span>
                           </>
                         )}
                         <span class="overlay-separator">•</span>
@@ -173,15 +157,7 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
                       {post.data.author && (
                         <>
                           <span class="side-separator">•</span>
-                          <span>
-                            {post.data.authorLink ? (
-                              <a href={post.data.authorLink} class="author-link" onclick="event.stopPropagation(); event.preventDefault(); window.location.href=this.getAttribute('href');">
-                                {post.data.author}
-                              </a>
-                            ) : (
-                              post.data.author
-                            )}
-                          </span>
+                          <span>{post.data.author}</span>
                         </>
                       )}
                       <span class="side-separator">•</span>

@@ -42,8 +42,8 @@
 
 .posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
   margin-top: var(--spacing-lg);
 }
 
@@ -282,7 +282,7 @@
   margin-bottom: var(--spacing-xl);
   border-radius: var(--border-radius-md);
   overflow: hidden;
-  aspect-ratio: 5 / 1;
+  aspect-ratio: 21 / 9;
   background-color: var(--color-gray-900);
   position: relative;
 }
@@ -352,9 +352,8 @@
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
-  box-orient: vertical;
+  line-clamp: 2;
 }
 
 .post-image-overlay .overlay-meta {
@@ -633,9 +632,17 @@ html:not(.dark-mode) .post-image-overlay .overlay-meta {
    Responsive Adjustments
    ====================================== */
 
+@media (max-width: 1024px) {
+  /* Optional: Keep 2 columns for tablets or adjust as needed */
+  /* .posts-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+   } */
+}
+
 @media (max-width: 768px) {
   .posts-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: 1fr; /* Switch to 1 column on smaller screens */
     gap: 1.5rem;
     margin-top: var(--spacing-md);
   }
@@ -733,12 +740,8 @@ html:not(.dark-mode) .post-image-overlay .overlay-meta {
 }
 
 @media (max-width: 480px) {
-  .posts-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-top: var(--spacing-md);
-  }
-  
+  /* .posts-grid rule is now handled by max-width: 768px */
+
   .blog-container {
     padding: var(--spacing-md) var(--spacing-sm);
   }
@@ -859,10 +862,10 @@ html:not(.dark-mode) .post-image-overlay .overlay-meta {
   
   .card-overlay .overlay-tag,
   .post-tag {
-    font-size: 0.5rem !important;
-    padding: 0.1rem 0.3rem !important;
-    margin-right: 0.2rem !important;
-    margin-bottom: 0.2rem !important;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.3rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
   }
 }
 
@@ -935,9 +938,8 @@ html:not(.dark-mode) .post-image-overlay .overlay-meta {
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  line-clamp: 2;
   -webkit-box-orient: vertical;
-  box-orient: vertical;
+  line-clamp: 2;
 }
 
 /* Glass effect for meta container */
@@ -1058,8 +1060,8 @@ html:not(.dark-mode) .card-overlay a {
   .post-tag {
     font-size: 0.5rem !important;
     padding: 0.1rem 0.3rem !important;
-    margin-right: 0.2rem !important;
-    margin-bottom: 0.2rem !important;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
   }
 }
 
@@ -1235,44 +1237,4 @@ html:not(.dark-mode) .side-post-tag {
     margin-right: 0.2rem !important;
     margin-bottom: 0.2rem !important;
   }
-}
-
-/* Author link styling */
-.author-link {
-  color: var(--color-text-accent);
-  text-decoration: none;
-  transition: color var(--transition-base);
-  position: relative;
-}
-
-.author-link::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background-color: var(--color-text-accent);
-  transition: width var(--transition-base);
-}
-
-.author-link:hover {
-  color: var(--color-accent-hover);
-}
-
-.author-link:hover::after {
-  width: 100%;
-}
-
-/* Light mode adjustments for author links */
-html:not(.dark-mode) .author-link {
-  color: var(--color-accent);
-}
-
-html:not(.dark-mode) .author-link::after {
-  background-color: var(--color-accent);
-}
-
-html:not(.dark-mode) .author-link:hover {
-  color: var(--color-accent-hover);
 } 
