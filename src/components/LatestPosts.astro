@@ -18,9 +18,10 @@ interface Props {
   lang: string;
   title?: string;
   maxPosts?: number;
+  showSeeMore?: boolean;
 }
 
-const { lang, title, maxPosts = 4 } = Astro.props;
+const { lang, title, maxPosts = 4, showSeeMore = true } = Astro.props;
 const t = useTranslations(lang);
 
 // Get blog posts filtered by language and not draft, sorted by date (newest first)
@@ -41,7 +42,7 @@ const sectionTitle = title || (lang === 'pt' ? 'Publicações Recentes' : 'Lates
 <section class="latest-posts-section">
   <div class="section-header">
     <h2 class="section-heading">{sectionTitle}</h2>
-    <a href={`/${lang}/blog/`} class="see-more-link">{t('blog.seeMore')}</a>
+    {showSeeMore && <a href={`/${lang}/blog/`} class="see-more-link">{t('blog.seeMore')}</a>}
   </div>
   
   {posts.length > 0 ? (

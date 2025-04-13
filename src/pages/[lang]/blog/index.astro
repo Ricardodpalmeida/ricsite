@@ -52,7 +52,7 @@ export async function getStaticPaths() {
 >
   <main class="blog-container">
     <!-- Featured Posts Section -->
-    <LatestPosts lang={lang} title={uiStrings['blog.featured'] || 'Featured Posts'} />
+    <LatestPosts lang={lang} title={uiStrings['blog.featured'] || 'Featured Posts'} showSeeMore={false} />
     
     <h2 class="section-heading">{uiStrings['blog.allPosts'] || 'All Posts'}</h2>
     
