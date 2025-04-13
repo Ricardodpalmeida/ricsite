@@ -257,7 +257,15 @@ time {
 
 /* Side post specific styling */
 .side-post-card {
-  padding: var(--spacing-md);
+  position: relative;
+  min-height: 150px; /* Increased from 110px to provide more space */
+  height: auto; /* Allow height to expand with content */
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  align-items: flex-end;
+  background-color: var(--color-gray-900);
+  background-image: none !important; /* Ensure no gradient is applied */
 }
 
 .side-post-layout {
@@ -333,7 +341,7 @@ time {
   }
   
   .side-post-card {
-    padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 140px; /* Slightly reduced on medium screens */
   }
   
   .side-post-layout {
@@ -346,10 +354,6 @@ time {
     flex: 0 0 50px;
     width: 50px;
     height: 50px;
-  }
-  
-  .side-post-card {
-    min-height: 120px;
   }
   
   .side-post-overlay {
@@ -382,8 +386,8 @@ time {
     font-size: var(--font-size-base);
   }
   
-  .side-post-card .post-title {
-    font-size: var(--font-size-sm);
+  .side-post-card {
+    min-height: 130px; /* Further reduced on small screens */
   }
   
   .post-content {
@@ -427,78 +431,6 @@ time {
   }
 }
 
-/* Side post specific styling */
-.side-post-card {
-  position: relative;
-  min-height: 110px;
-  overflow: hidden;
-  padding: 0;
-  display: flex;
-  align-items: flex-end;
-  background-color: var(--color-gray-900);
-}
-
-.side-post-overlay {
-  position: absolute;
-  bottom: 0.5rem;
-  left: 0.5rem;
-  width: calc(100% - 1rem);
-  padding: 0;
-  background: none;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.3rem;
-  z-index: 10;
-}
-
-.side-post-title-container {
-  max-width: calc(100% - 0.5rem);
-  width: auto;
-  display: flex;
-  align-items: flex-start;
-}
-
-.side-post-title {
-  font-size: var(--font-size-sm);
-  margin: 0;
-  white-space: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  max-width: 100%;
-}
-
-.side-post-tags {
-  display: flex;
-  gap: 0.3rem;
-  margin-bottom: 0.3rem;
-  flex-wrap: wrap;
-}
-
-.side-post-tag {
-  font-size: 0.65rem;
-  background-color: var(--color-accent-10);
-  color: var(--color-text-accent);
-  padding: 0.1rem 0.5rem;
-  border-radius: var(--border-radius-sm);
-  font-weight: var(--font-weight-medium);
-}
-
-.side-post-meta {
-  font-size: 0.65rem;
-  color: rgba(255, 255, 255, 0.9);
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.side-separator {
-  opacity: 0.7;
-}
-
 /* Card overlay for latest posts */
 .post-image-overlay.card-overlay {
   position: absolute;
@@ -531,6 +463,7 @@ time {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
 }
 
 .card-overlay .image-overlay-tags {
@@ -626,10 +559,10 @@ html:not(.dark-mode) .side-post-meta {
   opacity: 0.9;
 }
 
-/* Light mode styles for overlays */
+/* Light mode styles for overlays - REMOVE GRADIENTS */
 html:not(.dark-mode) .post-image-overlay.card-overlay,
 html:not(.dark-mode) .side-post-overlay {
-  background: linear-gradient(0deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.4) 85%, rgba(255,255,255,0) 100%);
+  background: none !important;
   color: var(--color-text-primary);
 }
 
@@ -707,6 +640,7 @@ html:not(.dark-mode) .overlay-reading-time {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
 }
 
 .card-overlay .overlay-tag,
@@ -759,9 +693,112 @@ html:not(.dark-mode) .side-post-tag {
   gap: 0.4rem;
 }
 
-/* Override the side post styling for better consistency */
+/* Side post overlay positioning */
 .side-post-overlay {
-  background: none;
+  position: absolute;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  width: calc(100% - 1rem);
+  padding: 0;
+  background: none !important; /* Remove any background gradient */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem; /* Slightly increased spacing between elements */
+  z-index: 10;
+}
+
+/* Ensure title container can grow */
+.side-post-title-container {
+  max-width: calc(100% - 0.5rem);
+  width: auto;
+  display: flex;
+  align-items: flex-start;
+}
+
+.side-post-title {
+  font-size: var(--font-size-sm);
+  margin: 0;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  max-width: 100%;
+}
+
+.side-post-tags {
+  display: flex;
+  gap: 0.2rem;
+  margin-bottom: 0.3rem;
+  flex-wrap: wrap;
+}
+
+.side-post-tag {
+  font-size: 0.55rem !important;
+  padding: 0.1rem 0.4rem !important;
+  margin-right: 0.3rem;
+  margin-bottom: 0.3rem;
+  background-color: rgba(18, 18, 18, 0.65);
+  backdrop-filter: blur(8px);
+  color: var(--color-text-accent);
+  border-radius: var(--border-radius-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.side-post-meta {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.side-separator {
+  opacity: 0.7;
+}
+
+/* Light mode styles for overlays - REMOVE GRADIENTS */
+html:not(.dark-mode) .post-image-overlay.card-overlay,
+html:not(.dark-mode) .side-post-overlay {
+  background: none !important;
+  color: var(--color-text-primary);
+}
+
+/* Meta container styling with improved spacing */
+.card-overlay .overlay-meta,
+.side-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+}
+
+.card-overlay .overlay-separator,
+.side-separator {
+  opacity: 0.7;
+  margin: 0;
+  display: inline-block;
+}
+
+/* Ensure meta container adapts to content */
+.card-overlay .overlay-meta-container,
+.side-post-meta-container {
+  width: auto;
+}
+
+/* Make side post elements smaller for better fit */
+@media (max-width: 640px) {
+  .side-post-title {
+    font-size: var(--font-size-xs);
+  }
+  
+  .side-post-meta {
+    font-size: 0.6rem;
+  }
 }
 
 .side-post-tags-container {
@@ -774,6 +811,7 @@ html:not(.dark-mode) .side-post-tag {
   display: inline-flex;
 }
 
+/* Responsive adjustments for card and side posts */
 @media (max-width: 768px) {
   .post-image-overlay.card-overlay {
     bottom: 0.5rem;
@@ -801,39 +839,7 @@ html:not(.dark-mode) .side-post-tag {
   }
   
   .side-post-tag {
-    font-size: 0.55rem;
-    padding: 0.1rem 0.3rem;
-  }
-}
-
-/* Meta container styling */
-.card-overlay .overlay-meta,
-.side-post-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-}
-
-.card-overlay .overlay-separator,
-.side-separator {
-  opacity: 0.7;
-  margin: 0;
-}
-
-/* Ensure meta container adapts to content */
-.card-overlay .overlay-meta-container,
-.side-post-meta-container {
-  width: auto;
-}
-
-/* Make side post elements smaller for better fit */
-@media (max-width: 640px) {
-  .side-post-title {
-    font-size: var(--font-size-xs);
-  }
-  
-  .side-post-meta {
-    font-size: 0.6rem;
+    font-size: 0.5rem !important;
+    padding: 0.1rem 0.3rem !important;
   }
 } 
