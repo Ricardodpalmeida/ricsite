@@ -37,7 +37,7 @@ const t = useTranslations(validLang);
 // Load dynamic UI strings with error handling
 let uiStrings: Record<string, string> = {};
 try {
-  uiStrings = await getUIStrings(validLang);
+  uiStrings = await getUIStrings(validLang) as Record<string, string>;
 } catch (error) {
   console.error(`Error loading UI strings for ${validLang}:`, error);
   // uiStrings is already initialized as empty object

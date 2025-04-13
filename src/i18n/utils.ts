@@ -7,6 +7,10 @@ export { defaultLang, languages, loadLanguages, languageNames }; // Export these
 let initializedLanguageList: Record<string, string> = {};
 let isLanguageListInitialized = false;
 
+// Define a more flexible type for UI translations
+type TranslationValue = string | string[] | Record<string, any>;
+type Translations = Record<string, TranslationValue>;
+
 // Add a utility function to conditionally log based on environment
 const isDev = import.meta.env.DEV;
 const debugLog = (message: string, ...args: any[]) => {
@@ -124,11 +128,11 @@ export function getLocalizedUrl(url: URL, locale: string) {
 
 // Get translations in the current language
 export function useTranslations(lang: string) {
-  return function t(key: string) {
-    let text: string;
+  return function t(key: string): any {
+    let text: any;
     
     // First check if we have translations for this language
-    if (ui[lang] && ui[lang][key]) {
+    if (ui[lang] && ui[lang][key] !== undefined) {
       text = ui[lang][key];
     } else {
       // Fall back to default language
@@ -136,7 +140,7 @@ export function useTranslations(lang: string) {
     }
     
     // Handle special replacements like the current year
-    if (key === 'footer.copyright') {
+    if (typeof text === 'string' && key === 'footer.copyright') {
       const currentYear = new Date().getFullYear();
       text = text.replace('{year}', currentYear.toString());
     }
@@ -162,7 +166,7 @@ export function detectBrowserLanguage(): string {
 }
 
 // Load profile data for a specific language to use as UI strings
-export async function getProfileStrings(lang: string): Promise<any> {
+export async function getProfileStrings(lang: string): Promise<Translations> {
   try {
     debugLog(`Utils - Loading profile strings for ${lang}`);
     // Get the profile file based on language
@@ -205,8 +209,8 @@ export async function getProfileStrings(lang: string): Promise<any> {
     // Get translations for generic fields based on language
     const translations = getGenericTranslations(lang);
 
-    // Extract the full profile data including hero and about arrays
-    return {
+    // Create a merged result with translations
+    const result: Translations = {
       ...profileData,
       // Add UI strings as well for backward compatibility
       'site.title': profileData.site?.siteName ? `${profileData.site.siteName} - ${profileData.site.siteDescription}` : `${profileData.personal?.name || 'Ricardo Almeida'} | ${profileData.personal?.title || ''}`,
@@ -223,14 +227,16 @@ export async function getProfileStrings(lang: string): Promise<any> {
       // Add dynamically translated strings
       ...translations
     };
+
+    return result;
   } catch (error) {
     debugLog(`Utils - Error loading profile strings for ${lang}:`, error);
-    return {};
+    return {} as Translations;
   }
 }
 
 // Generate translations for common phrases based on the language
-function getGenericTranslations(lang: string): Record<string, string> {
+function getGenericTranslations(lang: string): Translations {
   // If we have UI translations for this language, use them
   if (ui[lang]) {
     return { ...ui[lang] };
@@ -241,11 +247,11 @@ function getGenericTranslations(lang: string): Record<string, string> {
 }
 
 // Combine base UI translations with profile data
-export async function getUIStrings(lang: string): Promise<Record<string, string>> {
+export async function getUIStrings(lang: string): Promise<Translations> {
   const profileStrings = await getProfileStrings(lang);
   
   // Create a merged object with base UI translations and profile-based strings
-  const combinedStrings: Record<string, string> = { 
+  const combinedStrings: Translations = { 
     ...ui.default,      // Include default language fallbacks
     ...(ui[lang] || {}), // Include language-specific strings if available
     ...profileStrings    // Override with profile data strings
@@ -255,14 +261,14 @@ export async function getUIStrings(lang: string): Promise<Record<string, string>
 }
 
 // Function to load UI translations from profile files
-export async function loadUITranslations(): Promise<Record<string, Record<string, string>>> {
+export async function loadUITranslations(): Promise<Record<string, Translations>> {
   try {
     debugLog('UI Module - Starting loadUITranslations()');
     const profileCollection = await getCollection('profile');
     debugLog('UI Module - Retrieved profile collection with', profileCollection.length, 'entries for UI translations');
     
     // Use ui.default from the imported ui object instead of defaultUIStrings
-    const translations: Record<string, Record<string, string>> = {
+    const translations: Record<string, Translations> = {
       default: { ...ui.default }
     };
     
@@ -305,7 +311,7 @@ export async function loadUITranslations(): Promise<Record<string, Record<string
     }
     
     // Also update the default translations
-    if (translations.default && translations.default['footer.copyright']) {
+    if (translations.default && translations.default['footer.copyright'] && typeof translations.default['footer.copyright'] === 'string') {
       const currentYear = new Date().getFullYear();
       translations.default['footer.copyright'] = translations.default['footer.copyright']
         .replace('{year}', currentYear.toString());

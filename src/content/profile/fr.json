@@ -477,13 +477,9 @@
       "sideProjects.title": "Loisirs",
       "themeToggle.switchToLight": "Passer en mode clair",
       "themeToggle.switchToDark": "Passer en mode sombre",
-      "months": {
-        "short": ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"],
-        "long": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"]
-      },
-      "days": {
-        "short": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
-        "long": ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
-      }
+      "months.short": ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"],
+      "months.long": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+      "days.short": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+      "days.long": ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"]
     }
   }  

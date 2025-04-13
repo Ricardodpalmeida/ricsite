@@ -477,13 +477,9 @@
     "sideProjects.title": "Aficiones",
     "themeToggle.switchToLight": "Cambiar a modo claro",
     "themeToggle.switchToDark": "Cambiar a modo oscuro",
-    "months": {
-      "short": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-      "long": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
-    },
-    "days": {
-      "short": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
-      "long": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
-    }
+    "months.short": ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    "months.long": ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    "days.short": ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+    "days.long": ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
   }
 }

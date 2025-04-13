@@ -119,6 +119,7 @@ const profileCollection = defineCollection({
     // UI Translations section for all interface text
     ui: z.record(z.union([
       z.string(),
+      z.array(z.string()),
       z.object({
         short: z.array(z.string()),
         long: z.array(z.string())

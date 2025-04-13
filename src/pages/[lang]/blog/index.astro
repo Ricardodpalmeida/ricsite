@@ -21,7 +21,7 @@ if (!lang || !(lang in languages)) {
 }
 
 // Load dynamic UI strings
-const uiStrings = await getUIStrings(lang as keyof typeof languages);
+const uiStrings = await getUIStrings(lang as keyof typeof languages) as Record<string, string>;
 
 // Get blog posts filtered by language and not draft
 const posts = await getCollection('blog', (post) => {
@@ -52,9 +52,9 @@ export async function getStaticPaths() {
 >
   <main class="blog-container">
     <!-- Featured Posts Section -->
-    <LatestPosts lang={lang} title={uiStrings['blog.featured'] || 'Featured Posts'} showSeeMore={false} />
+    <LatestPosts lang={lang} title={uiStrings['blog.featured'] as string || 'Featured Posts'} showSeeMore={false} />
     
-    <h2 class="section-heading">{uiStrings['blog.allPosts'] || 'All Posts'}</h2>
+    <h2 class="section-heading">{uiStrings['blog.allPosts'] as string || 'All Posts'}</h2>
     
     <section class="posts-grid">
       {

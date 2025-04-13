@@ -473,17 +473,13 @@
     "profile.issued": "Issued",
     "profile.verifyCertificate": "Verify Certificate",
     "blog.notAvailableInLanguage": "{0} version of this post is not available",
-    "blog.redirectedToDefault": "You have been redirected to the English version",
+    "blog.redirectedToDefault": "You have been redirected to the english version",
     "sideProjects.title": "Hobbies",
     "themeToggle.switchToLight": "Switch to light mode",
     "themeToggle.switchToDark": "Switch to dark mode",
-    "months": {
-      "short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      "long": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-    },
-    "days": {
-      "short": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-      "long": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    }
+    "months.short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    "months.long": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "days.short": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "days.long": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
   }
 } 

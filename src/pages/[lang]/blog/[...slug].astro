@@ -25,7 +25,7 @@ if (!lang || !(lang in languages)) {
 const t = useTranslations(lang as keyof typeof languages);
 
 // Load dynamic UI strings
-const uiStrings = await getUIStrings(lang as keyof typeof languages);
+const uiStrings = await getUIStrings(lang as keyof typeof languages) as Record<string, string>;
 
 // Load profile data to get site information
 const profileCollection = await getCollection('profile', (entry) => entry.data.language === lang);

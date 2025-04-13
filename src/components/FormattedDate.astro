@@ -31,18 +31,25 @@ const formatDateWithTranslations = (date: Date, format: 'long' | 'short') => {
     long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
   };
 
-  // Get the month name from translations
+  // Try to get month names from translations - handle different formats
   let monthName;
-  const monthsData = t('months') as any;
   
-  // Check if monthsData exists, is an object, and has the right format
-  if (monthsData && 
-      typeof monthsData === 'object' && 
-      monthsData[format] && 
-      Array.isArray(monthsData[format]) && 
-      monthsData[format].length > month) {
-    // If it's an array with enough elements, use it
-    monthName = monthsData[format][month];
+  // First try the flattened key structure (months.long/short)
+  const monthsKey = `months.${format}`;
+  let monthsArray = t(monthsKey);
+  
+  // If that doesn't work, try to get the months object and extract the format from it
+  if (!Array.isArray(monthsArray)) {
+    const monthsData = t('months');
+    // Check if monthsData is an object with the requested format
+    if (monthsData && typeof monthsData === 'object' && Array.isArray(monthsData[format])) {
+      monthsArray = monthsData[format];
+    }
+  }
+  
+  // If we have a valid array with enough elements, use it
+  if (Array.isArray(monthsArray) && monthsArray.length > month) {
+    monthName = monthsArray[month];
   } else {
     // Fallback to default months
     monthName = defaultMonths[format][month];
