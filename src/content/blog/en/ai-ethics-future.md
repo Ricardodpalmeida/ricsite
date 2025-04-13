@@ -4,7 +4,7 @@ pubDate: 2023-09-10
 readTime: "1 min read time"
 description: "Exploring the ethical considerations and challenges as AI becomes increasingly integrated into our society"
 author: "Ricardo Almeida"
-authorlink: "/en/about"
+authorLink: "https://me.ricbits.cc/en/about"
 language: "en"
 heroImage: "/images/blog/coming-soon.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]

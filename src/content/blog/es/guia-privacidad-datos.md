@@ -4,7 +4,7 @@ pubDate: 2023-07-28
 readTime: "1 min read time"
 description: "Estrategias esenciales para proteger tu información personal en línea y comprender las preocupaciones modernas sobre privacidad de datos"
 author: "Ricardo Almeida"
-authorlink: "/fr/about"
+authorLink: "https://me.ricbits.cc/en/about"
 language: "es"
 heroImage: "/images/blog/data-privacy.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]

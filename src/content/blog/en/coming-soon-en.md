@@ -4,7 +4,7 @@ pubDate: 2023-12-25
 readTime: "1 min read time"
 description: "Stay tuned for upcoming blog posts"
 author: "Ricardo Almeida"
-authorlink: "/en/about"
+authorLink: "https://me.ricbits.cc/en/about"
 language: "en"
 heroImage: "/images/blog/coming-soon.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]

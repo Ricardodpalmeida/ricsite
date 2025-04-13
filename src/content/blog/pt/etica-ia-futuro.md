@@ -4,7 +4,7 @@ pubDate: 2023-09-10
 readTime: "1 min read time"
 description: "Explorando as considerações éticas e os desafios à medida que a IA se torna cada vez mais integrada na nossa sociedade"
 author: "Ricardo Almeida"
-authorlink: "/pt/about"
+authorLink: "https://me.ricbits.cc/en/about"
 language: "pt"
 heroImage: "/images/blog/ai-ethics.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]

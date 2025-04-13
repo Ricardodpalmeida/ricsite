@@ -4,7 +4,7 @@ pubDate: 2023-05-15
 readTime: "1 min read time"
 description: "Exploration des dernières tendances qui façonnent le paysage du développement web en 2023"
 author: "Ricardo Almeida"
-authorlink: "/fr/about"
+authorLink: "https://me.ricbits.cc/en/about"
 language: "fr"
 heroImage: "/images/blog/web-dev-trends.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]

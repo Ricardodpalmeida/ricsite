@@ -4,7 +4,7 @@ pubDate: 2023-07-28
 readTime: "1 min read time"
 description: "保护您的个人在线信息和理解现代数据隐私问题的基本策略"
 author: "Ricardo Almeida"
-authorlink: "zh/about"
+authorLink: "https://me.ricbits.cc/zh/about"
 language: "zh"
 heroImage: "/images/blog/data-privacy.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]

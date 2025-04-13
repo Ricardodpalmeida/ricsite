@@ -1235,4 +1235,44 @@ html:not(.dark-mode) .side-post-tag {
     margin-right: 0.2rem !important;
     margin-bottom: 0.2rem !important;
   }
+}
+
+/* Author link styling */
+.author-link {
+  color: var(--color-text-accent);
+  text-decoration: none;
+  transition: color var(--transition-base);
+  position: relative;
+}
+
+.author-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-text-accent);
+  transition: width var(--transition-base);
+}
+
+.author-link:hover {
+  color: var(--color-accent-hover);
+}
+
+.author-link:hover::after {
+  width: 100%;
+}
+
+/* Light mode adjustments for author links */
+html:not(.dark-mode) .author-link {
+  color: var(--color-accent);
+}
+
+html:not(.dark-mode) .author-link::after {
+  background-color: var(--color-accent);
+}
+
+html:not(.dark-mode) .author-link:hover {
+  color: var(--color-accent-hover);
 } 

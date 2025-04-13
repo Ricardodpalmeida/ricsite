@@ -4,7 +4,7 @@ pubDate: 2023-05-15
 readTime: "1 min read time"
 description: "探索2023年塑造网络开发格局的最新趋势"
 author: "Ricardo Almeida"
-authorlink: "zh/about"
+authorLink: "https://me.ricbits.cc/zh/about"
 language: "zh"
 heroImage: "/images/blog/web-dev-trends.jpg"
 heroParagraphs: ["Coming soon","WIP","Coming soon"]
