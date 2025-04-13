@@ -475,6 +475,14 @@
     "blog.redirectedToDefault": "You have been redirected to the English version",
     "sideProjects.title": "Hobbies",
     "themeToggle.switchToLight": "Switch to light mode",
-    "themeToggle.switchToDark": "Switch to dark mode"
+    "themeToggle.switchToDark": "Switch to dark mode",
+    "months": {
+      "short": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      "long": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    },
+    "days": {
+      "short": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      "long": ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    }
   }
 } 

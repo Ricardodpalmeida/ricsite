@@ -5,7 +5,7 @@
  * A reusable component for formatting dates consistently across the site.
  * Takes a Date object and formats it in a human-readable way based on the current language.
  */
-import { getLangFromUrl } from '../i18n/utils';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 export interface Props {
   date: Date;
@@ -17,28 +17,53 @@ const { date, format = 'long', lang } = Astro.props;
 
 // Get language from URL or from prop
 const currentLang = lang || getLangFromUrl(Astro.url);
+const t = useTranslations(currentLang);
 
-// Map language codes to locale codes
-const localeMap = {
-  en: 'en-US',
-  pt: 'pt-PT'
+// Format the date manually using translations
+const formatDateWithTranslations = (date: Date, format: 'long' | 'short') => {
+  const day = date.getDate();
+  const month = date.getMonth(); // 0-11
+  const year = date.getFullYear();
+
+  // Default month names as fallback
+  const defaultMonths = {
+    short: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    long: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+  };
+
+  // Get the month name from translations
+  let monthName;
+  const monthsData = t('months') as any;
+  
+  // Check if monthsData exists, is an object, and has the right format
+  if (monthsData && 
+      typeof monthsData === 'object' && 
+      monthsData[format] && 
+      Array.isArray(monthsData[format]) && 
+      monthsData[format].length > month) {
+    // If it's an array with enough elements, use it
+    monthName = monthsData[format][month];
+  } else {
+    // Fallback to default months
+    monthName = defaultMonths[format][month];
+  }
+
+  // Format based on language conventions
+  if (currentLang === 'zh') {
+    // Chinese format: YYYY年MM月DD日
+    // Check if monthName already includes the 月 character
+    const formattedMonth = monthName.includes('月') ? monthName : `${monthName}月`;
+    return `${year}年${formattedMonth}${day}日`;
+  } else if (currentLang === 'de' || currentLang === 'fr') {
+    // German/French format: DD. Month YYYY
+    return `${day}. ${monthName} ${year}`;
+  } else {
+    // Default format: Month DD, YYYY
+    return `${monthName} ${day}, ${year}`;
+  }
 };
 
-// Get locale based on language
-const locale = localeMap[currentLang as keyof typeof localeMap] || 'en-US';
-
-// Format the date based on the format prop and locale
-const formattedDate = format === 'long' 
-  ? date.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  : date.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
+const formattedDate = formatDateWithTranslations(date, format);
 ---
 
 <time datetime={date.toISOString()}>

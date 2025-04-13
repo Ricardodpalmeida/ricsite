@@ -32,7 +32,7 @@ const profileCollection = await getCollection('profile', (entry) => entry.data.l
 const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
 
 // Format title using site name if available
-const siteName = profileData?.site?.siteName || 'Ricardo Almeida';
+const siteName = profileData?.site?.siteName || 'Ricbits';
 const pageTitle = `${post.data.title} | ${uiStrings['blog.title']} | ${siteName}`;
 
 // Generate language alternatives for this post

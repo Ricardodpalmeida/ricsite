@@ -35,9 +35,9 @@ const profileCollection = await getCollection('profile', (entry) => entry.data.l
 const profileData = profileCollection.length > 0 ? profileCollection[0].data : null;
 
 // Format title using site name if available
-const pageTitle = profileData?.site?.siteName ?
-  `${uiStrings['blog.title']} | ${profileData.site.siteName}` :
-  `${uiStrings['blog.title']} | ${uiStrings['site.title']}`;
+const pageTitle = profileData?.site?.siteName ? 
+  `${uiStrings['blog.title'] || 'Blog'} | ${profileData.site.siteName}` : 
+  `${uiStrings['blog.title'] || 'Blog'} | Ricbits`;
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
@@ -46,7 +46,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout
-  title={`${uiStrings['blog.title']} | Ricardo Almeida`}
+  title={`${uiStrings['blog.title']} | Ricbits`}
   description={uiStrings['blog.description']}
   currentLanguage={lang as keyof typeof languages}
 >

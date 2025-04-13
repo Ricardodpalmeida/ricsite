@@ -474,6 +474,14 @@
       "blog.redirectedToDefault": "Sie wurden zur englischen Version weitergeleitet",
       "sideProjects.title": "Hobbys",
       "themeToggle.switchToLight": "Zum hellen Modus wechseln",
-      "themeToggle.switchToDark": "Zum dunklen Modus wechseln"
+      "themeToggle.switchToDark": "Zum dunklen Modus wechseln",
+      "months": {
+        "short": ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        "long": ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+      },
+      "days": {
+        "short": ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+        "long": ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
+      }
     }
   }

@@ -118,8 +118,8 @@ try {
 
 // Format title based on site properties or fallback
 const pageTitle = profileInfo?.site?.siteName ? 
-  `${uiStrings['about.title'] || 'About'} | ${profileInfo.site.siteName}` : 
-  `${uiStrings['about.title'] || 'About'} | Ricardo Almeida`;
+  `${uiStrings['about.title'] || 'About Me'} | ${profileInfo.site.siteName}` : 
+  `${uiStrings['about.title'] || 'About Me'} | Ricbits`;
 
 // Export a prerender function for static site generation
 export async function getStaticPaths() {
@@ -135,7 +135,7 @@ export async function getStaticPaths() {
 ---
 
 <MainLayout
-  title={`${t('about.title')} | Ricardo Almeida`}
+  title={`${t('about.title')} | Ricbits`}
   description={t('about.description')}
   currentLanguage={validLang}
 >
